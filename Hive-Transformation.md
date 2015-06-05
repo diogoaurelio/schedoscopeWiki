@@ -41,6 +41,15 @@ The following helper functions make life with Hive transformations easier:
 * `selectStatement`: the select statement producing the columns of the view
 * `settings`: A map with settings - value pairs. These are translated to `SET` clauses executed before `INSERT`
 
+### withFunctions
+
+`withFunctions()` produces a list of `org.apache.hadoop.hive.metastore.api.Function` Hive function descriptors as required when registering and calling custom UDFs from a Hive transformation. It receives a map mapping the UDF names to be registered to the classes implementing those UDFs. It traverses the classpath looking for the JAR files where the UDF class is defined and fills in the appropriate function descriptors such that proper `CREATE FUNCTION`  statements can be produced.
+
+    def withFunctions(view: View, functions: Map[String, Class[_]] = Map())
+
+* `view`: the view for which to register the function
+* `functions`: a map of user-defined function names to classes implementing the functions.
+
 # Examples
 
 An example of a minimal Hive transformation receiving a query directly as a string:
