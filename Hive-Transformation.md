@@ -155,7 +155,7 @@ Generally, there are two ways of deploying custom UDFs:
 
 The UDF can be part of the same codebase as the Schedoscope views. In this case, the UDF and classes it depends on should be bundled into an additional project jar with the filename ending with `-hive.jar` and put into the classpath. During startup of Schedoscope, such jar files are discovered on the classpath and uploaded to HDFS, usually in the folder configured by the property `schedoscope.transformations.hive.location` suffixed by the environment config property `schedoscope.app.enviroment`. The default folder is `/tmp/schedoscope/hive/dev/`.
 
-Within maven, such a jar can be packaged using the Proguard plugin, for example:
+With maven, such a jar can be packaged using the Proguard plugin, for example:
 
     <plugin>
         <groupId>com.github.wvengen</groupId>
@@ -196,3 +196,52 @@ Within maven, such a jar can be packaged using the Proguard plugin, for example:
             </execution>
         </executions>
     </plugin>
+
+Here, all UDF and dependend classes in the package `example.functions` are packaged, along with the dependend classes from the Joda time library. The resulting jar ends up in the target directory.
+
+## Ex-Project
+
+Sometimes one would like to use UDF libraries from external sources. For example, UDFs from the [Klout brickhouse library](https://github.com/klout/brickhouse). In this case, the deployment process should copy the library jar into a separate library folder, and that folder should be configured in the property `schedoscope.transformations.hive.libDirectory`. 
+
+With maven, this can be achieved using the assembly plugin. For example:
+
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+            <execution>
+                <id>hive</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>single</goal>
+                </goals>
+                <configuration>
+                    <outputDirectory>deploy/libraries</outputDirectory>
+                    <descriptor>src/main/assemble/hive.xml</descriptor>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+
+along with the assembly descriptor
+
+    <assembly>
+        <id>hive</id>
+        <includeBaseDirectory>false</includeBaseDirectory>
+        <formats>
+            <format>dir</format>
+        </formats>
+        
+        <fileSets>
+            <fileSet>
+                <directory>${basedir}/target/dependencies/</directory>
+                <outputDirectory>/</outputDirectory>
+                <includes>
+                    <include>brickhouse*.jar</include>
+                </includes>
+            </fileSet>
+        </fileSets>
+    </assembly>
+
+would copy the brickhouse libary jar to the folder `${baseDirectory}/deploy/libraries/hive`
