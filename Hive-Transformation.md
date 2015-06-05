@@ -16,3 +16,6 @@ Hive Transformations have the following parameters:
   executing the hive query.  
   Please note that within the query, functions have to be fully qualified by the database name when called.  
   The `withFunctions` helper functions below simplifies the creation of Hive function descriptors.
+
+# Example
+
