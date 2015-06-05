@@ -3,4 +3,4 @@ Hive transformations facilitate the computation of views using HiveQL queries. F
 
 # Syntax
 
-    case class HiveTransformation(sql: String, udfs: List[Function] = List())
+    case class HiveTransformation(sql: String, udfs: List[org.apache.hadoop.hive.metastore.api.Function] = List())
