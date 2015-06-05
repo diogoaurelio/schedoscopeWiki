@@ -21,7 +21,7 @@ Hive Transformations have the following parameters:
 
 The following helper functions make life with Hive transformations easier:
 
-## insertInto
+### insertInto
 
 `insertInto()` generates an `INSERT INTO` statement prelude appropriate for a view along with a static `PARTITION` clause in case the view is partitioned. The benefit of using `insertInto()` is that one only needs to focus on the `SELECT` statement producing the view data and that setting of partition values is handled correctly.
 
@@ -31,7 +31,7 @@ The following helper functions make life with Hive transformations easier:
 * `selectStatement`: the select statement producing the columns of the view
 * `settings`: A map with settings - value pairs. These are translated to `SET` clauses executed before `INSERT`
 
-## insertDynamicallyInto
+### insertDynamicallyInto
 
 `insertDynamicallyInto()` generates an `INSERT INTO` statement prelude appropriate for a view along with a dynamic `PARTITION` clause. As with `insertInto()`, one only needs to focus on the `SELECT` statement producing the view data. As it is common with Hive and dynamic partitioning, the `SELECT` statement needs to produce the partition values as the last columns in the order of the view parameters.
 
