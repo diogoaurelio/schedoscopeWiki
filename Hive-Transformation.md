@@ -25,9 +25,26 @@ An example of a minimal Hive transformation receiving a query directly as a stri
       HiveTransformation(
         """
         INSERT INTO example.example_view
-        SELECT * FROM example.source_view
+        SELECT id, name FROM example.source_view
         """
       ))
 
+A more meaningful example with a parameterized query:
 
+    transformVia(() =>
+      HiveTransformation(
+        """
+        INSERT INTO ${env}_example.orders
+        PARTITION (year = '${year}', month = '${month}')
+        SELECT id, order_number, order_amount 
+        FROM ${env}_example.clickstream
+        WHERE year = '${year}' and month = '${month}'
+        AND eventType = 'order'
+        """
+      ).configureWith(
+        Map(
+          "env" -> this.env,
+          "year" -> this.year.v.get,
+          "month" -> this.month.v.get,
+    )))
 
