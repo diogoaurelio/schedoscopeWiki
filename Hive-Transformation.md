@@ -34,17 +34,56 @@ A more meaningful example with a parameterized query:
     transformVia(() =>
       HiveTransformation(
         """
-        INSERT INTO ${env}_example.orders
+        INSERT INTO ${orderTable}
         PARTITION (year = '${year}', month = '${month}')
         SELECT id, order_number, order_amount 
-        FROM ${env}_example.clickstream
+        FROM ${clickstreamTable}
         WHERE year = '${year}' and month = '${month}'
         AND eventType = 'order'
         """
       ).configureWith(
         Map(
-          "env" -> this.env,
+          "orderTable" -> this.tableName,
+          "clickstreamTable" -> this.clickstream.tableName,
           "year" -> this.year.v.get,
           "month" -> this.month.v.get,
     )))
 
+The previous example making use of the `insertInto()` helper to avoid the partition clause specification:
+
+    transformVia(() =>
+      HiveTransformation(
+        insertInto(this,
+          """
+          SELECT id, order_number, order_amount 
+          FROM ${clickstreamTable}
+          WHERE year = '${year}' and month = '${month}'
+          AND eventType = 'order'
+          """
+      )).configureWith(
+        Map(
+          "clickstreamTable" -> this.clickstream.tableName,
+          "year" -> this.year.v.get,
+          "month" -> this.month.v.get,
+    )))
+
+The same example enhanced by the declaration and call of a UDF using withFunctions:
+
+    transformVia(() =>
+      HiveTransformation(
+        insertInto(this,
+          """
+          SELECT id, order_number, order_amount, ${orderDb}.calc_tax(order_amount, order_country) 
+          FROM ${clickstreamTable}
+          WHERE year = '${year}' and month = '${month}'
+          AND eventType = 'order'
+          """
+       ),
+       withFunctions(this, Map("calc_tax" -> classOf[CalcTaxUDF]))  
+     ).configureWith(
+        Map(
+          "orderDb" -> this.dbName,
+          "clickstreamTable" -> this.clickstream.tableName,
+          "year" -> this.year.v.get,
+          "month" -> this.month.v.get,
+    )))
