@@ -67,7 +67,7 @@ The previous example making use of the `insertInto()` helper to avoid the partit
           "month" -> this.month.v.get,
     )))
 
-The same example enhanced by the declaration and call of a UDF using withFunctions:
+The example enhanced by the declaration and call of a UDF using withFunctions:
 
     transformVia(() =>
       HiveTransformation(
@@ -87,3 +87,18 @@ The same example enhanced by the declaration and call of a UDF using withFunctio
           "year" -> this.year.v.get,
           "month" -> this.month.v.get,
     )))
+
+The same example with the query moved into a resource file and accessing it using the queryFromResource helper:
+
+    transformVia(() =>
+      HiveTransformation(
+        insertInto(this, queryFromResource("hiveql/order/insert_order.sql")),
+        withFunctions(this, Map("calc_tax" -> classOf[CalcTaxUDF]))  
+     ).configureWith(
+        Map(
+          "orderDb" -> this.dbName,
+          "clickstreamTable" -> this.clickstream.tableName,
+          "year" -> this.year.v.get,
+          "month" -> this.month.v.get,
+    )))
+
