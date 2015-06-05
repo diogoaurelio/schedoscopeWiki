@@ -102,3 +102,12 @@ The same example with the query moved into a resource file and accessing it usin
           "month" -> this.month.v.get,
     )))
 
+Finally, a "real" example taken from the Nodes view of schedoscope tutorial. It makes use of the `settings` parameter of the `insertInto` clause to enable GZIP compression for Parquet:
+
+    transformVia(() =>
+      HiveTransformation(
+        insertInto(this,
+          queryFromResource("hiveql/processed/insert_nodes.sql"),
+          settings = Map("parquet.compression" -> "GZIP")),
+        withFunctions(this, Map("collect" -> classOf[CollectUDAF])))
+      .configureWith(defaultHiveQlParameters(this)))
