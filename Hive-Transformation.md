@@ -43,7 +43,7 @@ The following helper functions make life with Hive transformations easier:
 
 ### withFunctions
 
-`withFunctions()` produces a list of `org.apache.hadoop.hive.metastore.api.Function` Hive function descriptors as required when registering and calling custom UDFs from a Hive transformation. It receives a map mapping the UDF names to be registered to the classes implementing those UDFs. It traverses the classpath looking for the JAR files where the UDF class is defined and fills in the appropriate function descriptors such that proper `CREATE FUNCTION`  statements can be produced.
+`withFunctions()` produces a list of `org.apache.hadoop.hive.metastore.api.Function` Hive function descriptors as required when registering and calling custom UDFs from a Hive transformation. It receives a map mapping the UDF names to be registered to the classes implementing those UDFs. It traverses the classpath looking for the jar files where the UDF class is defined and fills in the appropriate function descriptors such that proper `CREATE FUNCTION`  statements can be produced.
 
     def withFunctions(view: View, functions: Map[String, Class[_]] = Map())
 
@@ -144,3 +144,55 @@ Finally, a "real" example taken from the Nodes view of schedoscope tutorial. It 
           settings = Map("parquet.compression" -> "GZIP")),
         withFunctions(this, Map("collect" -> classOf[CollectUDAF]))
       ).configureWith(defaultHiveQlParameters(this)))
+
+# Packaging and Deployment
+
+When using custom UDFs within Hive transformations the code implementing the UDF must be properly packaged such that Schedoscope can automatically deploy it on the cluster and `withFunctions` can find it to create correct `CREATE FUNCTION` statements.
+
+Generally, there are two ways of deploying custom UDFs:
+
+## In-Project
+
+The UDF can be part of the same codebase as the Schedoscope views. In this case, the UDF and classes it depends on should be bundled into an additional project jar with the filename ending with `-hive.jar` and put into the classpath. During startup of Schedoscope, such jar files are discovered on the classpath and uploaded to HDFS, usually in the folder configured by the property `schedoscope.transformations.hive.location` suffixed by the environment config property `schedoscope.app.enviroment`. The default folder is `/tmp/schedoscope/hive/dev/`.
+
+Within maven, such a jar can be packaged using the Proguard plugin, for example:
+
+    <plugin>
+        <groupId>com.github.wvengen</groupId>
+        <artifactId>proguard-maven-plugin</artifactId>
+        <version>2.0.8</version>
+        <executions>
+            <execution>
+                <id>package-hive-resources</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>proguard</goal>
+                </goals>
+                <configuration>
+                    <obfuscate>false</obfuscate>
+                    <injar>classes</injar>
+                    <libs>
+                        <lib>${java.home}/lib/rt.jar</lib>
+                    </libs>
+                    <options>
+                        <option>-keep public class example.functions.** { *; }</option>
+                        <option>-dontnote **</option>
+                        <option>-dontwarn</option>
+                        <option>-dontshrink</option>
+                        <option>-dontoptimize</option>
+                        <option>-dontskipnonpubliclibraryclassmembers</option>
+                    </options>
+                    <outjar>${project.build.finalName}-hive.jar</outjar>
+                    <inFilter>**.class</inFilter>
+                    <assembly>
+                        <inclusions>
+                            <inclusion>
+                                <groupId>joda-time</groupId>
+                                <artifactId>joda-time</artifactId>
+                            </inclusion>
+                        </inclusions>
+                    </assembly>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
