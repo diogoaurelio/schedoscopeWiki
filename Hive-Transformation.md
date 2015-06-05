@@ -21,13 +21,13 @@ Hive Transformations have the following parameters:
 
 An example of a minimal Hive transformation receiving a query directly as a string:
 
-   transformVia(() =>
-     HiveTransformation(
-       """
-       INSERT INTO example.example_view
-       SELECT * FROM example.source_view
-       """
-     ))
+    transformVia(() =>
+      HiveTransformation(
+        """
+        INSERT INTO example.example_view
+        SELECT * FROM example.source_view
+        """
+      ))
 
 
 
