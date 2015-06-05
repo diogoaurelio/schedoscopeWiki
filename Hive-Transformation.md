@@ -10,7 +10,7 @@ Hive Transformations have the following parameters:
 * `sql`: the HiveQL query string.  
          It supports `${parameter}` style placeholders, which are replaced at query execution time by the values passed using the `.configureWith` clause (see below).
 
-* `udfs`: a list of `org.apache.hadoop.hive.metastore.api.Function` function descriptors, defaulting to an empty   
+* `udfs`: a list of `org.apache.hadoop.hive.metastore.api.Function` function descriptors, defaulting to an empty 
   list.  
   If not yet existing for the database / package the current view resides in, these functions are created before
   executing the hive query.  
