@@ -4,7 +4,7 @@ Hive transformations facilitate the computation of views using HiveQL queries. F
 # Syntax
     case class HiveTransformation(sql: String, udfs: List[Function] = List())
 
-# Parameter Description
+# Description
 * `sql`: the HiveQL query string.  
          It supports `${parameter}` style placeholders, which are replaced at query execution time by the values passed using the `.configureWith` clause (see below).
 
