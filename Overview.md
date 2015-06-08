@@ -1,8 +1,11 @@
+## Introduction
 - [Introduction](Introduction)
+
+## Operating Schedoscope
 - [Installation](Installation)
 - [Command Reference](Commands)
  
-# Defining Views
+## Defining Views
 
 - [View specification language](ViewDSL)
 
@@ -13,3 +16,8 @@
 - [Shell](Shell-Transformation)
 
 - [Storage formats](Storage)
+
+## Extending Schedoscope
+
+- [Architecture](Archtecture)
+- [REST Api](Api) 
