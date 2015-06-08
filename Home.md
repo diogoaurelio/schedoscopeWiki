@@ -1,7 +1,7 @@
 # Introduction
 - [Introduction](Introduction)
 
-# Tutorial
+# Tutorials
 - [Open Street Map Tutorial](Open Street Map Tutorial)
 
 # Operating Schedoscope
