@@ -21,4 +21,4 @@
 ## Extending Schedoscope
 
 - [Architecture](Archtecture)
-- [REST Api](Api) 
+- [REST Api](Api) 
