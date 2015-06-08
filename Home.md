@@ -8,6 +8,7 @@
 ## Defining Views
 
 - [View specification language](ViewDSL)
+
 ### Transformations
 - [Hive](Hive-Transformation)
 - [Pig](Pig-Transformation)
