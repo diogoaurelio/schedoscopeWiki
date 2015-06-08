@@ -5,9 +5,9 @@
 - [Open Street Map Tutorial](Open Street Map Tutorial)
 
 # Operating Schedoscope
-- [Installing](Installation)
-- [Starting](Starting)
-- [Controlling](Controlling)
+- [Installing](Installing Schedoscope)
+- [Starting](Starting Schedoscope)
+- [Controlling](Controlling Schedoscope)
 - [REST API](Schedoscope REST API)
 - [Command Reference](Command Reference)
 - [View Pattern Reference](View Pattern Reference)
