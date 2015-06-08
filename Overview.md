@@ -1,6 +1,15 @@
-# Introduction
-[Installation]
+[Introduction](Introduction)
+[Installation](Installation)
+[Command Reference](Commands)
  
-# Transformations
+# Defining Views
 
-[Hive](Hivetransformation)
+[View specification language](ViewDSL)
+
+[Hive](Hive-Transformation)
+[Pig](Pig-Transformation)
+[MapReduce](Mapreduce-Transformation)
+[Morphline](Morphline-Transformation)
+[Shell](Shell-Transformation)
+
+[Storage formats](Storage)
