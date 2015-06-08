@@ -1,24 +1,24 @@
-## Introduction
+# Introduction
 - [Introduction](Introduction)
 
-## Operating Schedoscope
-- [Installation](Installation)
-- [Command Reference](Commands)
+# Operating Schedoscope
+- [Installing](Installation)
+- [Starting](Starting)
+- [Controlling](Controlling)
+- [REST Api](Api)
+- [Command Reference](CommandReference)
+- [View Pattern Reference](ViewPatternReference)
  
-## Defining Views
+# Defining Views
+- [View specification DSL](ViewSpecificationDSL)
+- [Storage formats](Storage)
 
-- [View specification language](ViewDSL)
-
-### Transformations
+# View Transformation Reference
 - [Hive](Hive-Transformation)
 - [Pig](Pig-Transformation)
 - [MapReduce](Mapreduce-Transformation)
 - [Morphline](Morphline-Transformation)
 - [Shell](Shell-Transformation)
 
-- [Storage formats](Storage)
-
-## Extending Schedoscope
-
+# Extending Schedoscope
 - [Architecture](Archtecture)
-- [REST Api](Api) 
