@@ -1,8 +1,8 @@
 # Summary
 
-NoOp transformations check for the existence of `_SUCCESS` flags in the `fullPath`s of the views they belong to, i.e., the view's partition folder in HDFS. If such a flag exists, the view can enter `materialized` state. Otherwise, it remains in `nodata` state. 
+NoOp transformations check for the existence of `_SUCCESS` flags in the `fullPath`s of the views they belong to, i.e., the views' partition folders in HDFS. Should such a flag exists, the view can enter the `materialized` state. Otherwise, it remains in `nodata` state. 
 
-NoOp transformations are the default transformation applied if you do not specify a `transformVia()` clause
+NoOp transformations are the default transformation applied if you do not specify a `transformVia()` clause.
 
 # Syntax
 
@@ -10,7 +10,7 @@ NoOp transformations are the default transformation applied if you do not specif
 
 # Description
 
-NoOp transformations are particularily useful in the staging layers of a Hive data warehouse. External ETL jobs can import raw data into HDFS beneath NoOp view partition folders and then signal data availability by setting `_SUCCESS` flags. 
+NoOp transformations are useful in the staging layers of a data warehouse. External ETL jobs can import raw data into HDFS beneath the partition folders of NoOp views and then signal data availability by setting `_SUCCESS` flags. 
 
 This implies that field and storage format declarations of NoOp views must match the raw data format, so that depending views can access the raw data via Hive and other transformations.
 
@@ -22,14 +22,22 @@ None
 
 An example of a stage view expecting to get its data delivered by an external ETL process:
 
-    transformVia(() =>
-      HiveTransformation(
-        """
-        INSERT INTO example.example_view
-        SELECT id, name FROM example.source_view
-        """
-      ))
+                case class Productfeed(
+                  year: Parameter[String],
+                  month: Parameter[String],
+                  day: Parameter[String]) extends View
+                  with DailyParameterization {
 
+                  val productId = fieldOf[String]
+                  val productName = fieldOf[String]
+                  val productPrice = fieldOf[Double]
+                  
+                  comment("Raw product master data")
+                  
+                  storedAs(TextFile(fieldTerminator = "|", lineTerminator = "\\n"))
+                }
+
+Note that it defines the storage format as a `|` delimited CSV text file.
 
 # Packaging and Deployment
 
