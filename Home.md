@@ -1,6 +1,9 @@
 # Introduction
 - [Introduction](Introduction)
 
+# Tutorial
+- [Open Street Map Tutorial](Open Street Map Tutorial)
+
 # Operating Schedoscope
 - [Installing](Installation)
 - [Starting](Starting)
