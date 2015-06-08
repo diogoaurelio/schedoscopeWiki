@@ -6,8 +6,8 @@
 - [Starting](Starting)
 - [Controlling](Controlling)
 - [REST Api](Api)
-- [Command Reference](CommandReference)
-- [View Pattern Reference](ViewPatternReference)
+- [Command Reference](Command Reference)
+- [View Pattern Reference](View Pattern Reference)
  
 # Defining Views
 - [View specification DSL](ViewSpecificationDSL)
