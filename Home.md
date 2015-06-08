@@ -5,7 +5,7 @@
 - [Installing](Installation)
 - [Starting](Starting)
 - [Controlling](Controlling)
-- [REST Api](Api)
+- [REST API](Schedoscope REST API)
 - [Command Reference](Command Reference)
 - [View Pattern Reference](View Pattern Reference)
  
