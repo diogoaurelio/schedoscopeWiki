@@ -45,4 +45,4 @@ NoOp transformations are self-contained, so there are no packaging and deploymen
 
 # Change detection
 
-NoOp transformations have no changeable logic. As a consequence, Schedoscope will not detect any changes to NoOp views and not automatically schedule rematerialization. If you want to rematerialize a NoOp view, e.g., because an external ETL job copied corrected raw data files after the view has already been materialized, you need to explizitly invalidate the view.
+NoOp transformations have no changeable logic. As a consequence, Schedoscope will not detect any changes to NoOp views and not automatically schedule rematerialization. If you want to rematerialize a NoOp view -- for example, because an external ETL job copied corrected raw data files after the view has already been materialized -- you need to explicitly invalidate the view.
