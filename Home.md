@@ -17,13 +17,13 @@
 - [Storage formats](Storage)
 
 # View Transformation Reference
-- [NoOp](NoOp-Transformations)
-- [Hive](Hive-Transformations)
-- [File](Files-Transformations)
+- [NoOp](NoOp Transformations)
+- [Hive](Hive Transformations)
+- [File](Files Transformations)
 - [Pig](Pig-Transformations)
-- [MapReduce](Mapreduce-Transformations)
-- [Morphline](Morphline-Transformations)
-- [Shell](Shell-Transformations)
+- [MapReduce](Mapreduce Transformations)
+- [Morphline](Morphline Transformations)
+- [Shell](Shell Transformations)
 
 # Extending Schedoscope
 - [Architecture](Architecture)
