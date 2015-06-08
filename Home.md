@@ -7,7 +7,7 @@
 # Operating Schedoscope
 - [Installing](Installing Schedoscope)
 - [Starting](Starting Schedoscope)
-- [Controlling](Controlling Schedoscope)
+- [Scheduling](Scheduling)
 - [REST API](Schedoscope REST API)
 - [Command Reference](Command Reference)
 - [View Pattern Reference](View Pattern Reference)
