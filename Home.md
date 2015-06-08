@@ -14,11 +14,13 @@
 - [Storage formats](Storage)
 
 # View Transformation Reference
-- [Hive](Hive-Transformation)
-- [Pig](Pig-Transformation)
-- [MapReduce](Mapreduce-Transformation)
-- [Morphline](Morphline-Transformation)
-- [Shell](Shell-Transformation)
+- [NoOp](NoOp-Transformations)
+- [Hive](Hive-Transformations)
+- [File](Files-Transformations)
+- [Pig](Pig-Transformations)
+- [MapReduce](Mapreduce-Transformations)
+- [Morphline](Morphline-Transformations)
+- [Shell](Shell-Transformations)
 
 # Extending Schedoscope
-- [Architecture](Archtecture)
+- [Architecture](Architecture)
