@@ -20,22 +20,22 @@ None
 
 # Examples
 
-An example of a stage view expecting to get its data delivered by an external ETL process:
+An example of a stage NoOp view expecting to get its data delivered by an external ETL process:
 
-                case class Productfeed(
-                  year: Parameter[String],
-                  month: Parameter[String],
-                  day: Parameter[String]) extends View
-                  with DailyParameterization {
+    case class Productfeed(
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]) extends View
+      with DailyParameterization {
 
-                  val productId = fieldOf[String]
-                  val productName = fieldOf[String]
-                  val productPrice = fieldOf[Double]
-                  
-                  comment("Raw product master data")
-                  
-                  storedAs(TextFile(fieldTerminator = "|", lineTerminator = "\\n"))
-                }
+      val productId = fieldOf[String]
+      val productName = fieldOf[String]
+      val productPrice = fieldOf[Double]
+      
+      comment("Raw product master data")
+      
+      storedAs(TextFile(fieldTerminator = "|", lineTerminator = "\\n"))
+    }
 
 Note that it defines the storage format as a `|` delimited CSV text file.
 
