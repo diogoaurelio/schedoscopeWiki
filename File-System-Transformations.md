@@ -72,10 +72,15 @@ None.
 
 # Examples
 
+An example of using `CopyFrom` to copy a file into a view's `fullPath`:
+
     transformVia(() => 
       IfNotExists(
         s"/hdp/stage/productfeed_${year.v.get}${month.v.get}${day.v.get}.csv", 
-      CopyFrom(s"/hdp/stage/productfeed_${year.v.get}${month.v.get}${day.v.get}.csv", this)))
+      CopyFrom(s"/hdp/stage/productfeed_${year.v.get}${month.v.get}${day.v.get}.csv", this)
+    ))
+
+Note that the file is only copied if it does not already exist, and that the path is parameterized using the view parameters `year`, `month`, `day`.
 
 # Packaging and Deployment
 
