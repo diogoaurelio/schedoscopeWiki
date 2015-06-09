@@ -72,6 +72,9 @@ None.
 
 # Examples
 
+    transformVia(() => IfNotExists(
+      s"${this.fullPath}/${ecShopCode.v.get.toLowerCase()}_productfeed_${dateId.v.get}.csv",    CopyFrom(s"/hdp/${env}/applications/eci/stage/${ecShopCode.v.get.toLowerCase()}/masterdata/productfeed/${ecShopCode.v.get.toLowerCase()}_productfeed_${dateId.v.get}.csv", this)))
+
 # Packaging and Deployment
 
 File system transformations are self-contained, so there are no packaging and deployment aspects to consider.
