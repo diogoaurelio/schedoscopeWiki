@@ -254,10 +254,10 @@ would copy the brickhouse libary jar to the folder `${baseDirectory}/deploy/libr
 
 Schedoscope tries to automatically detect changes to Hive transformation-based views and to initiate rematerialization of views if the tranformation logic has potentially changed. 
 
-This is achieved by protocoling transformation version checksums with each materialized view instance in the Hive metastore. If the transformation version checksum differs between the materialized version and the current one, the view instance is rematerialized.
+This is achieved by protocoling transformation version checksums with each materialized view in the Hive metastore. If the transformation version checksum differs between the materialized version and the current one, the view is rematerialized.
 
 The following properties of Hive transformations contribute to the transformation version checksum:
 - the query string in the `sql` parameter
 - the names of the deployed jar files. I.e., those specified by the property `schedoscope.transformations.hive.libDirectory` or those ending with `-hive.jar`
 
-Hence, if you change the SQL query string your view instance gets rematerialized. If you change an UDF implementation and want to trigger rematerialization, you need to change the name of the jar, e.g., by incrementing a version number.
+Hence, if you change the SQL query string a view gets rematerialized. If you change an UDF's implementation and want to trigger rematerialization, you need to change the name of the jar the UDF resides in, e.g., by incrementing a version number.
