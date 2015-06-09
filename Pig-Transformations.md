@@ -16,6 +16,26 @@ Pig transformations support the following parameters:
 
 # Helpers
 
+The following functions help with the creation of Hive transformations:
+
+## scriptFrom
+
+`scriptFrom()` reads a Pig Latin script from a given file path.
+
+    def scriptFrom(filePath: String): String
+
+Parameters:
+* `filePath`: the local file path from which to read the script.
+
+## scriptFromResource
+
+`scriptFromResource()` reads a Pig Latin script from a resource on the classpath.
+
+    def scriptFromResource(resourcePath: String): String
+
+Parameters:
+* `resourcePath`: the resource path from which to read the script.
+
 # Examples
 
 # Packaging and Deployment
