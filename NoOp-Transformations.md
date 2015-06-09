@@ -1,6 +1,6 @@
 # Summary
 
-NoOp transformations check for the existence of `_SUCCESS` flags in the `fullPath`s of the views they belong to, i.e., the views' partition folders in HDFS. Should such a flag exists, the view can enter the `materialized` state. Otherwise, it remains in `nodata` state. 
+NoOp transformations check for the existence of `_SUCCESS` flags in the `fullPath`s of the views they belong to, i.e., the views' partition folders in HDFS. Should such a flag exists, a view can enter the `materialized` state. Otherwise, it remains in `nodata` state. 
 
 NoOp transformations are the default transformation applied if you do not specify a `transformVia()` clause.
 
