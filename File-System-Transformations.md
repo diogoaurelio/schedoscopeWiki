@@ -72,8 +72,10 @@ None.
 
 # Examples
 
-    transformVia(() => IfNotExists(
-      s"${this.fullPath}/${ecShopCode.v.get.toLowerCase()}_productfeed_${dateId.v.get}.csv",    CopyFrom(s"/hdp/${env}/applications/eci/stage/${ecShopCode.v.get.toLowerCase()}/masterdata/productfeed/${ecShopCode.v.get.toLowerCase()}_productfeed_${dateId.v.get}.csv", this)))
+    transformVia(() => 
+      IfNotExists(
+        s"/hdp/stage/productfeed_${year.v.get}${month.v.get}${day.v.get}.csv", 
+      CopyFrom(s"/hdp/stage/productfeed_${year.v.get}${month.v.get}${day.v.get}.csv", this)))
 
 # Packaging and Deployment
 
