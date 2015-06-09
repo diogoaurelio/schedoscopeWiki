@@ -12,7 +12,7 @@ Pig transformations support the following parameters:
 
 * `latin`: the Pig Latin script computing the view. It supports ${parameter} style placeholders, which are replaced at query execution time by the values passed using the .configureWith() clause (see below).
 
-* `dirsToDelete`: a list of HDFS paths that should be deleted before the Pig transformation is executed. When using `HCatStorer`, this list should be empty (which is the default) since the target partition folder must exist. When using `PigStorer`, the path `fullPath` should be deleted, as the target partition folder must not exist.
+* `dirsToDelete`: a list of HDFS paths that should be deleted before the Pig transformation is executed. When using `HCatStorer`, this list should be empty (which is the default) since the target partition folder must exist. When using `PigStorer`, the path `fullPath` should be deleted because the target partition folder must not exist.
 
 # Helpers
 
