@@ -7,19 +7,12 @@ Please follow the Open Street Map tutorial to install, compile, and run Schedosc
 
 - [Open Street Map Tutorial](Open Street Map Tutorial)
 
-# Operating Schedoscope
-- [Installing](Installing Schedoscope)
-- [Starting](Starting Schedoscope)
-- [Scheduling](Scheduling)
-- [REST API](Schedoscope REST API)
-- [Command Reference](Command Reference)
-- [View Pattern Reference](View Pattern Reference)
- 
 # Defining Views
-- [View specification DSL](ViewSpecificationDSL)
-- [Storage formats](Storage)
+- [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
+- [View specification DSL](View specification DSL)
+- [Storage formats](Storage Formats)
 
-# View Transformation Reference
+## View Transformation Reference
 - [NoOp](NoOp Transformations)
 - [File System](File System Transformations)
 - [Hive](Hive Transformations)
@@ -27,6 +20,14 @@ Please follow the Open Street Map tutorial to install, compile, and run Schedosc
 - [MapReduce](Mapreduce Transformations)
 - [Morphline](Morphline Transformations)
 - [Shell](Shell Transformations)
+
+# Operating Schedoscope
+- [Installing](Installing Schedoscope)
+- [Starting](Starting Schedoscope)
+- [Scheduling](Scheduling)
+- [REST API](Schedoscope REST API)
+- [Command Reference](Command Reference)
+- [View Pattern Reference](View Pattern Reference)
 
 # Extending Schedoscope
 - [Architecture](Architecture)
