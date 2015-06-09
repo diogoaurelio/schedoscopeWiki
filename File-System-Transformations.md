@@ -1,6 +1,6 @@
 # Summary
 
-Schedoscope includes a group of file system transformations. File system transformation produce view data by copying files from diverse sources into a view's `fullPath`. Hence, they are particularily suitable in the stage areas of a data warehouse.
+Schedoscope includes a group of file system transformations. File system transformation produce view data by copying files from diverse sources into a view's `fullPath`. As such, they are particularily suitable in the stage areas of a data warehouse.
 
 # Syntax
     case class CopyFrom(val fromPattern: String, val toView: View, val recursive: Boolean = true) 
