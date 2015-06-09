@@ -7,7 +7,7 @@ Please follow the Open Street Map tutorial to install, compile, and run Schedosc
 
 - [Open Street Map Tutorial](Open Street Map Tutorial)
 
-# Defining Views
+# Implementing Views
 - [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
 - [View specification DSL](View specification DSL)
 - [Storage formats](Storage Formats)
