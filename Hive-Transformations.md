@@ -50,6 +50,24 @@ The following helper functions make life with Hive transformations easier:
 * `view`: the view for which to register the function
 * `functions`: a map of user-defined function names to classes implementing the functions.
 
+## queryFrom
+
+`queryFrom()` reads a Hive query from a given file path.
+
+    def queryFrom(filePath: String): String
+
+Parameters:
+* `filePath`: the local file path from which to read the script.
+
+## queryFromResource
+
+`queryFromResource()` reads a Hive query from a resource on the classpath.
+
+    def queryFromResource(resourcePath: String): String
+
+Parameters:
+* `resourcePath`: the resource path from which to read the script.
+
 # Examples
 
 An example of a minimal Hive transformation receiving a query directly as a string:
