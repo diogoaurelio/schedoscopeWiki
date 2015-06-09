@@ -54,7 +54,7 @@ An example of a Pig Latin script compressing a raw source text file.
         )
      )
 
-The script can be factored out using `scriptFromResource()` helper:
+The script can be factored out using the `scriptFromResource()` helper:
 
     transformVia(() =>
       PigTransformation(scriptFromResource("/pig/stage/compress_raw.pig"),
