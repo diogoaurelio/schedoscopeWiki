@@ -153,11 +153,11 @@ Generally, there are two ways of deploying custom UDFs:
 
 ## In-Project
 
-The UDF can be part of the same codebase as the Schedoscope views. In this case, the UDF and classes it depends on should be bundled into an additional project jar. This filename of this jar should end with `-hive.jar` and be put into the classpath when launching Schedoscope. 
+The UDF can be part of the same codebase as the Schedoscope views. In this case, the UDF and the classes it depends on should be bundled into an additional project jar. The filename of this jar should end with `-hive.jar` and be on the classpath when launching Schedoscope. 
 
-During startup, Schedoscope discovers such jar files on the classpath and uploads them to HDFS into the folder configured by the property `schedoscope.transformations.hive.location` suffixed by the environment config property `schedoscope.app.enviroment`. Thus, the default folder is `/tmp/schedoscope/hive/dev/`.
+During startup, Schedoscope discovers `-hive.jar` files on the classpath and uploads them to HDFS into the folder configured by the property `schedoscope.transformations.hive.location` suffixed by the environment config property `schedoscope.app.enviroment`. Thus, the default folder is `/tmp/schedoscope/hive/dev/`.
 
-With maven, such a jar can be packaged using the Proguard plugin, for example:
+With Maven, a `-hive.jar` jar can be packaged using the Proguard plugin, for example:
 
     <plugin>
         <groupId>com.github.wvengen</groupId>
@@ -199,7 +199,7 @@ With maven, such a jar can be packaged using the Proguard plugin, for example:
         </executions>
     </plugin>
 
-Here, all UDF and dependend classes in the package `example.functions` are packaged, along with the dependend classes from the Joda time library. The resulting jar ends up in the target directory.
+Here, all UDF and dependend classes in the package `example.functions` are bundled, along with the dependend classes from the Joda time library. The resulting jar ends up in the Maven target directory.
 
 ## Ex-Project
 
@@ -207,7 +207,7 @@ Sometimes one would like to use UDF libraries from external sources. For example
 
 Upon launch, Schedoscope uploads all jars in this folder into the folder configured by the property `schedoscope.transformations.hive.location` suffixed by the environment config property `schedoscope.app.enviroment`. Again, the default folder is `/tmp/schedoscope/hive/dev/`.
 
-With maven, deployment of library jars can be achieved using the assembly plugin. For example:
+With Maven, deployment of library jars can be achieved using the assembly plugin. For example:
 
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
