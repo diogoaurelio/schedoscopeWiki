@@ -70,4 +70,9 @@ The script can be factored out using the `scriptFromResource()` helper:
 
 # Packaging and Deployment
 
+Pig UDFs are not yet supported, so no application-specific code needs to be packaged and deployed. However, Schedoscope automatically bundles and deploys `HCatStorage`.
+
 # Change detection
+
+Schedoscope tries to automatically detect changes to Pigtransformation-based views and to initiate rematerialization of views if the tranformation logic has potentially changed. This is achieved by computing a checksum on the Pig Latin script.
+
