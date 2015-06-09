@@ -14,7 +14,7 @@ Schedoscope includes a group of file system transformations. File system transfo
 
 ## CopyFrom
 
-`CopyFrom` copies source files and folders matching a GLOB pattern into a views `fullPath` (i.e., the partition folder in HDFS). This can be done recursively or non-recursively. The transformation also supports copying reources from the classpath.
+`CopyFrom` copies source files and folders matching a GLOB pattern into a view's `fullPath` (i.e., the partition folder in HDFS). This can be done recursively or non-recursively. The transformation also supports copying resources from the classpath.
 
 Parameters:
 * `fromPattern`: The source file or resource files to copy. When given a file path or file pattern, the source is interpreted as an HDFS path. If given a `file://` URL, the source is interpreted as local file system path. If given a `classpath://`, the source is interpreted as a classpath resource. The latter is useful if you want to create source-code managed configuration and lookup tables in Hive.
@@ -25,13 +25,30 @@ Parameters:
 
 ## StoreFrom
 
-`StoreFrom` dumps an input stream as a file into a views `fullPath` (i.e., the partition folder in HDFS). This is useful for dynamically generating lookup or configuration tables during view materialization.
+`StoreFrom` dumps an input stream as a file into a view's `fullPath` (i.e., the partition folder in HDFS). This is useful for dynamically generating lookup or configuration tables during view materialization.
 
 Parameters:
 * `imputStream`: The input stream to dump.
 
 * `toView`: The stream is dumped to the `fullPath` of `toView`.
 
+## Copy
+
+`Copy` copies source files and folders matching a GLOB pattern into some target folder. This can be done recursively or non-recursively. The transformation also supports copying resources from the classpath.
+
+* `fromPattern`: The source file or resource files to copy. When given a file path or file pattern, the source is interpreted as an HDFS path. If given a `file://` URL, the source is interpreted as local file system path. If given a `classpath://`, the source is interpreted as a classpath resource. The latter is useful if you want to create source-code managed configuration and lookup tables in Hive.
+
+* `toPath`: The path to copy files to. When given a file path or file pattern, the source is interpreted as an HDFS path. If given a `file://` URL, the source is interpreted as local file system path.
+
+* `recursive`: Copy folders recursively or not. Defaults to `true`.
+
+## Move
+
+`Move` moves source files and folders matching a GLOB pattern into some target folder. 
+
+* `fromPattern`: The source file or resource files to move. When given a file path or file pattern, the source is interpreted as an HDFS path. If given a `file://` URL, the source is interpreted as local file system path.
+
+* `toPath`: The path to move the specified files to. When given a file path or file pattern, the source is interpreted as an HDFS path. If given a `file://` URL, the source is interpreted as local file system path.
 
 # Helpers
 
