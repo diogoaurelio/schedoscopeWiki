@@ -50,6 +50,22 @@ Parameters:
 
 * `toPath`: The path to move the specified files to. When given a file path or file pattern, the source is interpreted as an HDFS path. If given a `file://` URL, the source is interpreted as local file system path.
 
+## IfExists
+
+`IfExists` performs a file transformation, but only if there are files matching a path pattern. 
+
+* `path`: The path to check. It is interpreted as an HDFS path. If given a `file://` URL, the path is interpreted as local file system path.
+
+* `op`: The file system transformation to execute if the `path` does exist.
+
+## IfNotExists
+
+`IfExists` performs a file transformation, but only if there are no files matching a path pattern. This is useful to avoid repetitive copying. 
+
+* `path`: The path to check. It is interpreted as an HDFS path. If given a `file://` URL, the path is interpreted as local file system path.
+
+* `op`: The file system transformation to execute if the `path` does not exist.
+
 # Helpers
 
 # Examples
