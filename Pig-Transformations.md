@@ -1,6 +1,6 @@
 # Summary
 
-With Pig transformations, one can compute views by means of Pig Latin. In this sense, Pig transformations are very similar to [Hive transformations]. They differ, however, by the fact that using and deploying Pig UDFs is not yet supported.
+With Pig transformations, one can compute views by means of Pig Latin. In this sense, Pig transformations are very similar to [Hive transformations](Hive Transformations). They differ, however, by the fact that using and deploying Pig UDFs is not yet supported.
 
 # Syntax
 
