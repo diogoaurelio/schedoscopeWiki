@@ -22,7 +22,7 @@ Please follow the Open Street Map tutorial to install, compile, and run Schedosc
 - [Test Framework](Test Framework)
 
 # Operating Schedoscope
-- [Installing](Installing Schedoscope)
+- [Bundling and Deploying](Bundling and Deploying)
 - [Starting](Starting Schedoscope)
 - [Scheduling](Scheduling)
 - [REST API](Schedoscope REST API)
