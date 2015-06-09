@@ -19,7 +19,6 @@ Please follow the Open Street Map tutorial to install, compile, and run Schedosc
  - [Pig](Pig-Transformations)
  - [MapReduce](Mapreduce Transformations)
  - [Morphline](Morphline Transformations)
- - [Shell](Shell Transformations)
 
 # Operating Schedoscope
 - [Installing](Installing Schedoscope)
