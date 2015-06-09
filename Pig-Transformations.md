@@ -54,7 +54,9 @@ An example of a Pig Latin script compressing a raw source text file.
         )
      )
 
-The script can be factored out using the `scriptFromResource()` helper:
+Since `PigStorer` is used, the Pig transformation specifies that the `fullPath`of the given view is to be deleted prior to execution. 
+
+The script can be factored out to a resource file using the `scriptFromResource()` helper:
 
     transformVia(() =>
       PigTransformation(scriptFromResource("/pig/stage/compress_raw.pig"),
