@@ -86,7 +86,11 @@ An example of copying view data from the classpath (taken from the tutorial):
 
     transformVia(() => CopyFrom("classpath://osm-data/node_tags.txt", this))
 
+An example of dynamically generating view data on materialization time using `StoreFrom`:
 
+     transformVia(() => StoreFrom(allSitesInputStream, this))
+
+`allSitesInputStream` is a function extracting a site list out of a config file in the classpath an returning it as an input stream.
 
 # Packaging and Deployment
 
