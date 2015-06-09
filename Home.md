@@ -12,13 +12,13 @@ Please follow the Open Street Map tutorial to install, compile, and run Schedosc
 - [View specification DSL](View specification DSL)
 - [Storage formats](Storage Formats)
 - Available View Transformations
--- [NoOp](NoOp Transformations)
--- [File System](File System Transformations)
--- [Hive](Hive Transformations)
--- [Pig](Pig-Transformations)
--- [MapReduce](Mapreduce Transformations)
--- [Morphline](Morphline Transformations)
--- [Shell](Shell Transformations)
+ - [NoOp](NoOp Transformations)
+ - [File System](File System Transformations)
+ - [Hive](Hive Transformations)
+ - [Pig](Pig-Transformations)
+ - [MapReduce](Mapreduce Transformations)
+ - [Morphline](Morphline Transformations)
+ - [Shell](Shell Transformations)
 
 # Operating Schedoscope
 - [Installing](Installing Schedoscope)
