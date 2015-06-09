@@ -11,7 +11,7 @@ Please follow the Open Street Map tutorial to install, compile, and run Schedosc
 - [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
 - [View specification DSL](View specification DSL)
 - [Storage formats](Storage Formats)
-- Available View Transformations
+- Transformations
  - [NoOp](NoOp Transformations)
  - [File System](File System Transformations)
  - [Hive](Hive Transformations)
