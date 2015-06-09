@@ -17,11 +17,21 @@ Schedoscope includes a group of file system transformations. File system transfo
 `CopyFrom` copies source files and folders matching a GLOB pattern into a views `fullPath` (i.e., the partition folder in HDFS). This can be done recursively or non-recursively. The transformation also supports copying reources from the classpath.
 
 Parameters:
-* `fromPattern`:The source file or resource files to copy. When given a file path or file pattern, the source is interpreted as an HDFS path. If given a `file://` URL, the source is interpreted as local file system path. If given a `classpath://`, the source is interpreted as a classpath resource. The latter is useful if you want to create source-code managed configuration and lookup tables in Hive.
+* `fromPattern`: The source file or resource files to copy. When given a file path or file pattern, the source is interpreted as an HDFS path. If given a `file://` URL, the source is interpreted as local file system path. If given a `classpath://`, the source is interpreted as a classpath resource. The latter is useful if you want to create source-code managed configuration and lookup tables in Hive.
 
 * `toView`: The files are copied to the `fullPath` of `toView`.
 
 * `recursive`: Copy folders recursively or not. Defaults to `true`.
+
+## StoreFrom
+
+`StoreFrom` dumps an input stream as a file into a views `fullPath` (i.e., the partition folder in HDFS). This is useful for dynamically generating lookup or configuration tables during view materialization.
+
+Parameters:
+* `imputStream`: The input stream to dump.
+
+* `toView`: The stream is dumped to the `fullPath` of `toView`.
+
 
 # Helpers
 
