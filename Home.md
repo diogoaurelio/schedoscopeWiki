@@ -17,7 +17,7 @@ Please follow the Open Street Map tutorial to install, compile, and run Schedosc
  - [File System](File System Transformations)
  - [Hive](Hive Transformations)
  - [Pig](Pig-Transformations)
- - [MapReduce](Mapreduce Transformations)
+ - [MapReduce](MapReduce Transformations)
  - [Morphline](Morphline Transformations)
 - [Test Framework](Test Framework)
 
