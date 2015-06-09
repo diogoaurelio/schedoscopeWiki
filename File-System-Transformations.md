@@ -80,7 +80,13 @@ An example of using `CopyFrom` to copy a file into a view's `fullPath`:
       CopyFrom(s"/hdp/stage/productfeed_${year.v.get}${month.v.get}${day.v.get}.csv", this)
     ))
 
-Note that the file is only copied if it does not already exist, and that the path is parameterized using the view parameters `year`, `month`, `day`.
+Note that the file is only copied if it does not already exist, and that the path has been parameterized using the view parameters `year`, `month`, `day`.
+
+An example of copying view data from the classpath (taken from the tutorial):
+
+    transformVia(() => CopyFrom("classpath://osm-data/node_tags.txt", this))
+
+
 
 # Packaging and Deployment
 
