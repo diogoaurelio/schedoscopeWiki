@@ -2,7 +2,7 @@
 
 # Syntax
 
-    case class PigTransformation(latin: String, directoriesToDelete: List[String] = List())
+    case class PigTransformation(latin: String, dirsToDelete: List[String] = List())
 
 # Description
 
