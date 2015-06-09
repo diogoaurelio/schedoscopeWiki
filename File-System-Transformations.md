@@ -74,6 +74,8 @@ None.
 
 # Packaging and Deployment
 
-
+File system transformations are self-contained, so there are no packaging and deployment aspects to consider.
 
 # Change detection
+
+Schedoscope does not keep track of files copied or moved by file system transformations. Hence, a view based on filesystem transformation executes file system transformations executes file system transformations again and again upon restart of the scheduler. It is therefore highly recommended to utilize `IfNotExists`.
