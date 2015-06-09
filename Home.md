@@ -2,6 +2,9 @@
 - [Introduction](Introduction)
 
 # Tutorials
+
+Please follow the Open Street Map tutorial to install, compile, and run Schedoscope in a standard Hadoop distribution image within minutes:
+
 - [Open Street Map Tutorial](Open Street Map Tutorial)
 
 # Operating Schedoscope
