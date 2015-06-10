@@ -115,7 +115,7 @@ Running the Schedoscope shell,
 
 * monitoring what's going on is as simple as:
 
-       views -v schedoscope.example.osm.processed/Nodes/2013/06 -d
+        views -v schedoscope.example.osm.processed/Nodes/2013/06 -d
 
 # Tutorials
 
