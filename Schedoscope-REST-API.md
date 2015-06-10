@@ -8,8 +8,8 @@ GET /views/status=transforming
 
 #### views
 List all currently active views. 
-Method: GET /views/ 
-Parameters:
+Method: GET /views/   
+Parameters:  
 
 - status=[transforming,nodata,materialized,failed,waiting]  
     passing this parameter will restrict the output to views with the given state.
@@ -18,9 +18,9 @@ Parameters:
 - dependencies=[true|false]
     if a specific view is requested, setting this to true will also return all dependent views
 - overview=[true|false]
-    only return aggregate numbers
+    only return aggregate numbers  
 
-### Returns
+Returns  
      {  
        "overview": {  
          "nodata": 1  
