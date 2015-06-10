@@ -22,19 +22,19 @@ only return aggregate numbers
 
 ### Returns
 `
-    {
-      "overview": {
-        "nodata": 1
-        "materialized" : 1
-      },
-      "views": [{
-        "view": "example.osm/Stage/2015/01",
-        "status": "nodata"
-      }, {
-        "view": "example.osm/Stage/2015/02",
-        "status": "materializes"
-      }]
-    }
+     {  
+       "overview": {  
+         "nodata": 1  
+        "materialized" : 1  
+      },  
+      "views": [{  
+        "view": "example.osm/Stage/2015/01",  
+        "status": "nodata"  
+      }, {  
+        "view": "example.osm/Stage/2015/02",  
+        "status": "materializes"  
+      }]  
+    }  
 `
 
 
