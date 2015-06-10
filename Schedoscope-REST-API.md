@@ -11,7 +11,7 @@ List all currently active views
 
 Method: GET /views/   
 
-**Parameters:  **
+**Parameters:**  
 
 - status=[transforming,nodata,materialized,failed,waiting]  
     passing this parameter will restrict the output to views with the given state.
