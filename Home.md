@@ -30,7 +30,7 @@ Based on a concise Scala DSL,
           storedAs(Parquet())
         }
 
-* defining its dependencies is as simple as:
+* defining its dependencies on other views is as simple as:
 
         case class Nodes(
           year: Parameter[String],
@@ -55,7 +55,7 @@ Based on a concise Scala DSL,
           storedAs(Parquet())
         }
 
-* specifying its computation logic is as simple as:
+* specifying the logic how to compute the view out of its dependencies is as simple as:
 
         case class Nodes(
           year: Parameter[String],
@@ -89,7 +89,7 @@ Based on a concise Scala DSL,
          storedAs(Parquet())
       }
 
-* testing it is as simple as:
+* testing the view logic is as simple as:
 
         "processed.Nodes" should "load correctly from processed.nodes_with_geohash and stage.node_tags" in {
             new Nodes(p("2013"), p("06")) with test {
