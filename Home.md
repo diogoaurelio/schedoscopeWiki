@@ -25,7 +25,7 @@ Based on a concise Scala DSL,
           val geohash = fieldOf[String]
           val tags = fieldOf[Map[String, String]]
 
-          comment("View of nodes with tags and geohash")
+          comment("View of nodes partitioned by year and month with tags and geohash")
 
           storedAs(Parquet())
         }
