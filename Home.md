@@ -58,7 +58,7 @@ Based on Schedoscope's DSL,
           dependsOn(() => NodesWithGeohash(p(year), p(month)))
           dependsOn(() => NodeTags(p(year), p(month)))
 
-          comment("View of nodes with tags and geohash")
+          comment("View of nodes partitioned by year and month with tags and geohash")
 
           storedAs(Parquet())
         }
@@ -92,7 +92,7 @@ Based on Schedoscope's DSL,
                "year" -> year.v.get,
                "month" -> month.v.get)))
 
-         comment("View of nodes with tags and geohash")
+         comment("View of nodes partitioned by year and month with tags and geohash")
 
          storedAs(Parquet())
       }
