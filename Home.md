@@ -1,4 +1,6 @@
-# Introduction
+# Schedoscope
+
+## Introduction
 
 Schedoscope is a scheduling framework for painfree and agile development, testing, (re)loading, and monitoring of your datahub, lake, or whatever you choose to call your Hadoop data warehouse these days.
 
@@ -113,17 +115,15 @@ Running the Schedoscope shell,
 
         materialize -v schedoscope.example.osm.processed/Nodes/2013/06
 
-* monitoring what's going on is as simple as:
 
-        views -v schedoscope.example.osm.processed/Nodes/2013/06 -d
 
-# Tutorials
+## Tutorials
 
 Please follow the Open Street Map tutorial to install, compile, and run Schedoscope in a standard Hadoop distribution image within minutes:
 
 - [Open Street Map Tutorial](Open Street Map Tutorial)
 
-# Implementing Views
+## Implementing Views
 - [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
 - [Schedoscope View DSL](Schedoscope View DSL)
 - [Storage formats](Storage Formats)
@@ -136,7 +136,7 @@ Please follow the Open Street Map tutorial to install, compile, and run Schedosc
  - [Morphline](Morphline Transformations)
 - [Test Framework](Test Framework)
 
-# Operating Schedoscope
+## Operating Schedoscope
 - [Bundling and Deploying](Bundling and Deploying)
 - [Starting](Starting Schedoscope)
 - [Scheduling](Scheduling)
@@ -144,5 +144,15 @@ Please follow the Open Street Map tutorial to install, compile, and run Schedosc
 - [Command Reference](Command Reference)
 - [View Pattern Reference](View Pattern Reference)
 
-# Extending Schedoscope
+## Extending Schedoscope
 - [Architecture](Architecture)
+
+## Core Team
+* [Utz Westermann](https://github.com/utzwestermann) (Otto Group): Maintainer, DSL concept and implementation 
+* [Hans-Peter Zorn](https://github.com/hpzorn) (Inovex GmbH): Scheduling architecture and implementation, Morphline support
+* [Dominik Benz](https://github.com/dominikbenz) (Inovex GmbH): Test framework, deployment system, transformations, command shell
+
+Please help making Schedoscope a better place!
+
+## License
+Licensed under the [Apache License 2.0](https://github.com/ottogroup/schedoscope/blob/master/LICENSE)
