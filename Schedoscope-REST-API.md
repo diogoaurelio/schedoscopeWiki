@@ -6,7 +6,7 @@ Schedoscope offers a rest api for remote control. The schedoscopeControl shell m
 Currently all requests to schedoscope use method GET. Parameters are passed as URL parameters, e.g.
 GET /views/status=transforming
 
-### views
+#### views
 List all currently active views. 
 Method: GET /views/ 
 Parameters:
@@ -14,11 +14,11 @@ Parameters:
 - status=[transforming,nodata,materialized,failed,waiting]  
     passing this parameter will restrict the output to views with the given state.
 - filter=String
---filter regular expression to filter views to be invalidated (e.g. '?filter=my.database%2F.%2FPartition1%2F.')
+    filter regular expression to filter views to be invalidated (e.g. '?filter=my.database%2F.%2FPartition1%2F.')
 - dependencies=[true|false]
--- if a specific view is requested, setting this to true will also return all dependent views
+    if a specific view is requested, setting this to true will also return all dependent views
 - overview=[true|false]
---only return aggregate numbers
+    only return aggregate numbers
 
 ### Returns
      {  
