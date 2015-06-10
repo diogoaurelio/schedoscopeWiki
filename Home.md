@@ -6,7 +6,7 @@ Based on a concise Scala DSL,
 
 * defining a partitioned Hive table (called "view") is as simple as:
 
-        case class Nodes(
+      case class Nodes(
       year: Parameter[String],
       month: Parameter[String]) extends View
       with MonthlyParameterization
