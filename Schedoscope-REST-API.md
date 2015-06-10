@@ -9,7 +9,8 @@ GET /views/status=transforming
 #### views
 List all currently active views  
 
-Method: GET /views/   
+Method: GET  
+Path: /views/   
 
 **Parameters:**  
 
@@ -42,18 +43,59 @@ Method: GET /views/
 
 
 ### actions 
+Method: GET  
+Path: 
+
+**Parameters:**  
+
+**Returns**  
 
 ### queues 
+Method: GET  
+Path: 
+
+**Parameters:**  
+
+**Returns**  
 
 
 ### commands 
+Method: GET  
+Path: 
 
+**Parameters:**  
+
+**Returns**  
 
 ### materialize 
+Method: GET  
+Path: 
+
+**Parameters:**  
+
+**Returns**  
 
 ### invalidate
+Method: GET  
+Path: 
+
+**Parameters:**  
+
+**Returns**  
 
 
 ### newdata 
+Method: GET  
+Path: 
+
+**Parameters:**  
+
+**Returns**  
 
 ### shutdown 
+Method: GET  
+Path: 
+
+**Parameters:**  
+
+**Returns**  
