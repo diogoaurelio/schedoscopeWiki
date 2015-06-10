@@ -1,6 +1,26 @@
 # Introduction
 
-Yadayada
+Schedoscope is a scheduling framework for painfree and agile development, testing, (re)loading, and monitoring of your datahub, lake, or whatever you choose to call your Hadoop data warehouse these days.
+
+Based on a slick Scala DSL, 
+
+* defining a partitioned Hive table (called "view") is as simple as:
+
+* defining its dependencies is as simple as:
+
+* specifying its computation logic is as simple as:
+
+* testing it is as simple as:
+
+Running the Schedoscope shell, 
+
+* loading the view is as simple as:
+
+* reloading the view in case its dependencies, structure, or logic has changed is as simple as:
+
+* monitoring what's going on is as simple as:
+
+
 
 # Tutorials
 
