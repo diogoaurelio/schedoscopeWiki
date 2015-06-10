@@ -2,7 +2,9 @@
 
 ## Introduction
 
-Schedoscope is a scheduling framework for painfree and agile development, testing, (re)loading, and monitoring of your datahub, lake, or whatever you choose to call your Hadoop data warehouse these days.
+Schedoscope is a scheduling framework for painfree agile development, testing, (re)loading, and monitoring of your datahub, lake, or whatever you choose to call your Hadoop data warehouse these days.
+
+Schedoscope supports a wide range of options for expressing data transformating, from file operations and MapReduce jobs to Pig scripts, Hive queries, and Oozie workflows.
 
 Based on a concise Scala DSL, 
 
@@ -115,7 +117,25 @@ Running the Schedoscope shell,
 
         materialize -v schedoscope.example.osm.processed/Nodes/2013/06
 
+* monitoring a view's load state is as simple as:
 
+        views -v schedoscope.example.osm.processed/Nodes/2013/06
+        
+        RESULTS
+        =======
+        Details:
+        +------------------------------------------------------------+--------------+-------+
+        |                         VIEW                               |    STATUS    | PROPS |
+        +------------------------------------------------------------+--------------+-------+
+        |            schedoscope.example.osm.processed/Nodes/2013/06 | waiting      |       |
+        | schedoscope.example.osm.processed/NodesWithGeohash/2013/06 | materialized |       |
+        |             schedoscope.example.osm.stage/NodeTags/2013/06 | transforming |       |
+        +------------------------------------------------------------+--------------+-------+
+        Total: 3
+
+        materialized: 1
+        waiting: 1
+        transforming: 1
 
 ## Tutorials
 
