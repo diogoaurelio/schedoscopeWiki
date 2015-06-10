@@ -6,25 +6,25 @@ Based on a concise Scala DSL,
 
 * defining a partitioned Hive table (called "view") is as simple as:
 
-      case class Nodes(
-      year: Parameter[String],
-      month: Parameter[String]) extends View
-      with MonthlyParameterization
-      with Id
-      with PointOccurrence
-      with JobMetadata {
+        case class Nodes(
+          year: Parameter[String],
+          month: Parameter[String]) extends View
+          with MonthlyParameterization
+          with Id
+          with PointOccurrence
+          with JobMetadata {
 
-      val version = fieldOf[Int]
-      val user_id = fieldOf[Int]
-      val longitude = fieldOf[Double]
-      val latitude = fieldOf[Double]
-      val geohash = fieldOf[String]
-      val tags = fieldOf[Map[String, String]]
+          val version = fieldOf[Int]
+          val user_id = fieldOf[Int]
+          val longitude = fieldOf[Double]
+          val latitude = fieldOf[Double]
+          val geohash = fieldOf[String]
+          val tags = fieldOf[Map[String, String]]
 
-      comment("View of nodes with tags and geohash")
+          comment("View of nodes with tags and geohash")
 
-      storedAs(Parquet())
-    }
+          storedAs(Parquet())
+        }
 
 * defining its dependencies is as simple as:
 
