@@ -12,7 +12,7 @@ Method: GET /views/
 Parameters:
 
 - status=[transforming,nodata,materialized,failed,waiting]
--- passing this parameter will restrict the output to views with the given state.
+    passing this parameter will restrict the output to views with the given state.
 - filter=String
 --filter regular expression to filter views to be invalidated (e.g. '?filter=my.database%2F.%2FPartition1%2F.')
 - dependencies=[true|false]
