@@ -3,22 +3,22 @@
 Schedoscope offers a rest api for remote control. The schedoscopeControl shell makes use of this API, but it may be also used to trigger new materializations or notify the scheduler upon the arrival of new data.
 
 ## REST Endpoints
-Currently all requests to schedoscope use method GET. Parameters are passed as URL paramaters, e.g.
+Currently all requests to schedoscope use method GET. Parameters are passed as URL parameters, e.g.
 GET /views/status=transforming
 
 ### views
 List all currently active views. 
-### /views/
-###
-### Parameters
-#### status=[transforming,nodata,materialized,failed,waiting]
-passing this parameter will restrict the output to views with the given state.
-#### filter=String
-filter regular expression to filter views to be invalidated (e.g. '?filter=my.database%2F.%2FPartition1%2F.').
-#### dependencies : Boolean
-if a specific view is requested, setting this to true will also return all dependent views
-#### overview : Boolean
-only return aggregate numbers
+Method: GET /views/ 
+Parameters:
+
+- status=[transforming,nodata,materialized,failed,waiting]
+-- passing this parameter will restrict the output to views with the given state.
+- filter=String
+--filter regular expression to filter views to be invalidated (e.g. '?filter=my.database%2F.%2FPartition1%2F.')
+- dependencies=[true|false]
+-- if a specific view is requested, setting this to true will also return all dependent views
+- overview=[true|false]
+--only return aggregate numbers
 
 ### Returns
      {  
