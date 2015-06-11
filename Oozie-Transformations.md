@@ -57,6 +57,11 @@ Should autodeployment be used - in the default case, this means deployment to `/
 
 # Packaging and Deployment
 
+There are two ways of deploying Oozie workflows triggered by Oozie transformations: automatic and external.
+
+## Automatic deployment
+
+Schedoscope automati
 
 
 # Change detection
