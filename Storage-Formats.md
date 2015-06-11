@@ -33,7 +33,14 @@ The `TextFile` supports various optional parameters that can be used to override
 * `mapKeyTerminator`: character to use to separate keys and values in map-type fields;
 * `lineTerminator`: character to terminate the record.
 
+## Avro
 
+View data can also be stored in Avro format.
+
+    case class Avro(schemaPath: String)
+
+Parameters:
+* `schemaPath`: path to the Avro schema file.
 
 
 # External Storage Formats
