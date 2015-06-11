@@ -42,6 +42,12 @@ View data can also be stored in Avro format.
 Parameters:
 * `schemaPath`: path to the Avro schema file. The path is relative to the view's `avroSchemaPathPrefix`, which defaults to `/hdp/dev/global/datadictionary/schema/avro` for the `dev` environment. This prefix can be changed by setting a different `avroSchemaPathPrefixBuilder` for a view.
 
+## Parquet
+
+View data can also be stored using Parquet:
+    case class Parquet()
+
+
 # External Storage Formats
 
 Schedoscope supports special storage formats used for storing view data outside of HDFS / Hive. With these formats, Schedoscope can also be used to schedule exports of views to targets like CSV files, key-value stores, or relational databases.
