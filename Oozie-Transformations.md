@@ -119,4 +119,8 @@ and an assembly descriptor in `src/main/assemble/oozie.xml` like that
         </fileSets>
     </assembly>
 
+## External
+
+Should your Oozie workflow bundles already have been deployed on the cluster, there deployment folder can just be referenced by the `workflowAppPath` property.
+
 # Change detection
