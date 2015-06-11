@@ -6,7 +6,7 @@ A Schedoscope view represents a Hive table partition, which is stored on HDFS. V
 
 * `locationPath`: the absolute path to the storage location of Hive table to which the partition represented by the view belongs. For a view `v`, `v.location` is the concatenation of `v.moduleLocationPath` and the view's storage name `v.n`. For example, the `locationPath` of the view `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `/hdp/dev/schedoscope/example/osm/processed/nodes_with_geohash` in the default environment `dev`.
 
-* `n`: a view's storage name. The name is derived from the view's class name, lowercasing all characters and adding underscore at camel-case boundaries. For instance, the storage name `n` of `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `nodes_with_geohash`.
+* `n`: a view's storage name. The name is derived from the view's class name by lowercasing all characters and adding underscores at camel-case boundaries. For instance, the storage name `n` of `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `nodes_with_geohash`.
 
 * `moduleLocationPath`: the folder where all Hive tables belonging to a module are stored. The name is derived from a view's package name, prefixing it with `/hdp` and the Schedoscope environment. For example, the `moduleLocationPath` of the view `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `/hdp/dev/schedoscope/example/osm/processed` in the default environment `dev`.
 
