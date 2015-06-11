@@ -1,6 +1,6 @@
 # Summary
 
-With Oozie transformations, one can compute views with Oozie workflows. 
+With Oozie transformations, one can compute views with Oozie workflows. Oozie workflows can be parameterized with `${parameter}; the values for these parameters can be passed using the `.configureWith()` clause.
 
 # Syntax
 
@@ -18,14 +18,45 @@ Oozie transformations take the following parameters:
 
 ## oozieWFAppPath
 
-Schedoscope supports an autodeployment mechanism for Oozie bundles. If that mechanism is used, `workflowAppPath` should point to the correct path used for autodeployment (see below). `oozieWFPath` constructs this path from the `bundle` and `workflow` names of the transformation.
+Schedoscope supports an autodeployment mechanism for Oozie bundles. If that mechanism is used, `workflowAppPath` should point to the HDFS path used for autodeployment (see below). `oozieWFPath` constructs this path from the `bundle` and `workflow` names of the transformation.
 
     def oozieWFPath(bundle: String, workflow: String): String
 
+Parameters:
+
+* `bundle`: logical name for the bundle the workflow belongs to
+* `workflow`: logical name of the workflow
+
 # Examples
 
+The following is an example of an Oozie transformation referencing an already deployed workflow:
+
+    transformVia(() =>
+      OozieTransformation(
+        "osm", "computeNearestTrainstations",
+        "/hdp/dev/osm/oozie/workflows/osm/computeNearestTrainstations"
+      ).configureWith(
+        Map(
+          "jobTracker" -> cluster.getJobTrackerUri(),
+          "nameNode" -> cluster.getNameNodeUri(),
+          "oozie.use.system.libpath" -> "false"
+      ))
+
+Should autodeployment be used - in the default case, this means deployment to `/tmp/schedoscope/oozie/dev/workflows/osm/computeNearestTrainstations` - the transformation can be changed to
+
+    transformVia(() =>
+      OozieTransformation(
+        "osm", "computeNearestTrainstations",
+        oozieWFPath("osm", "computeNearestTrainstations")
+      ).configureWith(
+        Map(
+          "jobTracker" -> cluster.getJobTrackerUri(),
+          "nameNode" -> cluster.getNameNodeUri(),
+          "oozie.use.system.libpath" -> "false"
+      ))
 
 # Packaging and Deployment
+
 
 
 # Change detection
