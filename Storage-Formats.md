@@ -45,6 +45,7 @@ Parameters:
 ## Parquet
 
 View data can also be stored using Parquet:
+
     case class Parquet()
 
 
