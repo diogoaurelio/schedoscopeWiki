@@ -25,7 +25,7 @@ Internal storage formats are used for Hive table storage in HDFS. The following 
 
 With this storage format, view data is stored in the Hive `TEXTFILE` format.
 
-   case class TextFile(val fieldTerminator: String, collectionItemTerminator: String, mapKeyTerminator: String, lineTerminator: String) extends StorageFormat
+    case class TextFile(val fieldTerminator: String, collectionItemTerminator: String, mapKeyTerminator: String, lineTerminator: String) extends StorageFormat
   
 The `TextFile` supports various optional parameters that can be used to override separation characters along the options offered by Hive `TEXTFILE`:
 * `fieldTerminator`: character to use to separate fields;
