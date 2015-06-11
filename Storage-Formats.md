@@ -1,4 +1,27 @@
-# Customizing Storage paths
+Storage formats specify the format in which view data will be stored. Schedoscope distinguishes internal and external storage formats. 
+
+For both kinds of formats, storage is declared using the `storedAs` clause. If not given, the `TextFile` storage format is used.
+
+    def storedAs(f: StorageFormat, additionalStoragePathPrefix: String, additionalStoragePathSuffix: String)
+
+Parameters:
+* `f`: the storage format to use (see below);
+* `additionalStoragePathPrefix`: optional prefix to put before the view's storage name (see description of `locationPathBuilder in the Section "Customizing Storage Paths".
+* `additionalStoragePathSuffix`: optional suffix to put after the view's storage name (see description of `locationPathBuilder in the Section "Customizing Storage Paths".
+
+Examples:
+
+A simple Parquet storage format declaration: 
+    storedAs(Parquet())
+
+A Parquet storage format declaration with an additional storage path prefix:
+    storedAs(Parquet(), additionalStoragePathPrefix="tables")
+
+# Internal Storage Formats
+
+
+
+# Customizing Storage Paths
 
 A Schedoscope view represents a Hive table partition stored in HDFS. Views offer the following properties with regard to their HDFS storage location:
 
