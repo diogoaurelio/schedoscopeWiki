@@ -16,4 +16,4 @@ The builders are as follows and can be replaced by assigning custom functions to
 * `var moduleNameBuilder: () => String`: by default returns the name of a views package.
 * `var moduleLocationPathBuilder: String => String`: for a given environment, the default implementation produces the `moduleLocationPath` using `moduleNameBuilder`.
 * `locationPathBuilder: String => String`: for a given environment, the default builder computes `locationPath` using `moduleLocationPathBuilder` and `n`. The latter will be surrounded by `additionalStoragePathPrefix` and `additionalStoragePathSuffix`, if set.
-* `partitionPathBuilder: () => String`: this builder creates a view's `partitionSpec`. By default, this is the standard Hive `/partitionKey=partitionValue` pattern.
+* `partitionPathBuilder: () => String`: this builder creates a view's `partitionSpec`. By default, this is the standard Hive `/partitionColumn=partitionValue` pattern.
