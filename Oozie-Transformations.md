@@ -18,7 +18,7 @@ Oozie transformations take the following parameters:
 
 ## oozieWFAppPath
 
-Schedoscope supports an autodeployment mechanism for Oozie bundles. If that mechanism is used, `workflowAppPath` should point to the HDFS path used for autodeployment (see below). `oozieWFPath` constructs this path from the `bundle` and `workflow` names of the transformation.
+Schedoscope supports an automatic deployment mechanism for Oozie bundles (see below). If this mechanism is used, `workflowAppPath` should point to the HDFS path used for autodeployment. `oozieWFPath` constructs this path from the `bundle` and `workflow` names of the transformation.
 
     def oozieWFPath(bundle: String, workflow: String): String
 
