@@ -1,4 +1,4 @@
-# Storage paths
+# Customizing Storage paths
 
 A Schedoscope view represents a Hive table partition, which is stored on HDFS. Views offer the following properties referring to their HDFS path:
 
