@@ -42,7 +42,7 @@ The following is an example of an Oozie transformation referencing an already de
           "oozie.use.system.libpath" -> "false"
       ))
 
-Should autodeployment be used - in the default case, this means deployment to `/tmp/schedoscope/oozie/dev/workflows/osm/computeNearestTrainstations` - the transformation can be changed to
+Should automatic deployment be used - in the default case, this means deployment to the HDFS folder `/tmp/schedoscope/oozie/dev/workflows/osm/computeNearestTrainstations` - the transformation can be changed to
 
     transformVia(() =>
       OozieTransformation(
@@ -119,7 +119,7 @@ and an assembly descriptor in `src/main/assemble/oozie.xml` like that
         </fileSets>
     </assembly>
 
-## External
+## External Deployment
 
 Should your Oozie workflow bundles already have been deployed on the cluster, the deployment folder can just be referenced by the `workflowAppPath` property.
 
