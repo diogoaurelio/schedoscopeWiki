@@ -40,8 +40,7 @@ View data can also be stored in Avro format.
     case class Avro(schemaPath: String)
 
 Parameters:
-* `schemaPath`: path to the Avro schema file.
-
+* `schemaPath`: path to the Avro schema file. The path is relative to the view's `avroSchemaPathPrefix`, which defaults to `/hdp/dev/global/datadictionary/schema/avro` for the `dev` environment. This prefix can be changed by setting a different `avroSchemaPathPrefixBuilder` for a view.
 
 # External Storage Formats
 
@@ -67,3 +66,6 @@ These builders are as follows and can be replaced by assigning custom functions 
 * `var moduleLocationPathBuilder: String => String`: for a given environment, the default implementation produces the `moduleLocationPath` using `moduleNameBuilder`.
 * `locationPathBuilder: String => String`: for a given environment, the default builder computes `locationPath` using `moduleLocationPathBuilder` and `n`. The latter will be surrounded by `additionalStoragePathPrefix` and `additionalStoragePathSuffix`, if set.
 * `partitionPathBuilder: () => String`: this builder creates a view's `partitionSpec`. By default, this is the standard Hive `/partitionColumn=partitionValue` pattern.
+
+Moreover, the schema path prefix for the Avro storage format can be changed by assigning a custom function to
+* `avroSchemaPathPrefixBuilder: String => String`: for a given environment `env`, the default implementation produces the path `/hdp/${env}/global/datadictionary/schema/avro`.
