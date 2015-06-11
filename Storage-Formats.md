@@ -10,7 +10,9 @@ A Schedoscope view represents a Hive table partition, which is stored on HDFS. V
 
 * `moduleLocationPath`: the folder where all Hive tables belonging to a module are stored. The name is derived from a view's package name, prefixing it with `/hdp` and the Schedoscope environment. For example, the `moduleLocationPath` of the view `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `/hdp/dev/schedoscope/example/osm/processed` in the default environment `dev`.
 
-The reason why we have introduced the different constituents of `fullPath` above is because these particles are created by anonymous builder functions which can be overridden on a per-view basis. Thus, it is possible to configure different path naming schemes if so desired.
+The reason why we have introduced the different constituents of `fullPath` above is because these particles are created by anonymous builder functions which can be overridden on a per-view basis. Thus, it is possible to implement different path naming schemes if so desired.
 
 The builders are as follows and can be replaced by assigning custom functions to them:
-
+* `var moduleNameBuilder: () => String`: by default returns the name of a views package.
+* `var moduleLocationPathBuilder: String => String`: for a given environment, the default implementation produces the `moduleLocationPath` using `moduleNameBuilder`.
+* `locationPathBuilder: String => String`: for a given environment,
