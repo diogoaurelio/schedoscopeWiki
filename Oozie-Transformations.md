@@ -121,6 +121,7 @@ and an assembly descriptor in `src/main/assemble/oozie.xml` like that
 
 ## External
 
-Should your Oozie workflow bundles already have been deployed on the cluster, there deployment folder can just be referenced by the `workflowAppPath` property.
+Should your Oozie workflow bundles already have been deployed on the cluster, the deployment folder can just be referenced by the `workflowAppPath` property.
 
 # Change detection
+
