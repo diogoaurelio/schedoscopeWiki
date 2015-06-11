@@ -2,7 +2,7 @@ Storage formats specify the format in which view data will be stored. Schedoscop
 
 For both kinds of formats, storage is declared using the `storedAs` clause. In case no `storedAs` clause is given, the `TextFile` storage format is used.
 
-    def storedAs(f: StorageFormat, additionalStoragePathPrefix: String = "" , additionalStoragePathSuffix: String = "")
+    def storedAs(f: StorageFormat, additionalStoragePathPrefix: String, additionalStoragePathSuffix: String)
 
 Parameters:
 * `f`: the storage format to use (see below);
@@ -19,6 +19,26 @@ A Parquet storage format declaration with an additional storage path prefix:
 
 # Internal Storage Formats
 
+Internal storage formats are used for Hive table storage in HDFS. The following are supported:
+
+## TextFile
+
+With this storage format, view data is stored in the Hive `TEXTFILE` format.
+
+  case class TextFile(val fieldTerminator: String, collectionItemTerminator: String, mapKeyTerminator: String, lineTerminator: String) extends StorageFormat
+  
+The `TextFile` supports various optional parameters that can be used to override separation characters along the options offered by Hive `TEXTFILE`:
+* `fieldTerminator`: character to use to separate fields;
+* `collectionItemTerminator`: character to use to separate collection items in collection-typed fields;
+* `mapKeyTerminator`: character to use to separate keys and values in map-type fields;
+* `lineTerminator`: character to terminate the record.
+
+
+
+
+# External Storage Formats
+
+Schedoscope supports special storage formats used for storing view data outside of HDFS / Hive. With these formats, Schedoscope can also be used to schedule exports of views to targets like CSV files, key-value stores, or relational databases.
 
 
 # Customizing Storage Paths
