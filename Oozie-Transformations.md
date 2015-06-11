@@ -1,6 +1,6 @@
 # Summary
 
-With Oozie transformations, one can compute views with Oozie workflows. Oozie workflows can be parameterized with `${parameter}; the values for these parameters can be passed using the `.configureWith()` clause.
+With Oozie transformations, one can compute views with Oozie workflows. Oozie workflows can be parameterized with `${parameter}`-style placeholders; values for these parameters can be passed using the `.configureWith()` clause.
 
 # Syntax
 
