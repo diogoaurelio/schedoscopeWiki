@@ -15,4 +15,5 @@ The reason why we have introduced the different constituents of `fullPath` above
 The builders are as follows and can be replaced by assigning custom functions to them:
 * `var moduleNameBuilder: () => String`: by default returns the name of a views package.
 * `var moduleLocationPathBuilder: String => String`: for a given environment, the default implementation produces the `moduleLocationPath` using `moduleNameBuilder`.
-* `locationPathBuilder: String => String`: for a given environment,
+* `locationPathBuilder: String => String`: for a given environment, the default builder computes `locationPath` using `moduleLocationPathBuilder` and `n`. The latter will be surrounded by `additionalStoragePathPrefix` and `additionalStoragePathSuffix`, if set.
+* `partitionPathBuilder: () => String`: this builder creates a view's `partitionSpec`. By default, this is the standard Hive `partitionKey=partitionValue` pattern.
