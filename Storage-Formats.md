@@ -12,7 +12,7 @@ A Schedoscope view represents a Hive table partition stored in HDFS. Views offer
 
 The reason why we have introduced the different constituents of `fullPath` above is because these particles are created by anonymous builder functions which can be overridden on a per-view basis. Thus, it is possible to implement different path naming schemes if so desired.
 
-The builders are as follows and can be replaced by assigning custom functions to them:
+These builders are as follows and can be replaced by assigning custom functions to them:
 * `var moduleNameBuilder: () => String`: by default returns the name of a views package.
 * `var moduleLocationPathBuilder: String => String`: for a given environment, the default implementation produces the `moduleLocationPath` using `moduleNameBuilder`.
 * `locationPathBuilder: String => String`: for a given environment, the default builder computes `locationPath` using `moduleLocationPathBuilder` and `n`. The latter will be surrounded by `additionalStoragePathPrefix` and `additionalStoragePathSuffix`, if set.
