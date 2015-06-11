@@ -2,7 +2,7 @@ Storage formats specify the format in which view data will be stored. Schedoscop
 
 For both kinds of formats, storage is declared using the `storedAs` clause. In case no `storedAs` clause is given, the `TextFile` storage format is used.
 
-    def storedAs(f: StorageFormat, additionalStoragePathPrefix: String, additionalStoragePathSuffix: String)
+    def storedAs(f: StorageFormat, additionalStoragePathPrefix: String = "" , additionalStoragePathSuffix: String = "")
 
 Parameters:
 * `f`: the storage format to use (see below);
