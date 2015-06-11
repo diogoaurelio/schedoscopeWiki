@@ -61,17 +61,62 @@ There are two ways of deploying Oozie workflows triggered by Oozie transformatio
 
 ## Automatic deployment
 
-Based on the `schedoscope.transformation.oozie.location` and `schedoscope.app.env` configuration properties, Schedoscope automatically uploads jar files on the classpath that end with `-oozie.jar` to the folder constructed as `${schedoscope.transformation.oozie.location}/${schedoscope.app.env}` and unjars it. 
+Based on the `schedoscope.transformation.oozie.location` and `schedoscope.app.env` configuration properties, Schedoscope automatically uploads jar files on the classpath that end with `-oozie.jar` to the HDFS folder constructed as `${schedoscope.transformation.oozie.location}/${schedoscope.app.env}` and unjars it. 
 
 Within the jar, it is expected that the `workflow.xml` of the Oozie workflow resides in:
 
     workflows/${bundle}$/${workflow}/
 
-Any resources for that workflow should reside in:
+Any resources for that workflow - such as library jar files - should reside in:
 
-    workflows/${bundle}$/${workflow}/
+    workflows/${bundle}$/${workflow}/lib
 
+Such an `-oozie.jar` bundle could be created using Maven with the assembly plugin with a plugin descriptor like this
 
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+        <execution>
+            <id>oozie</id>
+            <phase>package</phase>
+            <goals>
+                <goal>single</goal>
+            </goals>
+            <configuration>
+                <descriptor>src/main/assemble/oozie.xml</descriptor>
+            </configuration>
+        </execution>
+    </plugin>
 
+and an assembly descriptor in `src/main/assemble/oozie.xml` like that
+
+    <assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+        <id>oozie</id>
+        <includeBaseDirectory>false</includeBaseDirectory>
+        <formats>
+            <format>jar</format>
+        </formats>
+        <fileSets>
+            <fileSet>
+                <directory>${basedir}/src/main/<path_to_oozie_workflow_xml_files></directory>
+                <outputDirectory>/workflows/<bundle>/<workflow></outputDirectory>
+                <includes>
+                    <include>*/</include>
+                </includes>
+                <filtered>true</filtered>
+            </fileSet>
+            <fileSet>
+                <directory>${basedir}/<path_to_workflow_lib_resources></directory>
+                <outputDirectory>/workflows/<bundle>/<workflow></outputDirectory>
+                <includes>
+                    <include><resource_pattern></include>
+                </includes>
+            </fileSet>
+        </fileSets>
+    </assembly>
 
 # Change detection
