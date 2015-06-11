@@ -61,7 +61,7 @@ There are two ways of deploying Oozie workflows triggered by Oozie transformatio
 
 ## Automatic deployment
 
-Based on its configuration properties, Schedoscope automatically uploads jar files on the classpath that end with `-oozie.jar` to the folder constructed f`${schedoscope.transformation.oozie.location}/${schedoscope.app.env}` and unjars it. 
+Based on the `schedoscope.transformation.oozie.location` and `schedoscope.app.env` configuration properties, Schedoscope automatically uploads jar files on the classpath that end with `-oozie.jar` to the folder constructed as `${schedoscope.transformation.oozie.location}/${schedoscope.app.env}` and unjars it. 
 
 Within the jar, it is expected that the `workflow.xml` of the Oozie workflow resides in:
 
