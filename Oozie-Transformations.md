@@ -125,9 +125,13 @@ Should your Oozie workflow bundles already have been deployed on the cluster, th
 
 # Change detection
 
-In order to automatically determine whether the logic of an Oozie transformation has changed and a view needs rematerialization, Schedoscope's transformation version checksum of Oozie transformations include the following aspects:
+Schedoscope tries to automatically detect changes to Oozie transformation-based views and to initiate rematerialization of views if the tranformation logic has potentially changed.
 
-* the name of each library jar file in the workflow bundle;
+This is achieved by protocoling transformation version checksums with each materialized view in the Hive metastore. If the transformation version checksum differs between the materialized version and the current one, the view is rematerialized.
+
+Schedoscope's Oozie transformation version checksum includes the following aspects:
+
+* the name of each library jar file in the referenced workflow bundle;
 * the checksum of every non-jar file in the workflow bundle.
 
 As a consequence, if you change a library jar and want to trigger rematerialization, you need to change the name of the, e.g., by incrementing a version number.
