@@ -1,10 +1,10 @@
 # Customizing Storage paths
 
-A Schedoscope view represents a Hive table partition, which is stored on HDFS. Views offer the following properties referring to their HDFS path:
+A Schedoscope view represents a Hive table partition stored in HDFS. Views offer the following properties with regard to their HDFS storage location:
 
-* `fullPath`: the absolute path to the folder of the Hive table partition represented by the view.  For a view `v`, `v.fullpath`is the concatenation of `v.locationPath` and `v.partitionSpec`. For example, the `fullPath` of the view `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `/hdp/dev/schedoscope/example/osm/processed/nodes_with_geohash/year=2013/month=12` in the default environment `dev`.
+* `fullPath`: the absolute path to the folder of the Hive table partition represented by the view.  For example, the `fullPath` of the view `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `/hdp/dev/schedoscope/example/osm/processed/nodes_with_geohash/year=2013/month=12` in the default environment `dev`. For a view `v`, `v.fullpath`is the concatenation of `v.locationPath` and `v.partitionSpec`.
 
-* `locationPath`: the absolute path to the storage location of Hive table to which the partition represented by the view belongs. For a view `v`, `v.location` is the concatenation of `v.moduleLocationPath` and the view's storage name `v.n`. For example, the `locationPath` of the view `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `/hdp/dev/schedoscope/example/osm/processed/nodes_with_geohash` in the default environment `dev`.
+* `locationPath`: the absolute path to the storage location of Hive table to which the partition represented by the view belongs. For example, the `locationPath` of the view `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `/hdp/dev/schedoscope/example/osm/processed/nodes_with_geohash` in the default environment `dev`.  For a view `v`, `v.location` is the concatenation of `v.moduleLocationPath` and the view's storage name `v.n`.
 
 * `n`: a view's storage name. The name is derived from the view's class name by lowercasing all characters and adding underscores at camel-case boundaries. For instance, the storage name `n` of `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `nodes_with_geohash`.
 
