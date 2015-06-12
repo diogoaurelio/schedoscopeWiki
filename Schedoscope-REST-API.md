@@ -10,7 +10,11 @@ GET /views/status=transforming
 List all currently active views  
 
 Method: GET  
-Path: /views/   
+Path: /views/  
+or  
+Path: /views/[ViewUrlPath]  
+
+if a ViewUrlPath is given, only the specified View (with Parametrization) is returned
 
 **Parameters:**  
 
@@ -44,7 +48,8 @@ Path: /views/
 
 ### actions 
 Method: GET  
-Path: 
+Path:  /actions
+
 
 **Parameters:**  
 
@@ -55,6 +60,9 @@ Method: GET
 Path: 
 
 **Parameters:**  
+- filter=String  
+    filter regular expression to filter views to be invalidated (e.g. '?filter=my.database%2F.%2FPartition1%2F.')
+
 
 **Returns**  
 
