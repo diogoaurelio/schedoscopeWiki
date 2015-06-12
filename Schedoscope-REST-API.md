@@ -82,6 +82,10 @@ Path:
 **Returns**  
 
 ### materialize 
+Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksums.
+
+The materialization command ID is returned as a result.
+
 Method: GET  
 Path: /views/`ViewUrlPath`  
 
@@ -92,7 +96,7 @@ Path: /views/`ViewUrlPath`
 
 ### invalidate
 Method: GET  
-Path: /views/`ViewUrlPath`  
+Path: /invalidate/`ViewUrlPath`  
 
 
 **Parameters:**  
@@ -101,12 +105,21 @@ Path: /views/`ViewUrlPath`
 
 
 ### newdata 
+**NOT YET IMPLEMENTED**
+newdata allows schedoscope to operate in push mode. E.g. flume can signal the arrival of new data for a view by calling this endpoint. Subsequently schedoscope will recalculate all views that depend on the new/changed data
+
 Method: GET  
-Path: 
+Path: /newdata/`ViewUrlPath`
+
 
 **Parameters:**  
+none
 
 **Returns**  
+
+{
+  
+}
 
 ### shutdown 
 Method: GET  
