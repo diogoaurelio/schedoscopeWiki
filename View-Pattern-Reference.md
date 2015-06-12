@@ -22,7 +22,7 @@ For parameterized views, there is one additional path segment with the value for
 - everything else: a string parameter value
 
 Examples:
-
+    
     example.datamart/SearchExport/SHOP10/2015/05
     example.datamart/ViewHavingAStringIntFloatBooleanAndSomeNullParameter/SHOP10/i(2015)/f(5.23)/t(true)/null()
 
