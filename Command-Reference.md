@@ -107,10 +107,18 @@ Examples:
     |        /user/root/actions/pig-40 |   idle |         |      |             |       |
     ...
 
-   actions -f 
+   actions -f .*hive.*
+
+    +----------------------------------+--------+---------+------+-------------+-------+
+    |               ACTOR              | STATUS | STARTED | DESC | TARGET_VIEW | PROPS |
+    +----------------------------------+--------+---------+------+-------------+-------+
+    |       /user/root/actions/hive-40 |   idle |         |      |             |       |
+    |       /user/root/actions/hive-41 |   idle |         |      |             |       |
+    ...   
     
 
 ### queues 
+
 list queued actions
 - -t,--typ filter queued actions by their type (e.g. 'oozie', 'filesystem', ...)
 - -f, --filter regular expression to filter queued actions (e.g. '.*my.dabatase/myView.*'). 
