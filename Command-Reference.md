@@ -1,5 +1,21 @@
+# Introduction
+
+Schedoscope can be controlled with scheduling commands. There are two means of issuing these commands:
+
+* using the Schedoscope shell command prompt opening when Schedoscope is not launched as a daemon;
+* using the Schedoscope REST client based on the [REST API](Schedoscope REST API) 
+
 ## Schedoscope Shell
-Schedoscope can be controlled by a command line shell. This shell is accessible when schedoscope is not started as a daemon or by using the schedoscopeControl.sh script.
+
+Schedoscope can be controlled by a command line shell. This shell is accessible when Schedoscope launched as a REST service with the main method in object `org.schedoscope.scheduler.api.SchedoscopeRestService` passing it the `--shell` option.
+
+For example: 
+
+    java -cp ${MY_SCHEDOSCOPE_CP} -Dlogback.configurationFile=${MY_SCHEDOSCOPE_FOLDER}/eci-logging.xml -Dconfig.file=${MY_SCHEDOSCOPE_FOLDER}/schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService --shell
+
+## Schedoscope REST Client
+
+
 
 ### views
 lists all view actors, along with their status"
