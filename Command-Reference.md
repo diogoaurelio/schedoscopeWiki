@@ -90,7 +90,7 @@ Examples:
 
 ### actions 
 
-`actions` lists status of all action actors, i.e., actors that drive transformations.
+`actions` lists status of all action actors, i.e., those actors that execute transformations.
 
 Supported options:
 - `-s`, `--status`: filter actions by their status (e.g. 'queued, running, idle')
@@ -156,6 +156,7 @@ Examples:
     invalidate -v  app.eci.datamart/SearchExport/SHOP10/2015/05 -d
 
 ### queues 
+
 list queued actions
 - -t,--typ filter queued actions by their type (e.g. 'oozie', 'filesystem', ...)
 - -f, --filter regular expression to filter queued actions (e.g. '.*my.dabatase/myView.*'). 
