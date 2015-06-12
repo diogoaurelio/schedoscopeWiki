@@ -12,7 +12,7 @@ List all currently active views
 Method: GET  
 Path: /views/  
 or  
-Path: /views/[ViewUrlPath]  
+Path: /views/`ViewUrlPath`  
 
 if a ViewUrlPath is given, only the specified View (with Parametrization) is returned
 
@@ -47,6 +47,10 @@ if a ViewUrlPath is given, only the specified View (with Parametrization) is ret
 
 
 ### actions 
+
+actions lists the status of all actions, i.e., executing transformations.
+
+
 Method: GET  
 Path:  /actions
 
@@ -57,11 +61,13 @@ Path:  /actions
 
 ### queues 
 Method: GET  
-Path: 
+Path: /queues
 
 **Parameters:**  
+- typ=String  
+    filter by transformation type (e.g. oozie,hive,mapreduce,filesystem,morphline,pig)
 - filter=String  
-    filter regular expression to filter views to be invalidated (e.g. '?filter=my.database%2F.%2FPartition1%2F.')
+    filter regular expression (e.g. '?filter=my.database%2F.%2FPartition1%2F.')
 
 
 **Returns**  
@@ -77,7 +83,8 @@ Path:
 
 ### materialize 
 Method: GET  
-Path: 
+Path: /views/`ViewUrlPath`  
+
 
 **Parameters:**  
 
@@ -85,7 +92,8 @@ Path:
 
 ### invalidate
 Method: GET  
-Path: 
+Path: /views/`ViewUrlPath`  
+
 
 **Parameters:**  
 
