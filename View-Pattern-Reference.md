@@ -32,6 +32,7 @@ View URL paths can not only address individual views but also collections of vie
 - `rymd(yyyyMMdd-yyyyMMdd)`:a range of `DailyParameterization`s between two days (inclusive)
 
 Examples:
+    
     example.datamart/SearchExport/SHOP10/ym(201505-201410)
     example.stage/RawData/SHOP10/ymd(20150501-20141015)
 
