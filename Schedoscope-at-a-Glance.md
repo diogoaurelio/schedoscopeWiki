@@ -76,8 +76,8 @@ Based on Schedoscope's DSL,
           val geohash = fieldOf[String]
           val tags = fieldOf[Map[String, String]]
 
-          dependsOn(() => NodesWithGeohash(year, month))
-          dependsOn(() => NodeTags(year, month))
+          dependsOn(() => NodesWithGeohash(p(year), p(month)))
+          dependsOn(() => NodeTags(p(year), p(month)))
 
           transformVia(() =>
             HiveTransformation(
