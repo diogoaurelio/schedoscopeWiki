@@ -1,4 +1,4 @@
-Based on Schedoscope's DSL, 
+With Schedoscope's DSL, 
 
 * defining a partitioned Hive table (called "view") is as simple as:
 
