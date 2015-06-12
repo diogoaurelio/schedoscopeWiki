@@ -1,16 +1,27 @@
-Path format: /{package}/{view}(/{view parameter value})*
+Schedoscope commands address views by URL paths. View URL paths have the following format:
 
-View parameter value format:
-  i(aNumber)                    => an integer
-  l(aNumber)                    => a long
-  b(aNumber)                    => a byte
-  t(true)|t(false)              => a boolean
-  f(aFloat)                     => a float
-  d(aDouble)                    => a double
-  ym(yyyyMM)                    => a MonthlyParameterization
-  ymd(yyyyMMdd)                 => a DailyParameterization
-  null()                        => null
-  everything else               => a string
+    /{package}/{view}(/{view parameter value})*
+
+Thus, the first path segment is the Scala package the view resides in, the second segment the name of the view. 
+
+Example:
+
+    /example.datamart/ShopLookup
+
+For parameterized views, there is one additional path segment with the value for each parameter. Depending on the type of the respective parameter, values are encoded as follows:
+
+- `i(aNumber)`: an integer parameter value
+- `l(aNumber)`: a long parameter value
+- `b(aNumber)`: a byte parameter value
+- `t(true)`, `t(false)`: a boolean parameter value
+- `f(aFloat)`: a float parameter value
+- `d(aDouble)`: a double parameter value
+- `ym(yyyyMM)`: a `MonthlyParameterization`
+- `ymd(yyyyMMdd)`: a `DailyParameterization`
+- `null()`: a null parameter value
+- everything else: a string parameter value
+
+
 
 Ranges on view parameter values:
   rym(yyyyMM-yyyyMM)            => all MonthlyParameterizations between the first (earlier) and the latter (later)
