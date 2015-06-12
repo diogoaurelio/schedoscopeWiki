@@ -1,6 +1,10 @@
 Schedoscope is an internal Scala DSL for specifying views (Hive table partitions), their structure, dependencies, and transformation logic required compute their data from other views. As a consequence, setting up a Schedoscope project means setting up a Scala project that uses Schedoscope as a library. 
 
-For this purpose, we provide a Maven POM template. It is of course possible to use other build tools such as SBT or Ant/Ivy. You are also encouraged to look at the POM of the tutorial.
+For this purpose, we provide a Maven POM template in this section. It is of course possible to use other build tools such as SBT or Ant/Ivy. You are also encouraged to look at the POM of the tutorial.
+
+
+
+# Maven POM Template
 
     <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
