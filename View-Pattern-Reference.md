@@ -39,6 +39,7 @@ Enumerations are also supported, even enumerations of ranges:
 -  `e{constructor parameter value format}`({aValue},{anotherValue})`: enumerate multiple values for a given view parameter value format.
 
 Examples:
+
     ei(1,2,3)                          => an enumeration of integer view parameters 
     e(aString, anotherString)          => an enumeration of string view parameters 
     eymd(yyyyMM,yyyMM)                 => an enumeration of MonthlyParameterizations
