@@ -173,9 +173,9 @@ As a reminder, the Maven project folder structure looks like this:
     |   |   +-- resources
     |   |
     |   +-- test
-    |   |   |
-    |   |   +-- scala
-    |   |   |
-    |   |   +-- resources
+    |       |
+    |       +-- scala
+    |       |
+    |       +-- resources
     |   
     +-- pom.xml
