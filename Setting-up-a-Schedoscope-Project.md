@@ -2,7 +2,7 @@ Schedoscope is an internal Scala DSL for specifying views (Hive table partitions
 
 For this purpose, we provide a Maven POM template in this section. It is of course possible to use other build tools such as SBT or Ant/Ivy. You are also encouraged to look at the POM of the tutorial.
 
-
+Please note that in a real-world deployment scenario, 
 
 # Maven POM Template
 
