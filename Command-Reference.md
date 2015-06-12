@@ -118,7 +118,9 @@ Examples:
     
 ### materialize 
 
-Materialize view(s). The materialization command ID is returned as a result.
+Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksum. 
+
+The materialization command ID is returned as a result.
 
 Supported options:
 - `-s`, `--status <status>`: materialize all views that have a given status (e.g. 'failed')
