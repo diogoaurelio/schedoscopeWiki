@@ -73,6 +73,20 @@ Path: /queues
 **Returns**  
 
 
+	{  
+       "overview": {  
+        "hive": 1  
+        "oozie" : 1  
+      },  
+      "queues": [{  
+        "typ": "oozie",  
+       
+      }, {  
+        "typ": "oozie",  
+ 
+      }]  
+    }  
+
 ### commands 
 Method: GET  
 Path: 
