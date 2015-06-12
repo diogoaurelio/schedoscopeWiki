@@ -7,7 +7,7 @@ Schedoscope can be controlled with scheduling commands. There are two means of i
 
 ## Schedoscope Shell
 
-Schedoscope can be controlled by a command line shell. This shell is accessible when Schedoscope launched as a REST service with the main method in object `org.schedoscope.scheduler.api.SchedoscopeRestService` passing it the `--shell` option.
+Schedoscope can be controlled by a command line shell. This shell is accessible when Schedoscope is launched as a REST service with the main method in class`org.schedoscope.scheduler.api.SchedoscopeRestService` passing it the `--shell` option.
 
 For example: 
 
