@@ -28,13 +28,18 @@ For this work, the configuration properties
 
 must point to the running Schedoscope REST service
 
+# Commands
+
 ### views
-lists all view actors, along with their status"
-- -s, --status filter views by their status (e.g. 'transforming')"
-- -v, --viewUrlPathview url path (e.g. 'my.database/MyView/Partition1/Partition2'). 
-- -f, --filterregular expression to filter view display (e.g. 'my.database/.*/Partition1/.*'). "
-- -d, --dependencies include dependencies
-- -o, --overview show only overview, skip individual views
+
+`views` lists instantiated views, along with their status.
+
+Supported options:
+- `-s`, `--status`: filter views by their status (e.g. 'transforming')
+- `-v`, `--viewPattern <viewPattern>`: select only views with URL paths matching a [view pattern](View Pattern Reference)  (e.g. `my.database/MyView/Partition1/Partition2`)
+- `-f`, `--filterregular <regex>`: select only views with URL paths matching a regular expression (e.g. `my.database/.*/Partition1/.*`)
+- `-d`, `--dependencies`: include dependencies in this view list
+- `-o`, `--overview`: only show a count of views by status
 
 
 ### actions 
