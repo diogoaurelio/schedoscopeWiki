@@ -118,7 +118,7 @@ Examples:
     
 ### materialize 
 
-Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksum. 
+Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksums. 
 
 The materialization command ID is returned as a result.
 
