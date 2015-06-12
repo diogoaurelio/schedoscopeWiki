@@ -32,7 +32,7 @@ must point to the running Schedoscope REST service
 
 ### views
 
-`views` lists all instantiated views, along with their status.
+`views` lists all instantiated views along with their status.
 
 Supported options:
 - `-s`, `--status <status>`: filter views by their status (e.g. 'transforming')
@@ -90,11 +90,11 @@ Examples:
 
 ### actions 
 
-`actions` lists status of all action actors, i.e., those actors that execute transformations.
+`actions` lists the status of all actions, i.e., executing transformations.
 
 Supported options:
-- `-s`, `--status`: filter actions by their status (e.g. 'queued, running, idle')
-- `-f`, `--filter <regex>: filter action by regular expression (e.g. '.*hive-1.*'). 
+- `-s`, `--status`: filter actions by status (e.g. 'queued, running, idle')
+- `-f`, `--filter <regex>: filter actions by regular expression (e.g. '.*hive-1.*'). 
 
 Examples:
 
@@ -152,7 +152,7 @@ Examples:
 
 ### invalidate
 
-Invalidate previously computed view(s) to enforce rematerialization upon the next materialize command.
+Invalidate previously computed view(s) to enforce rematerialization upon the next materialize command. The invalidate command ID is returned as the result.
 
 Supported options:
 - `-s`, `--status <status>`: invalidate all views that have a given status (e.g. 'failed')
