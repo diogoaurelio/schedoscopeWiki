@@ -167,7 +167,7 @@ Basic options are:
     </project> 
 
 
-As a reminder, the Maven project folder structure looks like this:
+As a reminder, a Maven project folder structure looks like this:
 
     project
     |
