@@ -36,11 +36,14 @@ must point to the running Schedoscope REST service
 
 Supported options:
 - `-s`, `--status`: filter views by their status (e.g. 'transforming')
-- `-v`, `--viewPattern <viewPattern>`: select only views with URL paths matching a [view pattern](View Pattern Reference)  (e.g. `my.database/MyView/Partition1/Partition2`)
-- `-f`, `--filterregular <regex>`: select only views with URL paths matching a regular expression (e.g. `my.database/.*/Partition1/.*`)
+- `-v`, `--viewPattern <viewPattern>`: select only views with URL paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
+- `-f`, `--filterregular <regex>`: select only views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`)
 - `-d`, `--dependencies`: include dependencies in this view list
 - `-o`, `--overview`: only show a count of views by status
 
+Examples:
+
+    views -o
 
 ### actions 
 list status of currently action executors
