@@ -4,7 +4,9 @@ For this purpose, we provide a Maven POM template in this section. It is of cour
 
 For running Schedoscope, the template utilizes the Exec Maven plugin which assembles a classpath from the Maven dependencies and launches the Schedoscope REST service right from the project folder. 
 
-In real-world production deploy scenarios, you should probably follow a different deployment / bundling strategy. Options here are:
+In real-world production deploy scenarios, you should probably follow a different deployment / bundling strategy. 
+
+Basic options are:
 - create and distribute a fat jar using the Maven assembly plugin;
 - copy all jars into a separate deployment directory using the Maven dependency plugin, create a shell scripts that constructs the classpath and launches the application, and distribute that folder.
 
