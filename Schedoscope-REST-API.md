@@ -2,9 +2,16 @@
 
 Schedoscope offers a rest api for remote control. The schedoscopeControl shell makes use of this API, but it may be also used to trigger new materializations or notify the scheduler upon the arrival of new data.
 
+
+
 ## REST Methods
 Currently all requests to schedoscope use method GET. Parameters are passed as URL parameters, e.g.
-GET /views/status=transforming
+GET /views?status=transforming
+
+## View Url Path Specification 
+Schedoscope views are referenced by their name and their parameters. For easy specification of Views
+and view ranges, Schedoscope offers a special view specification language named ViewUrl
+* [ViewUrlSpecification](Specification of ViewUrls)
 
 #### views
 List all currently active views  
@@ -18,7 +25,7 @@ if a ViewUrlPath is given, only the specified View (with Parametrization) is ret
 
 **Parameters:**  
 
-- status=[transforming,nodata,materialized,failed,waiting]  
+- status=\[transforming,nodata,materialized,failed,waiting\]  
     passing this parameter will restrict the output to views with the given state.
 - filter=String  
     filter regular expression to filter views to be invalidated (e.g. '?filter=my.database%2F.%2FPartition1%2F.')
@@ -87,13 +94,18 @@ Path: /queues
       }]  
     }  
 
-### commands 
+### commands
+
+List available API-Endpoints 
 Method: GET  
-Path: 
+Path: /commands
 
 **Parameters:**  
 
 **Returns**  
+  
+	{
+		
 
 ### materialize 
 Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksums.
