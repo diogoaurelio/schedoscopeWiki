@@ -2,7 +2,7 @@ Schedoscope is an internal Scala DSL for specifying views (Hive table partitions
 
 For this purpose, we provide a Maven POM template in this section. It is of course possible to use other build tools such as SBT or Ant/Ivy. You are also encouraged to look at the POM of the tutorial.
 
-Please note that in a real-world deployment scenario, 
+For running Schedoscope, the template utilizes the Exec Maven plugin which assembles a classpath from the Maven dependencies. In real-world production deploy scenarios, you should probably follow a different deployment strategy. 
 
 # Maven POM Template
 
@@ -158,3 +158,24 @@ Please note that in a real-world deployment scenario,
             </repository>
         </repositories>
     </project> 
+
+
+As a reminder, the Maven project folder structure looks like this:
+
+    project
+    |
+    +-- src
+    |   |
+    |   +-- main
+    |   |   |
+    |   |   +-- scala
+    |   |   |
+    |   |   +-- resources
+    |   |
+    |   +-- test
+    |   |   |
+    |   |   +-- scala
+    |   |   |
+    |   |   +-- resources
+    |   
+    +-- pom.xml
