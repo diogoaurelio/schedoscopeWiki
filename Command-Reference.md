@@ -45,12 +45,48 @@ Examples:
 
     views -o
 
-    RESULTS
-    =======
     materialized: 94788
-    receive: 2
+    waiting: 2
     nodata: 49736
 
+    views -s waiting
+
+    Details:
+    +----------------------------------------------+---------+-------+
+    |                     VIEW                     |  STATUS | PROPS |
+    +----------------------------------------------+---------+-------+
+    | example.datamart/SearchExport/SHOP10/2015/05 | waiting |       |
+    |               example.datahub/Search/2015/04 | waiting |       |
+    +----------------------------------------------+---------+-------+
+
+    views -v example.datamart/SearchExport/EC0601/2015/05
+
+    Details:
+    +----------------------------------------------+---------+-------+
+    |                     VIEW                     |  STATUS | PROPS |
+    +----------------------------------------------+---------+-------+
+    | example.datamart/SearchExport/SHOP10/2015/05 | waiting |       |
+    +----------------------------------------------+---------+-------+
+
+    views -d -v example.datamart/SearchExport/EC0601/2015/05
+
+    Details:
+    +----------------------------------------------+--------------+-------+
+    |                     VIEW                     |    STATUS    | PROPS |
+    +----------------------------------------------+--------------+-------+
+    | app.eci.datamart/SearchExport/SHOP10/2015/05 | waiting      |       |
+    |               example.datahub/Search/2015/05 | waiting      |       |
+    |                example.datahub/Event/2015/05 | transforming |       |
+    +----------------------------------------------+--------------+-------+
+    
+    views -f *.datamart/.*/2015/05
+   
+    +----------------------------------------------------+--------------+-------+
+    |                        VIEW                        |    STATUS    | PROPS |
+    +----------------------------------------------------+--------------+-------+
+    |     example.datamart/AffinityFeatureMatrix/2015/05 | materialized |       |
+    |       example.datamart/SearchExport/SHOP10/2015/05 |      receive |       |
+    +----------------------------------------------------+--------------+-------+
 
 ### actions 
 list status of currently action executors
