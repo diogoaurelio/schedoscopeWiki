@@ -123,7 +123,7 @@ Materialize view(s). The materialization command ID is returned as a result.
 Supported options:
 - `-s`, `--status <status>`: materialize all views that have a given status (e.g. 'failed')
 - `-v`, `--viewPattern <viewPattern>`: materialize all views with URL paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
-- `-m`, `--mode RESET_TRANSFORMATION_CHECKSUMS`: ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations without changing the logic.
+- `-m`, `--mode RESET_TRANSFORMATION_CHECKSUMS`: ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations in way that does not require recomputation.
 
 Examples:
 
