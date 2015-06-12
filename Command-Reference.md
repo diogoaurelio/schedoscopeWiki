@@ -45,6 +45,13 @@ Examples:
 
     views -o
 
+    RESULTS
+    =======
+    materialized: 94788
+    receive: 2
+    nodata: 49736
+
+
 ### actions 
 list status of currently action executors
 - -s, --status filter actions by their status (e.g. 'queued, running, idle')
