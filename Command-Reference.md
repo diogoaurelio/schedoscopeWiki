@@ -32,7 +32,7 @@ must point to the running Schedoscope REST service
 
 ### views
 
-`views` lists instantiated views, along with their status.
+`views` lists all instantiated views, along with their status.
 
 Supported options:
 - `-s`, `--status`: filter views by their status (e.g. 'transforming')
@@ -89,9 +89,26 @@ Examples:
     +----------------------------------------------------+--------------+-------+
 
 ### actions 
-list status of currently action executors
-- -s, --status filter actions by their status (e.g. 'queued, running, idle')
-- -f, --filter regular expression to filter action display (e.g. '.*hive-1.*'). 
+
+`actions` lists status of all action actors, i.e., actors that drive transformations.
+
+Supported options:
+- `-s`, `--status`: filter actions by their status (e.g. 'queued, running, idle')
+- `-f`, `--filter <regex>: filter action by regular expression (e.g. '.*hive-1.*'). 
+
+Examples:
+
+    actions -s idle
+
+    +----------------------------------+--------+---------+------+-------------+-------+
+    |               ACTOR              | STATUS | STARTED | DESC | TARGET_VIEW | PROPS |
+    +----------------------------------+--------+---------+------+-------------+-------+
+    |     /user/root/actions/oozie-154 |   idle |         |      |             |       |
+    |        /user/root/actions/pig-40 |   idle |         |      |             |       |
+    ...
+
+   actions -f 
+    
 
 ### queues 
 list queued actions
