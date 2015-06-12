@@ -1,5 +1,7 @@
 # Open Street Map Tutorial
 
+_**This Tutorial is under construction.**_
+
 This Tutorial can be used without your own having a hadoop cluster at hand. For testing the examples on your own cluster please read section [[Adaptation|Open Street Map Tutorial##Adaptation and Extension]].
 
 ## Installation
