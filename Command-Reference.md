@@ -35,7 +35,7 @@ must point to the running Schedoscope REST service
 `views` lists all instantiated views, along with their status.
 
 Supported options:
-- `-s`, `--status`: filter views by their status (e.g. 'transforming')
+- `-s`, `--status <status>`: filter views by their status (e.g. 'transforming')
 - `-v`, `--viewPattern <viewPattern>`: select only views with URL paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
 - `-f`, `--filterregular <regex>`: select only views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`)
 - `-d`, `--dependencies`: include dependencies in this view list
@@ -116,9 +116,46 @@ Examples:
     |       /user/root/actions/hive-41 |   idle |         |      |             |       |
     ...   
     
+### materialize 
+
+Materialize view(s).
+
+Supported options:
+- `-s`, `--status <status>`: materialize all views that have a given status (e.g. 'failed')
+- `-v`, `--viewPattern <viewPattern>`: materialize all views with URL paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
+- `-m`, `--mode RESET_TRANSFORMATION_CHECKSUMS`: ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations without changing the logic.
+
+Examples:
+
+    materialize -s failed
+
+    materialize -v  app.eci.datamart/SearchExport/SHOP10/2015/05
+
+    materialize -v  app.eci.datamart/SearchExport/e(SHOP10,SHOP11)/rym(201505-201410)
+
+    materialize -v  app.eci.datamart/SearchExport/SHOP10/2015/05 -m RESET_TRANSFORMATION_CHECKSUMS
+
+### invalidate
+
+Invalidate previously computed view(s) to enforce rematerialization upon the next materialize command.
+
+Supported options:
+- `-s`, `--status <status>`: invalidate all views that have a given status (e.g. 'failed')
+- `-v`, `--viewPattern <viewPattern>`: invalidate all views with URL paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
+- `-f`, `--filterregular <regex>`: invalidate all views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`)
+- `-d`, `--dependencies`: invalidate the dependencies of the views as well
+
+Examples:
+
+    invalidate -s failed
+
+    invalidate -v  app.eci.datamart/SearchExport/SHOP10/2015/05
+
+    invalidate -v  app.eci.datamart/SearchExport/e(SHOP10,SHOP11)/rym(201505-201410)
+
+    invalidate -v  app.eci.datamart/SearchExport/SHOP10/2015/05 -d
 
 ### queues 
-
 list queued actions
 - -t,--typ filter queued actions by their type (e.g. 'oozie', 'filesystem', ...)
 - -f, --filter regular expression to filter queued actions (e.g. '.*my.dabatase/myView.*'). 
@@ -127,26 +164,3 @@ list queued actions
 list commands 
 - -s, --status filter commands by their status (e.g. 'failed')
 - -f, --filter regular expression to filter command display (e.g. '.*201501.*'). 
-
-### materialize 
-materialize view(s)
-- -s, --status filter views to be materialized by their status (e.g. 'failed')
-- -v, --viewUrlPath view url path (e.g. 'my.database/MyView/Partition1/Partition2'). 
-- -f, --filter regular expression to filter views to be materialized (e.g. 'my.database/.*/Partition1/.*'). 
-- -m, --mode materializatio mode. Supported modes are currently 'RESET_TRANSFORMATION_CHECKSUMS'"
-
-### invalidate
-invalidate view(s)")
-- -s, --status filter views to be invalidated by their status (e.g. 'transforming')
-- -v, --viewUrlPath  view url path (e.g. 'my.database/MyView/Partition1/Partition2'). 
-- -f, --filter regular expression to filter views to be invalidated (e.g. 'my.database/.*/Partition1/.*'). 
-- -d, --dependencies invalidate dependencies as well
-
-### newdata 
-notify schedoscope about newly arrived data
-- -s, --status filter views to send 'newdata' to by their status (e.g. 'failed')
-- -v, --viewUrlPath  view url path (e.g. 'my.database/MyView/Partition1/Partition2'). 
-- -f, --filter regular expression to filter views to send 'newdata' to (e.g. 'my.database/.*/Partition1/.*'). 
-
-### shutdown 
-shutdown program
