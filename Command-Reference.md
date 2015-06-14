@@ -32,7 +32,7 @@ must point to the running Schedoscope REST service
 
 Schedoscope views are referenced by their name and their parameters. For easy specification of Views
 and view ranges, Schedoscope offers a special view specification language named ViewUrl
-* [Specification of View Urls](ViewUrlSpecification)
+* [Specification of View Urls](View-Pattern-Reference)
 # Commands
 
 ### views

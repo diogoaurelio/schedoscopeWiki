@@ -65,6 +65,10 @@ Path:  /actions
 **Parameters:**  
 
 **Returns**  
+	{
+		
+	}
+
 
 ### queues 
 Method: GET  
@@ -94,19 +98,6 @@ Path: /queues
       }]  
     }  
 
-### commands
-
-List available API-Endpoints 
-Method: GET  
-Path: /commands
-
-**Parameters:**  
-
-**Returns**  
-  
-	{
-		
-
 ### materialize 
 Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksums.
 
@@ -118,16 +109,38 @@ Path: /views/`ViewUrlPath`
 
 **Parameters:**  
 
+- `status=<status>`: materialize all views that have a given status (e.g. 'failed')
+- `mode=RESET_TRANSFORMATION_CHECKSUMS`: ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations in way that does not require recomputation.
+
+
 **Returns**  
 
+	{
+        "view": "schedoscope.example.osm/Stage/2015/01",  
+        "status": "transforming"   
+	}
+	
 ### invalidate
 Method: GET  
 Path: /invalidate/`ViewUrlPath`  
 
 
 **Parameters:**  
+- `status=<status>`: invalidate all views that have a given status (e.g. 'failed')
+- `viewPattern=viewPattern>`: invalidate all views with URL paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
+- `=filterregular=<regex>`: invalidate all views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`)
+- `dependencies=true`: invalidate the dependencies of the views as well
 
 **Returns**  
+	{
+      "views": [{  
+        "view": "example.osm/Stage/2015/01",  
+        "status": "nodata"  
+      }, {  
+        "view": "example.osm/Stage/2015/02",  
+        "status": "materializes"  
+      }]  		
+	}
 
 
 ### newdata 
