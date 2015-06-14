@@ -1,6 +1,6 @@
 ## Introduction
 
-Schedoscope offers a rest api for remote control. The schedoscopeControl shell makes use of this API, but it may be also used to trigger new materializations or notify the scheduler upon the arrival of new data.
+Schedoscope offers a REST api for remote control. The schedoscopeControl shell makes use of this API, but it may be also used to trigger new materializations or notify the scheduler upon the arrival of new data.
 
 
 
@@ -11,7 +11,7 @@ GET /views?status=transforming
 ## View Url Path Specification 
 Schedoscope views are referenced by their name and their parameters. For easy specification of Views
 and view ranges, Schedoscope offers a special view specification language named ViewUrl
-* [Specification of View Urls](ViewUrlSpecification)
+* [Specification of View Urls](View-Pattern-Reference)
 
 #### views
 List all currently active views  
