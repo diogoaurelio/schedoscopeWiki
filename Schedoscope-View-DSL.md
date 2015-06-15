@@ -35,4 +35,4 @@ The package and view name are used to create the Hive table name `tableName` by 
 
 * `n`: lowercase all characters, adding `_` at camel-case boundaries. In the example, that would be `brand`.
 
-As a consequence, the full table name for the example view in the default environment dev is `dev_test_module.brand`. 
+As a consequence, the default full table name for the example view in the default environment `dev` is `dev_test_module.brand`. 
