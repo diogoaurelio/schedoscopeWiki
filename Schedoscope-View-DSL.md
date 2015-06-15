@@ -212,15 +212,17 @@ When instantiating a parameterized view, one needs to pass it parameter values. 
     val brandsTodayForShop101 = Brand(p("101"), p("2014"), p("12"), p("04"))
     val brandsForDifferentShopAtDifferentDate = Brand(p("0601"), p("2014"), p("10"), p("24"))
     
-## Storage Format
+## Storage Formats
 
 The storage format Hive is supposed to use to materialize views can be specified using storedAs() and passing it a storage format.
 
-The following storage formats are currently supported (more information [here](Storage Formats)):
+The following storage formats are currently supported:
 
 * `TextFile()`: This represents the TEXTFILE format. fieldTerminators etc. can be adjusted from the defaults if need be;
 * `Parquet()`: The parquet file format.
 * `Avro():` Avro. Requires an HDFS path to where the schema file is located. Note that the schema file is not parsed by Schedoscope. All Avro fields have to be specified in Schedoscope again.
+
+Note that most storage formats offer configuration options and that storage directory location and naming can be adapted on a per-view basis. For more information see [Storage Formats](Storage Formats)).
 
 The following defines Parquet as the storage format for our views:
 
@@ -251,3 +253,4 @@ The following defines Parquet as the storage format for our views:
      
       storedAs(Parquet())
     }
+
