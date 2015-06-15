@@ -200,3 +200,15 @@ Even though it is not possible to simply move case class constructor parameter d
     }
 
 Please note that for the common cases of daily and monthly partitioning and data production schemes, Schedoscope comes with [basic implementations of traits `DailyParameterization` and `MonthlyParameterization`](View Traits). 
+
+### Instantiation
+
+As views are Scala case classes, they can be straightforwardly instantiated as objects. This is required to build up view dependencies as described in the next section.
+
+When instantiating a parameterized view, one needs to pass it parameter values. In order to build parameter values from standard Scala values, the method `Parameter.p` should be used. `Parameter.p` should also be used to wrap parameters handed over from one view to another. This ensures consistent ordering of partitioning columns.
+
+    import import com.ottogroup.bi.soda.dsl.Parameter._
+ 
+    val brandsTodayForShop101 = Brand(p("101"), p("2014"), p("12"), p("04"))
+    val brandsForDifferentShopAtDifferentDate = Brand(p("EC0601"), p("2014"), p("10"), p("24"))
+    
