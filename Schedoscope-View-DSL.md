@@ -47,3 +47,22 @@ The following basic types are supported at the moment:
 * Date
 
 Fields can be declared using fieldOf:
+
+    package test.module
+    import org.schedoscope.dsl.View
+     
+    case class Brand extends View {
+      val id = fieldOf[String]
+      val name = fieldOf[String]
+      val createdAt = fieldOf[Date]
+      val createdBy = fieldOf[String]
+    }
+     
+    case class Product extends View {
+      val id = fieldOf[String]
+      val name = fieldOf[String]
+      val price = fieldOf[Double]
+      val brandName = fieldOf[String]
+      val createdAt = fieldOf[Date]
+      val createdBy = fieldOf[String]
+    }
