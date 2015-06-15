@@ -537,3 +537,5 @@ In the following example, brand data is supposed to be delivered by an ETL proce
       
       storedAs(TextFile(fieldTerminator = "\\t", lineTerminator = "\\n"))
     }
+
+Note that according to [Storage Formats](Storage Formats), the `fullPath` of view `Brand(p("0101"), p("2014"), p("12"), p("12"))` in the default `dev` environment would be `/hdp/dev/test/module/brand/shopCode=0101/year=2014/month=12/day=12/dateId=20141212`. The external process would have to write into that folder.
