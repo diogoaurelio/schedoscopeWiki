@@ -301,3 +301,37 @@ Dependencies are declared via the method `dependsOn()`. `dependsOn` lazily build
 Generally, `dependsOn()` can be called multiple times in any variant to incrementally declare dependencies. 
 
 Examples:
+
+case class ProductWithBrand(
+  shopCode: Parameter[String],
+  year: Parameter[String],
+  month: Parameter[String],
+  day: Parameter[String]
+) extends View 
+  with DailyShopParameterization
+  with JobMetadata {
+  val productId = fieldOf[String]
+  val productName = fieldOf[String]
+  val productPrice = fieldOf[Double]
+  val brandName = fieldOf[String]
+  val brandId = fieldOf[String]
+ 
+  val product = dependsOn(() => Product(p(shopCode), p(year), p(month), p(day)))
+  val brand = dependsOn(() => Brand(p(shopCode), p(year), p(month), p(day)))
+}
+ 
+case class AverageProductPrices(
+  year: Parameter[String],
+  month: Parameter[String],
+  day: Parameter[String]
+) extends View
+  with Id
+  with JobMetadata {
+  val name = fieldOf[String]
+  val avgPrice = fieldOf[Double]
+ 
+  dependsOn(() => 
+    for (shopCode <- MyApp.allShopCodesThatExist; (prevYear, prevMonth, prevDay) <- thisAndPrevDays(year, month, day)) 
+      yield Product(p(shopCode), p(prevYear), p(prevMonth), p(prevDay))
+  )
+} 
