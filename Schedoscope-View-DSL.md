@@ -353,11 +353,55 @@ The following transformation types are supported:
 
 As fields and parameters of a view are just properties of the object representing the view. As such, they can be accessed and queried when constructing transformation objects. The following methods are available:
 
-- `n`: returns the name of the view, field, or parameter, transformed to database notation: all lower case, underscore between word parts. E.g. `avgPrice.n == "avg_price"`
-- `t`: returns the type of the field or parameter in form of its Scala class. E.g., `avgPrice.t == scala.lang.Double`
-- `v`: returns the value of the parameter as an option. E.g., `year.v.get == "2014"`
+- `n`: returns the name of the view, field, or parameter, transformed to database notation: all lower case, underscore between word parts. E.g. `avgPrice.n == "avg_price"`;
+- `t`: returns the type of the field or parameter in form of its Scala class. E.g., `avgPrice.t == scala.lang.Double`;
+- `v`: returns the value of the parameter as an option. E.g., `year.v.get == "2014"`;
+- `env`: returns the environment of the view, as configured by `schedoscope.app.environment`.
 
-With these tools, we can now try to specify the transformation for the view ProductWithBrand using a HiveQl transformation:
+With these tools, we can now try to specify the transformation for the view ProductWithBrand using a HiveQl transformation. In its most basic form, a HiveQL transformation expects a string with a query, which we initially construct using string interpolation:
+
+    case class ProductWithBrand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+      with JobMetadata {
+      val productId = fieldOf[String]
+      val productName = fieldOf[String]
+      val productPrice = fieldOf[Double]
+      val brandName = fieldOf[String]
+      val brandId = fieldOf[String]
+     
+      val product = dependsOn(() => Product(p(shopCode), p(year), p(month), p(day)))
+      val brand = dependsOn(() => Brand(p(shopCode), p(year), p(month), p(day)))
+     
+      transformVia (() =>
+        HiveQl(s"""
+                insert into ${this.env}_test_module.product_with_brand
+                partition(shop_code = '${this.shopCode.v.get}', 
+                          year = '${this.year.v.get}', 
+                          month = '${this.month.v.get}'
+                          day = '${this.day.v.get}'),
+                          date_id = '${this.year.v.get}${this.month.v.get}${this.day.v.get}')
+                select  p.id, p.name, p.price, b.name, b.id
+                from ${this.env}_test_module.product as p
+                join ${this.env}_test_module.brand as b
+                on p.brand_name = b.name
+                where p.shop_code = '${this.shopCode.v}' 
+                and p.year = '${this.year.v.get}' 
+                and p.month = '${this.month.v.get}' 
+                and p.day = '${this.day.v.get}'
+                and b.shop_code = '${this.shopCode.v.get}' 
+                and b.year = '${this.year.v.get}' 
+                and b.month = '${this.month.v.get}' 
+                and b.day = '${this.day.v.get}'
+                """))
+        }
+    }
+
+Instead of hardwiring the table and column names according to the default naming convention into the query, one could make use of the `n` and `tableName` methods to insert the correct names even when the name builders have been changed.
 
     case class ProductWithBrand(
       shopCode: Parameter[String],
@@ -401,5 +445,139 @@ With these tools, we can now try to specify the transformation for the view Prod
                 and b.${brand().month.n} = '${this.month.v.get}' 
                 and b.${brand().day.n} = '${this.day.v.get}'
                 """))
+        }
+    }
+
+Instead of using string interpolation, one can use the `.configureWith()` clause to replace `${parameter}` style placeholders in the query:
+
+    case class ProductWithBrand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+      with JobMetadata {
+      val productId = fieldOf[String]
+      val productName = fieldOf[String]
+      val productPrice = fieldOf[Double]
+      val brandName = fieldOf[String]
+      val brandId = fieldOf[String]
+     
+      val product = dependsOn(() => Product(p(shopCode), p(year), p(month), p(day)))
+      val brand = dependsOn(() => Brand(p(shopCode), p(year), p(month), p(day)))
+     
+      transformVia (() =>
+        HiveQl("""
+                insert into ${env}_test_module.product_with_brand
+                partition(shop_code = '${shopCode}', 
+                          year = '${year
+                          month = '${month}'
+                          day = '${day}'),
+                          date_id = '${date_id}')
+                select  p.id, p.name, p.price, b.name, b.id
+                from ${env}_test_module.product as p
+                join ${env}_test_module.brand as b
+                on p.brand_name = b.name
+                where p.shop_code = '${shopCode}' 
+                and p.year = '${year}' 
+                and p.month = '${month}' 
+                and p.day = '${day}'
+                and b.shop_code = '${shopCode}' 
+                and b.year = '${year}' 
+                and b.month = '${month}' 
+                and b.day = '${day}'
+               """
+        )).configureWith(Map(
+            "env" -> this.env,
+            "shopCode" -> this.shopCode.v.get,
+            "year" -> this.year.v.get,
+            "month" -> this.month.v.get,
+            "day" -> this.day.v.get,
+            "dateId" -> s"${this.year.v.get}${this.month.v.get}${this.day.v.get}"
+        ))
+        }
+    }
+
+As Schedoscope knows the partitioning scheme of the view, one can make use of the helper `insertInto()` to have the insert and partition clauses autogenerated:
+
+    case class ProductWithBrand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+      with JobMetadata {
+      val productId = fieldOf[String]
+      val productName = fieldOf[String]
+      val productPrice = fieldOf[Double]
+      val brandName = fieldOf[String]
+      val brandId = fieldOf[String]
+     
+      val product = dependsOn(() => Product(p(shopCode), p(year), p(month), p(day)))
+      val brand = dependsOn(() => Brand(p(shopCode), p(year), p(month), p(day)))
+     
+      transformVia (() =>
+        HiveQl(
+          insertInto(this,
+               """
+                select  p.id, p.name, p.price, b.name, b.id
+                from ${env}_test_module.product as p
+                join ${env}_test_module.brand as b
+                on p.brand_name = b.name
+                where p.shop_code = '${shopCode}' 
+                and p.year = '${year}' 
+                and p.month = '${month}' 
+                and p.day = '${day}'
+                and b.shop_code = '${shopCode}' 
+                and b.year = '${year}' 
+                and b.month = '${month}' 
+                and b.day = '${day}'
+               """
+        ))).configureWith(Map(
+            "env" -> this.env,
+            "shopCode" -> this.shopCode.v.get,
+            "year" -> this.year.v.get,
+            "month" -> this.month.v.get,
+            "day" -> this.day.v.get,
+            "dateId" -> s"${this.year.v.get}${this.month.v.get}${this.day.v.get}"
+        ))
+        }
+    }
+
+There is also the variant `insertDynamicallyInto()` which produces appropriate code for dynamic partitioning.
+
+Moreover, queries can be stored in external resources or text files. Assuming this, the above transformation could be written as such:
+
+    case class ProductWithBrand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+      with JobMetadata {
+      val productId = fieldOf[String]
+      val productName = fieldOf[String]
+      val productPrice = fieldOf[Double]
+      val brandName = fieldOf[String]
+      val brandId = fieldOf[String]
+     
+      val product = dependsOn(() => Product(p(shopCode), p(year), p(month), p(day)))
+      val brand = dependsOn(() => Brand(p(shopCode), p(year), p(month), p(day)))
+     
+      transformVia (() =>
+        HiveQl(
+          insertInto(this,
+            queryFromResource("/productWithBrand.sql")
+        ))).configureWith(Map(
+            "env" -> this.env,
+            "shopCode" -> this.shopCode.v.get,
+            "year" -> this.year.v.get,
+            "month" -> this.month.v.get,
+            "day" -> this.day.v.get,
+            "dateId" -> s"${this.year.v.get}${this.month.v.get}${this.day.v.get}"
+        ))
         }
     }
