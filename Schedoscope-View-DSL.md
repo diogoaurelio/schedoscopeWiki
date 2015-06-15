@@ -222,3 +222,32 @@ The following storage formats are currently supported (more information [here](S
 * `Parquet()`: The parquet file format.
 * `Avro():` Avro. Requires an HDFS path to where the schema file is located. Note that the schema file is not parsed by Schedoscope. All Avro fields have to be specified in Schedoscope again.
 
+The following defines Parquet as the storage format for our views:
+
+    case class Brand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+     
+      storedAs(Parquet())
+    }
+     
+    case class Product(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+      val price = fieldOf[Double]
+      val brandName = fieldOf[String]
+     
+      storedAs(Parquet())
+    }
