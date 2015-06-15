@@ -254,3 +254,37 @@ The following defines Parquet as the storage format for our views:
       storedAs(Parquet())
     }
 
+## Comments
+
+A view can be given a comment.
+
+    case class Brand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+
+      comment("Each shop delivers a list of all active brands on a daily basis") 
+      storedAs(Parquet())
+    }
+     
+    case class Product(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+      val price = fieldOf[Double]
+      val brandName = fieldOf[String]
+
+      comment("Each shop delivers a list of all active products on a daily basis")  
+      storedAs(Parquet())
+    }
+
