@@ -49,7 +49,9 @@ The trait `IntervalOccurrence` provides two fields `occurredFrom` and `occurredU
       val occurredUntil = fieldOf[String](999)
     }
 
-## MonthlyParameterization
+c
+
+The trait `MonthlyParameterization` imposes a monthly partitioning scheme over a view. A month is given by the year (a string, 4 characters) and the month within the year (a string, two characters).
 
     package org.schedoscope.dsl.views
 
@@ -60,18 +62,21 @@ The trait `IntervalOccurrence` provides two fields `occurredFrom` and `occurredU
       val month: Parameter[String]
 
       def prevMonth()
-
       def thisAndPrevMonths()
-
       def thisAndPrevDays()
-
-      def thisAndPrevDaysUntil(thisDay: Calendar) 
-
       def allDays()
-
       def allMonths()
-
       def lastMonths(c: Int)
-
       def allDaysOfMonth()
     }
+
+When using this trait, one benefits from the following methods when declaring a view's dependencies:
+
+* `prevMonth()`: returns the previous month;
+* `thisAndPrevMonths()`: returns all months from the given month down to the earliest month, as given by the configuration property `schedoscope.scheduler.earliestDay`;
+* `thisAndPrevDays()`: returns all days of the given month down to the earliest day, as given by the configuration property `schedoscope.scheduler.earliestDay`;
+* `allDays()`: returns all days from the current date down to the earliest day, as given by the configuration property `schedoscope.scheduler.earliestDay`;
+* `allMonths()`: returns all months from the current month down to the earliest month, as given by the configuration property `schedoscope.scheduler.earliestDay`;
+* `lastMonth(c)`: returns the last `c` months from the given month including the given month.
+* `allDayOfMonth()`: returns all days of the given month.
+
