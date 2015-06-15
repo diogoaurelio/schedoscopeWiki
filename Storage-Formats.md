@@ -12,9 +12,11 @@ Parameters:
 Examples:
 
 A simple Parquet storage format declaration: 
+    
     storedAs(Parquet())
 
 A Parquet storage format declaration with an additional storage path prefix:
+    
     storedAs(Parquet(), additionalStoragePathPrefix="tables")
 
 # Internal Storage Formats
