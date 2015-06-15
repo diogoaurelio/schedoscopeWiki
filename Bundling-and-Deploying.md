@@ -10,7 +10,7 @@ When using Maven as your build tool, the basic bundling options are:
 
 In this section, we explora the latter approach. 
 
-# 1. Gather dependencies
+## 1. Gather dependencies
 
 Firstly, we collect all dependencies in the `dependencies` subfolder of the `target` build directory using the Maven dependency plugin:
 
@@ -32,4 +32,4 @@ Firstly, we collect all dependencies in the `dependencies` subfolder of the `tar
         </executions>
     </plugin>
 
-# 2. 
+## 2. 
