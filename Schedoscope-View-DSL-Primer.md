@@ -522,7 +522,14 @@ For the specification of a NoOp view, it is then necessary to define the storage
 
 In the following example, brand data is supposed to be delivered by an ETL process and to be formatted as a tab-separated file:
 
-    case class Brand extends View {
+   case class Brand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+
       val id = fieldOf[String]
       val name = fieldOf[String]
 
@@ -530,4 +537,3 @@ In the following example, brand data is supposed to be delivered by an ETL proce
       
       storedAs(TextFile(fieldTerminator = "\\t", lineTerminator = "\\n"))
     }
-
