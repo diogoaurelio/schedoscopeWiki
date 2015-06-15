@@ -6,7 +6,7 @@ For running Schedoscope, the template utilizes the exec Maven plugin which assem
 
 In real-world production deployment scenarios, you should probably follow a different deployment / bundling / launching strategy. 
 
-Basic options are:
+Your basic options in this regard are:
 - create and distribute a fat jar using the Maven assembly plugin;
 - copy all jars into a separate deployment directory with the Maven dependency plugin, create a shell scripts that constructs the classpath and launches the application, and distribute that folder.
 
