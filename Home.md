@@ -16,7 +16,7 @@ Then follow the Open Street Map tutorial to install, compile, and run Schedoscop
 
 ## Implementing Views
 - [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
-- [Schedoscope View DSL](Schedoscope View DSL)
+- [Schedoscope View DSL Primer](Schedoscope View DSL Primer)
 - [Storage formats](Storage Formats)
 - Transformations
  - [NoOp](NoOp Transformations)
