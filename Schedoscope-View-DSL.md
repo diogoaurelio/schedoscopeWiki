@@ -15,7 +15,7 @@ In a sense, a view can be thought of a partitioned database table. In fact, Sche
 
 In the following, we present the main building blocks of the view DSL.
 
-## Declaring a View (Names and Modules)
+# Declaring a View (Names and Modules)
 
 A view represents a data set. At a minimum, it has a name and resides in a module. 
 
@@ -37,7 +37,7 @@ The package and view name are used to create the Hive table name `tableName` by 
 
 As a consequence, the default full table name for the example view in the default environment `dev` is `dev_test_module.brand`. 
 
-## View Fields
+# View Fields
 Data sets represented by views are structured. They have fields to capture the different attributes of a data set. Each field has a type. 
 
 The following basic types are supported at the moment:
@@ -67,7 +67,7 @@ Fields can be declared using `fieldOf`:
       val createdBy = fieldOf[String]
     }
 
-### Organizing Fields Into Traits
+## Organizing Fields Into Traits
 
 As a view is just a Scala class, common fields and field naming conventions can be factored into reusable traits, for example:
 
@@ -105,7 +105,7 @@ In order to control field ordering across traits, one can pass field weights as 
 
 Schedoscope comes with a set of useful [traits](View Traits): `Id`, `JobMetadata`, `DailyParameterization`, `MonthlyParameterization`, `IntervalOccurrence`, and `PointOccurrence`. However, one is free to organize view fields into traits as desired for an application. Schedoscope does not impose any scheduling semantics over those prepackaged traits.
 
-### Complex Fields
+## Complex Fields
 
 Fields can be of complex type: they can be structures, lists, maps, and arbitrary nestings of those. 
 
@@ -129,7 +129,7 @@ For example:
       val aStructure = fieldOf[ComplexStructure]
     }
 
-## View Parameters
+# View Parameters
 
 Data sets represented by views rarely come into existence as monolithic blocks that never change. Usually, data sets are created at specific levels of granularity, for example, in daily or hourly intervals. Schedoscope allows for such data production granularities to be expressed in form of view parameters. Parameters are declared by passing Parameter objects to the constructor of the view. As a further consequence, view parameters set up the Hive partitioning scheme.
 
@@ -201,7 +201,7 @@ Even though it is not possible to simply move case class constructor parameter d
 
 Please note that for the common cases of daily and monthly partitioning and data production schemes, Schedoscope comes with [basic implementations of traits `DailyParameterization` and `MonthlyParameterization`](View Traits). 
 
-### Instantiation
+## Instantiation
 
 As views are Scala case classes, they can be straightforwardly instantiated as objects. This is required to build up view dependencies as described further below.
 
@@ -212,7 +212,7 @@ When instantiating a parameterized view, one needs to pass it parameter values. 
     val brandsTodayForShop101 = Brand(p("101"), p("2014"), p("12"), p("04"))
     val brandsForDifferentShopAtDifferentDate = Brand(p("0601"), p("2014"), p("10"), p("24"))
     
-## Storage Formats
+# Storage Formats
 
 The storage format Hive is supposed to use to materialize views can be specified using storedAs() and passing it a storage format.
 
@@ -254,7 +254,7 @@ The following defines Parquet as the storage format for our views:
       storedAs(Parquet())
     }
 
-## Comments
+# Comments
 
 A view can be given a comment.
 
