@@ -1,4 +1,4 @@
-Introduction
+# Introduction
 
 The core of Schedoscope consists of an internal Scala DSL for specifying
 - views and their fields;
