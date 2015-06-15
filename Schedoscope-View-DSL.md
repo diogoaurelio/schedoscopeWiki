@@ -203,7 +203,7 @@ Please note that for the common cases of daily and monthly partitioning and data
 
 ### Instantiation
 
-As views are Scala case classes, they can be straightforwardly instantiated as objects. This is required to build up view dependencies as described in the next section.
+As views are Scala case classes, they can be straightforwardly instantiated as objects. This is required to build up view dependencies as described further below.
 
 When instantiating a parameterized view, one needs to pass it parameter values. In order to build parameter values from standard Scala values, the method `Parameter.p` should be used. `Parameter.p` should also be used to wrap parameters handed over from one view to another. This ensures consistent ordering of partitioning columns.
 
@@ -212,3 +212,13 @@ When instantiating a parameterized view, one needs to pass it parameter values. 
     val brandsTodayForShop101 = Brand(p("101"), p("2014"), p("12"), p("04"))
     val brandsForDifferentShopAtDifferentDate = Brand(p("0601"), p("2014"), p("10"), p("24"))
     
+## Storage Format
+
+The storage format Hive is supposed to use to materialize views can be specified using storedAs() and passing it a storage format.
+
+The following storage formats are currently supported (more information [here](Storage Formats)):
+
+* `TextFile()`: This represents the TEXTFILE format. fieldTerminators etc. can be adjusted from the defaults if need be;
+* `Parquet()`: The parquet file format.
+* `Avro():` Avro. Requires an HDFS path to where the schema file is located. Note that the schema file is not parsed by Schedoscope. All Avro fields have to be specified in Schedoscope again.
+
