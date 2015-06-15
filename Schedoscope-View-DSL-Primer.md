@@ -514,4 +514,17 @@ Moreover, queries can be stored in external resources or text files. Assuming th
 
 While the HiveQl transformation above provides an example of how to compute views from another, the question remains on how to bootstrap this process with leaf views that do not depend on other views. One way to implement such leaf views is using [file system transformations](File System Transformations); the other way that we will explain here is to use NoOp transformations.
 
-The NoOp transformation is the default transformation for views. It assumes that view data is provided by external ETL processes that copy the data into the view's partition folder - as designated by the view's `fullPath` property - on HDFS. To signal the view that data is available, 
+The NoOp transformation is the default transformation for views. It assumes that view data is provided by external ETL processes that copy the data into the view's partition folder - as designated by the view's `fullPath` property - on HDFS. To signal that view that data is available, the external process is assumed to leave a `_SUCCESS` flag.
+
+For the specification of a NoOp view, it is then necessary to define the storage format and fields in such a way that the view and the resulting Hive table correctly overlays the external data.
+
+In the following example, brand data is supposed to be delivered by an ETL processed and to be formatted as a tab-separated file:
+
+    case class Brand extends View {
+      val id = fieldOf[String]
+      val name = fieldOf[String]
+
+      comment("Brand data is copied by an ETL process as a tab-separated file.")
+      
+      storedAs(TextFile(fieldTerminator = "\\t", lineTerminator = "\\n"))
+    }
