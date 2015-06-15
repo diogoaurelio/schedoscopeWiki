@@ -59,7 +59,7 @@ Schedoscope supports special storage formats used for storing view data outside 
 ## JDBC
 ## Redis
 
-# Customizing Storage Paths
+# Storage Paths
 
 For the common case of internal storage formats, A Schedoscope view represents a Hive table partition stored in HDFS. Views offer the following properties with regard to their HDFS storage location:
 
