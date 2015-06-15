@@ -49,7 +49,8 @@ The trait `IntervalOccurrence` provides two fields `occurredFrom` and `occurredU
       val occurredUntil = fieldOf[String](999)
     }
 
-c
+
+## MonthlyParameterization
 
 The trait `MonthlyParameterization` imposes a monthly partitioning scheme over a view. A month is given by the year (a string, 4 characters) and the month within the year (a string, two characters).
 
@@ -78,5 +79,24 @@ When using this trait, one benefits from the following methods when declaring a 
 * `allDays()`: returns all days from the current date down to the earliest day, as given by the configuration property `schedoscope.scheduler.earliestDay`;
 * `allMonths()`: returns all months from the current month down to the earliest month, as given by the configuration property `schedoscope.scheduler.earliestDay`;
 * `lastMonth(c)`: returns the last `c` months from the given month including the given month.
-* `allDayOfMonth()`: returns all days of the given month.
+* `allDaysOfMonth()`: returns all days of the given month.
 
+## DailyParameterization
+
+The trait `DailyParameterization` imposes a daily partitioning scheme over a view. A day is given by the year (a string, 4 characters), the month within the year (a string, two characters), the day within the month (a string, two characters), and the date ID, which is the concatenation of all.
+
+    trait DailyParameterization {
+      val year: Parameter[String]
+      val month: Parameter[String]
+      val day: Parameter[String]
+
+      val dateId: Parameter[String] = p(s"${year.v.get}${month.v.get}${day.v.get}")
+
+      def prevDay()
+      def prevMonth()
+      def thisAndPrevDays()
+      def thisAndPrevMonths()
+      def allDays()
+      def lastMonths(c: Int)
+      def lastDays(c: Int)
+    }
