@@ -335,3 +335,21 @@ Examples:
           yield Product(p(shopCode), p(prevYear), p(prevMonth), p(prevDay))
       )
     } 
+
+# Transformations
+
+Each view can be assigned a transformation. A transformation is a computation rule that produces a given view from its dependencies.
+
+A transformation is assigned to a view by calling `transformVia()` and - again lazily - passing it a function that returns a transformation - namely a case class subclassing from `Transformation` - encapsulating the computation.
+
+The following transformation types are supported:
+- [NoOp](NoOp Transformations)
+- [File System](File System Transformations)
+- [Hive](Hive Transformations)
+- [Pig](Pig-Transformations)
+- [MapReduce](MapReduce Transformations)
+- [Oozie](Oozie Transformations)
+- [Morphline](Morphline Transformations)
+
+As fields and parameters of a view are just properties of the object representing the view. As such, they can be accessed and queried when constructing transformation objects. The following methods are available:
+
