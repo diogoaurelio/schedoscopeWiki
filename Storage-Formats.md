@@ -6,8 +6,8 @@ For both kinds of formats, storage is declared using the `storedAs` clause. In c
 
 Parameters:
 * `f`: the storage format to use (see below);
-* `additionalStoragePathPrefix`: optional prefix to put before the view's storage name (see description of `locationPathBuilder in the Section "Customizing Storage Paths".
-* `additionalStoragePathSuffix`: optional suffix to put after the view's storage name (see description of `locationPathBuilder in the Section "Customizing Storage Paths".
+* `additionalStoragePathPrefix`: optional prefix to put before the view's storage name (see description of `locationPathBuilder in the Section "Customizing Storage Paths").
+* `additionalStoragePathSuffix`: optional suffix to put after the view's storage name (see description of `locationPathBuilder in the Section "Customizing Storage Paths").
 
 Examples:
 
