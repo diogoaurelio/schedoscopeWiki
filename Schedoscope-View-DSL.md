@@ -512,3 +512,4 @@ Moreover, queries can be stored in external resources or text files. Assuming th
 
 ## Example NoOp Transformation
 
+While the HiveQl transformation above provides an example of how to compute views from another, the question remains on how to bootstrap this process with leaf views that do not depend. 
