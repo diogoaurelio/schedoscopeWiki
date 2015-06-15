@@ -222,7 +222,7 @@ The following storage formats are currently supported:
 * `Parquet()`: The parquet file format.
 * `Avro():` Avro. Requires an HDFS path to where the schema file is located. Note that the schema file is not parsed by Schedoscope. All Avro fields have to be specified in Schedoscope again.
 
-Note that most storage formats offer configuration options and that storage directory location and naming can be adapted on a per-view basis. For more information see [Storage Formats](Storage Formats)).
+Note that most storage formats offer configuration options and that storage directory location and naming can be adapted on a per-view basis. For more information see [Storage Formats](Storage Formats).
 
 The following defines Parquet as the storage format for our views:
 
