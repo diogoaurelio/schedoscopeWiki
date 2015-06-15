@@ -36,3 +36,14 @@ The package and view name are used to create the Hive table name `tableName` by 
 * `n`: lowercase all characters, adding `_` at camel-case boundaries. In the example, that would be `brand`.
 
 As a consequence, the default full table name for the example view in the default environment `dev` is `dev_test_module.brand`. 
+
+## View Fields
+Data sets represented by views are structured. They have fields to capture the different attributes of a data set. Each field has a type. 
+
+The following basic types are supported at the moment:
+* String
+* Byte, Int, Long, Float, Double
+* Boolean
+* Date
+
+Fields can be declared using fieldOf:
