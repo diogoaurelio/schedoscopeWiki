@@ -522,7 +522,7 @@ For the specification of a NoOp view, it is then necessary to define the storage
 
 In the following example, brand data is supposed to be delivered by an ETL process and to be formatted as a tab-separated file:
 
-   case class Brand(
+    case class Brand(
       shopCode: Parameter[String],
       year: Parameter[String],
       month: Parameter[String],
