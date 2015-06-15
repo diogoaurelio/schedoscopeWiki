@@ -71,3 +71,21 @@ Fields can be declared using `fieldOf`:
 
 As a view is just a Scala class, common fields and field naming conventions can be factored into reusable traits, for example:
 
+    package test.module
+    import org.schedoscope.dsl.View
+    import org.schedoscope.dsl.views.Id
+    import org.schedoscope.dsl.views.JobMetadata
+     
+    case class Brand extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+    }
+     
+    case class Product extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+      val price = fieldOf[Double]
+      val brandName = fieldOf[String]
+    }
