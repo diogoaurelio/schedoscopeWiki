@@ -512,4 +512,6 @@ Moreover, queries can be stored in external resources or text files. Assuming th
 
 ## Example NoOp Transformation
 
-While the HiveQl transformation above provides an example of how to compute views from another, the question remains on how to bootstrap this process with leaf views that do not depend. 
+While the HiveQl transformation above provides an example of how to compute views from another, the question remains on how to bootstrap this process with leaf views that do not depend on other views. One way to implement such leaf views is using [file system transformations](File System Transformations); the other way that we will explain here is to use NoOp transformations.
+
+The NoOp transformation is the default transformation for views. It assumes that view data is provided by external ETL processes that copy the data into the view's partition folder - as designated by the view's `fullPath` property - on HDFS. To signal the view that data is available, 
