@@ -1,4 +1,4 @@
-Schedoscope is an internal Scala DSL for specifying views (Hive table partitions), their structure, dependencies, and transformation logic required compute their data from other views. As a consequence, setting up a Schedoscope project means setting up a Scala project that uses Schedoscope as a library. 
+Schedoscope is an internal Scala DSL for specifying views (Hive table partitions), their structure and dependencies, as well as the transformation logic required compute views from other views. As a consequence, setting up a Schedoscope project means setting up a Scala project that uses Schedoscope as a library. 
 
 For this purpose, we provide a Maven POM template in this section. It is of course possible to use other build tools such as SBT or Ant/Ivy. You are also encouraged to look at the POM of the tutorial.
 
