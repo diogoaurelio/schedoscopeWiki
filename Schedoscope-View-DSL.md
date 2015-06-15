@@ -89,3 +89,19 @@ As a view is just a Scala class, common fields and field naming conventions can 
       val price = fieldOf[Double]
       val brandName = fieldOf[String]
     }
+
+The `Id` and `JobMetadata` traits implement the `ViewDsl` interface and look like this:
+
+    trait Id extends ViewDsl {
+      val id = fieldOf[String](Int.MaxValue)
+    }
+     
+    trait JobMetadata extends ViewDsl {
+      val createdAt = fieldOf[Date](1)
+      val createdBy = fieldOf[String](0)
+    }
+
+In order to control field ordering across traits, one can pass field weights as additional parameters to field declarations. In the example above, the maximum possible weight is attached to the id field. As a consequence, id will always be considered the first field of a view using the `Id` trait. `createdAt` and `createdBy` are assigned very low weights. They will usually be the last fields of views using the `JobMetadata` trait.
+
+Schedoscope comes with a set of useful [traits](View Traits): `Id`, `JobMetadata`, `DailyParameterization`, `MonthlyParameterization`, `IntervalOccurrence`, and `PointOccurrence`. However, one is free to organize view fields into traits as desired for an application. Schedoscope does not impose any semantics over those traits.
+
