@@ -1,6 +1,8 @@
 # Introduction
 
-The Schedoscope DSL ships with a set of predefined traits with field and parameter declarations. They can be used to impose field ordering and naming conventions. Moreover, there are some utility classes alleviating the declaration of view dependencies when using those traits. Nevertheless, Schedoscope does not give those traits any first class support by any means - you are free to define your own trait system as desirable for your environment, data, and applications.
+The Schedoscope DSL ships with a set of predefined traits with field and parameter declarations. They can be used to impose field ordering and naming conventions. Moreover, there are some utility classes alleviating the declaration of view dependencies when using those traits. 
+
+Nevertheless, Schedoscope does not give those traits any first class support - you are free to define your own trait system as desirable for your environment, data, and applications.
 
 ## Id
 
@@ -100,3 +102,12 @@ The trait `DailyParameterization` imposes a daily partitioning scheme over a vie
       def lastMonths(c: Int)
       def lastDays(c: Int)
     }
+
+* `prevDay()`: returns the previous day;
+* `prevMonth()`: returns the previous month;
+* `thisAndPrevMonths()`: returns all months from the month of the given day down to the earliest month, as configured by the configuration property `schedoscope.scheduler.earliestDay`;
+* `thisAndPrevDays()`: returns all days of the given day down to the earliest day, as configured by the configuration property `schedoscope.scheduler.earliestDay`;
+* `allDays()`: returns all days from the current date down to the earliest day, as given by the configuration property `schedoscope.scheduler.earliestDay`;
+* `allMonths()`: returns all months from the current month down to the earliest month, as given by the configuration property `schedoscope.scheduler.earliestDay`;
+* `lastMonths(c)`: returns the last `c` months from the month of the given day including that month;
+* `lastDays(c)`: returns the last `c` days from the given day including that day.
