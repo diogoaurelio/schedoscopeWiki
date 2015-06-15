@@ -210,5 +210,5 @@ When instantiating a parameterized view, one needs to pass it parameter values. 
     import import com.ottogroup.bi.soda.dsl.Parameter._
  
     val brandsTodayForShop101 = Brand(p("101"), p("2014"), p("12"), p("04"))
-    val brandsForDifferentShopAtDifferentDate = Brand(p("EC0601"), p("2014"), p("10"), p("24"))
+    val brandsForDifferentShopAtDifferentDate = Brand(p("0601"), p("2014"), p("10"), p("24"))
     
