@@ -46,7 +46,7 @@ The following basic types are supported at the moment:
 * Boolean
 * Date
 
-Fields can be declared using fieldOf:
+Fields can be declared using `fieldOf`:
 
     package test.module
     import org.schedoscope.dsl.View
@@ -66,3 +66,8 @@ Fields can be declared using fieldOf:
       val createdAt = fieldOf[Date]
       val createdBy = fieldOf[String]
     }
+
+### Organizing Fields Into Traits
+
+As a view is just a Scala class, common fields and field naming conventions can be factored into reusable traits, for example:
+
