@@ -128,3 +128,75 @@ For example:
       val aComplicatedMap = fieldOf[Map[List[String], List[Map[String, Int]]]]
       val aStructure = fieldOf[ComplexStructure]
     }
+
+## View Parameters
+
+Data sets represented by views rarely come into existence as monolithic blocks that never change. Usually, data sets are created at specific levels of granularity, for example, in daily or hourly intervals. Schedoscope allows for such data production granularities to be expressed in form of view parameters. Parameters are declared by passing Parameter objects to the constructor of the view. As a further consequence, view parameters set up the Hive partitioning scheme.
+
+Coming back to our example views, brand and product data could be produced and partitioned on a daily basis for different shops:
+
+    case class Brand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+    }
+     
+    case class Product(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+      val price = fieldOf[Double]
+      val brandName = fieldOf[String]
+    }
+
+Even though it is not possible to simply move case class constructor parameter declarations into traits, traits can still be used to make sure that common data production patterns are obeyed by requiring that parameters for a view do exist. In the following example, the Scala compiler will complain if a view does not define parameters required by a trait.
+
+    trait DailyParameterization {
+      val year: Parameter[String]
+      val month: Parameter[String]
+      val day: Parameter[String]
+    }
+     
+    trait ShopParameterization {
+      val shopCode: Parameter[String]
+    }
+     
+    trait DailyShopParameterization extends ShopParameterization with DailyParameterization
+     
+    case class Brand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+    }
+     
+    case class Product(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+      val price = fieldOf[Double]
+      val brandName = fieldOf[String]
+    }
+
+Please note that for the common cases of daily and monthly partitioning and data production schemes, Schedoscope comes with [basic implementations of traits `DailyParameterization` and `MonthlyParameterization`](View Traits). 
