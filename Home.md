@@ -6,7 +6,7 @@ Schedoscope is a scheduling framework for painfree agile development, testing, (
 
 ## Getting Started
 
-Get a glance at what Schedoscope does for you:
+What Schedoscope does for you at glance:
 
 - [Schedoscope at a Glance](Schedoscope at a Glance)
 
