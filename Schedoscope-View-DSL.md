@@ -288,3 +288,16 @@ A view can be given a comment.
       storedAs(Parquet())
     }
 
+# Dependencies
+
+Schedoscope views may be computed from other views. This has implications on scheduling as a view can only be computed if all prerequisite views have been computed already.
+
+Dependencies are declared via the method `dependsOn()`. `dependsOn` lazily builds up a dependency graph between view instances. There are two variants of the method:
+
+1. The first variant of `dependsOn()` expects a function that returns a single view instance. `dependsOn` returns this function as its result so it can be assigned to a property for later traversal to the dependency.
+
+1. The other variant of `dependsOn()` expects a function that returns a sequence of view instances. This variant returns `Unit`
+
+Generally, `dependsOn()` can be called multiple times in any variant to incrementally declare dependencies. 
+
+Examples:
