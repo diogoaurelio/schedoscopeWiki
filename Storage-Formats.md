@@ -21,7 +21,7 @@ A Parquet storage format declaration with an additional storage path prefix:
 
 # Internal Storage Formats
 
-Internal storage formats are used for Hive table storage in HDFS. The following are supported:
+Internal storage formats are used for storing views within Hive tables on HDFS. The following formats are supported:
 
 ## TextFile
 
