@@ -353,3 +353,53 @@ The following transformation types are supported:
 
 As fields and parameters of a view are just properties of the object representing the view. As such, they can be accessed and queried when constructing transformation objects. The following methods are available:
 
+- `n`: returns the name of the view, field, or parameter, transformed to database notation: all lower case, underscore between word parts. E.g. `avgPrice.n == "avg_price"`
+- `t`: returns the type of the field or parameter in form of its Scala class. E.g., `avgPrice.t == scala.lang.Double`
+- `v`: returns the value of the parameter as an option. E.g., `year.v.get == "2014"`
+
+With these tools, we can now try to specify the transformation for the view ProductWithBrand using a HiveQl transformation:
+
+    case class ProductWithBrand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+      with JobMetadata {
+      val productId = fieldOf[String]
+      val productName = fieldOf[String]
+      val productPrice = fieldOf[Double]
+      val brandName = fieldOf[String]
+      val brandId = fieldOf[String]
+     
+      val product = dependsOn(() => Product(p(shopCode), p(year), p(month), p(day)))
+      val brand = dependsOn(() => Brand(p(shopCode), p(year), p(month), p(day)))
+     
+      transformVia (() =>
+        HiveQl(s"""
+                insert into ${this.tableName}
+                partition(${this.shopCode.n} = '${this.shopCode.v.get}', 
+                          ${this.year.n} = '${this.year.v.get}', 
+                          ${this.month.n} = '${this.month.v.get}'
+                          ${this.day.n} = '${this.day.v.get}'),
+                          ${this.dateId.n} = '${this.year.v.get}${this.month.v.get}${this.day.v.get}')
+                select  p.${product().id.n}, 
+                        p.${product().name.n}, 
+                        p.${product().price.n}, 
+                        b.${brand().name.n}, 
+                        b.${brand().id.n}
+                from ${product().tableName} as p
+                join ${brand().tableName} as b
+                on p.${product().brandName.n} = b.${brand().name.n}
+                where p.${product().shopCode.n} = '${this.shopCode.v}' 
+                and p.${product().year.n} = '${this.year.v.get}' 
+                and p.${product().month.n} = '${this.month.v.get}' 
+                and p.${product().day.n} = '${this.day.v.get}'
+                and b.${brand().shopCode.n} = '${this.shopCode.v.get}' 
+                and b.${brand().year.n} = '${this.year.v.get}' 
+                and b.${brand().month.n} = '${this.month.v.get}' 
+                and b.${brand().day.n} = '${this.day.v.get}'
+                """))
+        }
+    }
