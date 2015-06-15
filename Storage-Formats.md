@@ -1,6 +1,6 @@
-Storage formats specify the format in which view data will be stored. Schedoscope distinguishes internal and external storage formats. 
+Storage formats specify the format in which view data ist to be stored. Schedoscope distinguishes internal and external storage formats. 
 
-For both kinds of formats, storage is declared using the `storedAs` clause. In case no `storedAs` clause is given, the `TextFile` storage format is used.
+For both kinds of formats, storage is declared using the `storedAs` clause. In case no `storedAs` clause is given, the `TextFile` storage format is used as a default.
 
     def storedAs(f: StorageFormat, additionalStoragePathPrefix: String, additionalStoragePathSuffix: String)
 
