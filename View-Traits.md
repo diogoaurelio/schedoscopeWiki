@@ -39,3 +39,39 @@ The trait `PointOccurrence` takes care that a field `occurredAt` recording the o
     trait PointOccurrence extends ViewDsl {
       val occurredAt = fieldOf[String](1000)
     }
+
+## IntervalOccurrence
+
+The trait `IntervalOccurrence` provides two fields `occurredFrom` and `occurredUntil` to denote the duration of events / activities. Again, both fields are merely typed as string to give applications room for choosing appropriate date-time formats.
+
+    trait IntervalOccurrence extends ViewDsl {
+      val occurredFrom = fieldOf[String](1000)
+      val occurredUntil = fieldOf[String](999)
+    }
+
+## MonthlyParameterization
+
+    package org.schedoscope.dsl.views
+
+    import org.schedoscope.dsl.ViewDsl
+
+    trait MonthlyParameterization {
+      val year: Parameter[String]
+      val month: Parameter[String]
+
+      def prevMonth()
+
+      def thisAndPrevMonths()
+
+      def thisAndPrevDays()
+
+      def thisAndPrevDaysUntil(thisDay: Calendar) 
+
+      def allDays()
+
+      def allMonths()
+
+      def lastMonths(c: Int)
+
+      def allDaysOfMonth()
+    }
