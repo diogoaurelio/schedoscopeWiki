@@ -358,6 +358,9 @@ As fields and parameters of a view are just properties of the object representin
 - `v`: returns the value of the parameter as an option. E.g., `year.v.get == "2014"`;
 - `env`: returns the environment of the view, as configured by `schedoscope.app.environment`.
 
+
+## Example Hive Transformation
+
 With these tools, we can now try to specify the transformation for the view ProductWithBrand using a HiveQl transformation. In its most basic form, a HiveQL transformation expects a string with a query, which we initially construct using string interpolation:
 
     case class ProductWithBrand(
@@ -506,3 +509,6 @@ Moreover, queries can be stored in external resources or text files. Assuming th
             "day" -> this.day.v.get,
             "dateId" -> s"${this.year.v.get}${this.month.v.get}${this.day.v.get}"
         ))
+
+## Example NoOp Transformation
+
