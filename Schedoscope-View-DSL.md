@@ -105,4 +105,26 @@ In order to control field ordering across traits, one can pass field weights as 
 
 Schedoscope comes with a set of useful [traits](View Traits): `Id`, `JobMetadata`, `DailyParameterization`, `MonthlyParameterization`, `IntervalOccurrence`, and `PointOccurrence`. However, one is free to organize view fields into traits as desired for an application. Schedoscope does not impose any scheduling semantics over those prepackaged traits.
 
+### Complex Fields
 
+Fields can be of complex type: they can be structures, lists, maps, and arbitrary nestings of those. 
+
+Similar to views, structures are declared by subclassing the class `Structure`; lists and maps are formed using the standard Scala types `List` and `Map`.
+
+For example:
+
+    case class NestedStructure extends Structure {
+      val aField = fieldOf[Boolean]
+    }
+
+    case class ComplexStructure extends Structure {
+      val aField = fieldOf[Int]
+      val aComplexField = fieldOf[List[NestedStructure]]
+    }
+
+    case class ComplexView extends View {
+      val aMap = fieldOf[Map[String, Int]]
+      val anArray = fieldOf[List[Int]]
+      val aComplicatedMap = fieldOf[Map[List[String], List[Map[String, Int]]]]
+      val aStructure = fieldOf[ComplexStructure]
+    }
