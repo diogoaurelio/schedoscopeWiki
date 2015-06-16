@@ -97,6 +97,7 @@ Now it's time to design your own views and their dependencies.
 3. Set scala compiler on version 2.10 in the project's properties
 
 ### Development
+#### First steps
 Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:
 
 * `ways.txt`  (way is a sequence of 2-2000 nodes)
@@ -119,13 +120,15 @@ Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:
         k STRING
         v STRING
 
-These files can be read in from classpath as shown in `schedoscope.example.osm.stage.Nodes `
+These files can be read in from classpath. Have a look at the tutorial class `schedoscope.example.osm.stage.Nodes` .
 
-The inherent [Test Framework](Test Framework) allows test-driven development for schedoscope.
+The inherent [Test Framework](Test Framework) allows **test-driven development** for schedoscope.
 
-1. Create a stub for your view 
-2. Implement your testclass 
-3. Implement your view while testing its behaviour using the provided test framework
+1. Create a stub for your view.
+2. Implement your testclass.
+3. Implement your view while testing its behaviour using the provided test framework.
+
+
 
 ### Deployment
 Restart Schedoscope (your project).
