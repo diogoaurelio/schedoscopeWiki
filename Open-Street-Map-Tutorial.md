@@ -21,18 +21,23 @@ Let's get started:
 1. Change directory to `~/schedoscope/schedoscope-tutorial` and execute the tutorial:
 
     `[cloudera@quickstart schedoscope-tutorial]$ mvn exec:java`
-1. The Schedoscope Shell opens in the terminal. Find the full [[command reference|Command Reference]] in the Schedoscope wiki.
-1. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
+2. The Schedoscope Shell opens in the terminal. Find the full [[command reference|Command Reference]] in the Schedoscope wiki.
+3. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
 
     and see how all data is digested which is needed in order to provide the requested view of shop profiles.
-
-1. Type  `actions`
+4. Type  `actions`
     and see which kind of transformations are running.
-
-1. Type  `views`
+5. Type  `views`
     and see which views are already materialized with current data.
-1. Have a look in the browser at the application manager of your Hadoop Cluster  <http://localhost:8088/cluster>
+6. Have a look in the browser at the application manager of your Hadoop Cluster  <http://localhost:8088/cluster>
     and see the MR-Jobs running on the cluster.
+7. Type  `invalidate -v schedoscope.example.osm.datahub/Restaurants`
+
+    This is how to manually tell Schedoscope that this view shall be recalculated.
+8. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
+
+    Type  `views` to see that only demo_schedoscope_example_osm_datahub.restaurants and its depending view demo_schedoscope_example_osm_datamart.ShopProfiles are recalculated.
+9. Type `shutdown` to stop Schedoscope.
 
 ## What's happening?
 
