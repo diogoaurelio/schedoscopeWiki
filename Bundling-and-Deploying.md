@@ -2,7 +2,7 @@
 
 Schedoscope provides an internal Scala DSL for what is essentially programming data sets, their dependencies, and calculation logic - albeit on a very high and declarative level. 
 
-Hence, a Schedoscope views declarations form a [Scala software development project](Setting up a Schedoscope Project), with jar files and their dependencies as resulting artifacts. Bundling and deploying Schedoscope therefore means bundling and deploying jar files.
+Hence, a Schedoscope views declarations form a [Scala software development project](Setting up a Schedoscope Project), with jar files and their dependencies as resulting artifacts. Bundling and deploying Schedoscope therefore means bundling and deploying jar files as for any other JVM project.
 
 When using Maven as your build tool, the basic bundling options are:
 - create and distribute a fat jar using the Maven assembly plugin;
@@ -32,4 +32,99 @@ Firstly, we collect all dependencies in the `dependencies` subfolder of the `tar
         </executions>
     </plugin>
 
-## 2. 
+## 2. Copy to Deployment Folder
+
+Next, we copy the project's jar files and the dependency files to using the Maven assembly plugin
+
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+            <execution>
+                <id>bin</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>single</goal>
+                </goals>
+                <configuration>
+                    <outputDirectory>deployment</outputDirectory>
+                    <finalName>deployment</finalName>
+                    <descriptor>src/main/assemble/deployment-package.xml</descriptor>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+
+with the assembly descriptor `deployment-package.xml`
+
+    <assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+        <id>package</id>
+        <includeBaseDirectory>false</includeBaseDirectory>
+        <formats>
+            <format>dir</format>
+        </formats>
+        <files>
+            <file>
+                <source>${basedir}/src/main/resources/eci-logback.xml</source>
+                <outputDirectory>/</outputDirectory>
+                <destName>eci-logging.xml</destName>
+            </file>
+            <file>
+                <source>${basedir}/src/main/resources/schedoscope.conf</source>
+                <outputDirectory>/</outputDirectory>
+            </file>
+            <file>
+                <source>${basedir}/src/main/resources/start.sh</source>
+                <outputDirectory>/</outputDirectory>
+            </file>
+        </files>
+        <fileSets>
+            <fileSet>
+                <directory>${basedir}/target/</directory>
+                <outputDirectory>/</outputDirectory>
+                <includes>
+                    <include>*.jar</include>
+                </includes>
+            </fileSet>
+            <fileSet>
+                <directory>${basedir}/target/dependencies/</directory>
+                <outputDirectory>/dependencies/</outputDirectory>
+                <includes>
+                    <include>*.jar</include>
+                </includes>
+            </fileSet>
+        </fileSets>
+    </assembly>
+
+This results in the following directory structure:
+
+    project
+    |
+    +-- deployment
+        |
+        +-- deployment-package
+            |
+            +-- dependencies
+            |   |
+            |   +-- dependency.jar
+            |   |
+            |   +-- ...
+            |
+            +-- schedoscope.conf
+            |
+            +-- eci-logback.xml
+            |
+            +-- start.sh
+            |
+            +-- project.jar
+            |
+            +-- project-hive.jar
+            |
+            +-- ...
+
+## 3. Create Launch Script
+
