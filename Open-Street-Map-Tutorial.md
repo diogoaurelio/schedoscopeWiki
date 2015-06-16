@@ -24,17 +24,17 @@ Let's get started:
 1. The Schedoscope Shell opens in the terminal. Find the full [[command reference|Command Reference]] in the Schedoscope wiki.
 1. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
 
-and see how all data is digested which is needed in order to provide the requested view of shop profiles.
+    and see how all data is digested which is needed in order to provide the requested view of shop profiles.
 
 1. Type  `actions`
-and see which kind of transformations are running.
+    and see which kind of transformations are running.
 
 1. Type  `views`
 
-and see which views are already materialized with current data.
-1. Have a look at the application manager of your Hadoop Cluster  `http://localhost:8088/cluster`
+    and see which views are already materialized with current data.
+1. Have a look in the browser at the application manager of your Hadoop Cluster  `http://localhost:8088/cluster`
 
-and see the MR-Jobs running on the cluster.
+    and see the MR-Jobs running on the cluster.
 
 ## What's happening?
 
