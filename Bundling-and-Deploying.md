@@ -144,3 +144,8 @@ A launch script has to do two things: construct the classpath and launch the Sch
     CP=${CP}:`hadoop classpath`
 
     java -cp ${CP} -Dlogback.configurationFile=eci-logback.xml -Dconfig.file=schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService --shell $@ 
+
+## 4. Bundle and Deploy
+
+As the last step, one needs to package up `${baseDir}/deployment/deployment-package` and distribute it to the node where Schedoscope is supposed to run. This step depends on your environment; so we will not make any suggestion on how to do this.
+
