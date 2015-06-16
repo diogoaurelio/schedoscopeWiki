@@ -69,7 +69,7 @@ with the assembly descriptor `deployment-package.xml`
         </formats>
         <files>
             <file>
-                <source>${basedir}/src/main/resources/eci-logback.xml</source>
+                <source>${basedir}/src/main/resources/logback.xml</source>
                 <outputDirectory>/</outputDirectory>
             </file>
             <file>
@@ -115,7 +115,7 @@ This results in the following directory structure:
             |
             +-- schedoscope.conf
             |
-            +-- eci-logback.xml
+            +-- logback.xml
             |
             +-- start.sh
             |
