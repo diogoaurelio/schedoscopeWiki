@@ -87,10 +87,48 @@ Simply install Schedoscope on your own machine (see [[Installation|Open Street M
     }
 The default settings are derived from `schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in your project's `schedoscope.conf`.
 
-## Test-driven development
 
 ## Extension
-Now it's time to design your own views and dependencies.
+Now it's time to design your own views and their dependencies.
+
+### Preparation
+1. You need a Scala IDE, e.g. [Scala IDE for Eclipse](http://scala-ide.org/download/sdk.html)
+2. Import the maven project schedoscope-tutorial
+3. Set scala compiler on version 2.10 in the project's properties
+
+### Development
+Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:
+
+* `ways.txt`  (way is a sequence of 2-2000 nodes)
+
+        id BIGINT
+        version INT
+        user_id INT
+        tstamp TIMESTAMP
+        changeset_id BIGINT
+
+* `way_nodes.txt`  (mapping of nodes on ways)
+
+        way_id BIGINT
+        node_id BIGINT
+        sequence_id INT
+
+* `way_tags.txt`  (tags for ways)
+
+        way_id BIGINT
+        k STRING
+        v STRING
+
+These files can be read in from classpath as shown in `schedoscope.example.osm.stage.Nodes `
+
+The inherent [Test Framework](Test Framework) allows test-driven development for schedoscope.
+
+1. Create a stub for your view 
+2. Implement your testclass 
+3. Implement your view while testing its behaviour using the provided test framework
+
+### Deployment
+Restart Schedoscope (your project).
 
 
 ## Hints
