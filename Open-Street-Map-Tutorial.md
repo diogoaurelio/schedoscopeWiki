@@ -12,7 +12,7 @@ Let's get started:
 3. Open a terminal and clone the Schedoscope git repository:
 
     `[cloudera@quickstart ~]$ git clone https://github.com/ottogroup/schedoscope.git`
-4. Change directory to _schedoscope_ and build the project:
+4. Change directory to `schedoscope` and build the project:
 
     `[cloudera@quickstart schedoscope]$ mvn install`
 
