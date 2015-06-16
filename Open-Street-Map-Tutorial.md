@@ -135,7 +135,7 @@ Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:
 
 These files can be read in from classpath. Have a look at the tutorial class `schedoscope.example.osm.stage.Nodes` .
 
-The inherent [Test Framework](Test Framework) allows **test-driven development** for schedoscope.
+The custom [Test Framework](Test Framework) allows **test-driven development** for schedoscope.
 
 1. Create a stub for your view.
 2. Implement your testclass.
