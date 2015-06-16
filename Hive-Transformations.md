@@ -239,7 +239,7 @@ With Maven, deployment of library jars can be achieved using the assembly plugin
                     <goal>single</goal>
                 </goals>
                 <configuration>
-                    <outputDirectory>deploy/libraries</outputDirectory>
+                    <outputDirectory>deployment</outputDirectory>
                     <descriptor>src/main/assemble/hive.xml</descriptor>
                 </configuration>
             </execution>
@@ -249,7 +249,7 @@ With Maven, deployment of library jars can be achieved using the assembly plugin
 along with the assembly descriptor
 
     <assembly>
-        <id>hive</id>
+        <id>package</id>
         <includeBaseDirectory>false</includeBaseDirectory>
         <formats>
             <format>dir</format>
@@ -258,7 +258,7 @@ along with the assembly descriptor
         <fileSets>
             <fileSet>
                 <directory>${basedir}/target/dependencies/</directory>
-                <outputDirectory>/</outputDirectory>
+                <outputDirectory>/udfs/</outputDirectory>
                 <includes>
                     <include>brickhouse*.jar</include>
                 </includes>
@@ -266,7 +266,7 @@ along with the assembly descriptor
         </fileSets>
     </assembly>
 
-would copy the brickhouse libary jar to the folder `${baseDirectory}/deploy/libraries/hive`, which then would need to be configured into `schedoscope.transformations.hive.libDirectory`.
+would copy the brickhouse libary jar to the folder `${baseDirectory}/deployment/deployment-package/udfs`, which then would need to be configured into `schedoscope.transformations.hive.libDirectory`.
 
 # Change detection
 
