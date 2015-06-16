@@ -31,7 +31,7 @@ Let's get started:
 
 1. Type  `views`
     and see which views are already materialized with current data.
-1. Have a look in the browser at the application manager of your Hadoop Cluster  `http://localhost:8088/cluster`
+1. Have a look in the browser at the application manager of your Hadoop Cluster  <http://localhost:8088/cluster>
     and see the MR-Jobs running on the cluster.
 
 ## What's happening?
@@ -41,9 +41,9 @@ Let's get started:
 Thus the example code is running now on the Cloudera Quickstart VM. 
 Try get it running with your own hadoop cluster. Simply change the config settings in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
 
-VM's schedoscope.conf:
+**VM's schedoscope.conf:**
 
-    `schedoscope {
+    schedoscope {
       app {
          environment = "demo"
       }
@@ -54,11 +54,11 @@ VM's schedoscope.conf:
               concurrency = 2                # number of parallel actors to execute hive transformations
         }
       }
-    }`
+    }
 
-your new schedoscope.conf:
+**your new schedoscope.conf:**
 
-    `schedoscope {
+    schedoscope {
       app {
          environment = "test"
       }
@@ -78,7 +78,7 @@ your new schedoscope.conf:
 		    url = ${schedoscope.metastore.jdbcUrl}
         }
       }
-    }`
+    }
 The default settings are derived from `schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in your project's `schedoscope.conf`.
 
 ## Test-driven development
