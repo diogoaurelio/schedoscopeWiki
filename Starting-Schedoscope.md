@@ -4,7 +4,7 @@ Schedoscope operates as a REST web service. There are three ways of launching th
 
 # Launching without Command Shell
 
-The simplest way of launching the Schedoscope web service is by executing the `org.schedoscope.scheduler.api.SchedoscopeRestService` main method. After launch, the service expects [scheduling commands](Command Reference) [via the REST API](Schedoscope REST API).  The [Schedoscope REST Client](Command Reference) can be used to issue these.
+The simplest way of launching the Schedoscope web service is by executing the `org.schedoscope.scheduler.api.SchedoscopeRestService` main method. After launch, the service expects [scheduling commands](Command Reference) via the [REST API](Schedoscope REST API).  The [Schedoscope REST Client](Command Reference) can be used to issue these.
 
 In order to execute, the Schedoscope web service needs a logback configuration file and a Schedoscope configuration file. These can be passed using the environment properties `-Dlogback.configurationFile` and `-Dconfig.file`.
 
