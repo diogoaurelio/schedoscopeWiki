@@ -143,4 +143,4 @@ A launch script has to do two things: construct the classpath and launch the Sch
     for S in .*.jar; do CP=${S}:${CP}; done
     CP=${CP}:`hadoop classpath`
 
-    java -cp ${CP} -Dlogback.configurationFile=eci-logback.xml -Dconfig.file=./schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService --shell $@ 
+    java -cp ${CP} -Dlogback.configurationFile=eci-logback.xml -Dconfig.file=schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService --shell $@ 
