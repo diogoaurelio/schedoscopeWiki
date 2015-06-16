@@ -127,7 +127,7 @@ This results in the following directory structure:
 
 Note that the project's build artificats end up in the folder `${baseDir}/deployment/deployment-package`. The dependencies end up in the folder `${baseDir}/deployment/deployment-package/lib`.
 
-Additionally, a Schedoscope configuration file and logback configuration file have been copied from the `resources` to the `deployment-package` folder. Please refer to the [Schedoscope Configuration](Schedoscope Configuration) section for more information on those.
+Additionally, a Schedoscope configuration file and logback configuration file have been copied from the `resources` to the `deployment-package` folder. Please refer to [Configuring Schedoscope](Configuring Schedoscope) for more information on those.
 
 Moreover, a launch script `start.sh` has been copied to `${baseDir}/deployment/deployment-package` which we cover in the next section.
 
