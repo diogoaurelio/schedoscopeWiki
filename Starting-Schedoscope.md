@@ -27,4 +27,6 @@ Example:
 
 The Schedoscope web service can also be started as a daemon using [jsvc](http://commons.apache.org/proper/commons-daemon/jsvc.html) and [Apache Commons Daemon](http://commons.apache.org/proper/commons-daemon/). 
 
+Example:
 
+    jsvc -cp ${CP} -Dlogback.configurationFile=logback.xml -Dconfig.file=schedoscope.conf  org.schedoscope.scheduler.api.SchedoscopeDaemon
