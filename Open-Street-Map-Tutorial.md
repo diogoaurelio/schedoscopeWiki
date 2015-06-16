@@ -36,7 +36,7 @@ Let's get started:
     This is how to manually tell Schedoscope that this view shall be recalculated.
 8. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
 
-    Type  `views` to see that only demo_schedoscope_example_osm_datahub.restaurants and its depending view demo_schedoscope_example_osm_datamart.ShopProfiles are recalculated.
+    Type  `views` to see that only `demo_schedoscope_example_osm_datahub.restaurants` and its depending view `demo_schedoscope_example_osm_datamart.ShopProfiles` are recalculated.
 9. Type `shutdown` to stop Schedoscope.
 
 ## What's happening?
