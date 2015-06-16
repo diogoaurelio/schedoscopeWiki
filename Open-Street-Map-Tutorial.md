@@ -6,6 +6,7 @@ This Tutorial can be used without having your own hadoop cluster at hand. For te
 
 ## Goals
 
+
 ## Prerequisites
 * basic knowledge of [Apache Hive](http://hive.apache.org/)
 
@@ -51,7 +52,7 @@ Let's get started:
 8. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
 
     Type  `views` to see that only `demo_schedoscope_example_osm_datahub.restaurants` and its depending view `demo_schedoscope_example_osm_datamart.ShopProfiles` are recalculated.
-8. Switch to hive CLI and compare column `created_at` of `restaurants` and `shops`. As you can see the table `restaurants` has been written again during recalculation.
+8. Switch to hive CLI and compare column `created_at` of `restaurants` and `shops`. As you can see table `restaurants` has been written again during recalculation.
 9. Type `shutdown` if you want to stop Schedoscope.
 
 
