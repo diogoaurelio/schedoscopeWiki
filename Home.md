@@ -32,6 +32,7 @@ Then follow the Open Street Map tutorial to install, compile, and run Schedoscop
 ## Operating Schedoscope
 - [Bundling and Deploying](Bundling and Deploying)
 - [Starting](Starting Schedoscope)
+- [Configuring](Configuring Schedoscope)
 - [Scheduling](Scheduling)
 - [REST API](Schedoscope REST API)
 - [Command Reference](Command Reference)
