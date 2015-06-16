@@ -127,9 +127,20 @@ This results in the following directory structure:
 
 Note that the project's build artificats end up in the folder `${baseDir}/deployment/deployment-package`. The dependencies end up in the folder `${baseDir}/deployment/deployment-package/lib`.
 
-Additionally, a Schedoscope configuration file and logback configuration file have been copied from the `resources` to the `deployment-package` folder. Please refer to [Configuring Schedoscope](Configuring Schedoscope) for more information on those.
+In case you want to use the Schedoscope autodeploy mechanism for external Hive libraries, you should additionally extend the assembly descriptor to copy the external Hive libraries to a separate folder next to `lib` as described in [Hive Transformations](Hive Transformations).
+ 
+Moreover, a Schedoscope configuration file and logback configuration file have been copied from the `resources` to the `deployment-package` folder. Please refer to [Configuring Schedoscope](Configuring Schedoscope) for more information on those files.
 
-Moreover, a launch script `start.sh` has been copied to `${baseDir}/deployment/deployment-package` which we cover in the next section.
+Finally, a launch script `start.sh` has been copied to `${baseDir}/deployment/deployment-package` which we cover in the next section.
 
 ## 3. Create Launch Script
 
+A launch script has to do two things: construct the classpath and launch the Schedoscope main program. There are [several options for launching Schedoscope](Starting Schedoscope); here we restrict ourselves to launch Schedoscope with the command shell open.
+
+    #!/bin/bash
+    CP=""
+    for D in ./lib/*.jar; do CP=${CP}:${D}; done
+    for S in .*.jar; do CP=${S}:${CP}; done
+    CP=${CP}:`hadoop classpath`
+
+    java -cp ${CP} -Dlogback.configurationFile=eci-logback.xml -Dconfig.file=./schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService --shell $@ 
