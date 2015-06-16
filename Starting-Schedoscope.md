@@ -1,12 +1,12 @@
 # Introduction
 
-Schedoscope operates as a REST web service. There are three ways of launching this service
+Schedoscope operates as a REST web service. There are three ways of launching this service.
 
 # Launching without Command Shell
 
-The simplest way of launching the Schedoscope web service is by executing the `org.schedoscope.scheduler.api.SchedoscopeRestService` main method. After launch, the service expects [scheduling commands](Command Reference) via the [REST API](Schedoscope REST API).  The [Schedoscope REST Client](Command Reference) can be used to issue these.
+The simplest way of launching the Schedoscope web service is by executing `org.schedoscope.scheduler.api.SchedoscopeRestService`'s main method. After launch, the service expects [scheduling commands](Command Reference) via the [REST API](Schedoscope REST API).  The [Schedoscope REST Client](Command Reference) can be used to issue these.
 
-In order to execute, the Schedoscope web service needs a logback configuration file and a Schedoscope configuration file. These can be passed using the environment properties `-Dlogback.configurationFile` and `-Dconfig.file`.
+The Schedoscope web service needs a logback configuration file and a Schedoscope configuration file. These can be passed using the system properties `-Dlogback.configurationFile` and `-Dconfig.file`.
 
 
 Example:
@@ -15,7 +15,7 @@ Example:
 
 # Launching with Command Shell
 
-The Schedoscope web service can also be launched in such a way that it opens up a command shell on `stdout` in addition to exposing the HTTP API. This shell allows for the comfortable issuing of [scheduling commands](Command Reference) and features a command history.
+The Schedoscope web service can also be launched in such a way that it opens up a command shell on the console in addition to exposing the HTTP API. This shell allows for the comfortable issuing of [scheduling commands](Command Reference) and features a command history.
 
 Opening the shell triggered by passing the `--shell` parameter.
 
