@@ -38,8 +38,9 @@ Let's get started:
 
 
 ## Adaptation
-Thus the example code is running now on the Cloudera Quickstart VM. 
-Try get it running with your own hadoop cluster. Simply change the config settings in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
+Thus the example code is running now on the Cloudera Quickstart VM. Try get it running with your own hadoop cluster now.
+ 
+Simply install Schedoscope on your own machine (see [[Installation|Open Street Map Tutorial##Installation]] step 3 and 4). Then change the config settings in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
 
 **VM's schedoscope.conf:**
 
