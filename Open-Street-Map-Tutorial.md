@@ -30,10 +30,8 @@ Let's get started:
     and see which kind of transformations are running.
 
 1. Type  `views`
-
     and see which views are already materialized with current data.
 1. Have a look in the browser at the application manager of your Hadoop Cluster  `http://localhost:8088/cluster`
-
     and see the MR-Jobs running on the cluster.
 
 ## What's happening?
