@@ -139,6 +139,7 @@ The custom [Test Framework](Test Framework) allows **test-driven development** f
 2. Implement your testclass.
 3. Implement your view while testing its behaviour using the provided test framework.
 
+Based on these 3 views you can implement a view `schedoscope.example.osm.processed.Ways` that comprises all information about ways according to view `schedoscope.example.osm.processed.Nodes`. Therefore, use UDF `collect` to create a map of tags as in `Nodes` and an array of node_id which are part of this way.
 
 ## Deployment
 Restart Schedoscope (your project).
