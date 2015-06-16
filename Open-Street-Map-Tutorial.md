@@ -81,7 +81,7 @@ your new schedoscope.conf:
         }
       }
     }`
-The default settings are derived from `schedoscope-core/src/main/resources/reference.conf`. E.g. by leaving out `hive.concurrency = 2` as in the VM's schedoscope.conf, the default number of concurrent hive actions can be performed, which is 10.
+The default settings are derived from `schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in your project's `schedoscope.conf`.
 
 ## Test-driven development
 
