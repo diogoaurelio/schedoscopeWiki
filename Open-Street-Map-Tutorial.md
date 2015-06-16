@@ -41,7 +41,7 @@ and see the MR-Jobs running on the cluster.
 
 ## Adaptation
 Thus the example code is running now on the Cloudera Quickstart VM. 
-Try get it running with your own hadoop cluster. Simply change the config settings in `src/main/resources/schedoscope.conf` as follows:
+Try get it running with your own hadoop cluster. Simply change the config settings in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
 
 VM's schedoscope.conf:
 
@@ -81,6 +81,7 @@ your new schedoscope.conf:
         }
       }
     }`
+The default settings are derived from `schedoscope-core/src/main/resources/reference.conf`. E.g. by leaving out `hive.concurrency = 2` as in the VM's schedoscope.conf, the default number of concurrent hive actions can be performed, which is 10.
 
 ## Test-driven development
 
