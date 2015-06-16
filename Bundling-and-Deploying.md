@@ -71,7 +71,6 @@ with the assembly descriptor `deployment-package.xml`
             <file>
                 <source>${basedir}/src/main/resources/eci-logback.xml</source>
                 <outputDirectory>/</outputDirectory>
-                <destName>eci-logging.xml</destName>
             </file>
             <file>
                 <source>${basedir}/src/main/resources/schedoscope.conf</source>
@@ -92,7 +91,7 @@ with the assembly descriptor `deployment-package.xml`
             </fileSet>
             <fileSet>
                 <directory>${basedir}/target/dependencies/</directory>
-                <outputDirectory>/dependencies/</outputDirectory>
+                <outputDirectory>/lib/</outputDirectory>
                 <includes>
                     <include>*.jar</include>
                 </includes>
@@ -102,13 +101,13 @@ with the assembly descriptor `deployment-package.xml`
 
 This results in the following directory structure:
 
-    project
+    ${baseDir}
     |
     +-- deployment
         |
         +-- deployment-package
             |
-            +-- dependencies
+            +-- lib
             |   |
             |   +-- dependency.jar
             |   |
@@ -125,6 +124,12 @@ This results in the following directory structure:
             +-- project-hive.jar
             |
             +-- ...
+
+Note that the project's build artificats end up in the folder `${baseDir}/deployment/deployment-package`. The dependencies end up in the folder `${baseDir}/deployment/deployment-package/lib`.
+
+Additionally, a Schedoscope configuration file and logback configuration file have been copied from the `resources` to the `deployment-package` folder. Please refer to the [Schedoscope Configuration](Schedoscope Configuration) section for more information on those.
+
+Moreover, a launch script `start.sh` has been copied to `${baseDir}/deployment/deployment-package` which we cover in the next section.
 
 ## 3. Create Launch Script
 
