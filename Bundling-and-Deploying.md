@@ -5,8 +5,8 @@ Schedoscope provides an internal Scala DSL for what is essentially programming d
 Hence, Schedoscope views declarations form a [Scala software development project](Setting up a Schedoscope Project), with jar files and their dependencies as resulting artifacts. Bundling and deploying Schedoscope therefore means bundling and deploying jar files as for any other JVM project.
 
 When using Maven as your build tool, the basic bundling options are:
-- create and distribute a fat jar using the Maven assembly plugin;
-- copy all jars into a separate deployment directory with the Maven dependency plugin, create a shell scripts that constructs the classpath and launches the application, and distribute that folder.
+- creating and distributing a fat jar using the Maven assembly plugin;
+- copying all jars into a separate deployment folder with the Maven dependency plugin, creating a shell script that constructs the classpath and launches the application, and distribute that folder.
 
 In this section, we explore the latter approach. 
 
@@ -125,7 +125,7 @@ This results in the following directory structure:
             |
             +-- ...
 
-Note that the project's build artificats end up in the folder `${baseDir}/deployment/deployment-package`. The dependencies end up in the folder `${baseDir}/deployment/deployment-package/lib`.
+Note that the project's build artifacts end up in the folder `${baseDir}/deployment/deployment-package`. The dependencies end up in the folder `${baseDir}/deployment/deployment-package/lib`.
 
 In case you want to use the Schedoscope autodeploy mechanism for external Hive libraries, you should additionally extend the assembly descriptor to copy the external Hive libraries to a separate folder next to `lib` as described in [Hive Transformations](Hive Transformations).
  
@@ -135,7 +135,7 @@ Finally, a launch script `start.sh` has been copied to `${baseDir}/deployment/de
 
 ## 3. Create Launch Script
 
-A launch script has to do two things: construct the classpath and launch the Schedoscope main program. There are [several options for launching Schedoscope](Starting Schedoscope); here we restrict ourselves to launch Schedoscope with the command shell open.
+A launch script has to do two things: construct the classpath and launch the Schedoscope main program. There are [several options for launching Schedoscope](Starting Schedoscope); here we restrict ourselves to launching Schedoscope with the command shell open.
 
     #!/bin/bash
     CP=""
@@ -143,9 +143,9 @@ A launch script has to do two things: construct the classpath and launch the Sch
     for S in .*.jar; do CP=${S}:${CP}; done
     CP=${CP}:`hadoop classpath`
 
-    java -cp ${CP} -Dlogback.configurationFile=logback.xml -Dconfig.file=schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService --shell $@ 
+    java -cp ${CP} -Dlogback.configurationFile=logback.xml -Dconfig.file=schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService --shell
 
 ## 4. Bundle and Deploy
 
-As the last step, one needs to package up `${baseDir}/deployment/deployment-package` and distribute it to the node where Schedoscope is supposed to run. This step depends on your environment; so we will not make any suggestion on how to do this.
+As the last step, one needs to package `${baseDir}/deployment/deployment-package` and distribute it to the node where Schedoscope is supposed to run. This step depends on your environment so we will not make any suggestions on how to do this.
 
