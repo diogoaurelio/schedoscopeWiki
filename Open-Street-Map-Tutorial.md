@@ -21,7 +21,7 @@ Let's get started:
 1. Change directory to `~/schedoscope/schedoscope-tutorial` and execute the tutorial:
 
     `[cloudera@quickstart schedoscope-tutorial]$ mvn exec:java`
-1. The Schedoscope Shell opens in the terminal. Find the full command reference [[here|Command Reference]].
+1. The Schedoscope Shell opens in the terminal. Find the full [[command reference|Command Reference]] in the Schedoscope wiki.
 1. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
 
 and see how all data is digested which is needed in order to provide the requested view of shop profiles.
