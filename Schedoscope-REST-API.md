@@ -132,11 +132,12 @@ Path: /views/`ViewUrlPath`
 
 
 **Returns**  
-
 	{
-        "view": "schedoscope.example.osm/Stage/2015/01",  
-        "status": "transforming"   
-	}
+ 	 "id": "materialize_view::schedoscope.example/Example/2015/06::20150617183559",
+ 	 "start": "6/17/15 6:35 PM",
+ 	 "status": {
+  	  "submitted": 1
+ 	 }
 	
 ### invalidate
 Method: GET  
