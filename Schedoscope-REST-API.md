@@ -66,9 +66,27 @@ Path:  /actions
 
 **Returns**  
 	{
-		
+	  "overview": {
+	    "idle": 860
+	  },
+	  "actions": [{
+	    "actor": "/user/root/actions/oozie-154",
+	    "typ": "oozie",
+	    "status": "idle"
+	  }, {
+	    "actor": "/user/root/actions/pig-40",
+	    "typ": "pig",
+	    "status": "idle"
+	  }, {
+	    "actor": "/user/root/actions/pig-61",
+	    "typ": "pig",
+	    "status": "idle"
+	  }, {
+	    "actor": "/user/root/actions/hive-162",
+	    "typ": "hive",
+	    "status": "idle"
+	  }]
 	}
-
 
 ### queues 
 Method: GET  
