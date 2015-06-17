@@ -3,7 +3,11 @@ _**This Tutorial is under construction.**_
 This Tutorial can be used without having your own hadoop cluster at hand. For testing the examples on your own cluster please read section [[Adaptation|Open Street Map Tutorial##Adaptation]].
 
 # Goals
-
+* Get Schedoscope tutorial running in Cloudera VM 
+* Watch Schedoscope working, play around
+* Get Schedoscope tutorial running with your own Hadoop Cluster
+* Get familiar with Schedoscope test framework
+* Implement and schedule your own views
 
 # Prerequisites
 * basic knowledge of [Apache Hive](http://hive.apache.org/)
