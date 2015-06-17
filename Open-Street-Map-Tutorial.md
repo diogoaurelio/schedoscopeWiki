@@ -49,8 +49,8 @@ Let's get started:
     This is how to manually tell Schedoscope that this view shall be recalculated.
 8. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
 
-    Type  `views` to see that only `demo_schedoscope_example_osm_datahub.restaurants` and its depending view `demo_schedoscope_example_osm_datamart.ShopProfiles` are recalculated.
-8. Switch to hive CLI and compare column `created_at` of `restaurants` and `shops`. As you can see table `restaurants` has been written again during recalculation.
+    Type  `views` to see that only `demo_schedoscope_example_osm_datahub.restaurants` and its depending view `demo_schedoscope_example_osm_datamart.ShopProfiles` are recalculated. Schedoscope knows that the other views' data is still up-to-date.
+8. Switch to hive CLI and compare column `created_at` of `restaurants` and `shops`. As you can see table `restaurants` has been written again during recalculation. Table `shops` has not been touched.
 9. Type `shutdown` if you want to stop Schedoscope.
 
 
