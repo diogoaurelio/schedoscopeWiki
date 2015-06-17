@@ -65,7 +65,8 @@ Path:  /actions
 **Parameters:**  
 
 **Returns**  
-	{
+
+    {
 	  "overview": {
 	    "idle": 860
 	  },
