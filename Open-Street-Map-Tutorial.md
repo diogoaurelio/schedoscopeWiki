@@ -33,6 +33,49 @@ Let's get started:
     and see which kind of transformations are running.
 5. Type  `views`
     and see which views are already materialized with current data.
+
+        schedoscope> views
+        Starting VIEWS ...
+
+        RESULTS
+        =======
+        Details:
+        +-----------------------------------------------------+--------------+-------+
+        |                         VIEW                        |    STATUS    | PROPS |
+        +-----------------------------------------------------+--------------+-------+
+        | schedoscope.example.osm.processed/NodesWithGeohash/ | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/04 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/10 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/07 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/01 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2015/05 | transforming |       |
+        |        schedoscope.example.osm.datahub/Restaurants/ |      waiting |       |
+        |     schedoscope.example.osm.processed/Nodes/2015/02 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/12 | transforming |       |
+        |              schedoscope.example.osm.datahub/Shops/ |      waiting |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/09 | transforming |       |
+        |                schedoscope.example.osm.stage/Nodes/ | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/03 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/06 | transforming |       |
+        |      schedoscope.example.osm.datamart/ShopProfiles/ |      waiting |       |
+        |             schedoscope.example.osm.stage/NodeTags/ | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2015/04 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/05 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/11 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2015/01 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/08 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/02 | transforming |       |
+        |      schedoscope.example.osm.datahub/Trainstations/ |      waiting |       |
+        |     schedoscope.example.osm.processed/Nodes/2015/03 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2015/06 | transforming |       |
+        |     schedoscope.example.osm.processed/Nodes/2013/12 | transforming |       |
+        +-----------------------------------------------------+--------------+-------+
+        Total: 26
+
+        materialized: 3
+        transforming: 19
+        waiting: 4
+
 6. Have a look in the browser at the application manager of your Hadoop Cluster  <http://localhost:8088/cluster>
     and see the MR-Jobs running on the cluster.
 9. Type `shutdown` if you want to stop Schedoscope.
