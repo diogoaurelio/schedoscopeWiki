@@ -133,6 +133,7 @@ Path: /views/`ViewUrlPath`
 
 
 **Returns**  
+
 	{
  	 "id": "materialize_view::schedoscope.example/Example/2015/06::20150617183559",
  	 "start": "6/17/15 6:35 PM",
@@ -152,12 +153,13 @@ Path: /invalidate/`ViewUrlPath`
 - `dependencies=true`: invalidate the dependencies of the views as well
 
 **Returns**  
-	{
-	  "id": "invalidate::schedoscope.example/Example/2015/06::20150617183733",
-	  "start": "6/17/15 6:37 PM",
-	  "status": {
-	    "submitted": 1
-	  }
+
+    {
+      "id": "invalidate::schedoscope.example/Example/2015/06::20150617183733",
+      "start": "6/17/15 6:37 PM",
+      "status": {
+        "submitted": 1
+     }
 
 
 
