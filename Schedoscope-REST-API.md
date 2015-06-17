@@ -89,6 +89,9 @@ Path:  /actions
 	}
 
 ### queues 
+Returns the existing queues and their contents. Queues contain Tranformations and Actions
+that did not yet get processed.
+
 Method: GET  
 Path: /queues
 
@@ -107,13 +110,9 @@ Path: /queues
         "hive": 1  
         "oozie" : 1  
       },  
-      "queues": [{  
-        "typ": "oozie",  
-       
-      }, {  
-        "typ": "oozie",  
- 
-      }]  
+      "queues": {  
+        "oozie": [],
+        "hive : [] 
     }  
 
 ### materialize 
@@ -132,6 +131,7 @@ Path: /views/`ViewUrlPath`
 
 
 **Returns**  
+
 	{
  	 "id": "materialize_view::schedoscope.example/Example/2015/06::20150617183559",
  	 "start": "6/17/15 6:35 PM",
@@ -151,6 +151,7 @@ Path: /invalidate/`ViewUrlPath`
 - `dependencies=true`: invalidate the dependencies of the views as well
 
 **Returns**  
+
 	{
 	  "id": "invalidate::schedoscope.example/Example/2015/06::20150617183733",
 	  "start": "6/17/15 6:37 PM",
@@ -173,9 +174,7 @@ none
 
 **Returns**  
 
-{
-  
-}
+TBD
 
 ### shutdown 
 Method: GET  
