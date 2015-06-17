@@ -152,14 +152,12 @@ Path: /invalidate/`ViewUrlPath`
 
 **Returns**  
 	{
-      "views": [{  
-        "view": "example.osm/Stage/2015/01",  
-        "status": "nodata"  
-      }, {  
-        "view": "example.osm/Stage/2015/02",  
-        "status": "materializes"  
-      }]  		
-	}
+	  "id": "invalidate::schedoscope.example/Example/2015/06::20150617183733",
+	  "start": "6/17/15 6:37 PM",
+	  "status": {
+	    "submitted": 1
+	  }
+
 
 
 ### newdata 
