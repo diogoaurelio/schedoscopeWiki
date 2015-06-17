@@ -12,6 +12,47 @@ This Tutorial can be used without having your own hadoop cluster at hand. For te
 # Prerequisites
 * basic knowledge of [Apache Hive](http://hive.apache.org/)
 
+# The Storyline
+Imagine you had a fantastic business idea. You would like to open a new shop in Hamburg, Germany. So you need a place. Why not use the rooms of one of the numerous shops in Hamburg? However... **which shop in Hamburg is the one located best?**
+
+For implementing this tutorial we used data of [Open Street Map](http://www.openstreetmap.org/copyright) limited on Hamburg, Germany.
+
+**The raw data structure:**
+
+        nodes  -- points on the map defined by longitude and latitude 
+
+          id BIGINT
+          version INT
+          user_id INT
+          tstamp TIMESTAMP
+          changeset_id BIGINT
+          longitude DOUBLE
+          latitude DOUBLE
+
+        node_tags  -- tags describing a node's feature
+          node_id BIGINT
+          k STRING
+          v STRING
+
+**The measures:**
+
+* The more _restaurants_ are around, the more customers will show up. (+)
+* The more _trainstations_ are around, the more customers will show up. (+)
+* The more other _shops_ are around, the less customers will show up. They rather might go to the competitors. (-)
+
+
+**The auxiliary measure:**
+Two nodes are close to each other if they lie in the same area. A node's area is defined by the first 7 characters of `GeoHash.geoHashStringWithCharacterPrecision(longitude, latitude)`.
+
+**The execution plan:**
+
+1. Calculate each node's geohash
+2. Filter for restaurants, trainstations and shops 
+3. Provide aggregated data such that the measures can be applied; the aggregation is stored in view `schedoscope.example.osm.datamart/ShopProfiles`
+
+
+Analyzing view `schedoscope.example.osm.datamart/ShopProfiles` you will find the best location for your shop. 
+
 # Installation
 Let's get started:
 
