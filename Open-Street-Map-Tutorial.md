@@ -139,6 +139,7 @@ Let's get started:
 
     Type  `views` to see that only `demo_schedoscope_example_osm_datahub.restaurants` and its depending view `demo_schedoscope_example_osm_datamart.ShopProfiles` are recalculated. Schedoscope knows that the other views' data still is up-to-date.
 8. Switch to hive CLI and compare column `created_at` of `restaurants` and `shops`. As you can see table `restaurants` has been written again during recalculation. Table `shops` has not been touched.
+9. Have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
 9. Type `shutdown` if you want to stop Schedoscope.
 
 
