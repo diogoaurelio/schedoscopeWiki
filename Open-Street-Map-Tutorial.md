@@ -133,11 +133,50 @@ Let's get started:
     4. list the first 10 entries of a table
     5. perform an analysis on the data provided
 7. Type  `invalidate -v schedoscope.example.osm.datahub/Restaurants` in the schedoscope shell.
-
     This is how to manually tell Schedoscope that this view shall be recalculated.
+
+        schedoscope> views
+        Starting VIEWS ...
+
+        RESULTS
+        =======
+        Details:
+        +-----------------------------------------------------+--------------+-------+
+        |                         VIEW                        |    STATUS    | PROPS |
+        +-----------------------------------------------------+--------------+-------+
+        | schedoscope.example.osm.processed/NodesWithGeohash/ | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2015/05 | materialized |       |
+        |        schedoscope.example.osm.datahub/Restaurants/ |  invalidated |       |
+        |      schedoscope.example.osm.datamart/ShopProfiles/ | materialized |       |
+...
+
+        |     schedoscope.example.osm.processed/Nodes/2015/06 | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2013/12 | materialized |       |
+        +-----------------------------------------------------+--------------+-------+
+        Total: 26
+
+        materialized: 25
+        invalidated: 1
+
 8. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
 
     Type  `views` to see that only `demo_schedoscope_example_osm_datahub.restaurants` and its depending view `demo_schedoscope_example_osm_datamart.ShopProfiles` are recalculated. Schedoscope knows that the other views' data still is up-to-date.
+
+        | schedoscope.example.osm.processed/NodesWithGeohash/ | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/04 | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2015/05 | materialized |       |
+        |        schedoscope.example.osm.datahub/Restaurants/ | transforming |       |
+        |              schedoscope.example.osm.datahub/Shops/ | materialized |       |
+        |                schedoscope.example.osm.stage/Nodes/ | materialized |       |
+        |      schedoscope.example.osm.datamart/ShopProfiles/ |      waiting |       |
+        |             schedoscope.example.osm.stage/NodeTags/ | materialized |       |
+        |      schedoscope.example.osm.datahub/Trainstations/ | materialized |       |
+        +-----------------------------------------------------+--------------+-------+
+        Total: 26
+
+        materialized: 24
+        transforming: 1
+        waiting: 1
 8. Switch to hive CLI and compare column `created_at` of `restaurants` and `shops`. As you can see table `restaurants` has been written again during recalculation. Table `shops` has not been touched.
 9. Have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
 9. Type `shutdown` if you want to stop Schedoscope.
