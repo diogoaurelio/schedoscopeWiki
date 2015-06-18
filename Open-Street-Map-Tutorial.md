@@ -1,6 +1,6 @@
 _**This Tutorial is under construction.**_
 
-This Tutorial can be used without having your own hadoop cluster at hand. For testing the examples on your own cluster please read section [[Adaptation|Open Street Map Tutorial#Adaptation]].
+This Tutorial can be used without having your own hadoop cluster at hand. For testing the examples on your own cluster please read section [[Adaptation|Open Street Map Tutorial#adaptation]].
 
 # Goals
 * Get Schedoscope tutorial running in Cloudera VM 
@@ -143,10 +143,10 @@ Let's get started:
 9. Type `shutdown` if you want to stop Schedoscope.
 
 
-# Adaptation
+#Adaptation
 Thus the example code is running now in Cloudera Quickstart VM. Try get it running with your own hadoop cluster now.
  
-Simply install the Schedoscope tutorial on your own machine (see [[Installation|Open Street Map Tutorial##Installation]] step 3 and 4). Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
+Simply install the Schedoscope tutorial on your own machine (see [[Installation|Open Street Map Tutorial#installation]] step 3 and 4). Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
 
 **VM's schedoscope.conf:**
 
@@ -188,7 +188,7 @@ Simply install the Schedoscope tutorial on your own machine (see [[Installation|
     }
 The [[default configuration settings|Configuring Schedoscope]] are derived from `schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in your project's `schedoscope.conf`.
 
-Change directory to `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial##Execution]] the tutorial using your own hadoop cluster:
+Change directory to `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial#execution]] the tutorial using your own hadoop cluster:
 
     [cloudera@quickstart schedoscope-tutorial]$ mvn exec:java
 
