@@ -50,8 +50,8 @@ Two nodes are close to each other if they lie in the same area. A node's area is
 2. Filter for restaurants, trainstations and shops 
 3. Provide aggregated data such that the measures can be applied; the aggregation is stored in view `schedoscope.example.osm.datamart/ShopProfiles`
 
+Find the best location for your shop by analyzing view `schedoscope.example.osm.datamart/ShopProfiles`.
 
-Analyzing view `schedoscope.example.osm.datamart/ShopProfiles` you will find the best location for your shop. 
 
 # Installation
 Let's get started:
