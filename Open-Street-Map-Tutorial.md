@@ -283,7 +283,7 @@ Schedoscope is a Webservice with [[REST API|Schedoscope REST API]]. If you want 
 
        5   8-20 * * *  curl http://localhost:20698/materialize/schedoscope.example.osm.datamart/ShopProfiles
 
-This is the default webservice configured in `schedoscope/schedoscope-core/src/main/resources/reference.conf`, the command `materialize` and the [[View URL|View Pattern Reference]] of the view you're interested in. Reloading the requested view `ShopProfiles` only starts if on of its source views `ShopProfiles` depends on has changed!
+This is the default webservice configured in `schedoscope/schedoscope-core/src/main/resources/reference.conf`, the command `materialize` and the [[View URL|View Pattern Reference]] of the view you're interested in. Reloading the requested view `ShopProfiles` only starts if any of its source views `ShopProfiles` depends on has changed!
 
 
 # Hints
