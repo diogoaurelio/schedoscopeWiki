@@ -1,6 +1,6 @@
 _**This Tutorial is under construction.**_
 
-This Tutorial can be used without having your own hadoop cluster at hand. For testing the examples on your own cluster please read section [[Adaptation|Open Street Map Tutorial##Adaptation]].
+This Tutorial can be used without having your own hadoop cluster at hand. For testing the examples on your own cluster please read section [[Adaptation|Open Street Map Tutorial#adaptation]].
 
 # Goals
 * Get Schedoscope tutorial running in Cloudera VM 
@@ -11,6 +11,47 @@ This Tutorial can be used without having your own hadoop cluster at hand. For te
 
 # Prerequisites
 * basic knowledge of [Apache Hive](http://hive.apache.org/)
+
+# The Storyline
+Imagine you had a fantastic business idea. You would like to open a new shop in Hamburg, Germany. So you need a place. Why not use the rooms of one of the numerous shops in Hamburg? However... **which shop in Hamburg is the one located best?**
+
+For implementing this tutorial we used data of [Open Street Map](http://www.openstreetmap.org/copyright) limited on Hamburg, Germany. The data is stored in TSV files and provided by archive schedoscope-tutorial-osm-data.
+
+**The raw data structure:**
+
+        nodes  -- points on the map defined by longitude and latitude 
+
+          id BIGINT
+          version INT
+          user_id INT
+          tstamp TIMESTAMP
+          changeset_id BIGINT
+          longitude DOUBLE
+          latitude DOUBLE
+
+        node_tags  -- tags describing a node's feature
+          node_id BIGINT
+          k STRING
+          v STRING
+
+**The measures:**
+
+* The more _restaurants_ are around, the more customers will show up. (+)
+* The more _trainstations_ are around, the more customers will show up. (+)
+* The more other _shops_ are around, the less customers will show up. They rather might go to the competitors. (-)
+
+
+**The auxiliary measure:**
+Two nodes are close to each other if they lie in the same area. A node's area is defined by the first 7 characters of `GeoHash.geoHashStringWithCharacterPrecision(longitude, latitude)`.
+
+**The execution plan:**
+
+1. Calculate each node's geohash
+2. Filter for restaurants, trainstations and shops 
+3. Provide aggregated data such that the measures can be applied; the aggregation is stored in view `schedoscope.example.osm.datamart/ShopProfiles`
+
+Finally, find the best location for your shop by analyzing view `schedoscope.example.osm.datamart/ShopProfiles`.
+
 
 # Installation
 Let's get started:
@@ -92,19 +133,59 @@ Let's get started:
     4. list the first 10 entries of a table
     5. perform an analysis on the data provided
 7. Type  `invalidate -v schedoscope.example.osm.datahub/Restaurants` in the schedoscope shell.
-
     This is how to manually tell Schedoscope that this view shall be recalculated.
+
+        schedoscope> views
+        Starting VIEWS ...
+
+        RESULTS
+        =======
+        Details:
+        +-----------------------------------------------------+--------------+-------+
+        |                         VIEW                        |    STATUS    | PROPS |
+        +-----------------------------------------------------+--------------+-------+
+        | schedoscope.example.osm.processed/NodesWithGeohash/ | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2015/05 | materialized |       |
+        |        schedoscope.example.osm.datahub/Restaurants/ |  invalidated |       |
+        |      schedoscope.example.osm.datamart/ShopProfiles/ | materialized |       |
+...
+
+        |     schedoscope.example.osm.processed/Nodes/2015/06 | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2013/12 | materialized |       |
+        +-----------------------------------------------------+--------------+-------+
+        Total: 26
+
+        materialized: 25
+        invalidated: 1
+
 8. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
 
     Type  `views` to see that only `demo_schedoscope_example_osm_datahub.restaurants` and its depending view `demo_schedoscope_example_osm_datamart.ShopProfiles` are recalculated. Schedoscope knows that the other views' data still is up-to-date.
+
+        | schedoscope.example.osm.processed/NodesWithGeohash/ | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2014/04 | materialized |       |
+        |     schedoscope.example.osm.processed/Nodes/2015/05 | materialized |       |
+        |        schedoscope.example.osm.datahub/Restaurants/ | transforming |       |
+        |              schedoscope.example.osm.datahub/Shops/ | materialized |       |
+        |                schedoscope.example.osm.stage/Nodes/ | materialized |       |
+        |      schedoscope.example.osm.datamart/ShopProfiles/ |      waiting |       |
+        |             schedoscope.example.osm.stage/NodeTags/ | materialized |       |
+        |      schedoscope.example.osm.datahub/Trainstations/ | materialized |       |
+        +-----------------------------------------------------+--------------+-------+
+        Total: 26
+
+        materialized: 24
+        transforming: 1
+        waiting: 1
 8. Switch to hive CLI and compare column `created_at` of `restaurants` and `shops`. As you can see table `restaurants` has been written again during recalculation. Table `shops` has not been touched.
+9. Have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
 9. Type `shutdown` if you want to stop Schedoscope.
 
 
-# Adaptation
+#Adaptation
 Thus the example code is running now in Cloudera Quickstart VM. Try get it running with your own hadoop cluster now.
  
-Simply install the Schedoscope tutorial on your own machine (see [[Installation|Open Street Map Tutorial##Installation]] step 3 and 4). Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
+Simply install the Schedoscope tutorial on your own machine (see [[Installation|Open Street Map Tutorial#installation]] step 3 and 4). Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
 
 **VM's schedoscope.conf:**
 
@@ -115,7 +196,7 @@ Simply install the Schedoscope tutorial on your own machine (see [[Installation|
 
     transformations = {
       hive : {
-              libDirectory = "/home/cloudera/schedoscope-tutorial/target/hive-libraries"
+              libDirectory = "/home/cloudera/schedoscope/schedoscope-tutorial/target/hive-libraries"
               concurrency = 2                # number of parallel actors to execute hive transformations
         }
       }
@@ -125,7 +206,7 @@ Simply install the Schedoscope tutorial on your own machine (see [[Installation|
 
     schedoscope {
       app {
-         environment = "test"
+         environment = "test"    # choose your favourite environment name
       }
 
       metastore {
@@ -139,14 +220,14 @@ Simply install the Schedoscope tutorial on your own machine (see [[Installation|
       
       transformations = {
       	hive : {
-		    libDirectory = "/home/cloudera/schedoscope-tutorial/target/hive-libraries"
+		    libDirectory = "/your/absolute/path/to/schedoscope/schedoscope-tutorial/target/hive-libraries"
 		    url = ${schedoscope.metastore.jdbcUrl}
         }
       }
     }
 The [[default configuration settings|Configuring Schedoscope]] are derived from `schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in your project's `schedoscope.conf`.
 
-Change directory to `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial##Execution]] the tutorial using your own hadoop cluster:
+Change directory to `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial#execution]] the tutorial using your own hadoop cluster:
 
     [cloudera@quickstart schedoscope-tutorial]$ mvn exec:java
 
@@ -158,6 +239,7 @@ Now it's time to design your own views and their dependencies.
 1. You need a Scala IDE, e.g. [Scala IDE for Eclipse](http://scala-ide.org/download/sdk.html)
 2. Import the maven project schedoscope-tutorial
 3. Set scala compiler on version 2.10 in the project's properties
+4. Sometimes the scala library needs to be added to the project in the IDE manually; right click on the project go to Scala > Add Scala Library to Build Path
 
 ## Development
 Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:

@@ -65,7 +65,8 @@ Path:  /actions
 **Parameters:**  
 
 **Returns**  
-	{
+
+    {
 	  "overview": {
 	    "idle": 860
 	  },
@@ -158,6 +159,7 @@ Path: /invalidate/`ViewUrlPath`
 	  "status": {
 	    "submitted": 1
 	  }
+
 
 
 
