@@ -167,7 +167,7 @@ Simply install the Schedoscope tutorial on your own machine (see [[Installation|
 
     schedoscope {
       app {
-         environment = "test"
+         environment = "test"    # choose your favourite environment name
       }
 
       metastore {
