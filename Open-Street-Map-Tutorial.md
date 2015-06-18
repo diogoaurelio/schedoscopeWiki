@@ -15,7 +15,7 @@ This Tutorial can be used without having your own hadoop cluster at hand. For te
 # The Storyline
 Imagine you had a fantastic business idea. You would like to open a new shop in Hamburg, Germany. So you need a place. Why not use the rooms of one of the numerous shops in Hamburg? However... **which shop in Hamburg is the one located best?**
 
-For implementing this tutorial we used data of [Open Street Map](http://www.openstreetmap.org/copyright) limited on Hamburg, Germany.
+For implementing this tutorial we used data of [Open Street Map](http://www.openstreetmap.org/copyright) limited on Hamburg, Germany. The data is stored in TSV files and provided by archive schedoscope-tutorial-osm-data.
 
 **The raw data structure:**
 
