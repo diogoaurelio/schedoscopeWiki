@@ -121,7 +121,7 @@ Materialize view(s) - i.e., load the data of the designated views and their depe
 The materialization command ID is returned as a result.
 
 Method: GET  
-Path: /views/`ViewUrlPath`  
+Path: /materialize/`ViewUrlPath`  
 
 
 **Parameters:**  
