@@ -157,7 +157,7 @@ Simply install the Schedoscope tutorial on your own machine (see [[Installation|
 
     transformations = {
       hive : {
-              libDirectory = "/home/cloudera/schedoscope-tutorial/target/hive-libraries"
+              libDirectory = "/home/cloudera/schedoscope/schedoscope-tutorial/target/hive-libraries"
               concurrency = 2                # number of parallel actors to execute hive transformations
         }
       }
@@ -181,7 +181,7 @@ Simply install the Schedoscope tutorial on your own machine (see [[Installation|
       
       transformations = {
       	hive : {
-		    libDirectory = "/home/cloudera/schedoscope-tutorial/target/hive-libraries"
+		    libDirectory = "/your/absolute/path/to/schedoscope/schedoscope-tutorial/target/hive-libraries"
 		    url = ${schedoscope.metastore.jdbcUrl}
         }
       }
