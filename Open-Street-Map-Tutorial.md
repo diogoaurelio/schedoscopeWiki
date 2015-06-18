@@ -278,5 +278,13 @@ Based on your new views `ways`, `way_tags` and `way_nodes` you can implement a v
 Restart Schedoscope (your project).
 
 
+#Scheduling 
+Schedoscope is a Webservice with [[REST API|Schedoscope REST API]]. If you want your data up-to-date every hour during business time (8am-8pm) simply register cronjobs like:
+
+       5   8-20 * * *  curl http://localhost:20698/materialize/schedoscope.example.osm.datamart/ShopProfiles
+
+This is the default webservice configured in `schedoscope/schedoscope-core/src/main/resources/reference.conf`, the command `materialize` and the [[View URL|View Pattern Reference]] of the view you're interested in. Reloading the requested view `ShopProfiles` only starts if on of its source views `ShopProfiles` depends on has changed!
+
+
 # Hints
 
