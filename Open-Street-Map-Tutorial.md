@@ -243,6 +243,14 @@ Now it's time to design your own views and their dependencies.
 4. Sometimes the scala library needs to be added to the project in the IDE manually; right click on the project go to Scala > Add Scala Library to Build Path
 5. Sometimes the scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
 
+## Exploring the Test Framework
+The custom [Test Framework](Test Framework) of Schedoscope provides the opportunity to test the code quickly. For each test called a self-contained local hadoop installation is set up.
+
+1. Set environment variables HADDOP_HOME and JAVA_HOME.
+![test_run_configurations](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/test_run_configurations.png)
+2. You can run a test by right clicking on the test class in the Scala IDE's package explorer and choosing Run As > Scala Test - File
+3. When building the project (as in [[Installation|Open Street Map Tutorial#installation]] step 4) you can see how all tests are executed.
+
 ## Development
 Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:
 
