@@ -277,6 +277,7 @@ Based on your new views `ways`, `way_tags` and `way_nodes` you can implement a v
 
 ## Deployment
 Restart Schedoscope (your project).
+In case of trouble have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
 
 
 #Scheduling 
@@ -288,4 +289,5 @@ This is the default webservice configured in `schedoscope/schedoscope-core/src/m
 
 
 # Hints
-
+* Defining a field of type BIGINT in hive, works with LONG in Schedoscope: `val id = fieldOf[Long]`
+* Do not use the same names for variables in views and their test classes! It will show an error without being specific about the problem.
