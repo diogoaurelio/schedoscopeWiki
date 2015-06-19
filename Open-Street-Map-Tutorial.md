@@ -292,3 +292,4 @@ This is the default webservice configured in `schedoscope/schedoscope-core/src/m
 # Hints
 * Defining a field of type BIGINT in hive, works with LONG in Schedoscope: `val id = fieldOf[Long]`
 * Do not use the same names for variables in views and their test classes! It will show an error without being specific about the problem.
+* Testing views of the same name (but different layers): Run the test by right clicking on the word "should" in the test class source code and choosing Run As > Scala Test - Test
