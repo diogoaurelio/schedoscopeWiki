@@ -238,9 +238,10 @@ Now it's time to design your own views and their dependencies.
 
 ## Preparation
 1. You need a Scala IDE, e.g. [Scala IDE for Eclipse](http://scala-ide.org/download/sdk.html)
-2. Import the maven project schedoscope-tutorial
-3. Set scala compiler on version 2.10 in the project's properties
+2. Import the maven projects schedoscope-core and schedoscope-tutorial
+3. Set scala compiler on version 2.10 in the projects' properties
 4. Sometimes the scala library needs to be added to the project in the IDE manually; right click on the project go to Scala > Add Scala Library to Build Path
+5. Sometimes the scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
 
 ## Development
 Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:
