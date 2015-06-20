@@ -57,10 +57,13 @@ Finally, find the best location for your shop by analyzing view `schedoscope.exa
 Let's get started:
 
 1. Download [Cloudera Quickstart VM](http://www.cloudera.com/content/cloudera/en/documentation/core/latest/topics/cloudera_quickstart_vm.html)
+
 2. Start Cloudera VM.
+
 3. Open a terminal and clone the Schedoscope git repository:
 
     `[cloudera@quickstart ~]$ git clone https://github.com/ottogroup/schedoscope.git`
+
 4. Change directory to `schedoscope` and build the project:
 
     `[cloudera@quickstart schedoscope]$ mvn install`
@@ -244,9 +247,9 @@ Now it's time to design your own views and their dependencies.
 5. Sometimes the scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
 
 ## Exploring the Test Framework
-The custom [Test Framework](Test Framework) of Schedoscope provides the opportunity to test the code quickly. For each test called a self-contained local hadoop installation is set up.
+The custom [Test Framework](Test Framework) of Schedoscope provides the opportunity to test the code quickly. For each test called a self-contained local hadoop installation is set up in `${baseDir}/target/hadoop`.
 
-1. Set environment variables HADDOP_HOME and JAVA_HOME.
+1. Set environment variables HADOOP_HOME to `your/project/folder/target/hadoop`and JAVA_HOME.
 ![test_run_configurations](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/test_run_configurations.png)
 2. You can run a test by right clicking on the test class in the Scala IDE's package explorer and choosing Run As > Scala Test - File
 3. When building the project (as in [[Installation|Open Street Map Tutorial#installation]] step 4) you can see how all tests are executed.
@@ -294,7 +297,7 @@ Schedoscope is a Webservice with [[REST API|Schedoscope REST API]]. If you want 
 
        5   8-20 * * *  curl http://localhost:20698/materialize/schedoscope.example.osm.datamart/ShopProfiles
 
-This is the default webservice configured in `schedoscope/schedoscope-core/src/main/resources/reference.conf`, the command `materialize` and the [[View URL|View Pattern Reference]] of the view you're interested in. Reloading the requested view `ShopProfiles` only starts if any of its source views `ShopProfiles` depends on has changed!
+This is the default webservice configured in `schedoscope/schedoscope-core/src/main/resources/reference.conf`, the command `materialize` and the [[View URL|View Pattern Reference]] of the view you're interested in. Reloading the requested view `ShopProfiles` only starts if any of its source views `ShopProfiles` depends on or `ShopProfiles` itself has changed!
 
 
 # Hints
