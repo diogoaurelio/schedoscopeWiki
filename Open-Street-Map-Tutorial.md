@@ -249,10 +249,10 @@ Now it's time to design your own views and their dependencies.
 ## Exploring the Test Framework
 The custom [Test Framework](Test Framework) of Schedoscope provides the opportunity to test the code quickly. For each test called a self-contained local hadoop installation is set up in `${baseDir}/target/hadoop`.
 
-1. Set environment variables HADOOP_HOME to `your/project/folder/target/hadoop`and JAVA_HOME.
+1. Set environment variables HADOOP_HOME to `~/schedoscope/schedoscope-tutorial/target/hadoop` and JAVA_HOME.
 ![test_run_configurations](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/test_run_configurations.png)
 2. You can run a test by right clicking on the test class in the Scala IDE's package explorer and choosing Run As > Scala Test - File
-3. When building the project (as in [[Installation|Open Street Map Tutorial#installation]] step 4) you can see how all tests are executed.
+3. When building the project (as in [[Installation|Open Street Map Tutorial#installation]] Step 4) you can see how all tests are executed.
 
 ## Development
 Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:
