@@ -12,7 +12,7 @@ With Schedoscope,
 
 Based on Schedoscope's DSL, 
 
-* defining a partitioned Hive table (called "view") is as simple as:
+* defining a monthly partitioned Hive table (called "view") is as simple as:
 
         case class Nodes(
           year: Parameter[String],
@@ -120,6 +120,8 @@ Running the Schedoscope shell,
 * reloading the view in case its dependencies, structure, or logic have changed is as simple as (it is just the same):
 
         materialize -v schedoscope.example.osm.processed/Nodes/2013/06
+
+  In case they haven't changed, nothing will be reloaded.
 
 * monitoring a view's load state is as simple as:
 
