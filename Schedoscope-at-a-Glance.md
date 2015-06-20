@@ -117,7 +117,7 @@ Running the Schedoscope shell,
 
         materialize -v schedoscope.example.osm.processed/Nodes/2013/06
 
-* reloading the view in case its dependencies, structure, or logic have changed is as simple as (it is just the same):
+* reloading the view in case its dependencies, structure, or logic have changed is just the same (there is no difference between loading and reloading):
 
         materialize -v schedoscope.example.osm.processed/Nodes/2013/06
 
