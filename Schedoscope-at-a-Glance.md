@@ -121,7 +121,7 @@ Running the Schedoscope shell,
 
         materialize -v schedoscope.example.osm.processed/Nodes/2013/06
 
-  In case they haven't changed, nothing will be reloaded.
+  In case they haven't changed, nothing will be reloaded and data will stay as they are.
 
 * monitoring a view's load state is as simple as:
 
