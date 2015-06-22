@@ -16,8 +16,9 @@ At the very minimum, you should check and set if necessary:
 - the Kerberos Metastore principal (`schedoscope.kerberos.principal`);
 - the Hive JDBC URL (`schedoscope.metastore.jdbcUrl`, `schedoscope.transformations.hive.url` )
 - the number of concurrent driver actors for each transformation type (`schedoscope.transformations.*.concurrency`)
+- the `future-driver-dispatcher` threadpool configuration dependening on your concurrency settings.
 
-
+Here is Schedoscope's `reference.conf`:
 
     #
     # Schedoscope configuration properties and default values
