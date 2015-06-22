@@ -1,4 +1,3 @@
-_**This Tutorial is under construction.**_
 
 This Tutorial can be used without having your own hadoop cluster at hand. For testing the examples on your own cluster please read section [[Adaptation|Open Street Map Tutorial#adaptation]].
 
@@ -52,6 +51,7 @@ Two nodes are close to each other if they lie in the same area. A node's area is
 
 Finally, find the best location for your shop by analyzing view `schedoscope.example.osm.datamart/ShopProfiles`.
 
+![dwh-structure.jpg](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/dwh-structure.jpg)
 
 # Installation
 Let's get started:
