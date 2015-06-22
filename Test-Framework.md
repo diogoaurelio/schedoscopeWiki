@@ -49,11 +49,11 @@ the subsequent sections detail on the individual testing aspects.
 
 The following example is taken from the tutorial. It tests a view called
 "Restaurants", which holds information about restaurants and is populated
-by a single other view called "Nodes". Comments on each phase can 
-be found within the source code; details on specifying test data input
-can be found in the subsequent section _Test Data Definition_; the section
-_Test Runing & Result Checking_ then details on test execution and
-result inspection.
+by a Hive transformation from a single other view called "Nodes". 
+Comments on each phase can be found within the source code; details on 
+specifying test data input can be found in the subsequent section 
+_Test Data Definition_; the section _Test Runing & Result Checking_ 
+then details on test execution and result inspection.
 
 
     case class RestaurantsTest() extends FlatSpec
@@ -111,6 +111,10 @@ result inspection.
 
 
 # Test Data Defintion
+
+## Specification row by row
+
+## Default values
 
 # Test Running & Result Checking
 
