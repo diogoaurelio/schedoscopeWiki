@@ -1,5 +1,3 @@
-# Introduction
-
 Schedoscope operates as a REST web service. There are three ways of launching this service.
 
 # Launching without Command Shell
