@@ -731,3 +731,9 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
     spray.can.host-connector.idle-timeout = infinite
     spray.can.server.request-timeout = infinite
     spray.can.server.idle-timeout = infinite
+
+# Configuring Logback
+
+Schedoscope configures the underlying Akka framework to use SLF4J for logging; it also links [Logback](http://logback.qos.ch/) as a dependency. As a consequence, logback is the logging backend used as default.
+
+Logback requires a configuration `logback.xml`file as well. That file can either be put onto the classpath or by passing a system property `-Dlogback.configurationFile` to the JVM
