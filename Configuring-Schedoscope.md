@@ -12,6 +12,7 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
 
 At the very minimum, you should check and set if necessary:
 - the environment name (`schedoscope.app.environment`);
+- the earliest day to consider (`schedoscope.scheduler.earliestDay`);
 - the Resource Manager, Namenode, and Metastore hosts (`schedoscope.hadoop.*`, `schedoscope.metastore.*`);
 - the Kerberos Metastore principal (`schedoscope.kerberos.principal`);
 - the Hive JDBC URL (`schedoscope.metastore.jdbcUrl`, `schedoscope.transformations.hive.url` )
