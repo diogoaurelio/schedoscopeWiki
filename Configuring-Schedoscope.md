@@ -11,12 +11,12 @@ Individual instances of Schedoscope can override these properties. This can happ
 Here, you find the commented default configuration of Schedoscope's `reference.conf`. For an example of how to override these settings, you can also take a look at the [tutorial](Open Street Map Tutorial).
 
 At the very minimum, you should check and set if necessary:
-- an environment name (`schedoscope.app.environment`);
-- the Resource Manager, Namenode, and Metastore URLs (`schedoscope.hadoop.*`, `schedoscope.metastore.*`);
+- the environment name (`schedoscope.app.environment`);
+- the Resource Manager, Namenode, and Metastore hosts (`schedoscope.hadoop.*`, `schedoscope.metastore.*`);
 - the Kerberos Metastore principal (`schedoscope.kerberos.principal`);
 - the Hive JDBC URL (`schedoscope.metastore.jdbcUrl`, `schedoscope.transformations.hive.url` )
-- the number of concurrent driver actors for each transformation type (`schedoscope.transformations.*.concurrency`)
-- the `future-driver-dispatcher` threadpool configuration dependening on your concurrency settings.
+- the number of concurrent driver actors for each transformation type (`schedoscope.transformations.*.concurrency`);
+- the `future-driver-dispatcher` threadpool configuration depending on your concurrency settings.
 
 Here is Schedoscope's `reference.conf`:
 
