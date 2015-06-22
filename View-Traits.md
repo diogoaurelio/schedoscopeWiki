@@ -1,5 +1,3 @@
-# Introduction
-
 The Schedoscope DSL ships with a set of predefined traits with field and parameter declarations. They can be used to impose field ordering and naming conventions. Moreover, there are some utility classes alleviating the declaration of view dependencies when using those traits. 
 
 Nevertheless, Schedoscope does not give those traits any first class support - you are free to define your own trait system as desirable for your environment, data, and applications.
