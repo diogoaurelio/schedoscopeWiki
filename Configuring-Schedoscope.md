@@ -736,4 +736,52 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
 
 Schedoscope configures the underlying Akka framework to use SLF4J for logging; it also links [Logback](http://logback.qos.ch/) as a dependency. As a consequence, logback is the logging backend used as default.
 
-Logback requires a configuration `logback.xml`file as well. That file can either be put onto the classpath or by passing a system property `-Dlogback.configurationFile` to the JVM
+Logback requires a configuration `logback.xml` file as well. That file can either be put onto the classpath or by passing a system property `-Dlogback.configurationFile` to the JVM.
+
+An example `logback.xml` is given here:
+
+	<!-- Logback configuration -->
+
+	<configuration>
+
+		<!-- Use the logback rolling file appender -->
+
+		<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+			<!-- Set your logpath to whatever file/folder you like -->
+
+			<file>log/schedoscope.log</file>
+			
+			<!-- Some example logging pattern -->
+			
+			<encoder>
+				<pattern>[%-4level] [%date{ISO8601}] [%thread %X{sourceThread}] [%X{akkaSource}] [%logger{36}] - %msg%n</pattern>
+			</encoder>
+			
+			<!-- Define the rolled log file naming scheme -->
+			
+			<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+					<fileNamePattern>log/schedoscope.%i.log</fileNamePattern>
+					<minIndex>1</minIndex>
+					<maxIndex>20</maxIndex>
+			</rollingPolicy>
+			
+			<!-- Define that rolling should be triggered after 100MB of log data -->
+			
+			<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+					<maxFileSize>100MB</maxFileSize>
+			</triggeringPolicy>
+		</appender>
+		
+		<!-- Set the logging levels for the various packages -->
+		
+		<logger name="akka" level="INFO"/>
+
+		<logger name="org.schedoscope" level="INFO"/>
+		
+		<logger name="your.application.package" level="INFO"/>
+		
+		<root level="ERROR">
+			<appender-ref ref="FILE"/>
+		</root>
+	</configuration>
