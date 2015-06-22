@@ -1,3 +1,0 @@
-# Build using Maven
-
-# Deploy
