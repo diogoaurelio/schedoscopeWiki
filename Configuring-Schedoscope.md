@@ -9,7 +9,6 @@ Individual instances of Schedoscope can override these properties. This can happ
 # Reference configuration
 
 Here, you find the commented default configuration of Schedoscope's `reference.conf`. For an example of how to override these settings, you can also take a look at the [tutorial](Open Street Map Tutorial).
-
     #
     # Schedoscope configuration properties and default values
     #
@@ -38,9 +37,9 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
             #
             # View augmentor (a class extending 
             # org.schedoscope.dsl.views.ViewUrlParser.ParsedViewAugmentor) 
-            # to use for dynamic view instantiation via the view pattern URL scheme. This 
-            # can be used to modify instantiated views in application-specific ways 
-            # outside of view pattern URLs. Should rarely need change.
+            # to use for dynamic view instantiation via the view pattern URL scheme. 
+            # This can be used to modify instantiated views in application-specific 
+            # ways outside of view pattern URLs. Should rarely need change.
             #
             
             parsedViewAugmentorClass = "org.schedoscope.dsl.views.NoAugmentation"
@@ -54,8 +53,8 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
         
             #
             # The earliest date to consider for MonthlyParameterization or 
-            # DailyParameterization view traits. Should be the earliest day you have data
-            # for your application to avoid any needless no-data overhead.
+            # DailyParameterization view traits. Should be the earliest day you have 
+            # data for your application to avoid any needless no-data overhead.
             #
         
             earliestDay = "2013-12-01"
@@ -199,8 +198,8 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
             concurrency = 5
             
             #
-            # Number of partitions to put into a batch for each connection when creating 
-            # partitions
+            # Number of partitions to put into a batch for each connection when 
+            # creating partitions
             #
             
             writeBatchSize = 2500 
@@ -228,7 +227,8 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
         }
         
         #
-        # Number of retries for transformations before view state is changed to failed.
+        # Number of retries for transformations before view state is changed to 
+        # failed.
         #
         
         action.retry = 5
@@ -252,8 +252,9 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
                 location = "/tmp/schedoscope/hive/"
                 
                 #
-                # Comma-separated list of directories where additional UDF library jars 
-                # can be found that are to be put onto HDFS when launching Schedoscope.
+                # Comma-separated list of directories where additional UDF library 
+                # jars can be found that are to be put onto HDFS when launching 
+                # Schedoscope.
                 #
                 
                 libDirectory = ""
@@ -517,8 +518,9 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
     akka {
 
         #
-        # General settings concerning logging (via SLF4J). Logback is given as a default
-        # dependency to Schedoscope so SLF4J via Logback is the default logging system.
+        # General settings concerning logging (via SLF4J). Logback is given as a 
+        # default dependency to Schedoscope so SLF4J via Logback is the default 
+        # logging system.
         #
 
         log-config-on-start = off
@@ -573,8 +575,8 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
             }
 
             #
-            # The root actor / supervisor of the Schedoscope actor system is assigned to 
-            # one pinned dispatcher / thread. Should not need to be changed.
+            # The root actor / supervisor of the Schedoscope actor system is assigned 
+            # to one pinned dispatcher / thread. Should not need to be changed.
             #
             
             root-actor-dispatcher {
@@ -584,7 +586,8 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
 
             #
             # The supervisor / message router for the Metastore-related actors is 
-            # assigned to one pinned dispatcher / thread. Should not need to be changed.
+            # assigned to one pinned dispatcher / thread. Should not need to be 
+            # changed.
             #
 
             schema-root-actor-dispatcher {
@@ -593,9 +596,9 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
             }           
 
             #
-            # Threadpool / dispatcher configuration for the actor communicating with the 
-            # Metastore for creating / reading tables and partitions. Should be aligned 
-            # with the property schedoscope.metastore.concurrency 
+            # Threadpool / dispatcher configuration for the actor communicating 
+            # with the Metastore for creating / reading tables and partitions. Should 
+            # be aligned with the property schedoscope.metastore.concurrency 
             #
             
             schema-actor-dispatcher {
@@ -625,9 +628,8 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
             
             #
             # The actor managing, assigning, and collecting status information about 
-            # transformations 
-            # to execute has one dedicated pinned dispatcher / thread for reasons of 
-            # responsiveness.
+            # transformations to execute has one dedicated pinned dispatcher / thread 
+            # for reasons of responsiveness.
             #
 
             actions-manager-dispatcher {
@@ -666,11 +668,11 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
             }               
 
             #
-            # The threadpool / dispatcher available for the transformation drivers. As 
-            # drivers execute transformations asynchronously - either by communicating 
-            # with servers like Oozie or the Resource Manager or by futures, this pool 
-            # should not need to grow much when increasing concurrency settings of the 
-            # various transformations.
+            # The threadpool / dispatcher available for the transformation drivers. 
+            # As drivers execute transformations asynchronously - either by 
+            # communicating with servers like Oozie or the Resource Manager or by 
+            # futures, this pool should not need to grow much when increasing 
+            # concurrency settings of the various transformations.
             #
 
             driver-dispatcher {
@@ -691,9 +693,9 @@ Here, you find the commented default configuration of Schedoscope's `reference.c
             # Due to API limitations, we can currently only execute file system, Pig, 
             # Morphline, and Hive transformations asynchronously by employing futures. 
             #
-            # The following threadpool / dispatcher feeds those futures. Hence, it should 
-            # grow proportionally with the concurrency settings of the mentioned 
-            # transformation types.
+            # The following threadpool / dispatcher feeds those futures. Hence, it 
+            # should grow proportionally with the concurrency settings of the 
+            # mentioned transformation types.
             #
 
             future-driver-dispatcher {
