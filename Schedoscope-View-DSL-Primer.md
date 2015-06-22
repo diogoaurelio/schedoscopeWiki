@@ -1,5 +1,3 @@
-# Introduction
-
 The core of Schedoscope consists of an internal Scala DSL for modeling data sets, their structure, dependencies, and transformation rules as so-called _views_.
 
 A view comprises

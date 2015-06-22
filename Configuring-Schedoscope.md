@@ -1,7 +1,14 @@
-# Configuration
-Schedoscope is configured using a HOCON (JSON-like) configuration file that is shared with akka.
+Internally, Schedoscope uses Typesafe's [Akka framework](http://akka.io/). As a consequence, Schedoscope makes use of the [Typesafe Config Library](https://github.com/typesafehub/config) for configuration purposes. 
+
+With that library, all configuration properties and their default values are stored in the file `reference.conf` on the classpath in the JSON-like HOCON format. 
+
+Individual instances of Schedoscope can override these properties. This can happen by either
+- putting a file `application.conf` onto the classpath or
+- setting the system property `-Dconfig.file` when launching the JVM.
 
 # Reference configuration
+
+Here, you find the commented default configuration of Schedoscope's `reference.conf`. For an example of how to override these settings, you can also take a look at the [tutorial](Open Street Map Tutorial).
 
 	schedoscope {
 	

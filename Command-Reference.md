@@ -1,5 +1,3 @@
-# Introduction
-
 Schedoscope can be controlled with scheduling commands. There are two means of issuing these commands:
 
 * using the Schedoscope shell command prompt opening when Schedoscope is not launched as a daemon;

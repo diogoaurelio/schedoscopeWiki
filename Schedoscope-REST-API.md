@@ -1,8 +1,4 @@
-## Introduction
-
 Schedoscope offers a REST api for remote control. The schedoscopeControl shell makes use of this API, but it may be also used to trigger new materializations or notify the scheduler upon the arrival of new data.
-
-
 
 ## REST Methods
 Currently all requests to schedoscope use method GET. Parameters are passed as URL parameters, e.g.
@@ -177,11 +173,3 @@ none
 **Returns**  
 
 TBD
-
-### shutdown 
-Method: GET  
-Path: 
-
-**Parameters:**  
-
-**Returns**  
