@@ -173,11 +173,3 @@ none
 **Returns**  
 
 TBD
-
-### shutdown 
-Method: GET  
-Path: 
-
-**Parameters:**  
-
-**Returns**  
