@@ -1,4 +1,3 @@
-# Configuration
 Internally, Schedoscope uses Typesafe's [Akka framework](http://akka.io/). As a consequence, Schedoscope makes use of the [Typesafe Config Library](https://github.com/typesafehub/config) for configuration purposes. 
 
 With that library, all configuration properties and their default values are stored in the file `reference.conf` on the classpath in the JSON-like HOCON format. 
