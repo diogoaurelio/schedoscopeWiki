@@ -8,7 +8,7 @@ Individual instances of Schedoscope can override these properties. This can happ
 
 # Reference configuration
 
-Here, you find the commented default configuration of Schedoscope's `reference.conf`. For an example of how to override these settings, you can also take a look at the [tutorial](Open Street Map Tutorial).
+Here, you find the commented default configuration of Schedoscope's `reference.conf`. 
 
 At the very minimum, you should check and set if necessary:
 - the environment name (`schedoscope.app.environment`);
@@ -19,7 +19,7 @@ At the very minimum, you should check and set if necessary:
 - the number of concurrent driver actors for each transformation type (`schedoscope.transformations.*.concurrency`);
 - the `future-driver-dispatcher` threadpool configuration depending on your concurrency settings.
 
-Here is Schedoscope's `reference.conf`:
+For an example of how to override these settings, you can also take a look at the [tutorial](Open Street Map Tutorial).
 
     #
     # Schedoscope configuration properties and default values
