@@ -28,7 +28,7 @@ Instantiation comprises the following steps:
 - create a partition for the view if it does not exist;
 - pull transformation timestamp and version information out of the Hive Metastore.
 
-Once Schedoscope has instantiated a view it remains instantiated. Thus, effectively, after a warmup period, less and less views will be initialized during materialization requests.
+Once Schedoscope has instantiated a view, it remains instantiated. Thus, effectively, after a warmup period, less and less views will be initialized during materialization requests.
 
 ## Materialization Proper
 
@@ -39,6 +39,8 @@ Once all required views are initialized, materialization itself starts. During t
 3. executes it own transformation by creating a transformation action and passing it to the actions manager;
 4. stores transformation version and timestamp in the Metastore after successful execution of its transformation;
 5. enters materialized state and notifies any dependent views on that state change.
+
+# Change Detection
 
 
 
