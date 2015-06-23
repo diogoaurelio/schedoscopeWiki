@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Schedoscope is a scheduling framework for painfree agile development, testing, (re)loading, and monitoring of your Hadoop data warehouse.
+Schedoscope is a scheduling framework for agile development, testing, (re)loading, and monitoring of your Hadoop data warehouse.
 
 Scheduling with Schedoscope is based on three principles:
 
