@@ -52,7 +52,7 @@ The following example is taken from the tutorial. It tests a view called
 by a Hive transformation from a single other view called "Nodes". 
 Comments on each phase can be found within the source code; details on 
 specifying test data input can be found in the subsequent section 
-_Test Data Definition_; the section _Test Runing & Result Checking_ 
+_Test Data Definition_; the section _Test Running & Result Checking_ 
 then details on test execution and result inspection.
 
 
@@ -60,7 +60,7 @@ then details on test execution and result inspection.
       with Matchers {
       
       #
-      # specify input data (OSM nodes). By extending the acutal view
+      # specify input data (OSM nodes). By extending the actual view
       # by "with rows", we can specify input data; each call of "set"
       # adds a line of input data, and "v" sets the value for a particular
       # column.
@@ -90,10 +90,10 @@ then details on test execution and result inspection.
       #
       # run tests & check results. By extending the actual view by "with test",
       # we enable test running and result checking. With "basedOn", the input
-      # views ares specified; "then" acutually runs the transformation,
+      # views ares specified; "then" actually runs the transformation,
       # "numRows" yields the number of result rows, and "row" fetches a single
       # line of test output. With in a row, individual column values can 
-      # be checked by "v", together with the Scalatest comparision operators
+      # be checked by "v", together with the Scalatest comparison operators
       # like "shouldBe"
       #
       "datahub.Restaurants" should "load correctly from processed.nodes" in {
@@ -110,17 +110,85 @@ then details on test execution and result inspection.
     }
 
 
-# Test Data Defintion
+# Test Input Data Definition
 
-## Specification row by row
+As stated above, testing within the Schedoscope test framework is
+based on small, manually defined datasets. For this reason, the
+framework offers the possibility to precisely specify a dataset
+in a row-by-row manner. Because this process can be of course somehow
+tedious, the framework supports the user by (i) typechecking / 
+autocompletion of input data fields during specification and (ii)
+default value generation for non-specified input fields. 
+In addition, existing test input resources (e.g. sample data files)
+can be loaded from classpath.
 
-## Default values
+## Manual Specification
+
+To stick with the above example, let's say we want to test a view
+called _Restaurants_ (taken from the tutorial), which holds 
+information about restaurants in Hamburg extracted from Open Street
+Map nodes. This view nees another view called _Nodes_ as input; its
+(simplified) definition looks like
+
+    case class Nodes(
+      year: Parameter[String],
+	  month: Parameter[String]) extends View
+	  [...] {
+	
+	  val version = fieldOf[Int]
+	  val user_id = fieldOf[Int]
+	  val longitude = fieldOf[Double]
+	  val latitude = fieldOf[Double]
+	  val geohash = fieldOf[String]
+	  val tags = fieldOf[Map[String, String]]
+	[...]
+	)
+
+This results in a hive table with columns 'version', 'user_id', etc.
+In order to generate input rows for this view, one uses the extension
+"with rows"; then, calling the "set" function adds a row, and calling
+the "v" function sets a value for a specific column. By example:
+
+      val nodes = new Nodes(p("2014"), p("09")) with rows {
+        set(v(version, 1),
+          v(user_id, 1234),
+          v(longitude, 11111.11),
+          v(latitude, 22222.22),
+          v(geohash, "t1y1716cfcq0"),
+          v(tags, Map("tag1" -> "val1",
+            "tag2" -> "val2")))
+        set(v(version, 2),
+          v(user_id, 5678),
+          v(longitude, 33333.33),
+          v(latitude, 33333.33),
+          v(geohash, "t1y1716cfcqx"),
+          v(tags, Map("tag3" -> "val3",
+            "tag3" -> "val3")))          
+      }
+
+This results in the following input table
+
+| version | user_id | longitude | latitude | geohash | tags |
+| ----    | ----    | ----    | ----    | ----    | ----    |
+| 1       | 1234    | 11111.11 | 22222.22 | t1y1716cfcq0 | {'tag1':'val1', 'tag2':'val2'} |
+| 2       | 5678    | 33333.33 | 44444.44 | t1y1716cfcqx | {'tag3':'val3', 'tag4':'val4'} |
+
+For specifying lists and maps, the standard Scala types List, Map can be used.
+In order to specify input for views which contain structures (i.e., Hive STRUCT fields),
+refer to the section 'Defining structs as input'.
+
+## Default Value generation
+
+## Defining structs as input
+
+
+## Loading Input Data from Classpath
 
 # Test Running & Result Checking
 
 # Advanced Features
 
-## Test Resource Specification
+## Test Resource Files
 
 ## View Modification
 
