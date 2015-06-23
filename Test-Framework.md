@@ -311,11 +311,11 @@ is specified directly within the transformation definition of the view
 like this (simplified Pig transformation, taken from the tutorial view
 `Trainstations`):
 
-   transformVia(() =>
-    PigTransformation(
-      scriptFromResource("pig_scripts/datahub/insert_trainstations.pig"))
-      .configureWith(
-        Map("storage_format" -> "parquet.pig.ParquetStorer()")))
+    transformVia(() =>
+      PigTransformation(
+        scriptFromResource("pig_scripts/datahub/insert_trainstations.pig"))
+        .configureWith(
+          Map("storage_format" -> "parquet.pig.ParquetStorer()")))
 
 In some cases, it can be necessary to override these specifications.
 In the current example, the Pig script produces Parquet output; 
