@@ -100,7 +100,7 @@ Changes to transformations might change the transformation version checksum, but
 
 Example:
 
-        materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode RESET_TRANSFORMATION_CHECKSUMS
+     materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode RESET_TRANSFORMATION_CHECKSUMS
 
 #### Invalidating Views
 
