@@ -92,11 +92,11 @@ On the way its materialization, a view can go through the following states (see 
 
 ## Tweaking the Process
 
-While the default behavior of materialization and rematerialization based on transformation version checksums and timestamps usually should be what you want, there are nevertheless situations in which one would like to bypass this process (see also [Command Reference](Command Reference)).
+While the default behavior of materialization and rematerialization based on transformation version checksums and timestamps usually should be what you want, there are nevertheless situations in which one would like to bypass this process.
 
 #### Resetting Transformation Version Checksums
 
-Changes to transformations might change the transformation version checksum, but the ouput of the computation might change. For example, one might use a new version of an external UDF library jar file for a Hive transformation, but the UDF called has not changed. In this case, adding the option `--mode RESET_TRANSFORMATION_CHECKSUMS` to materialize will avoid triggering of rematerializations based on transformation version checksums.
+Changes to transformations might change the transformation version checksum, but the ouput of the computation might change. For example, one might use a new version of an external UDF library jar file for a Hive transformation, but the UDF called has not changed. In this case, adding the option `--mode RESET_TRANSFORMATION_CHECKSUMS` to materialize will avoid triggering of rematerializations based on transformation version checksums (see also [Command Reference](Command Reference)).
 
 Example:
 
@@ -104,7 +104,7 @@ Example:
 
 #### Invalidating Views
 
-You can force the rematerialization of a view by sending it the `invalidate` command. The view will then enter the `receive` state again; upon receiving a subsequent `materialize` command, it will consequently be recomputed.
+You can force the rematerialization of a view by sending it the `invalidate` command (see also [Command Reference](Command Reference)). The view will then enter the `receive` state again; upon receiving a subsequent `materialize` command, it will consequently be recomputed.
 
 Example:
 
