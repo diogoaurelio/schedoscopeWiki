@@ -748,7 +748,7 @@ For an example of how to override these settings, you can also take a look at th
 
 Schedoscope configures the underlying Akka framework to use SLF4J for logging; it also links [Logback](http://logback.qos.ch/) as a dependency. As a consequence, logback is the logging backend used as default.
 
-Logback requires a configuration `logback.xml` file as well. That file can either be put onto the classpath or by passing a system property `-Dlogback.configurationFile` to the JVM.
+Logback requires a configuration `logback.xml` file as well. That file can either be put onto the classpath or one can pass a system property `-Dlogback.configurationFile` pointing to the files to the JVM.
 
 An example `logback.xml` is given here:
 
