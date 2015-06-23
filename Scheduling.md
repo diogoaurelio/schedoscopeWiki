@@ -83,4 +83,4 @@ On the way its materialization, a view can go through the following states (see 
 | State | Description |
 |-------|-------------|
 | `receive` | After initialization, a view enters the `receive` state. |  
-| `no-data`| A view enters `no-data` state upon a materialization request if (a) it has a `NoOp` transformation and there is no `_SUCCESS` flag in its `fullPath` or (b) all its dependencies have entered `no-data` state |
+| `no-data`| `no-data`indicates that there is no data available for the view. A view enters `no-data` state upon a materialization request if (a) it has a `NoOp` transformation and there is no `_SUCCESS` flag in its `fullPath` or (b) all its dependencies have entered `no-data` state. That means if only one dependency has data, the view will not enter `no-data` state but instead be materialized based on incomplete information. Should data for one dependency appear later, the view will be rematerialized because of the dependency's new transformation timestamp. |
