@@ -53,7 +53,7 @@ Schedoscope attempts to automatically detect changes to data, data structure, an
 
 During a view's instantiation, Schedoscope checks for the existence of a table for the view in the metastore:
 
-- In case the table exists, the current _view DDL checksum_ is compared with the checksum of stored with the table in the metastore; 
+- In case the table exists, the current view DDL checksum is compared with the checksum of stored with the table in the metastore; 
 
 - If the checksums differ - i.e., if the table structure has changed in any way - the table and all its partitions are dropped and the current `CREATE TABLE` statement is executed. The new view DDL checksum is stored with the table in the metastore.
 
@@ -70,8 +70,8 @@ During materialization proper, transformation version checksums and transformati
 
 - when the dependencies of a view have been materialized, the most recent transformation timestamp of the dependencies is compared to the transformation timestamp of the view. If that timestamp is newer, the current view is materialized again because input data might have changed;
 
-- if the current view's transformation version checksum differs from the one previously store, the view is rematerialized because logic might have changed;
+- if the current view's transformation version checksum differs from the one previously stored, the view is rematerialized because transformation logic might have changed;
 
 After rematerialization, transformation version checksum and timestamp are updated in the Hive metastore.
 
-Note that rematerialization of a view results in new transformation timestamps, which might affect the views depending on that view and trigger their rematerialization.
+Note that rematerialization of a view results in a new transformation timestamp, which might affect the views depending on that view and trigger their rematerialization.
