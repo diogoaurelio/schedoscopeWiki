@@ -1,5 +1,3 @@
-# Principles
-
 Scheduling with Schedoscope is based on three principles:
 
 1. _Goal orientation_: with Schedoscope, you specify the views you want and the scheduler takes care that the corresponding data are loaded.
