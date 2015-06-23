@@ -80,6 +80,7 @@ Note that rematerialization of a view results in a new transformation timestamp,
 
 On the way its materialization, a view can go through the following states (see picture above):
 
-| State | Description | 
+| State | Description |
 |-------|-------------|
-| `receive` | After initialization, a view enters the `receive` state. In this state, it is not yet clear whether the view will be recomputed or immediately materialized | 
+| `receive` | After initialization, a view enters the `receive` state. |  
+| `no-data`| A view enters `no-data` state upon a materialization request if (a) it has a `NoOp` transformation and there is no `_SUCCESS` flag in its `fullPath` or (b) all its dependencies have entered `no-data` state |
