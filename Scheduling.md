@@ -32,15 +32,28 @@ Once Schedoscope has instantiated a view, it remains instantiated. Thus, effecti
 
 ## Materialization Proper
 
-Once all required views are initialized, materialization itself starts. During that process, essentially, each view impacted by materialization:
+Once all required views are initialized, materialization itself starts. During that process, essentially, each view (actor) impacted by materialization:
 
-1. sends a materialization request to the views it depends on;
+1. sends a materialization request to the views (i.e., the view actors) it depends on;
 2. waits until the dependencies have materialized;
-3. executes it own transformation by creating a transformation action and passing it to the actions manager;
-4. stores transformation version and timestamp in the Metastore after successful execution of its transformation;
-5. enters materialized state and notifies any dependent views on that state change.
+3. triggers the execution of its own transformation by passing an appropriate transformation action to the actions manager;
+4. waits until its transformation has successfully executed;
+5. stores transformation version and timestamp in the Metastore;
+6. enters materialized state and notifies any dependent views about its state change.
 
 # Change Detection
+
+Schedoscope attempts to automatically detect changes to data, data structure, and application logic and reschedule computation of views accordingly. Change detection is again spread across the phases view instantion and materialization proper and is based on:
+
+- view DDL checksums;
+- transformation version checksums;
+- transformation timestamps.
+
+## View Instantiation
+
+During a view's instantiation, Schedoscope checks for the existence of a table for the view in the metastore. In case a table exists, a checksum is computed on the `CREATE TABLE` DDL for the view and compared with the checksum stored in a table property in the metastore. If the checksums differ, i.e., the table structure has changed in any way, the table and all its partitions are dropped and the DDL is executed. The new view DDL checksum is stored in a table property.
+
+
 
 
 
