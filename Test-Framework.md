@@ -146,8 +146,8 @@ Map nodes. This view nees another view called _Nodes_ as input; its
 
 This results in a hive table with columns 'version', 'user_id', etc.
 In order to generate input rows for this view, one uses the extension
-**with rows**; then, calling the **set** function adds a row, and calling
-the **v** function sets a value for a specific column. By example:
+`with rows`; then, calling the `set` function adds a row, and calling
+the `v` function sets a value for a specific column. By example:
 
       val nodes = new Nodes(p("2014"), p("09")) with rows {
         set(v(version, 1),
@@ -227,8 +227,8 @@ we have a struct that looks like this:
       val productPosition = fieldOf[String]
     }
 
-Then, values for it can be assigned by using the extension **with values**,
-together with the **set** and **v** function known for setting values:
+Then, values for it can be assigned by using the extension `with values`,
+together with the `set` and `v` function known for setting values:
 
     val product0815 = new ProductInList with values {
       set(
