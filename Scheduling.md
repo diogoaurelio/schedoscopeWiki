@@ -51,18 +51,29 @@ Schedoscope attempts to automatically detect changes to data, data structure, an
 
 ## View Instantiation
 
-During a view's instantiation, Schedoscope checks for the existence of a table for the view in the metastore. 
+During a view's instantiation, Schedoscope checks for the existence of a table for the view in the metastore:
+
 - In case a table exists, a _view DDL checksum_ is computed on the `CREATE TABLE` DDL statement for the view and compared with the checksum of the existing table in the metastore (the latter checksum is stored in a table property). 
+
 - If the checksums differ - i.e., if the table structure has changed in any way - the table and all its partitions are dropped and the current `CREATE TABLE` statement is executed. The new view DDL checksum is stored in a table property.
 
 Moreover, view instantiation also takes care that a table partition is available for each view. Missing partitions are created; for partitions that already exist, view instantiation loads the 
+
 * _transformation version checksums_ and
 * _transformation timestamps_ 
 
 that have been previously stored in partition properties of the metastore into the respective view actors for use during the following materialization phase.
 
+Transformation timestamps simply indicate the time when views have been materialized; transformation version checksums provide an indicator for changes to transformation logic. Their computation depends on the transformation type and is documented in the respective transformation reference sections of this wiki.
+
 ## Materialization Proper
 
-During 
+During materialization proper, transformation version checksums and transformation timestamps are used for change detection:
 
+- when the dependencies of a view have been materialized, the most recent transformation timestamp of the dependencies is compared to the transformation timestamp of the view. If that timestamp is newer, the current view is materialized again because input data might have changed;
 
+- if the current view's transformation version checksum differs from the one previously store, the view is rematerialized because logic might have changed;
+
+- after rematerialization, transformation version checksum and timestamp are updated in the Hive metastore.
+
+Note that rematerialization of a view results in new transformation timestamps, which is propagated to the views that depend on it, resulting in potentially further rematerializations.
