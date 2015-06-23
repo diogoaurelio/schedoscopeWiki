@@ -81,5 +81,5 @@ Note that rematerialization of a view results in a new transformation timestamp,
 On the way its materialization, a view can go through the following states (see picture above):
 
 | State | Description | Next possible states |
-----------------------------------------------
+|-------|-------------|----------------------|
 | receive |   | |
