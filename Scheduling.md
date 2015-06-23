@@ -8,7 +8,7 @@ Scheduling with Schedoscope is based on three principles:
 
 # Materialization
 
-Loading views is called materialization. Materialization is triggered with the `materialize` command issued via the [REST API](Schedoscope REST API), the [command client](Command Reference), or on the [shell](Command Reference). The views to materialize are addressed using a [pattern syntax](View Pattern Reference), which also allows for addressing multiple views.
+Loading views is called materialization. Materialization is triggered with the `materialize` command via either the [REST API](Schedoscope REST API), the [command client](Command Reference) or the [shell](Command Reference). The views to materialize are addressed using a [pattern syntax](View Pattern Reference), which also allows for addressing multiple views.
 
 For example:
 
