@@ -43,28 +43,26 @@ Once all required views are initialized, materialization itself starts. During t
 
 # Change Detection
 
-Schedoscope attempts to automatically detect changes to data, data structure, and application logic and reschedule computation of views accordingly. Change detection is again spread across the phases view instantion and materialization proper and is based on:
+Schedoscope attempts to automatically detect changes to data, data structure, and application logic and reschedule computation of views accordingly. Change detection is again spread across the phases view instantion and materialization proper and is based on
 
-- view DDL checksums;
-- transformation version checksums;
-- transformation timestamps.
+- _View DDL checksums_: a checksum on a view's `CREATE TABLE` DDL statement;
+- _Transformation version checksums_: a transformation type-specific checksum on the `transformVia` clause of the view (see the respective transformation reference documentation sections in this wiki) ;
+- _Transformation timestamps_: timestamp of the last materialization of the view.
 
 ## View Instantiation
 
 During a view's instantiation, Schedoscope checks for the existence of a table for the view in the metastore:
 
-- In case a table exists, a _view DDL checksum_ is computed on the `CREATE TABLE` DDL statement for the view and compared with the checksum of the existing table in the metastore (the latter checksum is stored in a table property). 
+- In case the table exists, the current _view DDL checksum_ is compared with the checksum of stored with the table in the metastore; 
 
-- If the checksums differ - i.e., if the table structure has changed in any way - the table and all its partitions are dropped and the current `CREATE TABLE` statement is executed. The new view DDL checksum is stored in a table property.
+- If the checksums differ - i.e., if the table structure has changed in any way - the table and all its partitions are dropped and the current `CREATE TABLE` statement is executed. The new view DDL checksum is stored with the table in the metastore.
 
 Moreover, view instantiation also takes care that a table partition is available for each view. Missing partitions are created; for partitions that already exist, view instantiation loads the 
 
-* _transformation version checksums_ and
-* _transformation timestamps_ 
+- transformation version checksums and
+- transformation timestamps 
 
-that have been previously stored in partition properties of the metastore into the respective view actors for use during the following materialization phase.
-
-Transformation timestamps simply indicate the time when views have been materialized; transformation version checksums provide an indicator for changes to transformation logic. Their computation depends on the transformation type and is documented in the respective transformation reference sections of this wiki.
+into the respective view actors for use during the following materialization proper phase.
 
 ## Materialization Proper
 
@@ -74,6 +72,6 @@ During materialization proper, transformation version checksums and transformati
 
 - if the current view's transformation version checksum differs from the one previously store, the view is rematerialized because logic might have changed;
 
-- after rematerialization, transformation version checksum and timestamp are updated in the Hive metastore.
+After rematerialization, transformation version checksum and timestamp are updated in the Hive metastore.
 
-Note that rematerialization of a view results in new transformation timestamps, which is propagated to the views that depend on it, resulting in potentially further rematerializations.
+Note that rematerialization of a view results in new transformation timestamps, which might affect the views depending on that view and trigger their rematerialization.
