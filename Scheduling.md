@@ -92,8 +92,17 @@ On the way its materialization, a view can go through the following states (see 
 
 ## Tweaking the Process
 
-While the default behavior of materialization and rematerialization based on transformation version checksums and timestamps usually should be correct, there are nevertheless situation where one would like to bypass this process.
+While the default behavior of materialization and rematerialization based on transformation version checksums and timestamps usually should be correct, there are nevertheless situations in which one would like to bypass this process (see also [Command Reference](Command Reference)).
 
-#### Ignoring transformation version checksums
+#### Resetting Transformation Version Checksums
 
- 
+Changes to transformations might change the transformation version checksum, but the ouput of the computation might not have changed. For example, one might use a new version of an external UDF library jar file for a Hive transformation, but the UDF called has not changed. In this case, passing the option `--mode RESET_TRANSFORMATION_CHECKSUMS` to materialize will avoid triggering of rematerializations based on transformation version checksums.
+
+#### Invalidating Views
+
+You can force the rematerialization of a view by sending it the `invalidate` command. The view will then enter the `receive` state again; upon receiving a subsequent `materialize` command, it will consequently be recomputed.
+
+Example:
+
+    invalidate -v app.eci.datamart/SearchExport/SHOP10/2015/05
+
