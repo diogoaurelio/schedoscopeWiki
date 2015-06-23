@@ -41,11 +41,11 @@ Once all required views are initialized, materialization itself starts. During t
 
 ## Change Detection
 
-Schedoscope attempts to automatically detect changes to data, data structure, and application logic and reschedule computation of views accordingly. Change detection is again spread across the phases view instantion and materialization proper and is based on
+Schedoscope attempts to automatically detect changes to data, data structure, and application logic and reschedule computation of views accordingly. Change detection is again spread across the phases view instantiation and materialization proper and is based on
 
-- _View DDL checksums_: a checksum on a view's `CREATE TABLE` DDL statement;
-- _Transformation version checksums_: a transformation type-specific checksum on the `transformVia` clause of the view (see the respective transformation reference documentation sections in this wiki) ;
-- _Transformation timestamps_: timestamp of the last materialization of the view.
+- _view DDL checksums_: a checksum on a view's `CREATE TABLE` DDL statement;
+- _transformation version checksums_: a transformation type-specific checksum on the `transformVia` clause of the view (see the respective transformation reference documentation sections in this wiki);
+- _transformation timestamps_: timestamp of the last materialization of the view.
 
 #### View Instantiation
 
