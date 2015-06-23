@@ -146,7 +146,7 @@ Map nodes. This view nees another view called _Nodes_ as input; its
 
 This results in a hive table with columns 'version', 'user_id', etc.
 In order to generate input rows for this view, one uses the extension
-**with rows**; then, calling the **set* function adds a row, and calling
+**with rows**; then, calling the **set** function adds a row, and calling
 the **v** function sets a value for a specific column. By example:
 
       val nodes = new Nodes(p("2014"), p("09")) with rows {
