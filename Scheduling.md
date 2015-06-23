@@ -89,3 +89,6 @@ On the way its materialization, a view can go through the following states (see 
 | `materialized` | View data has been successfully materialized. Transformation version checksum and timestamp have been recorded with the Hive metastore. If the view receives another materialization request, it will enter `waiting` state again. | 
 | `retrying` | There was an irrecoverable problem during transformation execution but the numbers of retries configured in the `schedoscope.action.retry` property has not yet been reached. The view will enter `transforming` state again. Note that network errors will be caught by the actions manager and retried indefinitely. Errors that result in `retrying` would be `OutOfMemoryException`s and similar problems. |
 | `failed` | A view's transformation has failed even after retrying. Views depending on that view will nevertheless try to materialize themselves even with the view's data missing. Should the view receive a another materialization request, it will enter `waiting` state again. Should it then succeed with its transformation, depending views will be rematerialized because of view's new transformation timestamp. |
+
+## Tweaking the Process
+
