@@ -132,17 +132,17 @@ Map nodes. This view nees another view called _Nodes_ as input; its
 
     case class Nodes(
       year: Parameter[String],
-	  month: Parameter[String]) extends View
-	  [...] {
-	
-	  val version = fieldOf[Int]
-	  val user_id = fieldOf[Int]
-	  val longitude = fieldOf[Double]
-	  val latitude = fieldOf[Double]
-	  val geohash = fieldOf[String]
-	  val tags = fieldOf[Map[String, String]]
-	[...]
-	)
+      month: Parameter[String]) extends View
+      [...] {
+    
+      val version = fieldOf[Int]
+      val user_id = fieldOf[Int]
+      val longitude = fieldOf[Double]
+      val latitude = fieldOf[Double]
+      val geohash = fieldOf[String]
+      val tags = fieldOf[Map[String, String]]
+    [...]
+    )
 
 This results in a hive table with columns 'version', 'user_id', etc.
 In order to generate input rows for this view, one uses the extension
@@ -238,6 +238,63 @@ together with the `set` and `v` function known for setting values:
     }
 
 # Test Running & Result Checking
+
+The execution of tests is based on Scalatest, which allows to define
+test cases and offers rich facilites to compare test results against expected
+outcomes. In order to specify one or more test cases for a given view,
+the recommended pattern is to write a test case class as follows:
+
+    case class TrainstationsTest() extends FlatSpec with Matchers {
+
+      val nodesInput = new Nodes(p("2014"), p("09")) with rows {
+          // input data definition, see above
+      }
+          
+      // test 
+      "datahub.Restaurants" should "load correctly from processed.nodes" in {
+        new Restaurants() with test {
+          basedOn(nodes)
+          then()
+          numRows() shouldBe 3
+          row(v(id) shouldBe "267622930",
+            v(restaurant_name) shouldBe "Cuore Mio",
+            v(restaurant_type) shouldBe "italian",
+            v(area) shouldBe "t1y06x1")
+        }
+      }                
+    }
+
+As you can see, the view which is to be tested is actually being 
+instantiated by `new Restaurants()` (this is an example of a 
+non-parameterized view). By extending it using `with test`, a set of 
+testing functions is added to the view itself. Following the above example,
+these are:
+
+* `basedOn(View*)` : Using this function, we can define the actual
+  input data for our view to be tested. Usually, one defines manually
+  a dataset for each view dependency (using the facilities describes in
+  the section "Test Data Input Definition" above.
+* `then()` : When calling this function, the materializatio process of 
+  the view is triggered - in other words, the transformation which 
+  populates the view is being executed in local mode. Plain local mode is
+  currently available for Hive, Pig and Mapreduce transformations; 
+  Oozie transformations can be tested against a local minicluster (see
+  advanced section)
+* `numRows()` : after the transformation has been executed, this function
+  yields the number of rows in the resulting view.
+* `row()` : By invoking this function, test results can be inspected
+  row by row. For each call, an internal row pointer is being incremented
+  (starting from the first row with the first call of this function); then,
+  within the current row, each field can be individually inspected.
+* `v(Field)` : As a counterpart to the `v` function used for 
+  specifying input data, this function returns the value for the given field  
+  in the current result row. The value is returned in a typesafe manner,
+  and can be compared using the full Scalatest comparison functionality
+  (e.g. `shouldBe` , `shouldNotBe`, ...)  
+  
+
+
+
 
 # Advanced Features
 
