@@ -80,6 +80,6 @@ Note that rematerialization of a view results in a new transformation timestamp,
 
 On the way its materialization, a view can go through the following states (see picture above):
 
-| State | Description | Next possible states |
-|-------|-------------|----------------------|
-| receive |   | |
+| State | Description | 
+|-------|-------------|
+| `receive` | After initialization, a view enters the `receive` state. In this state, it is not yet clear whether the view will be recomputed or immediately materialized | 
