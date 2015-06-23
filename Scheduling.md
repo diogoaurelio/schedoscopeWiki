@@ -6,7 +6,7 @@ Scheduling with Schedoscope is based on three principles:
 
 3. _Change detection_: Schedoscope implements measures to automatically detect changes to view structure and computation logic; as it is self-sufficient, it can then automatically recompute potentially outdated views.
 
-# Materialization
+## Materialization
 
 Loading views is called materialization. Materialization is triggered with the `materialize` command via either the [REST API](Schedoscope REST API), the [command client](Command Reference) or the [shell](Command Reference). The views to materialize are addressed using a [pattern syntax](View Pattern Reference), which also allows for addressing multiple views.
 
@@ -16,7 +16,7 @@ For example:
 
 Materialization proceeds in two phases:
 
-## View Instantiation
+### View Instantiation
 
 Before materialization itself is started, all views impacted by a materialization command are instantiated. These are the views addressed by the materialization command plus their dependencies, recursively.
 
@@ -28,7 +28,7 @@ Instantiation comprises the following steps:
 
 Once Schedoscope has instantiated a view, it remains instantiated. Thus, effectively, after a warmup period, less and less views will be initialized during materialization requests.
 
-## Materialization Proper
+### Materialization Proper
 
 Once all required views are initialized, materialization itself starts. During that process, essentially, each view (actor) impacted by materialization:
 
@@ -39,7 +39,7 @@ Once all required views are initialized, materialization itself starts. During t
 5. stores transformation version and timestamp in the Metastore;
 6. enters materialized state and notifies any dependent views about its state change.
 
-# Change Detection
+## Change Detection
 
 Schedoscope attempts to automatically detect changes to data, data structure, and application logic and reschedule computation of views accordingly. Change detection is again spread across the phases view instantion and materialization proper and is based on
 
@@ -47,7 +47,7 @@ Schedoscope attempts to automatically detect changes to data, data structure, an
 - _Transformation version checksums_: a transformation type-specific checksum on the `transformVia` clause of the view (see the respective transformation reference documentation sections in this wiki) ;
 - _Transformation timestamps_: timestamp of the last materialization of the view.
 
-## View Instantiation
+### View Instantiation
 
 During a view's instantiation, Schedoscope checks for the existence of a table for the view in the metastore:
 
