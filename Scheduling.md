@@ -92,3 +92,8 @@ On the way its materialization, a view can go through the following states (see 
 
 ## Tweaking the Process
 
+While the default behavior of materialization and rematerialization based on transformation version checksums and timestamps usually should be correct, there are nevertheless situation where one would like to bypass this process.
+
+#### Ignoring transformation version checksums
+
+ 
