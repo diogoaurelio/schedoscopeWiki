@@ -75,3 +75,5 @@ After rematerialization, transformation version checksum and timestamp are updat
 Note that rematerialization of a view results in a new transformation timestamp, which might affect the views depending on that view and trigger their rematerialization.
 
 ## Scheduling States
+
+![View Scheduling States](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/scheduling%20states.png).
