@@ -185,12 +185,12 @@ refer to the section 'Defining structs as input'. Please note that:
 
 Often, for testing a specific aspect of a view, not all fields are relevant. For this
 reason, the testing framework allows to leave out fields when defining input, and 
-fills those irrelevant fields with default values. Using **<ROW_ID>** as a placeholder 
+fills those irrelevant fields with default values. Using **ROW_ID** as a placeholder 
 for the current row id (i.e. the first row has ROW_ID 1, the second one ROW_ID2, the
-schema for generating default values for a field named **<FIELDNAME>** is (by type):
+schema for generating default values for a field named **FIELDNAME** is (by type):
 
-* **String** : <FIELDNAME>-<ROW_ID> (<ROW_ID> is left-padded with zeroes to length 4)
-* **Numeric types (Int, Double, ...)** : <ROW_ID>
+* **String** : FIELDNAME-ROW_ID (ROW_ID is left-padded with zeroes to length 4)
+* **Numeric types (Int, Double, ...)** : ROW_ID
 * **Map** : empty Map()
 * **Array** : empty Array()
 * **Struct** : default values generation for structs is currently not supported
