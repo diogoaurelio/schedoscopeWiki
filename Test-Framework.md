@@ -386,5 +386,39 @@ the local mode testing.
 
 ## Testing against Minicluster
 
+As said above, in order to speed up tests, transformations are run
+completely in local mode if possible; this is currently supported
+for Hive, Mapreduce and Pig Transformations. However, running e.g.
+an Oozie transformation required a bit more infrastructure; for this
+purpose, we are using a predefined _Hadoop minicluster_, which is
+basically a small virtual Hadoop cluster running directly in the VM.
+It ships all necessary things to run Oozie transformations.
+
+Setting up the minicluster is easy - just replace the well-known
+`with test` in the test case specification by `with clustertest`.
+Then, behind the scenes the minicluster will be launched
+prior to test execution. 
+
+    "my cool view" should s"load correctly " in {
+      new CustomerCustomerNumber() with clustertest {
+        basedOn(vidCustomerNr)
+        withConfiguration(
+          ("jobTracker" -> cluster().getJobTrackerUri),
+          ("nameNode" -> cluster().getNameNodeUri),
+          ...
+        )
+      }
+    }      
+
+A requirement for this to work is that the minicluster uses some
+specific ports; these have to be defined in a file called `minicluster.properties`
+on your project classpath; we recommend to place it at `src/test/resources/minicluster.properties`
+with the following content:
+
+    hadoop.namenode.port=9000
+    hive.server.port=10000
+    hive.metastore.port=30000
+    
+This configuration is picked up by the minicluster.    
 
 
