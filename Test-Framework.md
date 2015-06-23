@@ -146,8 +146,8 @@ Map nodes. This view nees another view called _Nodes_ as input; its
 
 This results in a hive table with columns 'version', 'user_id', etc.
 In order to generate input rows for this view, one uses the extension
-"with rows"; then, calling the "set" function adds a row, and calling
-the "v" function sets a value for a specific column. By example:
+**with rows**; then, calling the **set* function adds a row, and calling
+the **v** function sets a value for a specific column. By example:
 
       val nodes = new Nodes(p("2014"), p("09")) with rows {
         set(v(version, 1),
@@ -166,7 +166,7 @@ the "v" function sets a value for a specific column. By example:
             "tag3" -> "val3")))          
       }
 
-This results in the following input table
+This results in the following two rows in the input table:
 
 | version | user_id | longitude | latitude | geohash | tags |
 | ----    | ----    | ----    | ----    | ----    | ----    |
@@ -175,14 +175,67 @@ This results in the following input table
 
 For specifying lists and maps, the standard Scala types List, Map can be used.
 In order to specify input for views which contain structures (i.e., Hive STRUCT fields),
-refer to the section 'Defining structs as input'.
+refer to the section 'Defining structs as input'. Please note that:
+
+* When defining data, auto-completion can be used - i.e. all fields of the 
+  current view are in scope.
+* When defining values, these are type-checked against the column type at compile-time.
 
 ## Default Value generation
 
+Often, for testing a specific aspect of a view, not all fields are relevant. For this
+reason, the testing framework allows to leave out fields when defining input, and 
+fills those irrelevant fields with default values. Using **<ROW_ID>** as a placeholder 
+for the current row id (i.e. the first row has ROW_ID 1, the second one ROW_ID2, the
+schema for generating default values for a field named **<FIELDNAME>** is (by type):
+
+* **String** : <FIELDNAME>-<ROW_ID> (<ROW_ID> is left-padded with zeroes to length 4)
+* **Numeric types (Int, Double, ...)** : <ROW_ID>
+* **Map** : empty Map()
+* **Array** : empty Array()
+* **Struct** : default values generation for structs is currently not supported
+
+
+To stick with the "Nodes" example from above, let's say only __longitude__ and
+__latitude__ would be of interest for our current focus. Then we would write:
+
+
+      val nodes = new Nodes(p("2014"), p("09")) with rows {
+        set(v(longitude, 11111.11),
+          v(latitude, 22222.22))
+        set(v(longitude, 33333.33),
+          v(latitude, 33333.33))          
+      }
+
+The resulting table looks like this:
+
+| version | user_id | longitude | latitude | geohash | tags |
+| ----    | ----    | ----    | ----    | ----    | ----    |
+| 1       | 1    | 11111.11 | 22222.22 | geohash-0001 | {} |
+| 2       | 2    | 33333.33 | 44444.44 | geohash-0002 | {} |
+
+
 ## Defining structs as input
 
+When the test input data contains structured fiels (i.e. fields of the
+Hive STRUCT type), then each struct input must be defined manually. Let's say
+we have a struct that looks like this:
 
-## Loading Input Data from Classpath
+    case class ProductInList() extends Structure {
+      val productName = fieldOf[String]
+      val productNumber = fieldOf[String]
+      val productPosition = fieldOf[String]
+    }
+
+Then, values for it can be assigned by using the extension **with values**,
+together with the **set** and **v** function known for setting values:
+
+    val product0815 = new ProductInList with values {
+      set(
+        v(productName, "The Gadget"),
+        v(productNumber, "0815"),
+        v(productPosition, "rec-2"))
+    }
 
 # Test Running & Result Checking
 
