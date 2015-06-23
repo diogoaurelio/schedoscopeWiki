@@ -62,7 +62,7 @@ Moreover, view instantiation also takes care that a table partition is available
 
 into the respective view actors for use during the following materialization proper phase.
 
-## Materialization Proper
+### Materialization Proper
 
 During materialization proper, transformation version checksums and transformation timestamps are used for change detection:
 
@@ -74,4 +74,4 @@ After rematerialization, transformation version checksum and timestamp are updat
 
 Note that rematerialization of a view results in a new transformation timestamp, which might affect the views depending on that view and trigger their rematerialization.
 
-# Scheduling States
+## Scheduling States
