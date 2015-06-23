@@ -57,12 +57,12 @@ During a view's instantiation, Schedoscope checks for the existence of a table f
 
 Moreover, view instantiation also takes care that a table partition is available for each view. Missing partitions are created; for partitions that already exist, view instantiation loads the 
 * _transformation version checksums_ and
-*  _transformation timestamps_ 
+* _transformation timestamps_ 
 
 that have been previously stored in partition properties of the metastore into the respective view actors for use during the following materialization phase.
 
 ## Materialization Proper
 
-
+During 
 
 
