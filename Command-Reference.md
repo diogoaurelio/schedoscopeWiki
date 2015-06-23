@@ -121,7 +121,7 @@ Examples:
     
 ### materialize 
 
-Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksums. 
+Materialize view(s) - i.e., load the data of the designated views and their dependencies - if not already materialized and current in terms of data and transformation version checksums. 
 
 The materialization command ID is returned as a result.
 
@@ -157,7 +157,7 @@ Examples:
 
 ### invalidate
 
-Invalidate previously computed view(s) to enforce rematerialization upon the next materialize command. The invalidate command ID is returned as the result.
+Invalidate previously materialized view(s) to enforce rematerialization upon the next `materialize` command. The invalidate command ID is returned as the result.
 
 Supported options:
 - `-s`, `--status <status>`: invalidate all views that have a given status (e.g. 'failed')
