@@ -61,6 +61,8 @@ Moreover, view instantiation also takes care that a table partition is available
 
 that have been previously stored in partition properties of the metastore into the respective view actors for use during the following materialization phase.
 
-## 
+## Materialization Proper
+
+
 
 
