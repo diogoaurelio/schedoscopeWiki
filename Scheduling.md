@@ -51,7 +51,9 @@ Schedoscope attempts to automatically detect changes to data, data structure, an
 
 ## View Instantiation
 
-During a view's instantiation, Schedoscope checks for the existence of a table for the view in the metastore. In case a table exists, a _checksum_ is computed on the `CREATE TABLE` DDL statement for the view and compared with the checksum of the existing table in the metastore (the latter checksum is stored in a table property). If the checksums differ - i.e., if the table structure has changed in any way - the table and all its partitions are dropped and the current `CREATE TABLE` statement is executed. The new view DDL checksum is stored in a table property.
+During a view's instantiation, Schedoscope checks for the existence of a table for the view in the metastore. 
+- In case a table exists, a _view DDL checksum_ is computed on the `CREATE TABLE` DDL statement for the view and compared with the checksum of the existing table in the metastore (the latter checksum is stored in a table property). 
+- If the checksums differ - i.e., if the table structure has changed in any way - the table and all its partitions are dropped and the current `CREATE TABLE` statement is executed. The new view DDL checksum is stored in a table property.
 
 Moreover, view instantiation also takes care that a table partition is available for each view. Missing partitions are created; for partitions that already exist, view instantiation loads the _transformation version checksums_ and _transformation timestamps_ that have been previously stored in partition properties of the metastore into the respective view actors for use during the following materialization phase.
 
