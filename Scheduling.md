@@ -16,7 +16,7 @@ For example:
 
 Materialization proceeds in two phases:
 
-### View Instantiation
+#### View Instantiation
 
 Before materialization itself is started, all views impacted by a materialization command are instantiated. These are the views addressed by the materialization command plus their dependencies, recursively.
 
@@ -28,7 +28,7 @@ Instantiation comprises the following steps:
 
 Once Schedoscope has instantiated a view, it remains instantiated. Thus, effectively, after a warmup period, less and less views will be initialized during materialization requests.
 
-### Materialization Proper
+#### Materialization Proper
 
 Once all required views are initialized, materialization itself starts. During that process, essentially, each view (actor) impacted by materialization:
 
@@ -47,7 +47,7 @@ Schedoscope attempts to automatically detect changes to data, data structure, an
 - _Transformation version checksums_: a transformation type-specific checksum on the `transformVia` clause of the view (see the respective transformation reference documentation sections in this wiki) ;
 - _Transformation timestamps_: timestamp of the last materialization of the view.
 
-### View Instantiation
+#### View Instantiation
 
 During a view's instantiation, Schedoscope checks for the existence of a table for the view in the metastore:
 
@@ -62,7 +62,7 @@ Moreover, view instantiation also takes care that a table partition is available
 
 into the respective view actors for use during the following materialization proper phase.
 
-### Materialization Proper
+#### Materialization Proper
 
 During materialization proper, transformation version checksums and transformation timestamps are used for change detection:
 
