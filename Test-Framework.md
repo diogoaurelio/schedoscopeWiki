@@ -292,14 +292,99 @@ these are:
   and can be compared using the full Scalatest comparison functionality
   (e.g. `shouldBe` , `shouldNotBe`, ...)  
   
-
-
-
+Please note that these functions represent a subset of the available
+testing functionality - more advanced usecases (e.g. modifying view
+configurations during tests) can be found in the next section. However,
+the presented subset represents the core testing functionality, 
+which may suffice for many standard testing usecases.
 
 # Advanced Features
 
-## Test Resource Files
+Apart from the standard testing functionality, the Schedoscope testing
+framework also offers more advanced features.
 
 ## View Modification
 
+Within Schedoscope, all transformations support a generic configuration
+mechanism by using key-value pairs. Typically, the required configuration
+is specified directly within the transformation definition of the view
+like this (simplified Pig transformation, taken from the tutorial view
+`Trainstations`):
+
+   transformVia(() =>
+    PigTransformation(
+      scriptFromResource("pig_scripts/datahub/insert_trainstations.pig"))
+      .configureWith(
+        Map("storage_format" -> "parquet.pig.ParquetStorer()")))
+
+In some cases, it can be necessary to override these specifications.
+In the current example, the Pig script produces Parquet output; 
+however, for local testing, a plain text output (i.e. PigStorage)
+is desired. This can be accomplished by the following mechanism 
+in the test case:
+
+    "datahub.Trainstations" should "load correctly from processed.nodes" in {
+      new Trainstations() with test {
+        basedOn(nodesInput)
+        withConfiguration(
+          ("storage_format" -> "PigStorage()"))
+       ...    
+    }
+
+This allows to override any predefined configuration property in order
+to adapt the views to the test environment.
+
+## Test Resource Files
+
+Another common usecase is that transformations (e.g. Hive Queries or
+Mapreduce Jobs) require resource files during their execution. The location
+of these resource files is usually configured directly in the view
+definition. Let's say we have a little example view called `FilteredUsers`, 
+which is populated by a Hive transformation which includes a UDF called
+`filter_users`, which takes a username as an argument, together with 
+a path to a user whitelist file:
+
+    case class FilteredUsers {
+      [...]
+
+      transformVia(() =>
+        HiveTransformation(
+          "SELECT filter_users(user_name, ${user_whitelist}) FROM users"
+          withFunctions(
+            this,
+            Map("filter_users" -> classOf[GenericUDFFilterUsers]))
+        .configureWith(
+          Map("user_whitelist" -> "/hdfs/path/to/user.whitelist")))
+      
+      [...]    
+    }
+
+Now we have the situation that this transformation will run perfectly
+fine in the target hadoop cluster, because the user whitelist file 
+has been (hopefully ;) ) deployed there; however, for local testing,
+this file is not available. For this purpose, the Schedoscope testing
+framework allows to specify a _local_ resource for the given configuration
+property as follows: 
+
+    case class FilteredUsersTest() ... {
+      
+      [...]    
+      
+      "filtered users" should "load correctly from users" in {
+        new FilteredUsers() with test {
+          basedOn(...)
+          withResource(("user_whitelist", "src/test/resources/user.whitelist"))
+          then()
+          [...]
+        }
+      }                
+    }
+
+Using this approach, test resource files can be managed comfortably 
+within the standard maven project location, and are made available during
+the local mode testing.
+
 ## Testing against Minicluster
+
+
+
