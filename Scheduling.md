@@ -75,3 +75,5 @@ During materialization proper, transformation version checksums and transformati
 After rematerialization, transformation version checksum and timestamp are updated in the Hive metastore.
 
 Note that rematerialization of a view results in a new transformation timestamp, which might affect the views depending on that view and trigger their rematerialization.
+
+# Scheduling States
