@@ -5,7 +5,7 @@ From a conceptual point of view, the framework provides "unit testing" for Sched
 The main design principles of Schedoscope's test framework are:
 
 * _Integration with Scalatest_: Test specification and result checking is based on [Scalatest](http://scalatest.org), with its expressive library of assertions.
-* _Local transformation execution_: In order to decouple testing from the availability of a Hadoop cluster environment and to achieve fast test execution times, the framework embeds various cluster components required for executing the different transformation types and configures them to run in _local_ mode.
+* _Local transformation execution_: In order to decouple testing from the availability of a Hadoop cluster environment and to achieve fast test execution times, the framework embeds various cluster components required for executing the different transformation types and configures most of them to run in _local_ mode.
 * _Typesafe test data specification_: Because the specification of input and output data of tests "lives" within Scala, we can completely eliminate errors stemming from wrong types, column names, etc. by compile time checks. Another beneficial side-effect of this approach is that one can use auto-completion in IDEs like Eclipse while writing tests.
 * _Default data generation_: The framework encourages you to write separate tests for different aspects of a view transformation by generating reasonable default values for non-specified columns of input data. It is thus possible to focus on some specific colums, reducing the effort of specifying test data to a minimal amount. This is in stark contrast to other approaches where the test data definition overhead encourages you to create one huge input data set coveriing all test cases.
   
@@ -109,10 +109,9 @@ To stick with the above example, the view _Restaurants_ depends on the view _Nod
     [...]
     )
 
-This results in a hive table with columns 'version', 'user_id', etc.
-In order to generate input rows for this view, one uses the extension
-`with rows`; then, calling the `set` function adds a row, and calling
-the `v` function sets a value for a specific column. By example:
+_Nodes_ maps to a Hive table with columns `version`, `user_id`, etc., and the partitions `year` and `month`. In order to generate input rows for this view, creates an anonymous subclass of _Nodes_ with the trait `rows`. Then, one can call the `set` method to add rows and `v` to set column values. 
+
+For example:
 
       val nodes = new Nodes(p("2014"), p("09")) with rows {
         set(v(version, 1),
@@ -138,33 +137,30 @@ This results in the following two rows in the input table:
 | 1       | 1234    | 11111.11 | 22222.22 | t1y1716cfcq0 | {'tag1':'val1', 'tag2':'val2'} |
 | 2       | 5678    | 33333.33 | 44444.44 | t1y1716cfcqx | {'tag3':'val3', 'tag4':'val4'} |
 
-For specifying lists and maps, the standard Scala types List and Map can be used.
+For specifying lists and maps, the standard Scala types `List` and `Map` can be used.
 In order to specify input for views which contain structures (i.e., Hive STRUCT fields),
-refer to the section 'Defining structs as input'. Please note that:
+refer to the section 'Defining Structs as Input'. Please note that:
 
-* When defining data, auto-completion can be used - i.e. all fields of the 
-  current view are in scope.
-* When defining values, these are type-checked against the column type at 
-  compile-time; hence errors can be detected early in the test creation
-  process.
+* when defining data, auto-completion can be used - i.e. all fields of the 
+  current view are in scope;
+* when defining values, these are type-checked against the column type at 
+  compile-time.
 
-## Default Value generation
+### Default Value generation
 
-Often, for testing a specific aspect of a view, not all fields are relevant. For this
-reason, the testing framework allows to leave out fields when defining input, and 
-fills those irrelevant fields with default values. Using **ROW_ID** as a placeholder 
-for the current row id (i.e. the first row has ROW_ID 1, the second one ROW_ID2, the
-schema for generating default values for a field named **FIELDNAME** is (by type):
+Often, when testing a specific aspect of a view, not all fields are relevant. For this
+reason, the testing framework allows one to skip fields when defining input. It  
+fills those irrelevant fields with default values. Using `ROW_ID` as a placeholder 
+for the current row number the schema for generating default values for a field named `FIELDNAME` is (by type):
 
-* _String_ : FIELDNAME-ROW_ID (ROW_ID is left-padded with zeroes to length 4)
-* _Numeric types (Int, Double, ...)_ : ROW_ID
-* _Map_ : empty Map()
-* _Array_ : empty Array()
-* _Struct_ : default values generation for structs is currently not supported
+* _String_: FIELDNAME-ROW_ID (ROW_ID is left-padded with zeroes to length 4)
+* _Numeric types (Int, Double, ...)_: ROW_ID
+* _Map_: empty `Map()`
+* _Array_: empty `Array()`
+* _Struct_: default value generation for structs is currently not supported
 
-
-To stick with the "Nodes" example from above, let's say only _longitude_ and
-_latitude_ would be of interest for our current focus. Then we would write:
+To stick with the `Nodes` example, let's say only _longitude_ and
+_latitude_ would be of interest for our current test. Then we could write:
 
 
       val nodes = new Nodes(p("2014"), p("09")) with rows {
@@ -182,11 +178,10 @@ The resulting table looks like this:
 | 2       | 2    | 33333.33 | 44444.44 | geohash-0002 | {} |
 
 
-## Defining structs as input
+### Defining Structs as Input
 
-When the test input data contains structured fiels (i.e. fields of the
-Hive STRUCT type), then each struct input must be defined manually. Let's say
-we have a struct that looks like this:
+When the test input data contains structured fiels (i.e. fields of the Hive STRUCT type), each struct input 
+must be defined manually. Let's say we have a struct that looks like this:
 
     case class ProductInList() extends Structure {
       val productName = fieldOf[String]
@@ -194,8 +189,8 @@ we have a struct that looks like this:
       val productPosition = fieldOf[String]
     }
 
-Then, values for it can be assigned by using the extension `with values`,
-together with the `set` and `v` function known for setting values:
+Then, values for it can be assigned by subclassing with trait `values`, together with the `set` and `v` 
+functions you already know for setting values:
 
     val product0815 = new ProductInList with values {
       set(
@@ -204,17 +199,14 @@ together with the `set` and `v` function known for setting values:
         v(productPosition, "rec-2"))
     }
 
-# Test Running & Result Checking
+## Test Running & Result Checking
 
-The execution of tests is based on Scalatest, which allows to define
-test cases and offers rich facilities to compare test results against expected
-outcomes. In order to specify one or more test cases for a given view,
-the recommended pattern is to write a test case class as follows:
+The execution of tests is based on Scalatest and can look like this:
 
-    case class TrainstationsTest() extends FlatSpec with Matchers {
+    case class RestaurantsTest() extends FlatSpec with Matchers {
 
       val nodesInput = new Nodes(p("2014"), p("09")) with rows {
-          // input data definition, see above
+          // input data definition from above
       }
           
       // test 
@@ -238,15 +230,14 @@ testing functions is added to the view itself. Following the above example,
 these are:
 
 * `basedOn(View*)` : Using this function, we can define the actual
-  input data for our view to be tested. Usually, one defines manually
-  a dataset for each view dependency (using the methods described in
-  the section "Test Data Input Definition" above.
+  input data for our view to be tested. Usually, one defines 
+  one dataset for each view dependency.
 * `then()` : When calling this function, the materialization process of 
   the view is triggered - in other words, the transformation which 
   populates the view is being executed in local mode. Plain local mode is
-  currently available for Hive, Pig and Mapreduce transformations; 
+  currently available for Hive, Pig, and Mapreduce transformations; 
   Oozie transformations can be tested against a local minicluster (see
-  advanced section)
+  advanced section below)
 * `numRows()` : after the transformation has been executed, this function
   yields the number of rows in the resulting view.
 * `row()` : By invoking this function, test results can be inspected
@@ -256,20 +247,12 @@ these are:
 * `v(Field)` : As a counterpart to the `v` function used for 
   specifying input data, this function returns the value for the given field  
   in the current result row. The value is returned in a typesafe manner,
-  and can be compared using the full Scalatest matcher functionality
-  (e.g. `shouldBe` , `shouldHaveLength`, ...). See
-  http://www.scalatest.org/user_guide/using_matchers for details. 
+  and can be compared using the full [Scalatest matcher](http://scalatest.org/user_guide/using_matchers)   
+  functionality (e.g. `shouldBe` , `shouldHaveLength`, ...). 
   
-Please note that these functions represent a subset of the available
-testing functionality - more advanced features (e.g. modifying view
-configurations during tests) can be found in the next section. However,
-the presented subset represents the core testing functionality, 
-which suffices for many standard testing usecases.
+## Advanced Features
 
-# Advanced Features
-
-Apart from the standard testing functionality, the Schedoscope testing
-framework also offers more advanced features.
+Apart from the standard testing functionality explained above, the Schedoscope testing framework also offers more advanced features.
 
 ## View Modification
 
