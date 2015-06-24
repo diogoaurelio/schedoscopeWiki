@@ -1,51 +1,24 @@
-# Introduction
+Schedoscope's test framework integrates tightly with view development. Faciliating frequent test runs, it speeds up development-testing roundtrip time. 
 
-The core idea of Schedoscope's test framework is to integrate tightly 
-with the development of views and transformations, and to speed up the
-testing roundtrip time in order to facilitate frequent test runs. 
-From a conceptual point of view, the framework can be seen as an 
-implementation of "unit testing" on the level of Schedoscope views
-and transformations. The focus hereby is neither integration testing with
-a target / staging environment, nor load testing against large datasets - but
-rather checking the correctness of views and transformations by manual
-specification of test data input, and comparing the outcomes with expected
-results.
+From a conceptual point of view, the framework provides "unit testing" for Schedoscope views and transformations. The focus is neither on integration testing with a target / staging environment nor on load testing against large datasets. Rather, the framework supports correctness tests for views and transformations with simple specification of test input data, fast test execution, and painless checking of resulting view data with expected results.
 
-The main design principles to alleviate the testing process are:
+The main design principles of Schedoscope's test framework are:
 
-* **Integration with Scalatest** : Running Tests and especially checking 
-  results is based upon the well-established mechanisms of Scalatest, which
-  offers rich and powerful means for comparing against expected outcomes.
-* **Local Transformation Running** : In order to decouple the testing
-  process from the availability of (potentially) remote clusters or 
-  environments, the framework ships with a _local_ implementation for
-  all transformation types. This enables a comfortable local working 
-  mode, together with a much faster test execution time. 
-* **Typesafe Test Data Management** : Because the specification of input
-  and output data of tests "lives" within Scala, we can completely eliminate
-  errors stemming from wrong types, column names... by compile time checks.
-  Another beneficial side-effect of this approach is the possibility to use
-  auto-completion in IDEs like Eclipse for writing tests.
-* **Default data generation** : In many cases, a test is not focused on the
-  complete set of input data, but rather on some specific columns or 
-  values. For this reason, the test framework generates reasonable 
-  default values for non-specified columns, which reduces the effort of 
-  specifying test data to the minimal critical amount.
+* _Integration with Scalatest_: Test specification and result checking is based on [Scalatest](http://scalatest.org), with its expressive library of assertions.
+* _Local transformation execution_: In order to decouple testing from the availability of a Hadoop cluster environment and to achieve fast test execution times, the framework embeds various cluster components required for executing the different transformation types and configures them to run in _local_ mode.
+* _Typesafe test data specification_: Because the specification of input and output data of tests "lives" within Scala, we can completely eliminate errors stemming from wrong types, column names, etc. by compile time checks. Another beneficial side-effect of this approach is that one can use auto-completion in IDEs like Eclipse while writing tests.
+* _Default data generation_: The framework encourages you to write separate tests for different aspects of a view transformation by generating reasonable default values for non-specified columns of input data. It is thus possible to focus on some specific colums, reducing the effort of specifying test data to a minimal amount. This is in stark contrast to other approaches where the test data definition overhead encourages you to create one huge input data set coveriing all test cases.
   
-  
-Briefly summarized, a test of a given view V with the Schedoscope test 
-framework consists of the following steps:
+Briefly summarized, writing a test of a given view `V` with the Schedoscope test framework consists of the following steps:
 
-1. Definition of input data for all views that V depends on
-2. Adaption of the configuration of V (if necessary)
-3. Run the transformations of V (in local mode)
-4. Check the outcomes against expected results
+1. defining the input data for all views that `V` depends on
+2. adapting the configuration of `V` to accommodate local test execution (if necessary)
+3. executing the transformation of `V` (in local mode)
+4. checking the outcomes against expected results
    
-The following section shows a complete test example based on the tutorial;
-the subsequent sections detail on the individual testing aspects.
+The following section shows a complete test example based on the [tutorial](Open Street Map Tutorial); the subsequent sections detail on the individual testing aspects.
 
-
-# Complete Example
+## Complete Example
 
 The following example is taken from the tutorial. It tests a view called
 "Restaurants", which holds information about restaurants and is populated
