@@ -86,6 +86,7 @@ by a Hive transformation from a single other view `Nodes`. Comments can be found
 
 As stated above, testing using the Schedoscope test framework is based on small, individually defined datasets.
 For this reason, the framework allows for the specification of datasets in a row-by-row manner. Because this process tends to be tedious, the framework helps users by 
+
 1. supporting typechecking / autocompletion of input data fields test data specification and 
 2. default value generation for non-specified input fields. 
 
