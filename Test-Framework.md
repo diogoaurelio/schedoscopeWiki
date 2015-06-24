@@ -232,12 +232,13 @@ these are:
 * `basedOn(View*)` : Using this function, we can define the actual
   input data for our view to be tested. Usually, one defines 
   one dataset for each view dependency.
-* `then()` : When calling this function, the materialization process of 
+* `then(sortedBy?)` : When calling this function, the materialization process of 
   the view is triggered - in other words, the transformation which 
   populates the view is being executed in local mode. Plain local mode is
   currently available for Hive, Pig, and Mapreduce transformations; 
   Oozie transformations can be tested against a local minicluster (see
-  advanced section below)
+  advanced section below). One can optionally pass a view field to `then` as a sorting criteria to
+  make sure result rows are returned and checkable in a predictable order.
 * `numRows()` : after the transformation has been executed, this function
   yields the number of rows in the resulting view.
 * `row()` : By invoking this function, test results can be inspected
@@ -254,7 +255,7 @@ these are:
 
 Apart from the standard testing functionality explained above, the Schedoscope testing framework also offers more advanced features.
 
-## View Modification
+### View Modification
 
 Within Schedoscope, all transformations support a generic configuration
 mechanism by using key-value pairs. Typically, the required configuration
@@ -286,7 +287,7 @@ in the test case:
 This allows to override any predefined configuration property in order
 to adapt the views to the test environment.
 
-## Test Resource Files
+### Test Resource Files
 
 Another common usecase is that transformations (e.g. Hive Queries or
 Mapreduce Jobs) require resource files during their execution. The location
@@ -336,26 +337,20 @@ Using this approach, test resource files can be managed comfortably
 within the standard Maven project location, and are made available during
 the local mode testing.
 
-## Testing against Minicluster
+### Testing against Minicluster
 
-As said above, in order to speed up tests, transformations are run
-completely in local mode if possible; this is currently supported
-for Hive, Mapreduce and Pig Transformations. However, running e.g.
-an Oozie transformation required a bit more infrastructure; for this
+In order to speed up tests, transformations are run completely in local mode if possible; this is currently supported for Hive, MapReduce and Pig Transformations. However, running e.g.
+an Oozie transformation requires a more infrastructure; for this
 purpose, we are using a predefined _Hadoop minicluster_, which is
-basically a small virtual Hadoop cluster running directly in the VM.
+basically a small virtual Hadoop cluster running directly in the JVM.
 It ships with all necessary things to run Oozie transformations.
 
-Setting up the minicluster is easy - just replace the well-known
-`with test` in the test case specification by `with clustertest`.
-Then, behind the scenes the minicluster will be launched
-prior to test execution. Properties of the minicluster
-(e.g. the namenode URI) can be accesed by the `cluster()`
-method: 
+Setting up the minicluster is easy - just replace the `with test` clause in the test case specification by `with clustertest`. Then, behind the scenes the minicluster will be launched
+prior to test execution. Properties of the minicluster (e.g. the namenode URI) can be accesed by the `cluster()` method: 
 
     "my cool view" should s"load correctly " in {
-      new CustomerCustomerNumber() with clustertest {
-        basedOn(vidCustomerNr)
+      new CoolView() with clustertest {
+        basedOn(dependency1)
         withConfiguration(
           ("jobTracker" -> cluster().getJobTrackerUri),
           ("nameNode" -> cluster().getNameNodeUri),
@@ -364,13 +359,9 @@ method:
       }
     }      
 
-A requirement for this to work is that the minicluster uses some
-specific ports; these have to be defined in a file called `minicluster.properties`
-on your project classpath; we recommend to place it at `src/test/resources/minicluster.properties`
-with the following content:
+A requirement for this to work is that the minicluster can use some specific ports; these have to be defined in a file called `minicluster.properties` on your project classpath; we recommend to place it at `src/test/resources/minicluster.properties` with the following content:
 
     hadoop.namenode.port=9000
     hive.server.port=10000
     hive.metastore.port=30000
     
-This configuration is picked up by the minicluster.
