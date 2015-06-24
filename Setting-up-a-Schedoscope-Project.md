@@ -33,7 +33,7 @@ In real-world production deployment scenarios, you should probably follow a diff
             <dependency>
                 <groupId>com.ottogroup.bi</groupId>
                 <artifactId>hadoop-launcher</artifactId>
-                <version>0.0.6</version>
+                <version>0.1.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
