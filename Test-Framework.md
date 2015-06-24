@@ -23,7 +23,7 @@ The main design principles to alleviate the testing process are:
   mode, together with a much faster test execution time. 
 * **Typesafe Test Data Management** : Because the specification of input
   and output data of tests "lives" within Scala, we can completely eliminate
-  errors stemming from wrong types, column, names... by compile time checks.
+  errors stemming from wrong types, column names... by compile time checks.
   Another beneficial side-effect of this approach is the possibility to use
   auto-completion in IDEs like Eclipse for writing tests.
 * **Default data generation** : In many cases, a test is not focused on the
@@ -94,7 +94,10 @@ then details on test execution and result inspection.
       # "numRows" yields the number of result rows, and "row" fetches a single
       # line of test output. With in a row, individual column values can 
       # be checked by "v", together with the Scalatest comparison operators
-      # like "shouldBe"
+      # like "shouldBe".
+      # 
+      # Please note that for sake of brevity, we only inspect the details
+      # of the first output row.
       #
       "datahub.Restaurants" should "load correctly from processed.nodes" in {
         new Restaurants() with test {
@@ -116,18 +119,18 @@ As stated above, testing within the Schedoscope test framework is
 based on small, manually defined datasets. For this reason, the
 framework offers the possibility to precisely specify a dataset
 in a row-by-row manner. Because this process can be of course somehow
-tedious, the framework supports the user by (i) typechecking / 
-autocompletion of input data fields during specification and (ii)
+tedious, the framework supports the user by (1) typechecking / 
+autocompletion of input data fields during specification and (2)
 default value generation for non-specified input fields. 
 In addition, existing test input resources (e.g. sample data files)
-can be loaded from classpath.
+can be configured comfortably.
 
 ## Manual Specification
 
 To stick with the above example, let's say we want to test a view
 called _Restaurants_ (taken from the tutorial), which holds 
 information about restaurants in Hamburg extracted from Open Street
-Map nodes. This view nees another view called _Nodes_ as input; its
+Map nodes. This view needs another view called _Nodes_ as input; its
 (simplified) definition looks like
 
     case class Nodes(
@@ -173,13 +176,15 @@ This results in the following two rows in the input table:
 | 1       | 1234    | 11111.11 | 22222.22 | t1y1716cfcq0 | {'tag1':'val1', 'tag2':'val2'} |
 | 2       | 5678    | 33333.33 | 44444.44 | t1y1716cfcqx | {'tag3':'val3', 'tag4':'val4'} |
 
-For specifying lists and maps, the standard Scala types List, Map can be used.
+For specifying lists and maps, the standard Scala types List and Map can be used.
 In order to specify input for views which contain structures (i.e., Hive STRUCT fields),
 refer to the section 'Defining structs as input'. Please note that:
 
 * When defining data, auto-completion can be used - i.e. all fields of the 
   current view are in scope.
-* When defining values, these are type-checked against the column type at compile-time.
+* When defining values, these are type-checked against the column type at 
+  compile-time; hence errors can be detected early in the test creation
+  process.
 
 ## Default Value generation
 
@@ -189,15 +194,15 @@ fills those irrelevant fields with default values. Using **ROW_ID** as a placeho
 for the current row id (i.e. the first row has ROW_ID 1, the second one ROW_ID2, the
 schema for generating default values for a field named **FIELDNAME** is (by type):
 
-* **String** : FIELDNAME-ROW_ID (ROW_ID is left-padded with zeroes to length 4)
-* **Numeric types (Int, Double, ...)** : ROW_ID
-* **Map** : empty Map()
-* **Array** : empty Array()
-* **Struct** : default values generation for structs is currently not supported
+* _String_ : FIELDNAME-ROW_ID (ROW_ID is left-padded with zeroes to length 4)
+* _Numeric types (Int, Double, ...)_ : ROW_ID
+* _Map_ : empty Map()
+* _Array_ : empty Array()
+* _Struct_ : default values generation for structs is currently not supported
 
 
-To stick with the "Nodes" example from above, let's say only __longitude__ and
-__latitude__ would be of interest for our current focus. Then we would write:
+To stick with the "Nodes" example from above, let's say only _longitude_ and
+_latitude_ would be of interest for our current focus. Then we would write:
 
 
       val nodes = new Nodes(p("2014"), p("09")) with rows {
@@ -240,7 +245,7 @@ together with the `set` and `v` function known for setting values:
 # Test Running & Result Checking
 
 The execution of tests is based on Scalatest, which allows to define
-test cases and offers rich facilites to compare test results against expected
+test cases and offers rich facilities to compare test results against expected
 outcomes. In order to specify one or more test cases for a given view,
 the recommended pattern is to write a test case class as follows:
 
@@ -272,9 +277,9 @@ these are:
 
 * `basedOn(View*)` : Using this function, we can define the actual
   input data for our view to be tested. Usually, one defines manually
-  a dataset for each view dependency (using the facilities describes in
+  a dataset for each view dependency (using the methods described in
   the section "Test Data Input Definition" above.
-* `then()` : When calling this function, the materializatio process of 
+* `then()` : When calling this function, the materialization process of 
   the view is triggered - in other words, the transformation which 
   populates the view is being executed in local mode. Plain local mode is
   currently available for Hive, Pig and Mapreduce transformations; 
@@ -289,14 +294,15 @@ these are:
 * `v(Field)` : As a counterpart to the `v` function used for 
   specifying input data, this function returns the value for the given field  
   in the current result row. The value is returned in a typesafe manner,
-  and can be compared using the full Scalatest comparison functionality
-  (e.g. `shouldBe` , `shouldNotBe`, ...)  
+  and can be compared using the full Scalatest matcher functionality
+  (e.g. `shouldBe` , `shouldHaveLength`, ...). See
+  http://www.scalatest.org/user_guide/using_matchers for details. 
   
 Please note that these functions represent a subset of the available
-testing functionality - more advanced usecases (e.g. modifying view
+testing functionality - more advanced features (e.g. modifying view
 configurations during tests) can be found in the next section. However,
 the presented subset represents the core testing functionality, 
-which may suffice for many standard testing usecases.
+which suffices for many standard testing usecases.
 
 # Advanced Features
 
@@ -317,7 +323,8 @@ like this (simplified Pig transformation, taken from the tutorial view
         .configureWith(
           Map("storage_format" -> "parquet.pig.ParquetStorer()")))
 
-In some cases, it can be necessary to override these specifications.
+As you can see, view configuration is done by the `configureWith` method.
+In some cases, it can be necessary to override these specifications for testing.
 In the current example, the Pig script produces Parquet output; 
 however, for local testing, a plain text output (i.e. PigStorage)
 is desired. This can be accomplished by the following mechanism 
@@ -381,7 +388,7 @@ property as follows:
     }
 
 Using this approach, test resource files can be managed comfortably 
-within the standard maven project location, and are made available during
+within the standard Maven project location, and are made available during
 the local mode testing.
 
 ## Testing against Minicluster
@@ -392,12 +399,14 @@ for Hive, Mapreduce and Pig Transformations. However, running e.g.
 an Oozie transformation required a bit more infrastructure; for this
 purpose, we are using a predefined _Hadoop minicluster_, which is
 basically a small virtual Hadoop cluster running directly in the VM.
-It ships all necessary things to run Oozie transformations.
+It ships with all necessary things to run Oozie transformations.
 
 Setting up the minicluster is easy - just replace the well-known
 `with test` in the test case specification by `with clustertest`.
 Then, behind the scenes the minicluster will be launched
-prior to test execution. 
+prior to test execution. Properties of the minicluster
+(e.g. the namenode URI) can be accesed by the `cluster()`
+method: 
 
     "my cool view" should s"load correctly " in {
       new CustomerCustomerNumber() with clustertest {
@@ -419,6 +428,4 @@ with the following content:
     hive.server.port=10000
     hive.metastore.port=30000
     
-This configuration is picked up by the minicluster.    
-
-
+This configuration is picked up by the minicluster.
