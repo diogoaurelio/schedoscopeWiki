@@ -37,6 +37,12 @@ In real-world production deployment scenarios, you should probably follow a diff
                 <scope>test</scope>
             </dependency>
             <dependency>
+		<groupId>minioozie</groupId>
+		<artifactId>minioozie</artifactId>
+		<version>0.1.6</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
                 <version>1.1.2</version>
