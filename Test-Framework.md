@@ -20,24 +20,20 @@ The following section shows a complete test example based on the [tutorial](Open
 
 ## Complete Example
 
-The following example is taken from the tutorial. It tests a view called
-"Restaurants", which holds information about restaurants and is populated
-by a Hive transformation from a single other view called "Nodes". 
-Comments on each phase can be found within the source code; details on 
-specifying test data input can be found in the subsequent section 
-_Test Data Definition_; the section _Test Running & Result Checking_ 
-then details on test execution and result inspection.
+The following example is taken from the tutorial. It tests the view `Restaurants` that is populated
+by a Hive transformation from a single other view `Nodes`. Comments can be found within the source code; details on specifying test data input can be found in the subsequent section _Test Data Definition_; the section _Test Running & Result Checking_ then explaines test execution and result inspection.
 
 
     case class RestaurantsTest() extends FlatSpec
       with Matchers {
       
-      #
-      # specify input data (OSM nodes). By extending the actual view
-      # by "with rows", we can specify input data; each call of "set"
-      # adds a line of input data, and "v" sets the value for a particular
-      # column.
-      #
+      //
+      // specify input data (OSM nodes). By extending the actual view by
+      // "with rows", we can specify input data. Each call of "set"
+      // adds a line of input data; "v" sets the value for a particular
+      // column.
+      //
+
       val nodes = new Nodes(p("2014"), p("09")) with rows {
         set(v(id, "267622930"),
           v(geohash, "t1y06x1xfcq0"),
@@ -60,18 +56,18 @@ then details on test execution and result inspection.
             "cuisine" -> "italian")))
       }
     
-      #
-      # run tests & check results. By extending the actual view by "with test",
-      # we enable test running and result checking. With "basedOn", the input
-      # views ares specified; "then" actually runs the transformation,
-      # "numRows" yields the number of result rows, and "row" fetches a single
-      # line of test output. With in a row, individual column values can 
-      # be checked by "v", together with the Scalatest comparison operators
-      # like "shouldBe".
-      # 
-      # Please note that for sake of brevity, we only inspect the details
-      # of the first output row.
-      #
+      //
+      // run tests & check results. By extending the actual view by "with test",
+      // we enable test running and result checking. With "basedOn", the input
+      // views ares specified; "then" actually runs the transformation,
+      // "numRows" yields the number of result rows, and "row" fetches a single
+      // line of test output. Within a row, individual column values can 
+      // be checked by "v", using Scalatest assertions like "shouldBe".
+      // 
+      // Please note that for sake of brevity, we only inspect the details
+      // of the first output row.
+      //
+
       "datahub.Restaurants" should "load correctly from processed.nodes" in {
         new Restaurants() with test {
           basedOn(nodes)
@@ -86,24 +82,16 @@ then details on test execution and result inspection.
     }
 
 
-# Test Input Data Definition
+## Test Input Data Definition
 
-As stated above, testing within the Schedoscope test framework is
-based on small, manually defined datasets. For this reason, the
-framework offers the possibility to precisely specify a dataset
-in a row-by-row manner. Because this process can be of course somehow
-tedious, the framework supports the user by (1) typechecking / 
-autocompletion of input data fields during specification and (2)
-default value generation for non-specified input fields. 
-In addition, existing test input resources (e.g. sample data files)
-can be configured comfortably.
+As stated above, testing using the Schedoscope test framework is based on small, individually defined datasets.
+For this reason, the framework allows for the specification of datasets in a row-by-row manner. Because this process tends to be tedious, the framework helps users by 
+1. supporting typechecking / autocompletion of input data fields test data specification and 
+2. default value generation for non-specified input fields. 
 
-## Manual Specification
+### Manual Specification
 
-To stick with the above example, let's say we want to test a view
-called _Restaurants_ (taken from the tutorial), which holds 
-information about restaurants in Hamburg extracted from Open Street
-Map nodes. This view needs another view called _Nodes_ as input; its
+To stick with the above example, the view _Restaurants_ depends on the view _Nodes_. Its
 (simplified) definition looks like
 
     case class Nodes(
