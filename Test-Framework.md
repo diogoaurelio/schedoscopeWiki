@@ -153,8 +153,8 @@ reason, the testing framework allows one to skip fields when defining input. It
 fills those irrelevant fields with default values. Using `ROW_ID` as a placeholder 
 for the current row number the schema for generating default values for a field named `FIELDNAME` is (by type):
 
-* _String_: FIELDNAME-ROW_ID (ROW_ID is left-padded with zeroes to length 4)
-* _Numeric types (Int, Double, ...)_: ROW_ID
+* _String_: `FIELDNAME-ROW_ID` (`ROW_ID` is left-padded with zeroes to length 4)
+* _Numeric types (Int, Double, ...)_: `ROW_ID`
 * _Map_: empty `Map()`
 * _Array_: empty `Array()`
 * _Struct_: default value generation for structs is currently not supported
