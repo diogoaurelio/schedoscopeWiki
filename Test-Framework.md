@@ -90,7 +90,7 @@ For this reason, the framework allows for the specification of datasets in a row
 1. supporting typechecking / autocompletion of input data fields test data specification and 
 2. default value generation for non-specified input fields. 
 
-### Manual Specification
+#### Manual Specification
 
 To stick with the above example, the view _Restaurants_ depends on the view _Nodes_. Its
 (simplified) definition looks like
@@ -146,7 +146,7 @@ refer to the section 'Defining Structs as Input'. Please note that:
 * when defining values, these are type-checked against the column type at 
   compile-time.
 
-### Default Value generation
+#### Default Value generation
 
 Often, when testing a specific aspect of a view, not all fields are relevant. For this
 reason, the testing framework allows one to skip fields when defining input. It  
@@ -178,7 +178,7 @@ The resulting table looks like this:
 | 2       | 2    | 33333.33 | 44444.44 | geohash-0002 | {} |
 
 
-### Defining Structs as Input
+#### Defining Structs as Input
 
 When the test input data contains structured fiels (i.e. fields of the Hive STRUCT type), each struct input 
 must be defined manually. Let's say we have a struct that looks like this:
@@ -255,7 +255,7 @@ these are:
 
 Apart from the standard testing functionality explained above, the Schedoscope testing framework also offers more advanced features.
 
-### View Modification
+#### View Modification
 
 Within Schedoscope, all transformations support a generic configuration
 mechanism by using key-value pairs. Typically, the required configuration
@@ -287,7 +287,7 @@ in the test case:
 This allows to override any predefined configuration property in order
 to adapt the views to the test environment.
 
-### Test Resource Files
+#### Test Resource Files
 
 Another common usecase is that transformations (e.g. Hive Queries or
 Mapreduce Jobs) require resource files during their execution. The location
@@ -337,7 +337,7 @@ Using this approach, test resource files can be managed comfortably
 within the standard Maven project location, and are made available during
 the local mode testing.
 
-### Testing against Minicluster
+#### Testing against Minicluster
 
 In order to speed up tests, transformations are run completely in local mode if possible; this is currently supported for Hive, MapReduce and Pig Transformations. However, running e.g.
 an Oozie transformation requires a more infrastructure; for this
@@ -364,4 +364,3 @@ A requirement for this to work is that the minicluster can use some specific por
     hadoop.namenode.port=9000
     hive.server.port=10000
     hive.metastore.port=30000
-    
