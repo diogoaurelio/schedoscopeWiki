@@ -1,22 +1,22 @@
 
-This Tutorial can be used without having your own hadoop cluster at hand. For testing the examples on your own cluster please read section [[Adaptation|Open Street Map Tutorial#adaptation]].
+This tutorial can be used without having your own Hadoop cluster at hand. For getting the examples to run on your own cluster please read section [[Adaptation|Open Street Map Tutorial#adaptation]].
 
 ## Goals
-* Get Schedoscope tutorial running in Cloudera VM 
-* Watch Schedoscope working, play around
-* Get Schedoscope tutorial running with your own Hadoop Cluster
-* Get familiar with Schedoscope test framework
-* Implement and schedule your own views
+The goals of this tutoral are:
+
+* get the Schedoscope tutorial code running in the Cloudera Quickstart VM; 
+* watch Schedoscope working, play around;
+* get Schedoscope tutorial running with your own Hadoop Cluster;
+* get familiar with Schedoscope test framework;
+* implement and schedule your own views.
 
 ## Prerequisites
 * basic knowledge of [Apache Hive](http://hive.apache.org/)
 
 ## The Storyline
-Imagine you had a fantastic business idea. You would like to open a new shop in Hamburg, Germany. So you need a place. Why not use the rooms of one of the numerous shops in Hamburg? However... **which shop in Hamburg is the one located best?**
+Imagine you had a fantastic business idea. You would like to buy a promising shop in Hamburg, Germany. However... **which shop in Hamburg is the one located best?**
 
-For implementing this tutorial we used data of [Open Street Map](http://www.openstreetmap.org/copyright) limited on Hamburg, Germany. The data is stored in TSV files and provided by archive schedoscope-tutorial-osm-data.
-
-**The raw data structure:**
+For implementing this tutorial, we use data of [Open Street Map](http://www.openstreetmap.org/copyright). The data is stored in TSV files and provided by the dependency `schedoscope-tutorial-osm-data` and looks like this:
 
         nodes  -- points on the map defined by longitude and latitude 
 
@@ -33,23 +33,23 @@ For implementing this tutorial we used data of [Open Street Map](http://www.open
           k STRING
           v STRING
 
-**The measures:**
-
+For measuring the "best" shop location, we assume the following:
 * The more _restaurants_ are around, the more customers will show up. (+)
 * The more _trainstations_ are around, the more customers will show up. (+)
 * The more other _shops_ are around, the less customers will show up. They rather might go to the competitors. (-)
 
 
-**The auxiliary measure:**
-Two nodes are close to each other if they lie in the same area. A node's area is defined by the first 7 characters of `GeoHash.geoHashStringWithCharacterPrecision(longitude, latitude)`.
+To measure distance, we use a geo hash. Two nodes are close to each other if they lie in the same area. A node's area is defined by the first 7 characters of `GeoHash.geoHashStringWithCharacterPrecision(longitude, latitude)`.
 
-**The execution plan:**
+## The execution plan
 
 1. Calculate each node's geohash
+
 2. Filter for restaurants, trainstations and shops 
+
 3. Provide aggregated data such that the measures can be applied; the aggregation is stored in view `schedoscope.example.osm.datamart/ShopProfiles`
 
-Finally, find the best location for your shop by analyzing view `schedoscope.example.osm.datamart/ShopProfiles`.
+Finally, you can find the best location for your shop by analyzing `schedoscope.example.osm.datamart/ShopProfiles`.
 
 ![dwh-structure.jpg](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/dwh-structure.jpg)
 
@@ -328,4 +328,4 @@ This is the default webservice configured in `schedoscope/schedoscope-core/src/m
 * Testing views of the same name (but different layers): Run the test by right clicking on the word "should" in the test class source code and choosing Run As > Scala Test - Test
 
 ## Acknowledgement
-Our example data was taken from the Open Street Map project: [http://www.openstreetmap.de](http://www.openstreetmap.de)
+Our example data was taken from the [Open Street Map project](http://www.openstreetmap.org/copyright)
