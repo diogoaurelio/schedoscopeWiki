@@ -128,8 +128,11 @@ Let's get started:
         transforming: 19
         waiting: 4
 
-6. Have a look in the browser at the application manager of your Hadoop Cluster  <http://localhost:8088/cluster>
-    and see the MR-Jobs running on the cluster.
+6. Type `actions -s running` to see what is going on.
+
+6. Have a look in the browser at the resource manager of your Hadoop Cluster  <http://localhost:8088/cluster>
+    and see whether you can identify the running actions on the cluster.
+
 9. Type `shutdown` if you want to stop Schedoscope.
 
 ## Exploration
