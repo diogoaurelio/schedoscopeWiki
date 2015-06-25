@@ -254,24 +254,33 @@ Now it's time to design your own views and their dependencies. For this purpose,
 
 
 ### Preparation
+
 1. You need a Scala IDE, e.g. [Scala IDE for Eclipse](http://scala-ide.org/download/sdk.html)
+
 2. Import the maven projects schedoscope-core and schedoscope-tutorial
+
 3. Set scala compiler on version 2.10 in the projects' properties
+
 4. Sometimes the scala library needs to be added to the project in the IDE manually; right click on the project go to Scala > Add Scala Library to Build Path
+
 5. Sometimes the scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
 
 ### Exploring the Test Framework
+
 The custom [Test Framework](Test Framework) of Schedoscope provides the opportunity to test the code quickly. For each test called a self-contained local hadoop installation is set up in `${baseDir}/target/hadoop`.
 
 1. Set environment variables HADOOP_HOME to `~/schedoscope/schedoscope-tutorial/target/hadoop` and JAVA_HOME.
 ![test_run_configurations](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/test_run_configurations.png)
+
 2. You can run a test by right clicking on the test class in the Scala IDE's package explorer and choosing Run As > Scala Test - File
+
 3. When building the project (as in [[Installation|Open Street Map Tutorial#installation]] Step 4) you can see how all tests are executed.
 
 ### Development
-Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:
 
-* `ways.txt`  (way is a sequence of 2-2000 nodes)
+There are other Open Street Map TSV-files provided by the dependency `schedoscope-tutorial-osm-data`:
+
+* `ways.txt`  (a way is a sequence of 2-2000 nodes)
 
         id BIGINT
         version INT
@@ -279,7 +288,7 @@ Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:
         tstamp TIMESTAMP
         changeset_id BIGINT
 
-* `way_nodes.txt`  (mapping of nodes on ways)
+* `way_nodes.txt`  (mapping nodes to ways)
 
         way_id BIGINT
         node_id BIGINT
@@ -291,22 +300,22 @@ Use other Open Street Map TSV-files provided by schedoscope-tutorial-osm-data:
         k STRING
         v STRING
 
-These files can be read in from classpath. Have a look at the tutorial class `schedoscope.example.osm.stage.Nodes` .
+You should create stage views `schedoscope.example.osm.stage.Ways`, `schedoscope.example.osm.stage.WayNodes`, and `schedoscope.example.osm.stage.WayTags` that capture those files by reading them from the classpath. The tutorial class `schedoscope.example.osm.stage.Nodes` can serve as your template for how this can be done.
 
-The custom [Test Framework](Test Framework) allows **test-driven development** for schedoscope.
-
-1. Create a stub for your view.
-2. Implement your testclass.
-3. Implement your view while testing its behaviour using the provided test framework.
-
-Based on your new views `ways`, `way_tags` and `way_nodes` you can implement a view `schedoscope.example.osm.processed.Ways` that comprises all information about ways according to view `schedoscope.example.osm.processed.Nodes`. Therefore, use UDF `collect` to create a map of tags as in `Nodes` and an array of node_id which are part of this way.
+You can implement a view `schedoscope.example.osm.processed.Ways` that comprises all information about ways. This view should have `schedoscope.example.osm.processed.Nodes` as well as the new stage views you created above as dependencies. Establishing a monthly partitioning from `tstmp` would also be appropriate. You can use a Hive transformation that uses the brickhouse UDF `collect` to create a map of tags and an array of with all `node_id` which each way comprises. Take look at `Nodes` for a template of how to use `collect`. 
 
 ### Deployment
-Restart Schedoscope (your project).
+
+Rebuild and restart Schedoscope:
+
+    mvn install
+    mvn exec:run
+
 In case of trouble have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
 
 
 ## Scheduling 
+
 Schedoscope is a Webservice with [[REST API|Schedoscope REST API]]. If you want your data up-to-date every hour during business time (8am-8pm) simply register cronjobs like:
 
        5   8-20 * * *  curl http://localhost:20698/materialize/schedoscope.example.osm.datamart/ShopProfiles
