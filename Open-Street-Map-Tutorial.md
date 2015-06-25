@@ -68,7 +68,7 @@ Let's get started:
 
     `[cloudera@quickstart schedoscope]$ mvn install`
 
-# Execution
+## Execution
 
 1. Change directory to `~/schedoscope/schedoscope-tutorial` and execute the tutorial:
 
