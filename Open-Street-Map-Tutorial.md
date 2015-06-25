@@ -318,4 +318,4 @@ This is the default webservice configured in `schedoscope/schedoscope-core/src/m
 * Testing views of the same name (but different layers): Run the test by right clicking on the word "should" in the test class source code and choosing Run As > Scala Test - Test
 
 ## Acknowledgement
-Our example data is © OpenStreetMap contributors.
+Our example data was taken from the Open Street Map project: `http://www.openstreetmap.de/`
