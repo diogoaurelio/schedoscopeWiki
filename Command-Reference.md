@@ -32,7 +32,7 @@ Schedoscope views are referenced by their name and their parameters. For easy sp
 and view ranges, Schedoscope offers a special view specification language named ViewUrl
 * [Specification of View Urls](View-Pattern-Reference)
 
-# Commands
+## Commands
 
 ### views
 
