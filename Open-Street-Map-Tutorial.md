@@ -133,6 +133,8 @@ Let's get started:
 6. Have a look in the browser at the resource manager of your Hadoop Cluster  <http://localhost:8088/cluster>
     and see whether you can identify the running actions on the cluster.
 
+6. You can also take a look at the activity in the log file `~/schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`
+
 9. Type `shutdown` if you want to stop Schedoscope.
 
 ## Exploration
