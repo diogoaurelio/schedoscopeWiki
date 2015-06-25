@@ -249,7 +249,9 @@ Change directory to `schedoscope/schedoscope-tutorial` and [[execute|Open Street
 
 
 ## Extension
-Now it's time to design your own views and their dependencies.
+
+Now it's time to design your own views and their dependencies. For this purpose, you might also want to have a look at the [View DSL Primer](Schedoscope View DSL Primer).
+
 
 ### Preparation
 1. You need a Scala IDE, e.g. [Scala IDE for Eclipse](http://scala-ide.org/download/sdk.html)
