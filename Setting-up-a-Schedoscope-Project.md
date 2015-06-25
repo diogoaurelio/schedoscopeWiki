@@ -41,6 +41,12 @@ In real-world production deployment scenarios, you should probably follow a diff
                <artifactId>minioozie</artifactId>
                <version>0.1.6</version>
                <scope>test</scope>
+               <exclusions>
+                  <exclusion>
+                     <artifactId>slf4j-log4j12</artifactId>
+                     <groupId>org.slf4j</groupId>
+                  </exclusion>
+               </exclusions>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
