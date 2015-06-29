@@ -56,9 +56,26 @@ View data can also be stored using Parquet:
 Schedoscope supports special storage formats used for storing view data outside of HDFS / Hive. With these formats, Schedoscope can also be used to schedule exports of views to targets like CSV files, key-value stores, or relational databases. External storage formats only work in combination with [Morphline transformations](Morphline Transformations).
 
 ## ExternalTextFile
+Exports the View as text file to the local filesystem. Otherwise identical to TextFile
+
+    case class ExternalTextFile(val fieldTerminator: String, collectionItemTerminator: String, mapKeyTerminator: String, lineTerminator: String) extends ExternalStorageFormat
+
+
 ## JDBC
+    case class JDBC(jdbcUrl: String, 
+                    userName: String, 
+                    password: String, 
+                    jdbcDriver: String) 
+
 ## Redis
 
+    case class Redis(host: String, 
+                    port: Long = 9393, 
+                    password: String = "", 
+                    keys: Seq[String] = List("id"), 
+                    cols: Seq[Named] = List())
+
+## NullStorage
 # Storage Paths
 
 For the common case of internal storage formats, a Schedoscope view represents a Hive table partition stored in HDFS. Views offer the following properties with regard to their HDFS storage location:
