@@ -17,9 +17,14 @@ Morphline transformations support the following parameters:
 
 * `definition`: the Kite Morphline script computing the view. 
 
+* `imports`: Morphline-Commands to be imported (Fully qualified class names)
 
-* `dirsToDelete`: a list of HDFS paths that should be deleted before the Pig transformation is executed. When using `HCatStorer`, this list should be empty (which is the default) since the target partition folder must exist. When using `PigStorer`, the path `fullPath` should be deleted because the target partition folder must not exist.
+* `sampling`: Sampling rate for export, e.g. sampling=1 will only output 1% of the data 
 
+* `anonymize`: Fields to be anonymized. Values in this field will be replaced by a hash-value. (Fields that are declared as PrivacySensitive will be anonymized autmatically)
+
+* `fields`:
+* 'fieldMapping':
 
 
 # Examples
