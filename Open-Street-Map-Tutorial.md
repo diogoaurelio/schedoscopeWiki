@@ -224,7 +224,7 @@ Simply install the Schedoscope tutorial on your own machine (see [[Installation|
 
     schedoscope {
       app {
-         environment = "test"    # choose your favourite environment name
+         environment = "test"    # read about the environment name below
       }
 
       metastore {
@@ -244,6 +244,8 @@ Simply install the Schedoscope tutorial on your own machine (see [[Installation|
       }
     }
 The [[default configuration settings|Configuring Schedoscope]] are derived from `schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in your project's `schedoscope.conf`.
+
+The chosen environment name is set as root HDFS folder for all data processed by schedoscope. The full path looks like `/hdp/${env}/${package_name}/${ViewName}`.
 
 Change directory to `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial#execution]] the tutorial using your own hadoop cluster:
 
