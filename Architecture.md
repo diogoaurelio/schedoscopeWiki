@@ -6,9 +6,21 @@ Schedoscope consists of three main components:
 * An execution or scheduling environment based on Akka
 * A test framework for unit testing view specifications
 
+The scheduling framework can be controlled by a shell or using a rest 
 
-## ViewActors
+## Scheduling
 
-## Actions
+Schedoscope represents each view as an AKKA actor that can be directly referenced using its parametrization. Each actor encapsulates the current state of this.
 
-## Drivers
+### ViewActors
+
+
+### Actions
+
+### Metadata
+
+
+
+## DSL
+### Transformations
+### Drivers
