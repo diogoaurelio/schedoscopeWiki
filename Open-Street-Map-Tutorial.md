@@ -4,11 +4,13 @@ This tutorial can be used without having your own Hadoop cluster at hand. For ge
 ## Goals
 The goals of this tutoral are:
 
-* get the Schedoscope tutorial code running in the Cloudera Quickstart VM; 
-* watch Schedoscope working, play around;
-* get Schedoscope tutorial running with your own Hadoop Cluster;
-* get familiar with Schedoscope test framework;
-* implement and schedule your own views.
+* get the Schedoscope [[tutorial code running|Open Street Map Tutorial#installation]] in the Cloudera Quickstart VM; 
+* watch Schedoscope working, [[play around|Open Street Map Tutorial#exploration]];
+* get Schedoscope tutorial running [[with your own Hadoop Cluster|Open Street Map Tutorial#adaptation]];
+* get familiar with [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
+* implement and schedule [[your own views|Open Street Map Tutorial#development]].
+
+Find a list of [[hints|Open Street Map Tutorial#hints]] at the end of this tutorial.
 
 ## Prerequisites
 * basic knowledge of [Apache Hive](http://hive.apache.org/)
@@ -326,6 +328,7 @@ This is the default webservice configured in `schedoscope/schedoscope-core/src/m
 ## Hints
 * Defining a field of type BIGINT in hive, works with LONG in Schedoscope: `val id = fieldOf[Long]`
 * Testing views of the same name (but different layers): Run the test by right clicking on the word "should" in the test class source code and choosing Run As > Scala Test - Test
+* Schedoscope shell cannot cope with leading white spaces. It will prompt a list of possible commands.
 
 ## Acknowledgement
 Our example data was taken from the [Open Street Map project](http://www.openstreetmap.org/copyright)
