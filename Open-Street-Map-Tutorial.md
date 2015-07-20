@@ -80,10 +80,7 @@ Let's get started:
 
 3. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
 
-    and see how all data is digested which is needed in order to provide the requested view of shop profiles.
-
-4. Type  `actions`
-    and see which kind of transformations are running.
+    to trigger all data ingestions and view computations leading to the requested view of shop profiles.
 
 5. Type  `views`
     and see which views are already materialized with current data.
