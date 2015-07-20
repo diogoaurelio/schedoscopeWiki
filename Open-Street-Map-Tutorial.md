@@ -226,6 +226,11 @@ Simply install the Schedoscope tutorial on your own machine (see [[Installation|
          environment = "test"    # read about the environment name below
       }
 
+      hadoop {
+         resourceManager = "yourhost:yourport"
+         nameNode = "yourhost:yourport"
+      }
+
       metastore {
         metastoreUri = "your/hive/metastore/uri"
         jdbcUrl = "your/hive/jdbc/uri"
