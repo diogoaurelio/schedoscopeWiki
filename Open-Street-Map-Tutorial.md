@@ -15,7 +15,7 @@ Find a list of [[hints|Open Street Map Tutorial#hints]] at the end of this tutor
 ## Prerequisites
 * basic knowledge of [Apache Hive](http://hive.apache.org/)
 
-## The Storyline
+## The Story
 Imagine you had a fantastic business idea. You would like to buy a promising shop in Hamburg, Germany. However... **which shop in Hamburg is the one located best?**
 
 For implementing this tutorial, we use data of [Open Street Map](http://www.openstreetmap.org/copyright). The data is stored in TSV files and provided by the dependency `schedoscope-tutorial-osm-data` and looks like this:
@@ -43,7 +43,7 @@ For measuring the "best" shop location, we assume the following:
 
 To measure distance, we use a geo hash. Two nodes are close to each other if they lie in the same area. A node's area is defined by the first 7 characters of `GeoHash.geoHashStringWithCharacterPrecision(longitude, latitude)`.
 
-## The execution plan
+## The Plan
 
 1. Calculate each node's geohash
 
@@ -145,7 +145,9 @@ Let's get started:
     4. list the first 10 entries of a table
     5. perform an analysis on the data provided
 
-7. Obviously every tutorial table does contain columns `id`, `created_at` (when was the data loaded) and `created_by` (which Job provided the data). These fields are set with [[traits|View Traits]] which are predefined fields.
+    As one can see, every tutorial table does contain columns `id`, `created_at` (when was the data loaded)
+    and `created_by` (which Job provided the data). These fields are set with [[traits|View Traits]] which are 
+    predefined fields.
 
 7. Type  `invalidate -v schedoscope.example.osm.datahub/Restaurants` in the schedoscope shell.
     This is how to manually tell Schedoscope that this view shall be recalculated.
