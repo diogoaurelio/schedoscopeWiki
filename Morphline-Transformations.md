@@ -1,6 +1,6 @@
 # Summary
 
-
+Morphline Transformations allow the embedding of morphline scripts into schedoscope. see http://kitesdk.org
 
 # Syntax
 
