@@ -34,6 +34,7 @@ Then follow the Open Street Map tutorial to install, compile, and run Schedoscop
  - [MapReduce](MapReduce Transformations)
  - [Oozie](Oozie Transformations)
  - [Morphline](Morphline Transformations)
+ - [Shell](Shell Transformations)
 - [View Traits](View Traits)
 - [Test Framework](Test Framework)
 
