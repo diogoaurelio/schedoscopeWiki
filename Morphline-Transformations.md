@@ -1,6 +1,8 @@
 # Summary
 
-Morphline Transformations allow the embedding of morphline scripts into schedoscope. see http://kitesdk.org
+Morphline Transformations allow the embedding of morphline scripts into schedoscope. see kitesdk.org/docs/1.0.0/morphlines/morphlines-reference-guide.html
+
+The scripts will be run locally. The main use case of those scripts is export of data samples from hadoop to a RDMS oder CSV files.
 
 # Syntax
 
