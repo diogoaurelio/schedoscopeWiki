@@ -12,4 +12,8 @@ This way large organizations will soon have hundreds of interdependent tables in
 
 Managing such a platform can be difficult, because of its complexity. If data in the base table changes, all tables depending in them need to be recalculated. Moreover, defining and modeling the workflows and dependencies in tools like oozie is error-prone because it is scattered to various XML configuration files.
 
-Moreover, with different people working on such a data hub, 
+Moreover, with different people working on such a data hub, automatic testing and deployment becomes important to ensure integrity between the all the tables.
+
+After facing these challenges, Otto Group BI developed Schedoscope as a holistic solution for creating a datahub.
+
+With Schedoscope you just define your data and its dependencies in one place. 
