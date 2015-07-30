@@ -4,6 +4,10 @@ Morphline Transformations allow the embedding of morphline scripts into schedosc
 
 The scripts will be run locally. The main use case of those scripts is export of data samples from hadoop to a RDMS oder CSV files.
 
+Morphline Transformations interact with special _external_ Schedoscope storage formats. Those do not store the output to hive tables, but export the data for example to a local filesystem or a database.
+
+Schedoscope supports external storage formats for CSV-Files, JDBC (Relational Databases), Exasolution or Redis. Refer to the chapter about [Storage Formats] for more details.
+
 # Syntax
 
     case class MorphlineTransformation(definition: String = "",
