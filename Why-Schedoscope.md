@@ -14,10 +14,42 @@ In most cases however, users will need to request fast access already aggregated
 
 This way large organizations will soon have hundreds of interdependent tables in their Hadoop data warehouse.
 
-Managing such a platform can be difficult, because of its complexity. If data in the base table changes, all tables depending in them need to be recalculated. Moreover, defining and modeling the workflows and dependencies in tools like oozie is error-prone because it is scattered to various XML configuration files.
+Managing such a platform can be difficult, because of its complexity.  Let us outline the main obstacles we faced with maintaining a large Hadoop DWH with traditional means such as hive scripts executed by Oozie.
 
-Moreover, with different people working on such a data hub, automatic testing and deployment becomes important to ensure integrity between the all the tables.
+## Agility
 
-After facing these challenges, Otto Group BI developed Schedoscope as a holistic solution for creating a datahub.
+If data in the base table changes, all tables depending in them need to be recalculated. 
 
-With Schedoscope you just define your data and its dependencies in one place, the view definition.
+## Complicated and error-prone configuration
+
+Using Hive with Oozie requires you to create and maintain a myriad of script and configuration files for each job:
+	1.	Schema definition in Hive DDL
+	2.	The actual Hive or Pig script
+	3.	Oozie workflow.xml defintition
+	4.	Extend Oozie datasets.xml definition. This file must be duplicated for each workflow.
+	5.	Write a coordinator.xml. 
+	6.	Update bundle.xml
+
+## Lack of dependency management and packaging
+
+Most workflows need additional resources such as jars for user-defined functions (UDFs), configuration files or static data such as user-agent strings. You need to version, manage these dependencies and make sure that they get deployed together with your workflow.
+
+The next paragraphs reflect our gripes with Oozie in particular. It might well be, that other workflow schedulers won’t suffer from the same problems.
+## Oozie does not support partial reload of data. 
+
+In practical environments you will have to partially reload tables. Reasons might be:
+	1.	One of your datasources delivered incomplete or defect data
+	2.	You had  a bug in one of your workflows
+	3.	Your analysts need a new metric which needs to be extracted from unstructured data
+
+Oozie requires you to manage the state of your data partitions manually. For this purpose we first implemented a tool that will create remove _SUCCESS flags for a given time-range and tables. 
+
+## Oozie is inefficient
+
+## Oozie’s logging and error messages are cryptic and meaningless
+
+
+# How Schedoscope tackles most of these issues
+
+
+
