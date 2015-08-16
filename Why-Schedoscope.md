@@ -46,6 +46,8 @@ Oozie requires you to manage the state of your data partitions manually. For thi
 
 ## Oozie is inefficient
 
+Oozie will spawn a seperate Mapreduce job for each job that is going to be launched. Besides the latency this induces, each such launcher job will allocate 2 additional YARN containers for the Application Manager and the Mapper auf the launch jobs
+
 ## Oozie’s logging and error messages are cryptic and meaningless
 
 
