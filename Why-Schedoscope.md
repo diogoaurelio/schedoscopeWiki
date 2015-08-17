@@ -53,5 +53,22 @@ Oozie will spawn a seperate Mapreduce job for each job that is going to be launc
 
 # How Schedoscope tackles most of these issues
 
+## You define your data, not the workflow
 
+Schedoscope encourages you to think in data, views on that data and dependencies between your views. This makes it much more easy to understand the semantics of your tables. Because you define what your view is supposed to contain, testing is quite really straight forward.
+
+## Concise Syntax
+
+Because Schedoscope's Syntax is actually backed by Scala, Schedoscope Views can be defined within an IDE. This has several advantages: The IDE will spot errors in your view definition while you type. 
+You specify all of your view in one place. By following the DRY-Principle - do not repeat yourself - Schedoscope
+avoids inconsistencies and mismatches between different views.
+
+Schedoscope allows to define common parts of your table as templates (or traits in Scala terminology). If you, for example 
+
+## Powerful scheduling
+
+Schedoscope tracks the version of your data and your view definitions. The scheduler will automatically detect changes to your data our your transformation and will initiate a recalculation of that data and all views that
+depend on it. This way, all data is kept up-to-date automatically.
+
+##  
 
