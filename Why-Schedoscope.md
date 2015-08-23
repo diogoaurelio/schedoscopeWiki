@@ -70,5 +70,8 @@ Schedoscope allows to define common parts of your table as templates (or traits 
 Schedoscope tracks the version of your data and your view definitions. The scheduler will automatically detect changes to your data our your transformation and will initiate a recalculation of that data and all views that
 depend on it. This way, all data is kept up-to-date automatically.
 
-##  
+##  Built-in monitoring
+
+We are currently on the way to build powerful integrations with Graphite and other monitoring tools,
+stay tuned!
 
