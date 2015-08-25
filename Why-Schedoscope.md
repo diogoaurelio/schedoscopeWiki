@@ -14,6 +14,8 @@ In most cases however, users will need to request fast access already aggregated
 
 This way large organizations will soon have hundreds of interdependent tables in their Hadoop data warehouse.
 
+# Difficulties with traditional tools like Oozie
+
 Managing such a platform can be difficult, because of its complexity.  Let us outline the main obstacles we faced with maintaining a large Hadoop DWH with traditional means such as hive scripts executed by Oozie.
 
 ## Agility
@@ -49,6 +51,9 @@ Oozie requires you to manage the state of your data partitions manually. For thi
 Oozie will spawn a seperate Mapreduce job for each job that is going to be launched. Besides the latency this induces, each such launcher job will allocate 2 additional YARN containers for the Application Manager and the Mapper auf the launch jobs
 
 ## Oozie’s logging and error messages are cryptic and meaningless
+
+E1011?
+
 
 
 # How Schedoscope tackles most of these issues
