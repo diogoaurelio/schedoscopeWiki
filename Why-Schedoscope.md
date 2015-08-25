@@ -68,7 +68,7 @@ Because Schedoscope's Syntax is actually backed by Scala, Schedoscope Views can 
 You specify all of your view in one place. By following the DRY-Principle - do not repeat yourself - Schedoscope
 avoids inconsistencies and mismatches between different views.
 
-Schedoscope allows to define common parts of your table as templates (or traits in Scala terminology). If you, for example 
+Schedoscope allows to define common parts of your table as templates (or traits in Scala terminology). If you, for example, use a timestamp column in every table, you may define this as a template.
 
 ## Powerful scheduling
 
