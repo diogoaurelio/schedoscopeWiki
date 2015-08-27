@@ -52,7 +52,7 @@ The trait `IntervalOccurrence` provides two fields `occurredFrom` and `occurredU
 
 ## MonthlyParameterization
 
-The trait `MonthlyParameterization` imposes a monthly partitioning scheme over a view. A month is given by the year (a string, 4 characters) and the month within the year (a string, two characters).
+The trait `MonthlyParameterization` imposes a monthly partitioning scheme over a view. A month is given by the year (a string, 4 characters), the month within the year (a string, two characters), and the month ID, which is the concatenation of all.
 
     package org.schedoscope.dsl.views
 
@@ -61,6 +61,8 @@ The trait `MonthlyParameterization` imposes a monthly partitioning scheme over a
     trait MonthlyParameterization {
       val year: Parameter[String]
       val month: Parameter[String]
+
+      val monthId: Parameter[String] = p(s"${year.v.get}${month.v.get}")
 
       def prevMonth()
       def thisAndPrevMonths()
