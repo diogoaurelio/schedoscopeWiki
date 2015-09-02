@@ -296,6 +296,15 @@ For an example of how to override these settings, you can also take a look at th
                 #
                 
                 timeout = 1 day
+                
+                #
+                # The handlers being notified after each driver run has 
+                # finished (succeeded or failed). These must implement the
+                # trait org.schedoscope.scheduler.driver.DriverRunCompletionHandler
+                #
+                
+                driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
+                
             },
             
             #
@@ -340,6 +349,15 @@ For an example of how to override these settings, you can also take a look at th
                 #
                 
                 timeout = 1 day
+                
+                #
+                # The handlers being notified after each driver run has 
+                # finished (succeeded or failed). These must implement the
+                # trait org.schedoscope.scheduler.driver.DriverRunCompletionHandler
+                #
+                
+                driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
+                
             }, 
             
             #
@@ -384,7 +402,16 @@ For an example of how to override these settings, you can also take a look at th
                 # Timeout for MapReduce transformations
                 #
                 
-                timeout = 1 day        
+                timeout = 1 day
+                
+                #
+                # The handlers being notified after each driver run has 
+                # finished (succeeded or failed). These must implement the
+                # trait org.schedoscope.scheduler.driver.DriverRunCompletionHandler
+                #
+                
+                driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
+                        
             },       
                       
             #
@@ -431,6 +458,15 @@ For an example of how to override these settings, you can also take a look at th
                 #
                 
                 timeout = 1 day
+                
+                #
+                # The handlers being notified after each driver run has 
+                # finished (succeeded or failed). These must implement the
+                # trait org.schedoscope.scheduler.driver.DriverRunCompletionHandler
+                #
+                
+                driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
+                
             },   
             
             #
@@ -475,6 +511,15 @@ For an example of how to override these settings, you can also take a look at th
                 #
                 
                 timeout = 1 hour
+                
+                #
+                # The handlers being notified after each driver run has 
+                # finished (succeeded or failed). These must implement the
+                # trait org.schedoscope.scheduler.driver.DriverRunCompletionHandler
+                #
+                
+                driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
+                
             },
             
             #
@@ -518,7 +563,67 @@ For an example of how to override these settings, you can also take a look at th
                 #
                 
                 timeout = 1 day
-            }  
+                
+                #
+                # The handlers being notified after each driver run has 
+                # finished (succeeded or failed). These must implement the
+                # trait org.schedoscope.scheduler.driver.DriverRunCompletionHandler
+                #
+                
+                driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
+                
+            }
+            #
+            # Shell driver settings
+            #
+                
+            shell : {
+            
+                #
+                # Number of parallel Shell Driver actors to use
+                #
+                
+                concurrency = 1
+                
+                #
+                # Ignored
+                #
+                
+                location = "/"
+                
+                #
+                # Ignored
+                #
+                
+                libDirectory = ""
+                
+                #
+                # Ignored
+                #
+                
+                url = ""
+                
+                #
+                # Ignored
+                #
+                
+                unpack = false
+                
+                #
+                # Timeout for Shell transformations
+                #
+                
+                timeout = 1 day
+                
+                #
+                # The handlers being notified after each driver run has 
+                # finished (succeeded or failed). These must implement the
+                # trait org.schedoscope.scheduler.driver.DriverRunCompletionHandler
+                #
+                
+                driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
+            } 
+              
         }
     }
 
@@ -726,7 +831,20 @@ For an example of how to override these settings, you can also take a look at th
         }
     }
 
+    kamon.metric.filters {
+      akka-actor {
+        includes = [ "schedoscope/user/schema", "schedoscope/user/schema-root", "schedoscope/user/views", "schedoscope/user/actions" ]
+        excludes = [ "schedoscope/system/**", "schedoscope/user/worker-helper" ]
+      }
 
+      akka-dispatcher {
+        includes = [ "schedoscope/akka.actor.default-dispatcher", "schedoscope/driver-dispatcher" ]
+      }
+
+      akka-router {
+        includes = [ "schedoscope/user/actionsrouter" ]
+      }
+    }
     #
     # The following are a list of "suggestions" for spray settings to use for the 
     # Schedoscope web service and client. Akka will not pick them up automatically. 
