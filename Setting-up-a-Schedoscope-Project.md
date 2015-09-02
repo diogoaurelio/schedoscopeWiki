@@ -55,7 +55,7 @@ In real-world production deployment scenarios, you should probably follow a diff
             <dependency>
                 <groupId>schedoscope</groupId>
                 <artifactId>schedoscope-core</artifactId>
-                <version>0.2.0</version>
+                <version>0.2.1</version>
             </dependency>
         </dependencies>
 
