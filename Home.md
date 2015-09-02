@@ -52,14 +52,14 @@ Then follow the Open Street Map tutorial to install, compile, and run Schedoscop
 
 ## News
 
+###### 9/02/2015 - Release 0.2.1
+
+We have released Version 0.2.1 as a Maven artifact to our Bintray repository (see [Setting Up A Schedoscope Project](https://github.com/ottogroup/schedoscope/wiki/Setting-up-a-Schedoscope-Project) for an example pom).
+
+We have added a configurable DriverRunCompletionHandler mechanism. These handlers are being called after a driver run has finished. This can be later exploited for monitoring. See [reference.conf](https://github.com/ottogroup/schedoscope/wiki/Configuring-Schedoscope) 
+
 ###### 8/20/2015 - Schedoscope @ Strata
 
 We are happy to present Schedoscope as a system demo at Strata NYC on Wednesday, 30th September 2015.
  
-###### 8/7/2015 - Release 0.1.1
-
-We have released Version 0.1.1 as a Maven artifact to our Bintray repository (see [Setting Up A Schedoscope Project](https://github.com/ottogroup/schedoscope/wiki/Setting-up-a-Schedoscope-Project) for an example pom). 
-
-This is a minor release that comprises some code cleanup and performance optimizations with regard to view initialization and Morphline transformations. We also ímplemented a [shell transformation](https://github.com/ottogroup/schedoscope/wiki/Shell-Transformations) (more documentation to come). 
-
 ([more](News))
