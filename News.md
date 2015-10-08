@@ -1,5 +1,14 @@
 ## News
 
+###### 10/08/2015 - Release 0.2.2
+
+We have released Version 0.2.2 as a Maven artifact to our Bintray repository (see [Setting Up A Schedoscope Project](https://github.com/ottogroup/schedoscope/wiki/Setting-up-a-Schedoscope-Project) for an example pom).
+
+Notable changes:
+
+* `materializeOnce` clause for views (see [Schedoscope View DSL Primer / Materialize Once](https://github.com/ottogroup/schedoscope/wiki/Schedoscope-View-DSL-Primer))
+* `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` materialization mode (see [Command Reference / Materialize](https://github.com/ottogroup/schedoscope/wiki/Command-Reference))
+
 ###### 9/02/2015 - Release 0.2.1
 
 We have released Version 0.2.1 as a Maven artifact to our Bintray repository (see [Setting Up A Schedoscope Project](https://github.com/ottogroup/schedoscope/wiki/Setting-up-a-Schedoscope-Project) for an example pom).
