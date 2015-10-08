@@ -545,6 +545,7 @@ A view can be augmented with the `materializeOnce` clause. Such a view will only
 As an example why this may be useful, a view might constitute a cleansed view of a dependency. For privacy reasons, base view's data needs to be deleted after a while with only the cleansed view's data remaining. With materializeOnce, on can protect the cleansed view from being overwritten because of an accidental invalidation of the now empty base view.
 
 Example:
+
     case class ProductWithBrand(
       shopCode: Parameter[String],
       year: Parameter[String],
