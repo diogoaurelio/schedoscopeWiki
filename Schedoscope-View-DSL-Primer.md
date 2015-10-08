@@ -537,3 +537,53 @@ In the following example, brand data is supposed to be delivered by an ETL proce
     }
 
 Note that according to [Storage Formats](Storage Formats), the `fullPath` of view `Brand(p("101"), p("2014"), p("12"), p("12"))` in the default `dev` environment would be `/hdp/dev/test/module/brand/shopCode=101/year=2014/month=12/day=12/dateId=20141212`. The external process would have to write into that folder.
+
+## Materialize Once
+
+A view can be augmented with the `materializeOnce` clause. Such a view will only be materialized once, regardless of whether new dependencies have occurred, existing dependencies have been rematerialized, or its transformation logic has changed. Views based on a materialize once view will also not be rematerialized.
+
+As an example why this may be useful, a view might constitute a cleansed view of a dependency. For privacy reasons, base view's data needs to be deleted after a while with only the cleansed view's data remaining. With materializeOnce, on can protect the cleansed view from being overwritten because of an accidental invalidation of the now empty base view.
+
+Example:
+    case class ProductWithBrand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+      with JobMetadata {
+      val productId = fieldOf[String]
+      val productName = fieldOf[String]
+      val productPrice = fieldOf[Double]
+      val brandName = fieldOf[String]
+      val brandId = fieldOf[String]
+     
+      val product = dependsOn(() => Product(p(shopCode), p(year), p(month), p(day)))
+      val brand = dependsOn(() => Brand(p(shopCode), p(year), p(month), p(day)))
+     
+      transformVia (() =>
+        HiveQl(s"""
+                insert into ${this.env}_test_module.product_with_brand
+                partition(shop_code = '${this.shopCode.v.get}', 
+                          year = '${this.year.v.get}', 
+                          month = '${this.month.v.get}'
+                          day = '${this.day.v.get}'),
+                          date_id = '${this.year.v.get}${this.month.v.get}${this.day.v.get}')
+                select  p.id, p.name, p.price, b.name, b.id
+                from ${this.env}_test_module.product as p
+                join ${this.env}_test_module.brand as b
+                on p.brand_name = b.name
+                where p.shop_code = '${this.shopCode.v}' 
+                and p.year = '${this.year.v.get}' 
+                and p.month = '${this.month.v.get}' 
+                and p.day = '${this.day.v.get}'
+                and b.shop_code = '${this.shopCode.v.get}' 
+                and b.year = '${this.year.v.get}' 
+                and b.month = '${this.month.v.get}' 
+                and b.day = '${this.day.v.get}'
+                """))
+        }
+        
+        materializeOnce
+    }
