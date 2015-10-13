@@ -62,14 +62,14 @@ Let's get started:
 
 2. Start Cloudera VM.
 
-3. Create the base directory and set the appropriate permissions in HDFS
+3. Open a terminal and create the base directory and set the appropriate permissions in HDFS
 
         [cloudera@quickstart ~]$ sudo su - hdfs
         -bash-4.1$ hdfs dfs -mkdir /hdp /user/cloudera
         -bash-4.1$ hdfs dfs -chown -R cloudera:cloudera /hdp /user/cloudera
         -bash-4.1$ exit
 
-4. Open a terminal and clone the Schedoscope git repository:
+4. Clone the Schedoscope git repository:
 
     `[cloudera@quickstart ~]$ git clone https://github.com/ottogroup/schedoscope.git`
 
