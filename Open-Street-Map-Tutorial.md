@@ -78,11 +78,13 @@ Let's get started:
     `[cloudera@quickstart schedoscope]$ mvn install`
 
 
-Hint: The Cloudera QuickStart VM comes with low memory settings for YARN/MapReduce which can result in memory problems. It is recommended to check the schedoscope and YARN logs and in case of `OutOfMemory` exceptions to increase the following values:
+Hint: The Cloudera QuickStart VM comes with low memory settings for YARN/MapReduce which can result in memory problems. It is recommended to check the schedoscope and YARN logs. In case of `OutOfMemory` exceptions increase the following values:
 
 * YARN: Cloudera Manager -> Hive -> Configuration -> mapreduce.map.memory.mb, mapreduce.reduce.memory.mb, mapreduce.map.java.opts.max.heap, mapreduce.reduce.java.opts.max.heap, yarn.nodemanager.resource.memory-mb, yarn.scheduler.maximum-allocation-mb
 * Hive: Cloudera Manager -> Hive -> Configuration -> HiveServer2 Heap Size
-* YARN Scheduler: Cloudera Manager -> Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Limit the number of simultaneously running applications to 2
+
+It is also recommended to limit the number of simultaneously running applications to 2:
+* YARN Scheduler: Cloudera Manager -> Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Edit -> YARN
 
 
 ## Execution
