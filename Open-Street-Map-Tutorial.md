@@ -81,7 +81,7 @@ Hint: The Cloudera QuickStart VM comes with low memory settings for YARN/MapRedu
 
 * YARN: mapreduce.map.memory.mb, mapreduce.reduce.memory.mb, mapreduce.map.java.opts.max.heap, mapreduce.reduce.java.opts.max.heap, yarn.nodemanager.resource.memory-mb, yarn.scheduler.maximum-allocation-mb
 * Hive: HiveServer2 Heap Size
-*YARN Scheduler: Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Limit the number of simultaneously running applications to 2
+* YARN Scheduler: Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Limit the number of simultaneously running applications to 2
 
 
 ## Execution
