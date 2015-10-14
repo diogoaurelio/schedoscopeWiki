@@ -84,6 +84,7 @@ Hint: The Cloudera QuickStart VM comes with low memory settings for YARN/MapRedu
         Hive: Cloudera Manager -> Hive -> Configuration -> HiveServer2 Heap Size
 
 It is also recommended to limit the number of simultaneously running applications to 2:
+
         YARN Scheduler: Cloudera Manager -> Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Edit -> YARN
 
 
