@@ -62,7 +62,7 @@ Let's get started:
 
 2. Start Cloudera VM.
 
-3. Open a terminal and create the base directory and set the appropriate permissions in HDFS
+3. Open a terminal, create the base directory and set the appropriate permissions in HDFS:
 
         [cloudera@quickstart ~]$ sudo su - hdfs
         -bash-4.1$ hdfs dfs -mkdir /hdp /user/cloudera
@@ -76,6 +76,13 @@ Let's get started:
 5. Change directory to `schedoscope` and build the project:
 
     `[cloudera@quickstart schedoscope]$ mvn install`
+
+Hint: The Cloudera QuickStart VM comes with low memory settings for YARN/MapReduce which can result in memory problems. It is recommended to check the schedoscope and YARN logs and in case of `OutOfMemory` exceptions to increase the following values through the Cloudera Manager:
+
+* YARN: mapreduce.map.memory.mb, mapreduce.reduce.memory.mb, mapreduce.map.java.opts.max.heap, mapreduce.reduce.java.opts.max.heap, yarn.nodemanager.resource.memory-mb, yarn.scheduler.maximum-allocation-mb
+* Hive: HiveServer2 Heap Size
+*YARN Scheduler: Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Limit the number of simultaneously running applications to 2
+
 
 ## Execution
 
