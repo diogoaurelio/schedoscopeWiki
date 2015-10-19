@@ -90,7 +90,7 @@ It is also recommended to limit the number of simultaneously running application
 
 ## Execution
 
-1. Change directory to `~/schedoscope/schedoscope-tutorial` and execute the tutorial:
+1. Go into directory `~/schedoscope/schedoscope-tutorial` and execute the tutorial:
 
     `[cloudera@quickstart schedoscope-tutorial]$ mvn exec:java`
 
