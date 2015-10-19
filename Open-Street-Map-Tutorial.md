@@ -73,7 +73,7 @@ Let's get started:
 
     `[cloudera@quickstart ~]$ git clone https://github.com/ottogroup/schedoscope.git`
 
-5. Change directory to `schedoscope` and build the project:
+5. Go into directory `schedoscope` and build the project:
 
     `[cloudera@quickstart schedoscope]$ mvn install`
 
@@ -275,7 +275,7 @@ The [[default configuration settings|Configuring Schedoscope]] are derived from 
 
 The chosen environment name is set as root HDFS folder for all data processed by schedoscope. The full path looks like `/hdp/${env}/${package_name}/${ViewName}`.
 
-Change directory to `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial#execution]] the tutorial using your own hadoop cluster:
+Go into directory `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial#execution]] the tutorial using your own hadoop cluster:
 
     [cloudera@quickstart schedoscope-tutorial]$ mvn exec:java
 
