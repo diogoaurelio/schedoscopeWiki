@@ -49,13 +49,13 @@ if a ViewUrlPath is given, only the specified View (with Parametrization) is ret
 
 
 
-### actions 
+### transformations
 
-actions lists the status of all actions, i.e., executing transformations.
+transformations lists the transformation status, i.e., executing transformations.
 
 
 Method: GET  
-Path:  /actions
+Path:  /transformations
 
 
 **Parameters:**  
@@ -66,7 +66,7 @@ Path:  /actions
 	  "overview": {
 	    "idle": 860
 	  },
-	  "actions": [{
+	  "transformations": [{
 	    "actor": "/user/root/actions/oozie-154",
 	    "typ": "oozie",
 	    "status": "idle"
