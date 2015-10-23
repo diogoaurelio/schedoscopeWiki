@@ -145,7 +145,7 @@ It is also recommended to limit the number of simultaneously running application
         transforming: 19
         waiting: 4
 
-6. Type `actions -s running` to see what is going on.
+6. Type `transformations -s running` to see what is going on.
 
 6. Have a look in the browser at the resource manager of your Hadoop Cluster  <http://localhost:8088/cluster>
     and see whether you can identify the running actions on the cluster.
