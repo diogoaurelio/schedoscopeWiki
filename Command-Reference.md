@@ -92,26 +92,26 @@ Examples:
     |       example.datamart/SearchExport/SHOP10/2015/05 |      receive |       |
     +----------------------------------------------------+--------------+-------+
 
-### actions 
+### transformations
 
-`actions` lists the status of all actions, i.e., executing transformations.
+`transformation` lists the transformation status, i.e., executing transformations.
 
 Supported options:
-- `-s`, `--status`: filter actions by status (e.g. 'queued, running, idle')
-- `-f`, `--filter <regex>: filter actions by regular expression (e.g. '.*hive-1.*'). 
+- `-s`, `--status`: filter by status (e.g. 'queued, running, idle')
+- `-f`, `--filter <regex>: filter by regular expression (e.g. '.*hive-1.*'). 
 
 Examples:
 
-    actions -s idle
+    transformations -s idle
 
     +----------------------------------+--------+---------+------+-------------+-------+
-    |               ACTOR              | STATUS | STARTED | DESC | TARGET_VIEW | PROPS |
+    |       TRANSFORMATION DRIVER      | STATUS | STARTED | DESC | TARGET_VIEW | PROPS |
     +----------------------------------+--------+---------+------+-------------+-------+
     |     /user/root/actions/oozie-154 |   idle |         |      |             |       |
     |        /user/root/actions/pig-40 |   idle |         |      |             |       |
     ...
 
-   actions -f .*hive.*
+   transformations -f .*hive.*
 
     +----------------------------------+--------+---------+------+-------------+-------+
     |               ACTOR              | STATUS | STARTED | DESC | TARGET_VIEW | PROPS |
