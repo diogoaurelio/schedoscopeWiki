@@ -25,6 +25,17 @@ In real-world production deployment scenarios, you should probably follow a diff
                 <scope>test</scope>
             </dependency>
             <dependency>
+               <groupId>minioozie</groupId>
+               <artifactId>minioozie</artifactId>
+               <version>0.1.7</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>schedoscope</groupId>
+                <artifactId>schedoscope-core</artifactId>
+                <version>0.2.2</version>
+            </dependency>
+            <dependency>
                 <groupId>org.scalatest</groupId>
                 <artifactId>scalatest_2.10</artifactId>
                 <version>2.2.0</version>
@@ -36,27 +47,6 @@ In real-world production deployment scenarios, you should probably follow a diff
                 <version>0.1.0</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-               <groupId>minioozie</groupId>
-               <artifactId>minioozie</artifactId>
-               <version>0.1.7</version>
-               <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>1.1.2</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>1.1.2</version>
-            </dependency>
-            <dependency>
-                <groupId>schedoscope</groupId>
-                <artifactId>schedoscope-core</artifactId>
-                <version>0.2.2</version>
-            </dependency>
         </dependencies>
 
         <build>
@@ -64,7 +54,7 @@ In real-world production deployment scenarios, you should probably follow a diff
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.0</version>
+                    <version>3.3</version>
                     <configuration>
                         <source>1.7</source>
                         <target>1.7</target>
@@ -73,15 +63,39 @@ In real-world production deployment scenarios, you should probably follow a diff
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>2.7</version>
                     <configuration>
                         <encoding>UTF-8</encoding>
                     </configuration>
                 </plugin>
                 <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.4</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.3</version>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>2.19</version>
                     <configuration>
                         <skipTests>true</skipTests>
                     </configuration>
@@ -89,20 +103,13 @@ In real-world production deployment scenarios, you should probably follow a diff
                 <plugin>
                     <groupId>net.alchim31.maven</groupId>
                     <artifactId>scala-maven-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.2.2</version>
                     <executions>
                         <execution>
                             <goals>
                                 <goal>compile</goal>
                                 <goal>testCompile</goal>
                             </goals>
-                            <configuration>
-                                <args>
-                                    <arg>-make:transitive</arg>
-                                    <arg>-dependencyfile</arg>
-                                    <arg>${project.build.directory}/.scala_dependencies</arg>
-                                </args>
-                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
@@ -114,6 +121,7 @@ In real-world production deployment scenarios, you should probably follow a diff
                         <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                         <junitxml>.</junitxml>
                         <filereports>WDF TestSuite.txt</filereports>
+                        <argLine>-Xmx1024m -XX:MaxPermSize=512M</argLine>
                         <environmentVariables>
                             <HADOOP_HOME>${project.build.directory}/hadoop</HADOOP_HOME>
                         </environmentVariables>
