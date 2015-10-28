@@ -156,20 +156,3 @@ Path: /invalidate/`ViewUrlPath`
 	    "submitted": 1
 	  }
 
-
-
-
-### newdata 
-**NOT YET IMPLEMENTED**
-newdata allows schedoscope to operate in push mode. E.g. flume can signal the arrival of new data for a view by calling this endpoint. Subsequently schedoscope will recalculate all views that depend on the new/changed data
-
-Method: GET  
-Path: /newdata/`ViewUrlPath`
-
-
-**Parameters:**  
-none
-
-**Returns**  
-
-TBD
