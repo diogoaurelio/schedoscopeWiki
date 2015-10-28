@@ -25,12 +25,6 @@ In real-world production deployment scenarios, you should probably follow a diff
                 <scope>test</scope>
             </dependency>
             <dependency>
-               <groupId>minioozie</groupId>
-               <artifactId>minioozie</artifactId>
-               <version>0.1.7</version>
-               <scope>test</scope>
-            </dependency>
-            <dependency>
                 <groupId>schedoscope</groupId>
                 <artifactId>schedoscope-core</artifactId>
                 <version>0.2.2</version>
@@ -40,6 +34,12 @@ In real-world production deployment scenarios, you should probably follow a diff
                 <artifactId>scalatest_2.10</artifactId>
                 <version>2.2.0</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>minioozie</groupId>
+               <artifactId>minioozie</artifactId>
+               <version>0.1.7</version>
+               <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.ottogroup.bi</groupId>
