@@ -2,14 +2,14 @@ Schedoscope operates as a REST web service. There are three ways of launching th
 
 # Launching without Command Shell
 
-The simplest way of launching the Schedoscope web service is by executing `org.schedoscope.scheduler.api.SchedoscopeRestService`'s main method. After launch, the service expects [scheduling commands](Command Reference) via the [REST API](Schedoscope REST API).  The [Schedoscope REST Client](Command Reference) can be used to issue these.
+The simplest way of launching the Schedoscope web service is by executing `org.schedoscope.scheduler.rest.server.SchedoscopeRestService`'s main method. After launch, the service expects [scheduling commands](Command Reference) via the [REST API](Schedoscope REST API).  The [Schedoscope REST Client](Command Reference) can be used to issue these.
 
 The Schedoscope web service needs a logback configuration file and a Schedoscope configuration file. These can be passed using the system properties `-Dlogback.configurationFile` and `-Dconfig.file`.
 
 
 Example:
 
-    java -cp ${CP} -Dlogback.configurationFile=logback.xml -Dconfig.file=schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService 
+    java -cp ${CP} -Dlogback.configurationFile=logback.xml -Dconfig.file=schedoscope.conf org.schedoscope.scheduler.rest.server.SchedoscopeRestService 
 
 # Launching with Command Shell
 
@@ -19,7 +19,7 @@ Opening the shell triggered by passing the `--shell` parameter.
 
 Example:
 
-    java -cp ${CP} -Dlogback.configurationFile=logback.xml -Dconfig.file=schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService --shell
+    java -cp ${CP} -Dlogback.configurationFile=logback.xml -Dconfig.file=schedoscope.conf org.schedoscope.scheduler.rest.server.SchedoscopeRestService --shell
 
 # Launching as a Daemon
 
@@ -27,4 +27,4 @@ The Schedoscope web service can also be started as a daemon using [jsvc](http://
 
 Example:
 
-    jsvc -cp ${CP} -Dlogback.configurationFile=logback.xml -Dconfig.file=schedoscope.conf  org.schedoscope.scheduler.api.SchedoscopeDaemon
+    jsvc -cp ${CP} -Dlogback.configurationFile=logback.xml -Dconfig.file=schedoscope.conf  org.schedoscope.scheduler.daemon.SchedoscopeDaemon
