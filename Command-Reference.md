@@ -5,7 +5,7 @@ Schedoscope can be controlled with scheduling commands. There are two means of i
 
 ## Schedoscope Shell
 
-Schedoscope can be controlled by a command line shell. This shell is accessible when Schedoscope is launched as a REST service via the class `org.schedoscope.scheduler.api.SchedoscopeRestService` passing it the `--shell` option.
+Schedoscope can be controlled by a command line shell. This shell is accessible when Schedoscope is launched as a REST service via the class `org.schedoscope.scheduler.rest.server.SchedoscopeRestService` passing it the `--shell` option.
 
 For example: 
 
@@ -13,11 +13,11 @@ For example:
 
 ## Schedoscope REST Client
 
-There is also the Schedoscope REST client, which communicates with a running Schedoscope instance via the REST interface. The client can be started via the class `org.schedoscope.scheduler.api.SchedoscopeRestService` passing it the command to execute.
+There is also the Schedoscope REST client, which communicates with a running Schedoscope instance via the REST interface. The client can be started via the class `org.schedoscope.scheduler.rest.client.SchedoscopeRestCli` passing it the command to execute.
 
 For example: 
 
-    java -cp ${MY_SCHEDOSCOPE_CP} -Dlogback.configurationFile=${MY_SCHEDOSCOPE_FOLDER}/eci-logging.xml -Dconfig.file=${MY_SCHEDOSCOPE_FOLDER}/schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeClientControl views -o
+    java -cp ${MY_SCHEDOSCOPE_CP} -Dlogback.configurationFile=${MY_SCHEDOSCOPE_FOLDER}/eci-logging.xml -Dconfig.file=${MY_SCHEDOSCOPE_FOLDER}/schedoscope.conf org.schedoscope.scheduler.rest.client.SchedoscopeRestCli views -o
 
 For this work, the configuration properties
 
