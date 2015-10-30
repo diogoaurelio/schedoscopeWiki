@@ -288,13 +288,69 @@ Now it's time to design your own views and their dependencies. For this purpose,
 
 1. You need a Scala IDE, e.g. [Scala IDE for Eclipse](http://scala-ide.org/download/sdk.html)
 
-2. Import the maven projects schedoscope-core and schedoscope-tutorial
+2. Import the maven projects schedoscope-core and schedoscope-tutorial. 
 
-3. Set scala compiler on version 2.10 in the projects' properties
+In case Scala IDE has problems importing the schedoscope-tutorial project, disable the shift of build phases for mixed compilation in the maven-compiler-plugin and scala-maven-plugin configurations in the pom. You can do this by commenting the following section prior to import and then remove the comments after import:
 
-4. Sometimes the scala library needs to be added to the project in the IDE manually; right click on the project go to Scala > Add Scala Library to Build Path
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>3.3</version>
+		<configuration>
+			<source>1.7</source>
+			<target>1.7</target>
+		</configuration>
+		<!--
+		<executions>
+			<execution>
+				<id>default-compile</id>
+				<phase>none</phase>
+			</execution>
+			<execution>
+				<id>default-testCompile</id>
+				<phase>none</phase>
+			</execution>
+		</executions>
+		-->
+	</plugin>
+	...
+	<plugin>
+		<groupId>net.alchim31.maven</groupId>
+		<artifactId>scala-maven-plugin</artifactId>
+		<version>3.2.2</version>
+		<configuration>
+			<recompileMode>incremental</recompileMode>
+			<args>
+				<arg>-target:jvm-1.7</arg>
+			</args>
+			<javacArgs>
+				<javacArg>-source</javacArg>
+				<javacArg>1.7</javacArg>
+				<javacArg>-target</javacArg>
+				<javacArg>1.7</javacArg>
+			</javacArgs>
+		</configuration>
+		<!--
+		<executions>
+			<execution>
+				<id>scala-compile</id>
+				<goals>
+					<goal>compile</goal>
+				</goals>
+			</execution>
+			<execution>
+				<id>scala-test-compile</id>
+				<goals>
+					<goal>testCompile</goal>
+				</goals>
+			</execution>
+		</executions>
+		-->
+	</plugin>
 
-5. Sometimes the scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
+3. Make sure the scala compiler is set to version 2.11 in the projects' properties
+
+4. Sometimes the scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
 
 ### Exploring the Test Framework
 
