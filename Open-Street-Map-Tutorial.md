@@ -1,11 +1,11 @@
-
-This tutorial can be used without having your own Hadoop cluster at hand. For getting the examples to run on your own cluster please read section [[Adaptation|Open Street Map Tutorial#adaptation]].
+This tutorial can be followed without having your own Hadoop cluster at hand. For getting the examples to run on your own cluster please read section [[Adaptation|Open Street Map Tutorial#adaptation]].
 
 ## Goals
 The goals of this tutoral are:
 
 * get the Schedoscope [[tutorial code running|Open Street Map Tutorial#installation]] in the Cloudera Quickstart VM; 
-* watch Schedoscope working, [[play around|Open Street Map Tutorial#exploration]];
+* [[watch Schedoscope working|Open Street Map Tutorial#watching-schedoscope-work]];
+* [[explore the results|Open Street Map Tutorial#exploring-the-results]];
 * get Schedoscope tutorial running [[with your own Hadoop Cluster|Open Street Map Tutorial#adaptation]];
 * get familiar with [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
 * implement and schedule [[your own views|Open Street Map Tutorial#development]].
@@ -89,7 +89,7 @@ It is also recommended to limit the number of simultaneously running application
         YARN Scheduler: Cloudera Manager -> Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Edit -> YARN
 
 
-## Using Schedoscope to load the data
+## Watching Schedoscope work
 
 1. Launch Schedoscope:
 
@@ -158,7 +158,7 @@ It is also recommended to limit the number of simultaneously running application
 
 9. Type `shutdown` or `^C` in the Schedoscope shell if you want to stop Schedoscope.
 
-## Exploration
+## Exploring the results
 
 7. Open a new terminal. Use the Hive CLI to see the data materialized by Schedoscope:
 
