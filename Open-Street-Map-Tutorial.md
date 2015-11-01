@@ -164,7 +164,7 @@ It is also recommended to limit the number of simultaneously running application
 
     * Start Hive: 
 
-           [cloudera@quickstart ~]$ hive
+            [cloudera@quickstart ~]$ hive
  
     * List the databases that Schedoscope automatically created: 
 
