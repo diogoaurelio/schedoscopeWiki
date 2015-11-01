@@ -153,28 +153,41 @@ It is also recommended to limit the number of simultaneously running application
     and see whether you can identify the running actions on the cluster.
 
 6. Opening another terminal window, you can also take a look at the activity in the log file:
-       `[cloudera@quickstart ~]$ tail -F ~/schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`
+
+        [cloudera@quickstart ~]$ tail -F ~/schedoscope/schedoscope-tutorial/target/logs/schedoscope.log
 
 9. Type `shutdown` or `^C` in the Schedoscope shell if you want to stop Schedoscope.
 
 ## Exploration
 
 7. Open a new terminal. Use the Hive CLI to see the data materialized by Schedoscope:
-    * Start Hive: `[cloudera@quickstart ~]$ hive`
+
+    * Start Hive: 
+
+        [cloudera@quickstart ~]$ hive
  
-    * List the databases that Schedoscope automatically created: `hive> show databases;`
+    * List the databases that Schedoscope automatically created: 
+
+         hive> show databases;
 
     The database names look like `{environment}_{packagename}`, with the the dots in the package name of the materialized views replaced by underscores. The environment is set in `~/schedscope/schedoscope-tutorial/src/main/resources/schedoscope.conf`.
 
-    * List the tables of a database: `hive> use <the_database_you_want>; show tables;` 
+    * List the tables of a database: 
+
+         hive> use <the_database_you_want>;
+         hive> show tables;
 
     A table name is the name of the corresponding view class extending base class `View` in lower case. E.g. `NodesWithGeohash` becomes a hive table named `nodes_with_geohash`.
 
-    * List the columns of a table:  `hive> describe <the_table_you_care_about>;` 
+    * List the columns of a table: 
+
+         hive> describe <the_table_you_care_about>;
 
     Column names are the same as the names of the fields specified in the corresponding view class, similarly transformed to lower case.
 
-    * List the first 10 entries of a table: `hive> select * from <the_table_you_care_about> limit 10;`
+    * List the first 10 entries of a table: 
+
+         hive> select * from <the_table_you_care_about> limit 10;
 
     * Take a look around by yourself.
 
@@ -227,8 +240,11 @@ It is also recommended to limit the number of simultaneously running application
         materialized: 24
         transforming: 1
         waiting: 1
+
 8. Switch to hive CLI and compare column `created_at` of `restaurants` and `shops`. As you can see table `restaurants` has been written again during recalculation. Table `shops` has not been touched.
+
 9. Have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
+
 9. Type `shutdown` if you want to stop Schedoscope.
 
 
