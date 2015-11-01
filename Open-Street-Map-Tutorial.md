@@ -50,7 +50,7 @@ To measure distance, we use a geo hash. Two nodes are close to each other if the
 
 3. Provide aggregated data such that the measures can be applied; the aggregation is stored in view `schedoscope.example.osm.datamart/ShopProfiles`. You can then find the best location for your shop by analyzing `schedoscope.example.osm.datamart/ShopProfiles`.
 
-For the tutorial, we translated this plan into a hierarchy of derived Schedoscope views:
+For the tutorial, we translated this plan into a hierarchy of derived Schedoscope views, i.e., tables:
  
 ![dwh-structure.jpg](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/dwh-structure.jpg)
 
@@ -313,7 +313,7 @@ Go into directory `schedoscope/schedoscope-tutorial` and [[execute|Open Street M
 
 ## Extension
 
-Now it's time to design your own views and their dependencies. For this purpose, you might also want to have a look at the [View DSL Primer](Schedoscope View DSL Primer).
+Now it's time to design your own Schedoscope views and their dependencies. For this purpose, you might also want to have a look at the [View DSL Primer](Schedoscope View DSL Primer).
 
 ### Preparation
 
