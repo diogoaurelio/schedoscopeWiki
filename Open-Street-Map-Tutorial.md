@@ -75,7 +75,7 @@ Let's get started:
 
 5. Go into directory `schedoscope` and build the project:
 
-         [cloudera@quickstart schedoscope]$ cd ~/schedoscope
+         [cloudera@quickstart ~]$ cd ~/schedoscope
          [cloudera@quickstart schedoscope]$ mvn install
 
 
