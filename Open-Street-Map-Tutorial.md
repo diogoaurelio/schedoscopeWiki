@@ -92,8 +92,8 @@ It is also recommended to limit the number of simultaneously running application
 
 1. Launch Schedoscope:
 
-     [cloudera@quickstart schedoscope]$ cd ~/schedoscope/schedoscope-tutorial
-     [cloudera@quickstart schedoscope-tutorial]$ mvn exec:java
+      [cloudera@quickstart schedoscope]$ cd ~/schedoscope/schedoscope-tutorial
+      [cloudera@quickstart schedoscope-tutorial]$ mvn exec:java
 
 2. The Schedoscope Shell opens in the terminal. You can find the full [[command reference|Command Reference]] in the Schedoscope wiki.
 
@@ -249,7 +249,7 @@ One way to deal with change is to explicitly retrigger computation of views:
 
 9. Once everything has been materialized, type `shutdown` to stop Schedoscope.
 
-_Way more more interesting is however to see Schedoscope discover change all by itself_
+_Way more more interesting is to see Schedoscope discover change all by itself, however!_
 
 7. Make sure all views have been materialized and that you have quit the Schedoscope shell.
 
@@ -281,13 +281,19 @@ _Way more more interesting is however to see Schedoscope discover change all by 
 
         schedoscope> materialize -v schedoscope.example.osm.datamart/ShopProfiles
 
-8. Watch Schedoscope rematerialize `schedoscope.example.osm.datahub/Restaurants` and `schedoscope.example.osm.datamart/ShopProfiles` without any explicit migration commands from your side.
+8. Watch Schedoscope rematerialize `schedoscope.example.osm.datahub/Restaurants` and `schedoscope.example.osm.datamart/ShopProfiles` without any explicit migration commands from your side. No other views are recomputed because they are not affected by the change.
 
 
 ## Running on a real cluster
-You can try to get the tutorial running on your own hadoop cluster.
+You can get the tutorial running on your own hadoop cluster.
  
-Install the Schedoscope tutorial on your own machine (see [[Installation|Open Street Map Tutorial#installation]] Steps 3 and 4). Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
+Install the Schedoscope tutorial on a gateway machine to your cluster:
+
+1. Clone the source code (see [[Installation|Open Street Map Tutorial#installation]] Step 4).
+
+2. Prepare a `/hdp` folder in your cluster's HDFS and give proper write permissions for the user with which you want to execute Schedoscope. (similar to [[Installation|Open Street Map Tutorial#installation]] Step 3).
+
+3. Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
 
 **VM's schedoscope.conf:**
 
@@ -332,7 +338,7 @@ Install the Schedoscope tutorial on your own machine (see [[Installation|Open St
       
       transformations = {
       	hive : {
-		    libDirectory = "/your/absolute/path/to/schedoscope/schedoscope-tutorial/target/hive-libraries"
+		    libDirectory = "/your/local/absolute/path/to/schedoscope/schedoscope-tutorial/target/hive-libraries"
 		    url = ${schedoscope.metastore.jdbcUrl}
         }
       }
@@ -341,6 +347,8 @@ Install the Schedoscope tutorial on your own machine (see [[Installation|Open St
 The [[default configuration settings|Configuring Schedoscope]] are derived from `schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in your project's `schedoscope.conf`.
 
 The chosen environment name is set as root HDFS folder for all data processed by schedoscope. The full path looks like `/hdp/${env}/${package_name}/${ViewName}`.
+
+4. Compile Schedoscope (similar to [[Installation|Open Street Map Tutorial#installation]] Step 5).
 
 Go into directory `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial#execution]] the tutorial using your own hadoop cluster:
 
