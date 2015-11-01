@@ -70,11 +70,13 @@ Let's get started:
 
 4. Clone the Schedoscope git repository:
 
-    `[cloudera@quickstart ~]$ cd ~/ ; git clone https://github.com/ottogroup/schedoscope.git`
+    `[cloudera@quickstart ~]$ cd ~` 
+    `[cloudera@quickstart ~]$ git clone https://github.com/ottogroup/schedoscope.git`
 
 5. Go into directory `schedoscope` and build the project:
 
-    `[cloudera@quickstart schedoscope]$ cd `~/schedoscope ; mvn install`
+    `[cloudera@quickstart schedoscope]$ cd ~/schedoscope`
+    `[cloudera@quickstart schedoscope]$ mvn install`
 
 
 Hint: The Cloudera QuickStart VM comes with low memory settings for YARN/MapReduce which can result in memory problems. It is recommended to check the schedoscope and YARN logs. In case of `OutOfMemory` exceptions increase the following values:
@@ -87,11 +89,12 @@ It is also recommended to limit the number of simultaneously running application
         YARN Scheduler: Cloudera Manager -> Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Edit -> YARN
 
 
-## Execution
+## Using Schedoscope to load the data
 
-1. Go into directory `~/schedoscope/schedoscope-tutorial` and execute the tutorial:
+1. Launch Schedoscope:
 
-    `[cloudera@quickstart schedoscope-tutorial]$ cd ~/schedoscope/schedoscope-tutorial ; mvn exec:java`
+    `[cloudera@quickstart schedoscope]$ cd ~/schedoscope/schedoscope-tutorial`
+    `[cloudera@quickstart schedoscope-tutorial]$ mvn exec:java`
 
 2. The Schedoscope Shell opens in the terminal. You can find the full [[command reference|Command Reference]] in the Schedoscope wiki.
 
@@ -230,9 +233,9 @@ It is also recommended to limit the number of simultaneously running application
 
 
 ##Adaptation
-The tutorial is now in a Cloudera Quickstart VM. You should try to get it running with your own hadoop cluster.
+You can try to get the tutorial running on your own hadoop cluster.
  
-Simply install the Schedoscope tutorial on your own machine (see [[Installation|Open Street Map Tutorial#installation]] step 3 and 4). Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
+Install the Schedoscope tutorial on your own machine (see [[Installation|Open Street Map Tutorial#installation]] Steps 3 and 4). Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
 
 **VM's schedoscope.conf:**
 
