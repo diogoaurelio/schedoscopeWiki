@@ -22,6 +22,10 @@ Then follow the Open Street Map tutorial to install, compile, and run Schedoscop
 
 - [Open Street Map Tutorial](Open Street Map Tutorial)
 
+Take a look at the View DSL Primer to get more information about the capabilities of the Schedoscope DSL:
+
+- [Schedoscope View DSL Primer](Schedoscope View DSL Primer)
+
 ## Implementing Views
 - [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
 - [Schedoscope View DSL Primer](Schedoscope View DSL Primer)
