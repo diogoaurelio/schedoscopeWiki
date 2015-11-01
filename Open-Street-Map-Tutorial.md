@@ -6,8 +6,9 @@ The goals of this tutorial are to:
 * [[explore the results|Open Street Map Tutorial#exploring-the-results]];
 * watch Schedoscope [[dealing with change|Open Street Map Tutorial#dealing-with-change]
 * get [[the tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
+* get [[the tutorial set up in your IDE|Open Street Map Tutorial#setting-up-scala-ide]];
 * get familiar with [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
-* implement and schedule [[your own views|Open Street Map Tutorial#development]].
+* implement and schedule [[your own views|Open Street Map Tutorial#developing-your-own-views]].
 
 You can find a list of [[hints|Open Street Map Tutorial#hints]] at the end of this tutorial.
 
@@ -329,20 +330,19 @@ Install the Schedoscope tutorial on a gateway machine to your cluster:
 
 Go into directory `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial#execution]] the tutorial using your own hadoop cluster:
 
-    [cloudera@quickstart schedoscope-tutorial]$ mvn exec:java
+    mvn exec:java
 
 
-## Extension
+## Setting up Scala IDE
 
-Now it's time to design your own Schedoscope views and their dependencies. For this purpose, you might also want to have a look at the [View DSL Primer](Schedoscope View DSL Primer).
-
-### Preparation
+Now it's time to design your own Schedoscope views and their dependencies. For this purpose, we need to
+set up an IDE. You might also want to have a look at the [View DSL Primer](Schedoscope View DSL Primer).
 
 1. You need a Scala IDE, e.g. [Scala IDE for Eclipse](http://scala-ide.org/download/sdk.html)
 
 2. Import the maven projects schedoscope-core and schedoscope-tutorial. 
 
-In case Scala IDE has problems importing the schedoscope-tutorial project, disable the shift of build phases for mixed compilation in the maven-compiler-plugin and scala-maven-plugin configurations in the pom. You can do this by commenting the following section prior to import and then remove the comments after import:
+In case your Scala IDE has problems importing the schedoscope-tutorial project, disable the shift of build phases for mixed compilation in the maven-compiler-plugin and scala-maven-plugin configurations in the pom. You can do this by commenting the following section prior to import and then removing the comments after import:
 
 	<plugin>
 		<groupId>org.apache.maven.plugins</groupId>
@@ -404,16 +404,19 @@ In case Scala IDE has problems importing the schedoscope-tutorial project, disab
 
 4. Sometimes the scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
 
-### Exploring the Test Framework
+## Exploring the Test Framework
 
-The custom [Test Framework](Test Framework) of Schedoscope facilitates quick testing of code. For each test called a self-contained local hadoop installation is set up in `${baseDir}/target/hadoop`.
+The custom [Test Framework](Test Framework) of Schedoscope facilitates quick testing of code. 
 
-1. Set environment variables HADOOP_HOME to `~/schedoscope/schedoscope-tutorial/target/hadoop` and JAVA_HOME.
+1. You can run a test by right clicking on a test class in the Scala IDE's package explorer (e.g., `schedoscope-tutorial/src/test/scala/schedoscope/example/osm/datahub/RestaurantsTest.scala`  and choosing `Run As > Scala Test - File`
+
+2. Initially, this will fail because you need to provide a `HADOOP_HOME` environment variable setting. Lookup the IDE's run configuration for your failed test and set `HADOOP_HOME` to `/<yourhomedir>/schedoscope/schedoscope-tutorial/target/hadoop`. The Schedoscope test framework will automatically deploy a local Hadoop installation in that folder.
+
 ![test_run_configurations](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/test_run_configurations.png)
 
-2. You can run a test by right clicking on the test class in the Scala IDE's package explorer and choosing Run As > Scala Test - File
+3. Rerun the test.
 
-3. When building the project (as in [[Installation|Open Street Map Tutorial#installation]] Step 4) you can see how all tests are executed.
+3. The tests can also be executed via Maven: `mvn test`. 
 
 ### Development
 
