@@ -155,7 +155,7 @@ It is also recommended to limit the number of simultaneously running application
 
         [cloudera@quickstart ~]$ tail -F ~/schedoscope/schedoscope-tutorial/target/logs/schedoscope.log
 
-9. Type `shutdown` or `^C` in the Schedoscope shell if you want to stop Schedoscope. You should wait for it to complete the materializations of views to continue with the tutorial though.
+9. Type `shutdown` or `^C` in the Schedoscope shell if you want to stop Schedoscope. You should wait for it to complete the materialization of views to continue with the tutorial though.
 
 ## Exploring the results
 
@@ -173,26 +173,25 @@ It is also recommended to limit the number of simultaneously running application
 
     * List the tables of a database: 
 
-            hive> use <the_database_you_want>;
+            hive> use demo_schedoscope_example_osm_datamart;
             hive> show tables;
 
     A table name is the name of the corresponding view class extending base class `View` in lower case. E.g. `NodesWithGeohash` becomes a hive table named `nodes_with_geohash`.
 
     * List the columns of a table: 
 
-            hive> describe <the_table_you_care_about>;
+            hive> describe shop_profiles;
 
     Column names are the same as the names of the fields specified in the corresponding view class, similarly transformed to lower case.
 
     * List the first 10 entries of a table: 
 
-            hive> select * from <the_table_you_care_about> limit 10;
+            hive> select * from shop_profiles limit 10;
 
-    * Take a look around yourself.
+    * Take a look around the tables yourself.
 
     As one can see, every tutorial table does contain columns `id`, `created_at` (when was the data loaded)
-    and `created_by` (which Job provided the data). These fields are set with [[traits|View Traits]] which are 
-    predefined fields.
+    and `created_by` (which Job provided the data). These fields are defined using common  [[traits|View Traits]] carrying predefined fields.
 
 ## Dealing with change
 
