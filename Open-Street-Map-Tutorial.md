@@ -293,33 +293,12 @@ Install the Schedoscope tutorial on a gateway machine to your cluster:
 
 2. Prepare a `/hdp` folder in your cluster's HDFS and give proper write permissions for the user with which you want to execute Schedoscope. (similar to [[Installation|Open Street Map Tutorial#installation]] Step 3).
 
-3. Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
-
-**VM's schedoscope.conf:**
+3. Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` to match the needs of your cluster. The [[default configuration settings|Configuring Schedoscope]] are defined in`schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in `schedoscope.conf`. Perform the following changes:
 
     schedoscope {
       app {
-        environment = "demo"
-      }
-
-      metastore {
-        jdbcUrl = "jdbc:hive2://localhost:10000/default;user=cloudera;password=cloudera"
-      }
-
-      transformations = {
-        hive : {
-          libDirectory = "/home/cloudera/schedoscope/schedoscope-tutorial/target/hive-libraries"
-          concurrency = 2                # number of parallel actors to execute hive transformations
-          url = "jdbc:hive2://localhost:10000/default;user=cloudera;password=cloudera"
-        }
-      }
-    }
-
-**your new schedoscope.conf:**
-
-    schedoscope {
-      app {
-         environment = "test"    # read about the environment name below
+         environment = "yourenvironmentasyoulikeit"    # The chosen environment name is set as root HDFS folder.
+                                                       # The data for each view will end up in `/hdp/${env}/${package_name}/${ViewName}`.
       }
 
       hadoop {
@@ -343,10 +322,6 @@ Install the Schedoscope tutorial on a gateway machine to your cluster:
         }
       }
     }
-
-The [[default configuration settings|Configuring Schedoscope]] are derived from `schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in your project's `schedoscope.conf`.
-
-The chosen environment name is set as root HDFS folder for all data processed by schedoscope. The full path looks like `/hdp/${env}/${package_name}/${ViewName}`.
 
 4. Compile Schedoscope (similar to [[Installation|Open Street Map Tutorial#installation]] Step 5).
 
