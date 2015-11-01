@@ -6,7 +6,8 @@ The goals of this tutoral are:
 * get the Schedoscope [[tutorial code running|Open Street Map Tutorial#installation]] in the Cloudera Quickstart VM; 
 * [[watch Schedoscope working|Open Street Map Tutorial#watching-schedoscope-work]];
 * [[explore the results|Open Street Map Tutorial#exploring-the-results]];
-* get Schedoscope tutorial running [[with your own Hadoop Cluster|Open Street Map Tutorial#adaptation]];
+* watch Schedoscope [[dealing with change|Open Street Map Tutorial#dealing-with-change]
+* get [[the tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
 * get familiar with [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
 * implement and schedule [[your own views|Open Street Map Tutorial#development]].
 
@@ -195,6 +196,8 @@ It is also recommended to limit the number of simultaneously running application
     and `created_by` (which Job provided the data). These fields are set with [[traits|View Traits]] which are 
     predefined fields.
 
+## Dealing with change
+
 7. Type  `invalidate -v schedoscope.example.osm.datahub/Restaurants` in the schedoscope shell.
     This is how to manually tell Schedoscope that this view shall be recalculated.
 
@@ -245,10 +248,10 @@ It is also recommended to limit the number of simultaneously running application
 
 9. Have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
 
-9. Type `shutdown` if you want to stop Schedoscope.
+9. Once everything has been materialized, tyoe `shutdown` to stop Schedoscope.
 
 
-##Adaptation
+## Running on a real cluster
 You can try to get the tutorial running on your own hadoop cluster.
  
 Install the Schedoscope tutorial on your own machine (see [[Installation|Open Street Map Tutorial#installation]] Steps 3 and 4). Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` as follows:
