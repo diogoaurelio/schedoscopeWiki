@@ -8,7 +8,7 @@ The goals of this tutorial are to:
 * get [[the tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
 * get [[the tutorial set up in your IDE|Open Street Map Tutorial#setting-up-scala-ide]];
 * get familiar with [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
-* implement and schedule [[your own views|Open Street Map Tutorial#developing-your-own-views]].
+* implement and schedule [[your own views|Open Street Map Tutorial#developing-views]].
 
 You can find a list of [[hints|Open Street Map Tutorial#hints]] at the end of this tutorial.
 
@@ -336,7 +336,7 @@ Go into directory `schedoscope/schedoscope-tutorial` and [[execute|Open Street M
 ## Setting up Scala IDE
 
 Now it's time to design your own Schedoscope views and their dependencies. For this purpose, we need to
-set up an IDE. You might also want to have a look at the [View DSL Primer](Schedoscope View DSL Primer).
+set up an IDE. 
 
 1. You need a Scala IDE, e.g. [Scala IDE for Eclipse](http://scala-ide.org/download/sdk.html)
 
@@ -418,7 +418,9 @@ The custom [Test Framework](Test Framework) of Schedoscope facilitates quick tes
 
 3. The tests can also be executed via Maven: `mvn test`. 
 
-### Development
+## Developing views
+
+You might want to have a look at the [View DSL Primer](Schedoscope View DSL Primer) first.
 
 There are other Open Street Map TSV-files provided by the dependency `schedoscope-tutorial-osm-data`:
 
@@ -442,19 +444,16 @@ There are other Open Street Map TSV-files provided by the dependency `schedoscop
         k STRING
         v STRING
 
-You should create stage views `schedoscope.example.osm.stage.Ways`, `schedoscope.example.osm.stage.WayNodes`, and `schedoscope.example.osm.stage.WayTags` that capture those files by reading them from the classpath. The tutorial class `schedoscope.example.osm.stage.Nodes` can serve as your template for how this can be done.
+You could create stage views `schedoscope.example.osm.stage.Ways`, `schedoscope.example.osm.stage.WayNodes`, and `schedoscope.example.osm.stage.WayTags` that capture those files by reading them from the classpath. The tutorial class `schedoscope.example.osm.stage.Nodes` can serve as your template for how this can be done.
 
 You can implement a view `schedoscope.example.osm.processed.Ways` that comprises all information about ways. This view should have `schedoscope.example.osm.processed.Nodes` as well as the new stage views you created above as dependencies. Establishing a monthly partitioning from `tstmp` would also be appropriate. You can use a Hive transformation that uses the brickhouse UDF `collect` to create a map of tags and an array of with all `node_id` which each way comprises. Take look at `Nodes` for a template of how to use `collect`. 
 
-### Deployment
-
-Rebuild and restart Schedoscope:
+When done, rebuild and restart Schedoscope:
 
     mvn install
     mvn exec:java
 
 In case of trouble have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
-
 
 ## Scheduling 
 
