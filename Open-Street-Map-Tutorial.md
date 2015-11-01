@@ -79,16 +79,6 @@ Let's get started:
          [cloudera@quickstart schedoscope]$ mvn install
 
 
-Hint: The Cloudera QuickStart VM comes with low memory settings for YARN/MapReduce which can result in memory problems. It is recommended to check the schedoscope and YARN logs. In case of `OutOfMemory` exceptions increase the following values:
-
-        YARN: Cloudera Manager -> Hive -> Configuration -> mapreduce.map.memory.mb, mapreduce.reduce.memory.mb, mapreduce.map.java.opts.max.heap, mapreduce.reduce.java.opts.max.heap, yarn.nodemanager.resource.memory-mb, yarn.scheduler.maximum-allocation-mb
-        Hive: Cloudera Manager -> Hive -> Configuration -> HiveServer2 Heap Size
-
-It is also recommended to limit the number of simultaneously running applications to 2:
-
-        YARN Scheduler: Cloudera Manager -> Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Edit -> YARN
-
-
 ## Watching Schedoscope work
 
 1. Launch Schedoscope:
@@ -290,9 +280,9 @@ You can get the tutorial running on your own hadoop cluster.
  
 Install the Schedoscope tutorial on a gateway machine to your cluster:
 
-1. Clone the source code (see [[Installation|Open Street Map Tutorial#installation]] Step 4).
+1. Clone the source code (see [[Installation|Open Street Map Tutorial#installing]] Step 4).
 
-2. Prepare a `/hdp` folder in your cluster's HDFS and give proper write permissions for the user with which you want to execute Schedoscope. (similar to [[Installation|Open Street Map Tutorial#installation]] Step 3).
+2. Prepare a `/hdp` folder in your cluster's HDFS and give proper write permissions for the user with which you want to execute Schedoscope. (similar to [[Installation|Open Street Map Tutorial#installing]] Step 3).
 
 3. Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` to match the needs of your cluster. The [[default configuration settings|Configuring Schedoscope]] are defined in`schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in `schedoscope.conf`. Perform the following changes:
 
@@ -326,7 +316,7 @@ Install the Schedoscope tutorial on a gateway machine to your cluster:
         }
 
 
-4. Compile Schedoscope (similar to [[Installation|Open Street Map Tutorial#installation]] Step 5).
+4. Compile Schedoscope (similar to [[Installation|Open Street Map Tutorial#installing]] Step 5).
 
 Go into directory `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial#execution]] the tutorial using your own hadoop cluster:
 
@@ -465,8 +455,19 @@ This is the default webservice configured in `schedoscope/schedoscope-core/src/m
 
 
 ## Hints
+* The Cloudera QuickStart VM comes with low memory settings for YARN/MapReduce which can result in memory problems. It is recommended to check the schedoscope and YARN logs. In case of `OutOfMemory` exceptions increase the following values:
+
+        YARN: Cloudera Manager -> Hive -> Configuration -> mapreduce.map.memory.mb, mapreduce.reduce.memory.mb, mapreduce.map.java.opts.max.heap, mapreduce.reduce.java.opts.max.heap, yarn.nodemanager.resource.memory-mb, yarn.scheduler.maximum-allocation-mb
+        Hive: Cloudera Manager -> Hive -> Configuration -> HiveServer2 Heap Size
+
+* It is also recommended to limit the number of simultaneously running applications to 2:
+
+        YARN Scheduler: Cloudera Manager -> Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Edit -> YARN
+
 * Defining a field of type BIGINT in hive, works with LONG in Schedoscope: `val id = fieldOf[Long]`
+
 * Testing views of the same name (but different layers): Run the test by right clicking on the word "should" in the test class source code and choosing Run As > Scala Test - Test
+
 * Schedoscope shell cannot cope with leading white spaces. It will prompt a list of possible commands.
 
 ## Acknowledgement
