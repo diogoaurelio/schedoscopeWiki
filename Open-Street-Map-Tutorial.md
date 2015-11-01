@@ -295,33 +295,35 @@ Install the Schedoscope tutorial on a gateway machine to your cluster:
 
 3. Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` to match the needs of your cluster. The [[default configuration settings|Configuring Schedoscope]] are defined in`schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in `schedoscope.conf`. Perform the following changes:
 
-    schedoscope {
-      app {
-         environment = "yourenvironmentasyoulikeit"    # The chosen environment name is set as root HDFS folder.
-                                                       # The data for each view will end up in `/hdp/${env}/${package_name}/${ViewName}`.
-      }
+        schedoscope {
+          app {
+             # The chosen environment name is set as root HDFS folder.
+             # The data for each view will end up in `/hdp/${env}/${package_name}/${ViewName}`.
+             environment = "yourenvironmentasyoulikeit"    
+          }
 
-      hadoop {
-         resourceManager = "yourhost:yourport"
-         nameNode = "yourhost:yourport"
-      }
+          hadoop {
+             resourceManager = "yourhost:yourport"
+             nameNode = "yourhost:yourport"
+          }
 
-      metastore {
-        metastoreUri = "your/hive/metastore/uri"
-        jdbcUrl = "your/hive/jdbc/uri"
-      }
+          metastore {
+            metastoreUri = "your/hive/metastore/uri"
+            jdbcUrl = "your/hive/jdbc/uri" # include the kerberos principal if needed
+          }
 
-      kerberos {
-        principal = "your/kerberos/principal"   # if needed
-      }
-      
-      transformations = {
-      	hive : {
-		    libDirectory = "/your/local/absolute/path/to/schedoscope/schedoscope-tutorial/target/hive-libraries"
-		    url = ${schedoscope.metastore.jdbcUrl}
+          kerberos {
+            principal = "your/kerberos/principal"   # if needed
+          }
+          
+          transformations = {
+            hive : {
+                libDirectory = "/your/local/absolute/path/to/schedoscope/schedoscope-tutorial/target/hive-libraries"
+                url = ${schedoscope.metastore.jdbcUrl} #include the kerberos principal if needed
+            }
+          }
         }
-      }
-    }
+
 
 4. Compile Schedoscope (similar to [[Installation|Open Street Map Tutorial#installation]] Step 5).
 
