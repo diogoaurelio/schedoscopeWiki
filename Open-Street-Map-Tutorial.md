@@ -164,32 +164,32 @@ It is also recommended to limit the number of simultaneously running application
 
     * Start Hive: 
 
-         [cloudera@quickstart ~]$ hive
+          [cloudera@quickstart ~]$ hive
  
     * List the databases that Schedoscope automatically created: 
 
-          hive> show databases;
+           hive> show databases;
 
     The database names look like `{environment}_{packagename}`, with the the dots in the package name of the materialized views replaced by underscores. The environment is set in `~/schedscope/schedoscope-tutorial/src/main/resources/schedoscope.conf`.
 
     * List the tables of a database: 
 
-          hive> use <the_database_you_want>;
-          hive> show tables;
+           hive> use <the_database_you_want>;
+           hive> show tables;
 
     A table name is the name of the corresponding view class extending base class `View` in lower case. E.g. `NodesWithGeohash` becomes a hive table named `nodes_with_geohash`.
 
     * List the columns of a table: 
 
-          hive> describe <the_table_you_care_about>;
+           hive> describe <the_table_you_care_about>;
 
     Column names are the same as the names of the fields specified in the corresponding view class, similarly transformed to lower case.
 
     * List the first 10 entries of a table: 
 
-        hive> select * from <the_table_you_care_about> limit 10;
+           hive> select * from <the_table_you_care_about> limit 10;
 
-    * Take a look around by yourself.
+    * Take a look around yourself.
 
     As one can see, every tutorial table does contain columns `id`, `created_at` (when was the data loaded)
     and `created_by` (which Job provided the data). These fields are set with [[traits|View Traits]] which are 
