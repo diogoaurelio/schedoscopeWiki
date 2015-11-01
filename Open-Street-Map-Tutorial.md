@@ -195,6 +195,8 @@ It is also recommended to limit the number of simultaneously running application
 
 ## Dealing with change
 
+One way to deal with change is to explicitly retrigger computation of views:
+
 7. Type  `invalidate -v schedoscope.example.osm.datahub/Restaurants` in the schedoscope shell.
     This is how to manually tell Schedoscope that this view shall be recalculated.
 
@@ -245,7 +247,41 @@ It is also recommended to limit the number of simultaneously running application
 
 9. Have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
 
-9. Once everything has been materialized, tyoe `shutdown` to stop Schedoscope.
+9. Once everything has been materialized, type `shutdown` to stop Schedoscope.
+
+The more interesting thing is however to see Schedoscope discover change all by itself:
+
+7. Make sure all views have been materialized and that you have quit the Schedoscope shell.
+
+7. Go back to the `schedoscope-tutorial` folder: `cd ~/schedoscope/schedoscope-tutorial`
+
+7. Open the query that computes the `Restaurants` view in an editor:
+
+        [cloudera@quickstart schedoscope-tutorial]$ vim src/main/resources/hiveql/datahub/insert_restaurants.sql 
+
+7. From now on, restaurant names are to be uppercase. So wrap the statement
+
+        tags['name'] AS restaurant_name,
+
+   into
+   
+        ucase(tags['name']) AS restaurant_name,
+
+7. Save your work and go back to the shell.
+
+7. Recompile the tutorial (skipping tests, as the restaurant test will fail now):
+
+        [cloudera@quickstart schedoscope-tutorial]$ mvn install -DskipTests
+
+7. Relaunch Schedoscope:
+
+        [cloudera@quickstart schedoscope-tutorial]$ mvn exec:java
+
+7. Materialize `schedoscope.example.osm.datamart/ShopProfiles/` again:
+
+        schedoscope> materialize -v schedoscope.example.osm.datamart/ShopProfiles
+
+8. Watch Schedoscope rematerialize `schedoscope.example.osm.datahub/Restaurants` and `schedoscope.example.osm.datamart/ShopProfiles` without any explicit migration commands from your side.
 
 
 ## Running on a real cluster
