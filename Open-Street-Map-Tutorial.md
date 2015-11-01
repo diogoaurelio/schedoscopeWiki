@@ -1,10 +1,8 @@
-This tutorial can be followed without having your own Hadoop cluster at hand. For getting the examples to run on your own cluster please read section [[Adaptation|Open Street Map Tutorial#adaptation]].
-
 ## Goals
-The goals of this tutoral are:
+The goals of this tutorial are to:
 
-* get the Schedoscope [[tutorial code running|Open Street Map Tutorial#installation]] in the Cloudera Quickstart VM; 
-* [[watch Schedoscope working|Open Street Map Tutorial#watching-schedoscope-work]];
+* get the Schedoscope [[tutorial code running|Open Street Map Tutorial#installing]] in the Cloudera Quickstart VM; 
+* [[watch Schedoscope doing its work|Open Street Map Tutorial#watching-schedoscope-work]];
 * [[explore the results|Open Street Map Tutorial#exploring-the-results]];
 * watch Schedoscope [[dealing with change|Open Street Map Tutorial#dealing-with-change]
 * get [[the tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
@@ -43,7 +41,7 @@ For measuring the "best" shop location, we assume the following:
 
 To measure distance, we use a geo hash. Two nodes are close to each other if they lie in the same area. A node's area is defined by the first 7 characters of `GeoHash.geoHashStringWithCharacterPrecision(longitude, latitude)`.
 
-## The Plan
+### The Plan
 
 1. Calculate each node's geohash
 
@@ -51,11 +49,11 @@ To measure distance, we use a geo hash. Two nodes are close to each other if the
 
 3. Provide aggregated data such that the measures can be applied; the aggregation is stored in view `schedoscope.example.osm.datamart/ShopProfiles`. You can then find the best location for your shop by analyzing `schedoscope.example.osm.datamart/ShopProfiles`.
 
-For the tutorial, we translated this plan into a hierarchy of derived Schedoscope views, i.e., tables:
+For the tutorial, we translated this plan into a hierarchy of interdependent Schedoscope views, which means Hive tables:
  
 ![dwh-structure.jpg](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/dwh-structure.jpg)
 
-## Installation
+## Installing
 Let's get started:
 
 1. Download [Cloudera Quickstart VM 5.4](http://www.cloudera.com/content/cloudera/en/documentation/core/latest/topics/cloudera_quickstart_vm.html)
@@ -157,7 +155,7 @@ It is also recommended to limit the number of simultaneously running application
 
         [cloudera@quickstart ~]$ tail -F ~/schedoscope/schedoscope-tutorial/target/logs/schedoscope.log
 
-9. Type `shutdown` or `^C` in the Schedoscope shell if you want to stop Schedoscope.
+9. Type `shutdown` or `^C` in the Schedoscope shell if you want to stop Schedoscope. You should wait for it to complete the materializations of views to continue with the tutorial though.
 
 ## Exploring the results
 
