@@ -10,15 +10,15 @@ The goals of this tutoral are:
 * get familiar with [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
 * implement and schedule [[your own views|Open Street Map Tutorial#development]].
 
-Find a list of [[hints|Open Street Map Tutorial#hints]] at the end of this tutorial.
+You can find a list of [[hints|Open Street Map Tutorial#hints]] at the end of this tutorial.
 
 ## Prerequisites
-* basic knowledge of [Apache Hive](http://hive.apache.org/)
+* Basic knowledge of [Apache Hive](http://hive.apache.org/)
 
 ## The Story
 Imagine you had a fantastic business idea. You would like to buy a promising shop in Hamburg, Germany. However... **which shop in Hamburg is the one located best?**
 
-For implementing this tutorial, we use data of [Open Street Map](http://www.openstreetmap.org/copyright). The data is stored in TSV files and provided by the dependency `schedoscope-tutorial-osm-data` and looks like this:
+For implementing this tutorial, we use geospatial data from the [Open Street Map](http://www.openstreetmap.org/copyright) project. The data is available in two TSV files, which for convenience we provide by the Maven artificat `schedoscope-tutorial-osm-data`. The structure of the files looks like this:
 
         nodes  -- points on the map defined by longitude and latitude 
 
@@ -40,7 +40,6 @@ For measuring the "best" shop location, we assume the following:
 * The more _trainstations_ are around, the more customers will show up. (+)
 * The more other _shops_ are around, the less customers will show up. They rather might go to the competitors. (-)
 
-
 To measure distance, we use a geo hash. Two nodes are close to each other if they lie in the same area. A node's area is defined by the first 7 characters of `GeoHash.geoHashStringWithCharacterPrecision(longitude, latitude)`.
 
 ## The Plan
@@ -49,10 +48,10 @@ To measure distance, we use a geo hash. Two nodes are close to each other if the
 
 2. Filter for restaurants, trainstations and shops 
 
-3. Provide aggregated data such that the measures can be applied; the aggregation is stored in view `schedoscope.example.osm.datamart/ShopProfiles`
+3. Provide aggregated data such that the measures can be applied; the aggregation is stored in view `schedoscope.example.osm.datamart/ShopProfiles`. You can then find the best location for your shop by analyzing `schedoscope.example.osm.datamart/ShopProfiles`.
 
-Finally, you can find the best location for your shop by analyzing `schedoscope.example.osm.datamart/ShopProfiles`.
-
+For the tutorial, we translated this plan into a hierarchy of derived Schedoscope views:
+ 
 ![dwh-structure.jpg](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/dwh-structure.jpg)
 
 ## Installation
