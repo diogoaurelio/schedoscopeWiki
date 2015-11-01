@@ -70,13 +70,13 @@ Let's get started:
 
 4. Clone the Schedoscope git repository:
 
-    `[cloudera@quickstart ~]$ cd ~` 
-    `[cloudera@quickstart ~]$ git clone https://github.com/ottogroup/schedoscope.git`
+         [cloudera@quickstart ~]$ cd ~
+         [cloudera@quickstart ~]$ git clone https://github.com/ottogroup/schedoscope.git
 
 5. Go into directory `schedoscope` and build the project:
 
-    `[cloudera@quickstart schedoscope]$ cd ~/schedoscope`
-    `[cloudera@quickstart schedoscope]$ mvn install`
+         [cloudera@quickstart schedoscope]$ cd ~/schedoscope
+         [cloudera@quickstart schedoscope]$ mvn install
 
 
 Hint: The Cloudera QuickStart VM comes with low memory settings for YARN/MapReduce which can result in memory problems. It is recommended to check the schedoscope and YARN logs. In case of `OutOfMemory` exceptions increase the following values:
@@ -93,8 +93,8 @@ It is also recommended to limit the number of simultaneously running application
 
 1. Launch Schedoscope:
 
-    `[cloudera@quickstart schedoscope]$ cd ~/schedoscope/schedoscope-tutorial`
-    `[cloudera@quickstart schedoscope-tutorial]$ mvn exec:java`
+     [cloudera@quickstart schedoscope]$ cd ~/schedoscope/schedoscope-tutorial
+     [cloudera@quickstart schedoscope-tutorial]$ mvn exec:java
 
 2. The Schedoscope Shell opens in the terminal. You can find the full [[command reference|Command Reference]] in the Schedoscope wiki.
 
