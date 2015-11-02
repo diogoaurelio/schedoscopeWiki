@@ -14,15 +14,15 @@ Scheduling with Schedoscope is based on three principles:
 
 ## Getting Started
 
-What Schedoscope does for you at glance:
+Get a glance of What Schedoscope does for:
 
 - [Schedoscope at a Glance](Schedoscope at a Glance)
 
-Then follow the Open Street Map tutorial to install, compile, and run Schedoscope in a standard Hadoop distribution image within minutes:
+Follow the Open Street Map tutorial to install, compile, and run Schedoscope in a standard Hadoop distribution image:
 
 - [Open Street Map Tutorial](Open Street Map Tutorial)
 
-Take a look at the View DSL Primer to get more information about the capabilities of the Schedoscope DSL:
+Read the View DSL Primer for more information about the capabilities of the Schedoscope DSL:
 
 - [Schedoscope View DSL Primer](Schedoscope View DSL Primer)
 
