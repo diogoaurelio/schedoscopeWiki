@@ -272,8 +272,9 @@ _Way more more interesting is to see Schedoscope discover change all by itself, 
 
         schedoscope> materialize -v schedoscope.example.osm.datamart/ShopProfiles
 
-8. Watch Schedoscope rematerialize `schedoscope.example.osm.datahub/Restaurants` and `schedoscope.example.osm.datamart/ShopProfiles` without any explicit migration commands from your side. No other views are recomputed because they are not affected by the change.
+8. Watch Schedoscope rematerialize `schedoscope.example.osm.datahub/Restaurants` and `schedoscope.example.osm.datamart/ShopProfiles` without any explicit migration commands from your side. No other views are recomputed because they are not affected by the change. 
 
+The criteria for detecting changes to transformation logic depend on the respective transformation type. Please have a look at the various transformation type descriptions for more information on this topic.
 
 ## Running on a real cluster
 You can get the tutorial running on your own hadoop cluster.
