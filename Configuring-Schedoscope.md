@@ -172,13 +172,15 @@ For an example of how to override these settings, you can also take a look at th
         hadoop {
         
             #
-            # Address and port of the YARN resource manager
+            # Address and port of the YARN resource manager. Note that any locally configured 
+            # Hadoop environment takes precedence.
             #
             
             resourceManager = "localhost:8032"
             
             #
-            # Address and port of the HDFS namenode
+            # Address and port of the HDFS namenode. Note that any locally configured 
+            # Hadoop environment takes precedence.
             #
             
             nameNode = "localhost:8020"       
