@@ -21,7 +21,7 @@ In real-world production deployment scenarios, you should probably follow a diff
 			<dependency>
 				<groupId>schedoscope</groupId>
 				<artifactId>schedoscope-core</artifactId>
-				<version>0.3.1-SNAPSHOT</version>
+				<version>0.3.0</version>
 			</dependency>
 			<dependency>
 				<groupId>schedoscope</groupId>
