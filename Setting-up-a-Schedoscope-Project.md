@@ -1,6 +1,6 @@
 Schedoscope is an internal Scala DSL for specifying views (Hive table partitions), their structure and dependencies, as well as the transformation logic required compute views from other views. As a consequence, setting up a Schedoscope project means setting up a Scala project that uses Schedoscope as a library. 
 
-For this purpose, we provide a Maven POM template in this section. It is of course possible to use other build tools such as SBT or Ant/Ivy. You are also encouraged to look at the POM of the tutorial.  The template sets up mixed compilation of Scala and Java code. 
+For this purpose, we provide a Maven POM template in this section. It is of course possible to use other build tools such as SBT or Ant/Ivy. You are also encouraged to look at the [POM of the tutorial](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/pom.xml), which is set up for mixed compilation of Java and Scala. 
 
 For running Schedoscope, the template utilizes the exec Maven plugin which assembles a classpath from the Maven dependencies and launches the Schedoscope REST service right out of the project folder.
 
@@ -62,33 +62,6 @@ In real-world production deployment scenarios, you should probably follow a diff
 		<build>
 			<plugins>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.3</version>
-					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
-					</configuration>
-					<executions>
-						<execution>
-							<id>default-compile</id>
-							<phase>none</phase>
-						</execution>
-						<execution>
-							<id>default-testCompile</id>
-							<phase>none</phase>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.7</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>2.4</version>
 					<executions>
@@ -136,20 +109,6 @@ In real-world production deployment scenarios, you should probably follow a diff
 							<javacArg>1.7</javacArg>
 						</javacArgs>
 					</configuration>
-					<executions>
-						<execution>
-							<id>scala-compile</id>
-							<goals>
-								<goal>compile</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>scala-test-compile</id>
-							<goals>
-								<goal>testCompile</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.scalatest</groupId>
