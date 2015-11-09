@@ -286,6 +286,22 @@ A view can be given a comment.
       storedAs(Parquet())
     }
 
+Likewise, fields can be given a comment:
+
+    case class Brand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]("The brand's name")
+
+      comment("Each shop delivers a list of all active brands on a daily basis") 
+      storedAs(Parquet())
+    }
+
 # Dependencies
 
 Schedoscope views may be computed from other views. This has implications on scheduling as a view can only be computed if all prerequisite views have been computed already.
