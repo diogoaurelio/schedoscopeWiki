@@ -50,16 +50,16 @@ In real-world production deployment scenarios, you should probably follow a diff
 				<artifactId>minioozie</artifactId>
 				<version>0.1.8</version>
 				<scope>test</scope>
-                        <exclusions>
-                            <exclusion>
-                                <groupId> org.cloudera.logredactor</groupId>
-                                <artifactId>logredactor</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <artifactId>jersey-server</artifactId>
-                                <groupId>com.sun.jersey</groupId>
-                            </exclusion>
-                        </exclusions>
+				<exclusions>
+					<exclusion>
+						<groupId> org.cloudera.logredactor</groupId>
+						<artifactId>logredactor</artifactId>
+					</exclusion>
+					<exclusion>
+						<artifactId>jersey-server</artifactId>
+						<groupId>com.sun.jersey</groupId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 		</dependencies>
 
