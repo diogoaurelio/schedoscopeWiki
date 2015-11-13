@@ -55,6 +55,10 @@ In real-world production deployment scenarios, you should probably follow a diff
 						<groupId> org.cloudera.logredactor</groupId>
 						<artifactId>logredactor</artifactId>
 					</exclusion>
+                                        <exclusion>
+					        <artifactId>jersey-server</artifactId>
+					        <groupId>com.sun.jersey</groupId>
+				        </exclusion>
 				</exclusions>
 			</dependency>
 		</dependencies>
