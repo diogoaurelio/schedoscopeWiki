@@ -4,7 +4,7 @@ The goals of this tutorial are to:
 * get the [[Schedoscope tutorial code running|Open Street Map Tutorial#installing]] in the Cloudera Quickstart VM; 
 * [[watch Schedoscope doing its work|Open Street Map Tutorial#watching-schedoscope-work]];
 * [[explore the results|Open Street Map Tutorial#exploring-the-results]];
-* [[watch Schedoscope dealing with change|Open Street Map Tutorial#dealing-with-change]
+* [[watch Schedoscope dealing with change|Open Street Map Tutorial#dealing-with-change]];
 * get the [[tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
 * get the [[tutorial set up in your IDE|Open Street Map Tutorial#setting-up-scala-ide]];
 * get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
