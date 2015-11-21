@@ -21,17 +21,7 @@ In real-world production deployment scenarios, you should probably follow a diff
 			<dependency>
 				<groupId>schedoscope</groupId>
 				<artifactId>schedoscope-core</artifactId>
-				<version>0.3.3</version>
-			</dependency>
-			<dependency>
-				<groupId>schedoscope</groupId>
-				<artifactId>schedoscope-tutorial-osm-data</artifactId>
-				<version>0.1.1</version>
-			</dependency>
-			<dependency>
-				<groupId>ch.hsr</groupId>
-				<artifactId>geohash</artifactId>
-				<version>1.0.13</version>
+				<version>0.3.4</version>
 			</dependency>
 			<dependency>
 				<groupId>org.scalatest</groupId>
