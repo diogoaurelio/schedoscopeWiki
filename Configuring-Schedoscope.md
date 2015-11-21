@@ -172,15 +172,15 @@ For an example of how to override these settings, you can also take a look at th
         hadoop {
         
             #
-            # Address and port of the YARN resource manager. Note that any locally configured 
-            # Hadoop environment takes precedence.
+            # Address and port of the YARN resource manager. Note that any locally configured Hadoop environment
+            # takes precedence.
             #
             
             resourceManager = "localhost:8032"
             
             #
-            # Address and port of the HDFS namenode. Note that any locally configured 
-            # Hadoop environment takes precedence.
+            # Address and port of the HDFS namenode. Note that any locally configured Hadoop environment
+            # takes precedence.
             #
             
             nameNode = "localhost:8020"       
@@ -653,6 +653,8 @@ For an example of how to override these settings, you can also take a look at th
         
         actor {        
         
+            guardian-supervisor-strategy = "org.schedoscope.TerminatingStoppingStrategy"
+        
             #
             # Given the variety of component-specific dispatchers used by Schedoscope
             # we limit the Akka default dispatcher to 8 threads.
@@ -663,9 +665,9 @@ For an example of how to override these settings, you can also take a look at th
                 type = Dispatcher
                                      
                 thread-pool-executor {
-                    core-pool-size-min = 8
+                    core-pool-size-min = 2
                     core-pool-size-factor = 1.0
-                    core-pool-size-max = 8
+                    core-pool-size-max = 2
                     task-queue-size = -1
                 }
 
@@ -684,24 +686,15 @@ For an example of how to override these settings, you can also take a look at th
                 executor = "thread-pool-executor"                
                  
                 thread-pool-executor {
-                    core-pool-size-min = 8
+                    core-pool-size-min = 4
                     core-pool-size-factor = 1.0
-                    core-pool-size-max = 8
+                    core-pool-size-max = 4
                     task-queue-size = -1
                 }
 
                 throughput = 5
             }
 
-            #
-            # The root actor / supervisor of the Schedoscope actor system is assigned 
-            # to one pinned dispatcher / thread. Should not need to be changed.
-            #
-            
-            root-actor-dispatcher {
-                executor = "thread-pool-executor"
-                type = PinnedDispatcher         
-            }   
 
             #
             # The supervisor / message router for the Metastore-related actors is 
@@ -709,7 +702,7 @@ For an example of how to override these settings, you can also take a look at th
             # changed.
             #
 
-            schema-root-actor-dispatcher {
+            schema-manager-dispatcher {
                 executor = "thread-pool-executor"
                 type = PinnedDispatcher         
             }           
@@ -720,7 +713,7 @@ For an example of how to override these settings, you can also take a look at th
             # be aligned with the property schedoscope.metastore.concurrency 
             #
             
-            schema-actor-dispatcher {
+            partition-creator-dispatcher {
                 executor = "thread-pool-executor"
                 type = Dispatcher
                                  
@@ -751,7 +744,7 @@ For an example of how to override these settings, you can also take a look at th
             # for reasons of responsiveness.
             #
 
-            actions-manager-dispatcher {
+            transformation-manager-dispatcher {
                 executor = "thread-pool-executor"
                 type = PinnedDispatcher         
             }
@@ -773,18 +766,18 @@ For an example of how to override these settings, you can also take a look at th
             #
 
             views-dispatcher {
-                executor = "thread-pool-executor"
+                executor = "fork-join-executor"
                 type = Dispatcher
                                      
-                thread-pool-executor {
-                    core-pool-size-min = 8
-                    core-pool-size-factor = 4.0
-                    core-pool-size-max = 96
+                fork-join-executor {
+                    parallelism-min = 16 
+                    parallelism-factor = 4.0
+                    parallelism-max = 16
                     task-queue-size = -1
                 }
 
                 throughput = 5
-            }               
+            }          
 
             #
             # The threadpool / dispatcher available for the transformation drivers. 
@@ -800,7 +793,7 @@ For an example of how to override these settings, you can also take a look at th
                                  
                 thread-pool-executor {
                     core-pool-size-min = 8
-                    core-pool-size-factor = 1.0
+                    core-pool-size-factor = 2.0
                     core-pool-size-max = 8
                     task-queue-size = -1
                 }
@@ -822,9 +815,9 @@ For an example of how to override these settings, you can also take a look at th
                 executor = "thread-pool-executor"  
 
                 thread-pool-executor {
-                    core-pool-size-min = 22
-                    core-pool-size-factor = 4.0
-                    core-pool-size-max = 22
+                    core-pool-size-min = 24
+                    core-pool-size-factor = 6.0
+                    core-pool-size-max = 24
                     task-queue-size = -1
                 }
 
@@ -833,20 +826,6 @@ For an example of how to override these settings, you can also take a look at th
         }
     }
 
-    kamon.metric.filters {
-      akka-actor {
-        includes = [ "schedoscope/user/schema", "schedoscope/user/schema-root", "schedoscope/user/views", "schedoscope/user/actions" ]
-        excludes = [ "schedoscope/system/**", "schedoscope/user/worker-helper" ]
-      }
-
-      akka-dispatcher {
-        includes = [ "schedoscope/akka.actor.default-dispatcher", "schedoscope/driver-dispatcher" ]
-      }
-
-      akka-router {
-        includes = [ "schedoscope/user/actionsrouter" ]
-      }
-    }
     #
     # The following are a list of "suggestions" for spray settings to use for the 
     # Schedoscope web service and client. Akka will not pick them up automatically. 
@@ -863,6 +842,7 @@ For an example of how to override these settings, you can also take a look at th
     spray.can.host-connector.idle-timeout = infinite
     spray.can.server.request-timeout = infinite
     spray.can.server.idle-timeout = infinite
+   
 
 # Configuring Logback
 
