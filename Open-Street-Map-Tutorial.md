@@ -296,11 +296,11 @@ Install the Schedoscope tutorial on a gateway machine to your cluster:
 
           hadoop {
              resourceManager = "yourhost:yourport"
-             nameNode = "yourhost:yourport"
+             nameNode = "hdfs://yourhost:yourport"
           }
 
           metastore {
-            metastoreUri = "your/hive/metastore/uri"
+            metastoreUri = "thrift://your/hive/metastore/uri"
             jdbcUrl = "your/hive/jdbc/uri" # include the kerberos principal if needed
           }
 
