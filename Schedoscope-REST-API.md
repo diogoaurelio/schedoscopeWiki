@@ -125,6 +125,7 @@ Path: /materialize/`ViewUrlPath`
 
 - `status=<status>`: materialize all views that have a given status (e.g. 'failed')
 - `mode=RESET_TRANSFORMATION_CHECKSUMS`: ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations in way that does not require recomputation.
+- `mode=RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS`: perform a transformation dry run, only update checksums and timestamps. Useful when data is put on HDFS manually and shall be accepted as is by schedoscope.
 
 
 **Returns**  
