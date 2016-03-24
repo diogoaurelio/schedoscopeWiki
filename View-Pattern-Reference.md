@@ -43,7 +43,9 @@ Examples:
 
     ei(1,2,3)                          => an enumeration of integer view parameters 
     e(aString, anotherString)          => an enumeration of string view parameters 
-    eymd(yyyyMM,yyyMM)                 => an enumeration of MonthlyParameterizations
-    erymd(yyyyMM-yyyyMM,yyyyMM-yyyyMM) => an enumeration of MonthlyParameterization ranges
+    eym(yyyyMM,yyyMM)                  => an enumeration of MonthlyParameterizations
+    erym(yyyyMM-yyyyMM,yyyyMM-yyyyMM)  => an enumeration of MonthlyParameterization ranges
+    eymd(yyyyMMdd,yyyMMdd)                     => an enumeration of DailyParameterizations
+    erymd(yyyyMMdd-yyyyMMdd,yyyyMMdd-yyyyMMdd) => an enumeration of DailyParameterization ranges
 
 Use backslashes to escape view URL pattern syntax given. The following characters need quotation: `\,(-)`.
