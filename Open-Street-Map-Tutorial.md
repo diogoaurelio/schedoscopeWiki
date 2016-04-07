@@ -240,7 +240,7 @@ One way to deal with change is to explicitly retrigger computation of views:
 
 9. Once everything has been materialized, type `shutdown` to stop Schedoscope.
 
-_Way more more interesting is to see Schedoscope discover change all by itself, however!_
+_Way more interesting is to see Schedoscope discover change all by itself, however!_
 
 7. Make sure all views have been materialized and that you have quit the Schedoscope shell.
 
