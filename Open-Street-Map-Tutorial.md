@@ -18,7 +18,7 @@ You can find a list of [[hints|Open Street Map Tutorial#hints]] at the end of th
 ## The Story
 Imagine you had a fantastic business idea. You would like to buy a promising shop in Hamburg, Germany. However... **which shop in Hamburg is the one located best?**
 
-For implementing this tutorial, we use geospatial data from the [Open Street Map](http://www.openstreetmap.org/copyright) project. The data is available in two TSV files, which for convenience we provide by the Maven artificat `schedoscope-tutorial-osm-data`. The structure of the files looks like this:
+For implementing this tutorial, we use geospatial data from the [Open Street Map](http://www.openstreetmap.org/copyright) project. The data is available in two TSV files, which for convenience we provide by the Maven artifact `schedoscope-tutorial-osm-data`. The structure of the files looks like this:
 
         nodes  -- points on the map defined by longitude and latitude 
 
@@ -38,7 +38,7 @@ For implementing this tutorial, we use geospatial data from the [Open Street Map
 For measuring the "best" shop location, we assume the following:
 * The more _restaurants_ are around, the more customers will show up. (+)
 * The more _trainstations_ are around, the more customers will show up. (+)
-* The more other _shops_ are around, the less customers will show up. They rather might go to the competitors. (-)
+* The more other _shops_ are around, the fewer customers will show up. They rather might go to the competitors. (-)
 
 To measure distance, we use a geo hash. Two nodes are close to each other if they lie in the same area. A node's area is defined by the first 7 characters of `GeoHash.geoHashStringWithCharacterPrecision(longitude, latitude)`.
 
@@ -46,7 +46,7 @@ To measure distance, we use a geo hash. Two nodes are close to each other if the
 
 1. Calculate each node's geohash
 
-2. Filter for restaurants, trainstations and shops 
+2. Filter for restaurants, trainstations, and shops 
 
 3. Provide aggregated data such that the measures can be applied; the aggregation is stored in view `schedoscope.example.osm.datamart/ShopProfiles`. You can then find the best location for your shop by analyzing `schedoscope.example.osm.datamart/ShopProfiles`.
 
@@ -146,7 +146,7 @@ Let's get started:
 
         [cloudera@quickstart ~]$ tail -F ~/schedoscope/schedoscope-tutorial/target/logs/schedoscope.log
 
-9. Type `shutdown` or `^C` in the Schedoscope shell if you want to stop Schedoscope. You should wait for it to complete the materialization of views to continue with the tutorial though.
+9. Type `shutdown` or `^C` in the Schedoscope shell if you want to stop Schedoscope. You should wait for it to complete the materialization of views to continue with the tutorial, though.
 
 ## Exploring the results
 
@@ -160,7 +160,7 @@ Let's get started:
 
             hive> show databases;
 
-    The database names look like `{environment}_{packagename}`, with the the dots in the package name of the materialized views replaced by underscores. The environment is set in `~/schedscope/schedoscope-tutorial/src/main/resources/schedoscope.conf`.
+    The database names look like `{environment}_{packagename}`, with the dots in the package name of the materialized views replaced by underscores. The environment is set in `~/schedscope/schedoscope-tutorial/src/main/resources/schedoscope.conf`.
 
     * List the tables of a database: 
 
@@ -179,7 +179,7 @@ Let's get started:
 
             hive> select * from shop_profiles limit 10;
 
-    * Take a look around the tables yourself.
+    * Take a look at the tables yourself.
 
     As one can see, every tutorial table does contain columns `id`, `created_at` (when was the data loaded)
     and `created_by` (which Job provided the data). These fields are defined using common  [[traits|View Traits]] carrying predefined fields.
@@ -437,7 +437,7 @@ There are other Open Street Map TSV-files provided by the dependency `schedoscop
 
 You could create stage views `schedoscope.example.osm.stage.Ways`, `schedoscope.example.osm.stage.WayNodes`, and `schedoscope.example.osm.stage.WayTags` that capture those files by reading them from the classpath. The tutorial class `schedoscope.example.osm.stage.Nodes` can serve as your template for how this can be done.
 
-You can implement a view `schedoscope.example.osm.processed.Ways` that comprises all information about ways. This view should have `schedoscope.example.osm.processed.Nodes` as well as the new stage views you created above as dependencies. Establishing a monthly partitioning from `tstmp` would also be appropriate. You can use a Hive transformation that uses the brickhouse UDF `collect` to create a map of tags and an array of with all `node_id` which each way comprises. Take look at `Nodes` for a template of how to use `collect`. 
+You can implement a view `schedoscope.example.osm.processed.Ways` that comprises all information about ways. This view should have `schedoscope.example.osm.processed.Nodes`, as well as, the new stage views you created above as dependencies. Establishing a monthly partitioning from `tstmp` would also be appropriate. You can use a Hive transformation that uses the brickhouse UDF `collect` to create a map of tags and an array of with all `node_id` which each way comprises. Take a look at `Nodes` for a template of how to use `collect`. 
 
 When done, rebuild and restart Schedoscope:
 
