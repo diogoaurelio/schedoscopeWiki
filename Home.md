@@ -14,7 +14,7 @@ Scheduling with Schedoscope is based on three principles:
 
 ## Getting Started
 
-Get a glance of What Schedoscope does for:
+Get a glance of what Schedoscope does for you:
 
 - [Schedoscope at a Glance](Schedoscope at a Glance)
 
