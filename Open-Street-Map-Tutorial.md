@@ -540,7 +540,9 @@ Go into directory `schedoscope/schedoscope-tutorial` and [[execute|Open Street M
 
 ## Scheduling 
 
-Schedoscope offers an [[HTTP API|Schedoscope HTTP API]]. If you want your data up-to-date 5 minutes past every hour during business time (8am-8pm) simply register a cronjob, such as:
+Schedoscope offers an [[HTTP API|Schedoscope HTTP API]]. The API is particularly useful for automating job runs and connecting Schedoscope to shell scripts or other ETL tools. 
+
+For example, if you want your data up-to-date 5 minutes past every hour during business time (8am-8pm) simply register a cronjob, such as:
 
        5   8-20 * * *  curl http://localhost:20698/materialize/schedoscope.example.osm.datamart/ShopProfiles
 
