@@ -285,7 +285,7 @@ _Way more interesting is to see Schedoscope discover change all by itself, howev
 9. Take again a look at the MySQL database:
 
          [cloudera@quickstart ~]$ mysql schedoscope_tutorial -u root -pcloudera
-
+         
 	 mysql> select * from demo_schedoscope_example_osm_datamart_shop_profiles limit 10;
 
    Note how the changes have been reflected by the MySQL export as well.
