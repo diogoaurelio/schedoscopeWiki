@@ -17,13 +17,13 @@ if a `ViewPattern` is given, only information about views matching the [pattern]
 
 **Parameters:**  
 
-- status=\[transforming,nodata,materialized,failed,waiting\]  
+- `status=(transforming|nodata|materialized|failed|retrying|waiting)`
     passing this parameter will further restrict the output to views with the given state.
-- filter=Regexp
+- `filter=Regexp`
     apply a regular expression filter on the view path to further limit information to certain views (e.g. '?filter=.*Visit.*')
-- dependencies=[true|false]  
+- `dependencies=(true|false)`  
     if a specific view is requested, setting this to true will also return information about all dependent views
-- overview=[true|false]  
+- `overview=(true|false)`  
     only return aggregate counts about view scheduling states and not information about individual views.
 
 **Returns**  
@@ -42,17 +42,12 @@ if a `ViewPattern` is given, only information about views matching the [pattern]
       }]  
     }  
 
-
-
-
 ### transformations
-
-transformations lists the transformation status, i.e., executing transformations.
+Lists the transformation status, i.e., currently running transformations.
 
 
 Method: GET  
 Path:  /transformations
-
 
 **Parameters:**  
 
