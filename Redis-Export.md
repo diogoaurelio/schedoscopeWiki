@@ -1,6 +1,6 @@
 # Summary
 
-You can configure parallel export of view data to a Redis key-value store using the `exportTo()` clause and `Redis` within a view.
+You can configure parallel export of view data to a Redis key-value store by specifying an `exportTo()` clause with `Redis` in a view. Whenever the view performs its transformation successfully and materializes, the view's data (i.e., the data of the Hive partition the view represents) is written to Redis using a specified field as the key. 
 
 # Syntax
     def Redis(
@@ -19,98 +19,40 @@ You can configure parallel export of view data to a Redis key-value store using 
         kerberosPrincipal: String = Schedoscope.settings.kerberosPrincipal,
         metastoreUri: String = Schedoscope.settings.metastoreUri) 
 
-# Example
-
-        case class ClickOfEC0101WithRedisExport(
-          year: Parameter[String],
-          month: Parameter[String],
-          day: Parameter[String]) extends View
-            with Id
-            with DailyParameterization {
-
-          val url = fieldOf[String]
-
-          val click = dependsOn(() => Click(p("EC0101"), year, month, day))
-
-          transformVia(
-            () => HiveTransformation(
-              insertInto(this, s"""
-                    SELECT ${click().id.n}, ${click().url.n}
-                    FROM ${click().tableName}
-                    WHERE ${click().shopCode.n} = '${click().shopCode.v.get}'""")))
-
-          exportTo(() => Redis(this, "localhost", id))
-
-        }
 # Description
 
-Pig transformations support the following parameters:
+The `Redis` export supports two modes: 
 
-* `latin`: the Pig Latin script computing the view. It supports ${parameter} style placeholders, which are replaced at query execution time by the values passed using the `.configureWith()` clause (see below).
+1. Full export: each record of your view is written as a map to the specified to key, with each field and partition parameter being a key of that map. Complex fields are serialized into a JSON structure or list and stored as a string within that map while fields of primitive types are assigned a corresponding Redis primitive type.
 
-* `dirsToDelete`: a list of HDFS paths that should be deleted before the Pig transformation is executed. When using `HCatStorer`, this list should be empty (which is the default) since the target partition folder must exist. When using `PigStorer`, the path `fullPath` should be deleted because the target partition folder must not exist.
+2.  Value export: Alternatively, you can select an additional value field and only that field's value is written to each key. This makes particular sense for complex fields, as the export will translate Hive sets, maps, and structures to Redis sets, map, and maps respectively. In case of nested complex fields, these are translated to JSON strings as with the full export.
 
-# Helpers
+Here is a description the parameters you must or can pass to `Redis` exports:
 
-The following functions help with the creation of Hive transformations:
+- `v`: a reference to the view being exported, usually `this` (mandatory)
+- `redisHost`: domain name or IP address of the Redis host being the target of the export (mandatory)
+- `key`: the field which provides the values for the Redis key in your export, usually the ID of your view (mandatory).
 
-## scriptFrom
+# Example
 
-`scriptFrom()` reads a Pig Latin script from a given file path.
+    case class ClickWithRedisExport(
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]) extends View
+           with DailyParameterization {
 
-    def scriptFrom(filePath: String): String
+      val id = fieldOf[String]
+      val url = fieldOf[String]
 
-Parameters:
-* `filePath`: the local file path from which to read the script.
+      val stage= dependsOn(() => Stage(year, month, day))
 
-## scriptFromResource
+      transformVia(
+        () => HiveTransformation(
+          insertInto(this, s"""SELECT id, url FROM ${stage().tableName} WHERE date_id='${dateId}'""")))
 
-`scriptFromResource()` reads a Pig Latin script from a resource on the classpath.
+      // Use the field id as the Redis key, write all fields (id and url) as a map to that key.
+      // The resulting Redis structure would look like this:
+      // id : { "id" : id, "url": url, "year": year, "month": month, "day": day, "date_id", date_id }
+      exportTo(() => Redis(this, "redishost", id))
 
-    def scriptFromResource(resourcePath: String): String
-
-Parameters:
-
-* `resourcePath`: the resource path from which to read the script.
-
-# Examples
-
-An example of a Pig Latin script compressing a raw source text file.
-
-    transformVia(() =>
-      PigTransformation("""
-        in = LOAD '${INPUT}' using PigStorage();
-        out = STORE in INTO '${OUTPUT}' using PigStorage();""",
-        List(this.fullPath)
-     ).configureWith(
-        Map("INPUT" -> rawLog().fullPath,
-            "OUTPUT" -> this.fullPath,
-            "output.compression.enabled" -> "true",
-            "output.compression.codec" -> "org.apache.hadoop.io.compress.GzipCodec")             
-        )
-     )
-
-Since `PigStorer` is used, the Pig transformation specifies that the `fullPath`of the given view is to be deleted prior to execution. 
-
-The script can be factored out to a resource file using the `scriptFromResource()` helper:
-
-    transformVia(() =>
-      PigTransformation(scriptFromResource("/pig/stage/compress_raw.pig"),
-        List(this.fullPath)
-     ).configureWith(
-        Map("INPUT" -> rawLog().fullPath,
-            "OUTPUT" -> this.fullPath,
-            "output.compression.enabled" -> "true",
-            "output.compression.codec" -> "org.apache.hadoop.io.compress.GzipCodec")             
-        )
-     )
-
-
-# Packaging and Deployment
-
-Pig UDFs are not yet supported, so no application-specific code needs to be packaged and deployed. However, Schedoscope automatically bundles and deploys `HCatStorage`.
-
-# Change detection
-
-Schedoscope tries to automatically detect changes to Pigtransformation-based views and to initiate rematerialization of views if the tranformation logic has potentially changed. This is achieved by computing a checksum on the Pig Latin script.
-
+    }
