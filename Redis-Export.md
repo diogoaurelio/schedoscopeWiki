@@ -23,9 +23,9 @@ You can configure parallel export of view data to a Redis key-value store by spe
 
 The `Redis` export supports two modes: 
 
-1. Full export: each record of your view is written as a map to the specified to key, with each field and partition parameter being a key of that map. Complex fields are serialized into a JSON structure or list and stored as a string within that map while fields of primitive types are assigned a corresponding Redis primitive type.
+1. Full export: each record of your view is assigned to the specified to key in form of a map, with the names of each field and partition parameter being the keys of that map. The values of primitive fields are stored using the corresponding Redis primitive type. The values of complex fields are serialized into a JSON structure or list and stored as a string. 
 
-2.  Value export: Alternatively, you can select an additional value field and only that field's value is assigned to the respective key. This makes particular sense for complex fields, as the export will translate Hive sets, maps, and structures to Redis sets, map, and maps respectively. In case of nested complex fields, these are translated to JSON strings as with the full export. In case of primitive fields, the value field's value is directly assigned to the key.
+2.  Value export: Alternatively, you can specify a value field in addition to the key field. Only that field's value is then assigned to the respective key. This makes particular sense for complex fields since the export will translate Hive sets, maps, and structures to Redis sets, maps, and maps, respectively. In case of nested complex fields, these are translated to JSON strings as with the full export. In case of primitive fields, the value field's value is directly assigned to the key.
 
 Here is a description the parameters you must or can pass to `Redis` exports:
 
@@ -64,7 +64,7 @@ Here is a description the parameters you must or can pass to `Redis` exports:
 
       // Use the field id as the Redis key, write all fields (id and url) as a map to that key.
       // The resulting Redis structure would look like this:
-      // id : { "id" : id, "url": url, "year": year, "month": month, "day": day, "date_id", date_id }
+      // { id : { "id" : id, "url": url, "year": year, "month": month, "day": day, "date_id", date_id } }
       exportTo(() => Redis(this, "redishost", id))
 
     }
@@ -86,7 +86,7 @@ Here is a description the parameters you must or can pass to `Redis` exports:
 
       // Use the field id as the Redis key, write only the value field url to that key.
       // The resulting Redis structure would look like this:
-      // id : url 
+      // { id : url }
       exportTo(() => Redis(this, "redishost", id, url))
 
     }
