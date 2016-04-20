@@ -7,7 +7,9 @@ The goals of this tutorial are to:
 * [[watch Schedoscope dealing with change|Open Street Map Tutorial#dealing-with-change]];
 * get the [[tutorial set up in your IDE|Open Street Map Tutorial#setting-up-scala-ide]];
 * get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
-* get the [[tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]].
+* get the [[tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
+* show[[how to integrate Schedoscope with cron|Open Street Map Tutorial#scheduling]].
+.
 
 You can find a list of [[hints|Open Street Map Tutorial#hints]] at the end of this tutorial.
 
