@@ -86,7 +86,7 @@ Let's get started:
         [cloudera@quickstart schedoscope]$ cd ~/schedoscope/schedoscope-tutorial
         [cloudera@quickstart schedoscope-tutorial]$ mvn exec:java
 
-2. The Schedoscope Shell opens in the terminal. You can find the full [[command reference|Command Reference]] in the Schedoscope wiki.
+2. The Schedoscope Shell opens in the terminal. You can find the full [[command reference|Scheduling Command Reference]] in the Schedoscope wiki.
 
 3. Type  `materialize -v schedoscope.example.osm.datamart/ShopProfiles`
 
