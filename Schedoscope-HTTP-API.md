@@ -102,7 +102,6 @@ Path: /queues
       }  
 
 ### materialize 
-
 Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksums.
 
 The materialization command ID is returned as a result.
@@ -135,15 +134,23 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
  	 }
 	
 ### invalidate
+Invalidate views, i.e., force a materialization upon subsequent materialize.
+
+The invalidation command ID is returned as a result.
+
 Method: GET  
 Path: /invalidate/`ViewUrlPath`  
 
+Refer to [the view pattern reference](View-Pattern-Reference) for how to specify a valid `ViewPattern`.
+
 
 **Parameters:**  
-- `status=<status>`: invalidate all views that have a given status (e.g. 'failed')
-- `viewPattern=viewPattern>`: invalidate all views with URL paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
-- `=filterregular=<regex>`: invalidate all views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`)
-- `dependencies=true`: invalidate the dependencies of the views as well
+- `status=(transforming|nodata|materialized|failed|retrying|waiting)`
+   materialize all views that have a given status (e.g. 'failed')
+- `filter=Regexp`
+    invalidate all views with their path matching regular expression (e.g. '?filter=.*Visit.*')
+- `dependencies=(true|false)`
+   invalidate the dependencies of the views as well
 
 **Returns**  
 
