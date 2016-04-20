@@ -363,7 +363,6 @@ The following transformation types are supported:
 - [Pig](Pig-Transformations)
 - [MapReduce](MapReduce Transformations)
 - [Oozie](Oozie Transformations)
-- [Morphline](Morphline Transformations)
 
 As fields and parameters of a view are just properties of the object representing the view. As such, they can be accessed and queried when constructing transformation objects. The following methods are available:
 
