@@ -107,7 +107,7 @@ Materialize view(s) - i.e., load the data of the designated views and their depe
 The materialization command ID is returned as a result.
 
 Method: GET  
-Path: /materialize/`ViewUrlPath`  
+Path: /materialize/`ViewPattern`  
 
 Refer to [the view pattern reference](View-Pattern-Reference) for how to specify a valid `ViewPattern`.
 
@@ -139,7 +139,7 @@ Invalidate views, i.e., force a materialization upon subsequent materialize.
 The invalidation command ID is returned as a result.
 
 Method: GET  
-Path: /invalidate/`ViewUrlPath`  
+Path: /invalidate/`ViewPattern`  
 
 Refer to [the view pattern reference](View-Pattern-Reference) for how to specify a valid `ViewPattern`.
 
