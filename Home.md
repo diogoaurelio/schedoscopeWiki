@@ -37,8 +37,11 @@ Read the View DSL Primer for more information about the capabilities of the Sche
  - [Pig](Pig-Transformations)
  - [MapReduce](MapReduce Transformations)
  - [Oozie](Oozie Transformations)
- - [Morphline](Morphline Transformations)
  - [Shell](Shell Transformations)
+- Exporting to
+  - [JDBC](JDBC Export)
+  - [Redis](Redis Export)
+  - [Kafka](Kafka Export)
 - [View Traits](View Traits)
 - [Test Framework](Test Framework)
 
