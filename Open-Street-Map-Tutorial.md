@@ -148,48 +148,48 @@ Let's get started:
 
 ## Exploring the results
 
-7. Open a new terminal. Use the Hive CLI to see the data materialized by Schedoscope:
+Open a new terminal. Use the Hive CLI to see the data materialized by Schedoscope:
 
-    * Start Hive: 
+* Start Hive: 
 
-            [cloudera@quickstart ~]$ hive
- 
-    * List the databases that Schedoscope automatically created: 
+		[cloudera@quickstart ~]$ hive
 
-            hive> show databases;
+* List the databases that Schedoscope automatically created: 
 
-    The database names look like `{environment}_{packagename}`, with the dots in the package name of the materialized views replaced by underscores. The environment is set in `~/schedscope/schedoscope-tutorial/src/main/resources/schedoscope.conf`.
+		hive> show databases;
 
-    * List the tables of a database: 
+The database names look like `{environment}_{packagename}`, with the dots in the package name of the materialized views replaced by underscores. The environment is set in `~/schedscope/schedoscope-tutorial/src/main/resources/schedoscope.conf`.
 
-            hive> use demo_schedoscope_example_osm_datamart;
-            hive> show tables;
+* List the tables of a database: 
 
-    A table name is the name of the corresponding view class extending base class `View` in lower case. E.g. `NodesWithGeohash` becomes a hive table named `nodes_with_geohash`.
+		hive> use demo_schedoscope_example_osm_datamart;
+		hive> show tables;
 
-    * List the columns of a table: 
+A table name is the name of the corresponding view class extending base class `View` in lower case. E.g. `NodesWithGeohash` becomes a hive table named `nodes_with_geohash`.
 
-            hive> describe shop_profiles;
+* List the columns of a table: 
 
-    Column names are the same as the names of the fields specified in the corresponding view class, similarly transformed to lower case.
+		hive> describe shop_profiles;
 
-    * List the first 10 entries of a table: 
+Column names are the same as the names of the fields specified in the corresponding view class, similarly transformed to lower case.
 
-            hive> select * from shop_profiles limit 10;
+* List the first 10 entries of a table: 
 
-    * Take a look at the tables yourself.
+		hive> select * from shop_profiles limit 10;
 
-    As one can see, every tutorial table does contain columns `id`, `created_at` (when was the data loaded)
-    and `created_by` (which Job provided the data). These fields are defined using common  [[traits|View Traits]] carrying predefined fields.
+* Take a look at the tables yourself.
 
-    * Let's take a look at the MySQL server running in the quickstart VM: 
-            
-            [cloudera@quickstart ~]$ mysql schedoscope_tutorial -u root -pcloudera
+As one can see, every tutorial table does contain columns `id`, `created_at` (when was the data loaded)
+and `created_by` (which Job provided the data). These fields are defined using common  [[traits|View Traits]] carrying predefined fields.
 
-            mysql> select * from demo_schedoscope_example_osm_datamart_shop_profiles limit 10;
+* Let's take a look at the MySQL server running in the quickstart VM: 
+		
+		[cloudera@quickstart ~]$ mysql schedoscope_tutorial -u root -pcloudera
 
-    A MySQL export has been configured with the `ShopProfiles` view. As a result, not only has `ShopProfiles` been materialized in hive; after transformation, Schedoscope created an equivalent table in MySQL and exported `ShopProfiles` to that table using a mapreduce job. Schedoscope's export module supports simple, parallel export to [JDBC](JDBC Export), [Redis](Redis Export), and [Kafka](Kafka Export).
-            
+		mysql> select * from demo_schedoscope_example_osm_datamart_shop_profiles limit 10;
+
+A MySQL export has been configured with the `ShopProfiles` view. As a result, not only has `ShopProfiles` been materialized in hive; after transformation, Schedoscope created an equivalent table in MySQL and exported `ShopProfiles` to that table using a mapreduce job. Schedoscope's export module supports simple, parallel export to [JDBC](JDBC Export), [Redis](Redis Export), and [Kafka](Kafka Export).
+
 ## Dealing with change
 
 One way to deal with change is to explicitly retrigger computation of views:
