@@ -410,7 +410,7 @@ Finally, we are able to take a look at the `ShopProfiles` view. Press `CTRL-T` a
                 
 As you can see:
 
-* The specification lists all the fields either directly (via `fieldOf`) or indirectly (via the traits `Id` and `JobMetadata`)that ended up in the `shop_profiles` table. The names of the fields have merely been changed from camel-case to lower case with underscores. 
+* The specification lists all the fields either directly (via `fieldOf`) or indirectly (via the traits `Id` and `JobMetadata`) that ended up in the `shop_profiles` table. The names of the fields have merely been changed from camel-case to lower case with underscores. 
 
 * Likewise, the table name as well as database name have been derived from the package and the case class names.
 
@@ -430,9 +430,9 @@ Finally,
 
 * Also, it defines the export to MySQL.
 
-Hence, Schedoscope knows how to compute `ShopProfiles` from  `Shops`, `Restaurants`, and `Trainstations`.
+Hence, Schedoscope was able to compute `ShopProfiles` from  `Shops`, `Restaurants`, and `Trainstations`.
 
-What's more, only because this explicit definition of data structure, dependencies, and logic, Schedoscope is able to identify when changes to structure and logic happen, and to derive a minimal transformation / materialization plan to accommodate the changes.
+What's essential: only because this explicit definition of data structure, dependencies, and logic, Schedoscope is able to identify when changes to structure and logic happen, and to derive a minimal transformation / materialization plan to accommodate the changes.
 
 ## Exploring the Test Framework
 
