@@ -1,5 +1,7 @@
 Schedoscope is a scheduling framework for painfree agile development, testing, (re)loading, and monitoring of your Hadoop data warehouse.
 
+Schedoscope makes the headache go away you are certainly going to get when having to frequently rollout and retroactively apply changes to computation logic and data structures in your datahub with traditional ETL job schedulers such as Oozie.
+
 With Schedoscope,
 * you never have to create DDL and schema migration scripts;
 * you do not have to manually determine which data must be deleted and recomputed in face of retroactive changes to logic or data structures;
