@@ -313,7 +313,7 @@ In order to understand how the demonstrated functionality is possible, it is tim
 
 6. Choose import
 
-In case your IDE has problems importing the schedoscope-tutorial project, you need to disable the shift of build phases for mixed compilation in the maven-compiler-plugin and scala-maven-plugin configurations in the pom. You can do this by commenting the `<executions>` sections for those plugiins prior to import and then removing the comments after import:
+In case your IDE has problems importing the schedoscope-tutorial project, you need to disable the shift of build phases for mixed compilation in the maven-compiler-plugin and scala-maven-plugin configurations in the pom. You can do this by commenting the `<executions>` sections for those plugins prior to import and then removing the comments after import:
 
 	<plugin>
 		<groupId>org.apache.maven.plugins</groupId>
@@ -371,12 +371,43 @@ In case your IDE has problems importing the schedoscope-tutorial project, you ne
 		-->
 	</plugin>
 
-7. Sometimes the Scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
+Sometimes the Scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
 
 ### Examine `ShopProfiles`
 
 Finally, we are able to look at the `ShopProfiles` view. Press `CTRL-T` and start to enter `ShopProfile` and you should be able to select `ShopProfiles.scala`. The file looks like this:
 
+    case class ShopProfiles() extends View
+        with Id
+        with JobMetadata {
+
+      val shopName = fieldOf[String]("The name of the profiled shop")
+      val shopType = fieldOf[String]("The type of shop, as given by OSM")
+      val area = fieldOf[String]("A geoencoded area string")
+      val cntCompetitors = fieldOf[Int]("The number of competitors in the area (shops of the same type)")
+      val cntRestaurants = fieldOf[Int]("The number of restaurants in the area")
+      val cntTrainstations = fieldOf[Int]("The number of trainstations in the area")
+
+      dependsOn { () => Shops() }
+      dependsOn { () => Restaurants() }
+      dependsOn { () => Trainstations() }
+
+      transformVia { () =>
+        HiveTransformation(
+          insertInto(
+            this,
+            queryFromResource("hiveql/datamart/insert_shop_profiles.sql"),
+            settings = Map("parquet.compression" -> "GZIP")))
+          .configureWith(defaultHiveQlParameters(this))
+      }
+
+      comment("Shop profiles showing number of nearby competitors, restaurants and trainstations for each shop")
+
+      storedAs(Parquet())
+
+      exportTo(() => Jdbc(this, "jdbc:mysql://localhost:3306/schedoscope_tutorial?createDatabaseIfNotExist=true", "root", "cloudera"))
+    }
+                
 
 
 
