@@ -11,9 +11,9 @@ For example:
 
     java -cp ${MY_SCHEDOSCOPE_CP} -Dlogback.configurationFile=${MY_SCHEDOSCOPE_FOLDER}/eci-logging.xml -Dconfig.file=${MY_SCHEDOSCOPE_FOLDER}/schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService --shell
 
-## Schedoscope REST Client
+## Schedoscope HTTP Client
 
-There is also the Schedoscope REST client, which communicates with a running Schedoscope instance via the REST interface. The client can be started via the class `org.schedoscope.scheduler.rest.client.SchedoscopeRestCli` passing it the command to execute.
+There is also the Schedoscope HTTP client, which communicates with a running Schedoscope instance via the HTTP interface. The client can be started via the class `org.schedoscope.scheduler.rest.client.SchedoscopeRestCli` passing it the command to execute.
 
 For example: 
 
@@ -24,7 +24,7 @@ For this work, the configuration properties
 * `schedoscope.webservice.host` and
 * `schedoscope.webservice.port`
 
-must point to the running Schedoscope REST service
+must point to the running Schedoscope HTTP service
 
 # View Paths
 
@@ -41,7 +41,7 @@ and view ranges, Schedoscope makes use of a view pattern language:
 
 Supported options:
 - `-s`, `--status <status>`: filter views by their status (e.g. 'transforming')
-- `-v`, `--viewPattern <viewPattern>`: select only views with URL paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
+- `-v`, `--viewPattern <viewPattern>`: select only views with paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
 - `-f`, `--filterregular <regex>`: select only views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`)
 - `-d`, `--dependencies`: include dependencies in this view list
 - `-o`, `--overview`: only show a count of views by status
@@ -129,7 +129,7 @@ The materialization command ID is returned as a result.
 
 Supported options:
 - `-s`, `--status <status>`: materialize all views that have a given status (e.g. 'failed')
-- `-v`, `--viewPattern <viewPattern>`: materialize all views with URL paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
+- `-v`, `--viewPattern <viewPattern>`: materialize all views with paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
 - `-f`, `--filterregular <regex>`: materliaze only views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`). These views must have been initialized before, e.g, by a views command.
 - `-m`, `--mode RESET_TRANSFORMATION_CHECKSUMS`: ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations in way that does not require recomputation.
 - `-m`, `--mode RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS`: perform a "dry run" where transformation checksums and timestamps are set along the usual rules, however with no actual transformations taking place. As a result, all checksums in the metastore should be current and transformation timestamps should be consistent, such that no materialization will take place upon subsequent normal materializations.
@@ -167,7 +167,7 @@ Invalidate previously materialized view(s) to enforce rematerialization upon the
 
 Supported options:
 - `-s`, `--status <status>`: invalidate all views that have a given status (e.g. 'failed')
-- `-v`, `--viewPattern <viewPattern>`: invalidate all views with URL paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
+- `-v`, `--viewPattern <viewPattern>`: invalidate all views with paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
 - `-f`, `--filterregular <regex>`: invalidate all views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`)
 - `-d`, `--dependencies`: invalidate the dependencies of the views as well
 
