@@ -1,7 +1,7 @@
 Schedoscope can be controlled with scheduling commands. There are two ways of issuing these commands:
 
 * using the Schedoscope shell command prompt opening when Schedoscope is not launched as a daemon;
-* using the Schedoscope REST client based on the [HTTP API](Schedoscope HTTP API) 
+* using the Schedoscope client based on the [HTTP API](Schedoscope HTTP API) 
 
 ## Schedoscope Shell
 
