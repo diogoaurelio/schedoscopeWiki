@@ -371,11 +371,11 @@ In case your IDE has problems importing the schedoscope-tutorial project, you ne
 		-->
 	</plugin>
 
-Sometimes the Scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
+Sometimes the Scala folders need to be added as source folders manually. Right-click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder", and select the missing folders `src/main/scala` and `src/test/scala`.
 
 ### Examine `ShopProfiles`
 
-Finally, we are able to look at the `ShopProfiles` view. Press `CTRL-T` and start to enter `ShopProfile` and you should be able to select `ShopProfiles.scala`. The file looks like this:
+Finally, we are able to take a look at the `ShopProfiles` view. Press `CTRL-T` and start to type `ShopProfile` and you should be able to select `ShopProfiles.scala` in the dialog that pops up. The file looks like this:
 
     case class ShopProfiles() extends View
         with Id
@@ -408,16 +408,39 @@ Finally, we are able to look at the `ShopProfiles` view. Press `CTRL-T` and star
       exportTo(() => Jdbc(this, "jdbc:mysql://localhost:3306/schedoscope_tutorial?createDatabaseIfNotExist=true", "root", "cloudera"))
     }
                 
+As you can see:
 
+* The specification lists all the fields either directly (via `fieldOf`) or indirectly (via the traits `Id` and `JobMetadata`)that ended up in the `shop_profiles` table. The names of the fields have merely been changed from camel-case to lower case with underscores. 
 
+* Likewise, the table name as well as database name have been derived from the package and the case class names.
+
+* The specification also defines the storage format.
+
+As a consequence, Schedoscope had all the data structure information at hand to create the Hive table. 
+
+Next,
+
+* the specification defines the dependencies of `ShopProfiles` (via `dependsOn`). It depends on the views `Shops`, `Restaurants`, and `Trainstations`.
+
+Given this knowledge of data dependencies, Schedoscope was able to infer a correct materialization and transformation order of views.
+
+Finally,
+
+* the specification defines the transformation logic (using `transformVia`). It is a Hive query kept in the file `insert_shop_profiles.sql`.
+
+* Also, it defines the export to MySQL.
+
+Hence, Schedoscope knows how to compute `ShopProfiles` from  `Shops`, `Restaurants`, and `Trainstations`.
+
+What's more, only because this explicit definition of data structure, dependencies, and logic, Schedoscope is able to identify when changes to structure and logic happen, and to derive a minimal transformation / materialization plan to accommodate the changes.
 
 ## Exploring the Test Framework
 
-The custom [Test Framework](Test Framework) of Schedoscope facilitates quick testing of code. 
+Schedoscope comes with a nice [Test Framework](Test Framework) that facilitates quick testing of code. 
 
 1. You can run a test by right clicking on a test class in the Scala IDE's package explorer (e.g., `schedoscope-tutorial/src/test/scala/schedoscope/example/osm/datahub/RestaurantsTest.scala`  and choosing `Run As > Scala Test - File`
 
-2. Initially, this will fail because you need to provide a `HADOOP_HOME` environment variable setting. Lookup the IDE's run configuration for your failed test and set `HADOOP_HOME` to `/<yourhomedir>/schedoscope/schedoscope-tutorial/target/hadoop`. The Schedoscope test framework will automatically deploy a local Hadoop installation in that folder.
+2. Initially, this will fail because you need to provide a `HADOOP_HOME` environment variable setting. Lookup the IDE's run configuration for your failed test and set `HADOOP_HOME` to `~/schedoscope/schedoscope-tutorial/target/hadoop`. The Schedoscope test framework will automatically deploy a local Hadoop installation in that folder.
 
 ![test_run_configurations](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/test_run_configurations.png)
 
@@ -426,6 +449,7 @@ The custom [Test Framework](Test Framework) of Schedoscope facilitates quick tes
 3. The tests can also be executed via Maven: `mvn test`. 
 
 ## Running on a real cluster
+
 You can get the tutorial running on your own hadoop cluster.
  
 Install the Schedoscope tutorial on a gateway machine to your cluster:
