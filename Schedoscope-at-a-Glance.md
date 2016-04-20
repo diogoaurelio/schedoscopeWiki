@@ -8,6 +8,7 @@ With Schedoscope,
 * you benefit from Scala's static type system and your IDE's code completion to make less typos that hit you late during deployment or runtime;
 * you can easily write unit tests for your transformation logic in [ScalaTest](http://www.scalatest.org/) and run them quickly right out of your IDE;
 * you schedule jobs by expressing the views you need - Schedoscope takes care that all required dependencies - and only those-  are computed as well;
+* you can easily and efficiently export view data in parallel to external systems such as Redis caches, JDBC, or Kafka topics;
 * you achieve a higher utilization of your YARN cluster's resources because job launchers are not YARN applications themselves that consume cluster capacitity.
 
 Based on Schedoscope's DSL, 
@@ -91,6 +92,42 @@ Based on Schedoscope's DSL,
          comment("View of nodes partitioned by year and month with tags and geohash")
 
          storedAs(Parquet())
+      }
+
+* efficiently exporting view data in parallel to an external database such as MySQL is as simple as:
+
+        case class Nodes(
+          year: Parameter[String],
+          month: Parameter[String]) extends View
+          with MonthlyParameterization
+          with Id
+          with PointOccurrence
+          with JobMetadata {
+
+          val version = fieldOf[Int]
+          val user_id = fieldOf[Int]
+          val longitude = fieldOf[Double]
+          val latitude = fieldOf[Double]
+          val geohash = fieldOf[String]
+          val tags = fieldOf[Map[String, String]]
+
+          dependsOn(() => NodesWithGeohash(p(year), p(month)))
+          dependsOn(() => NodeTags(p(year), p(month)))
+
+          transformVia(() =>
+            HiveTransformation(
+              insertInto(
+                this,
+                queryFromResource("hiveql/processed/insert_nodes.sql")))          
+            .configureWith(Map(
+               "year" -> year.v.get,
+               "month" -> month.v.get)))
+
+         comment("View of nodes partitioned by year and month with tags and geohash")
+
+         storedAs(Parquet())
+
+         exportTo(() => Jdbc(this, "jdbc:mysql://mysqlhost:3306/somedatabase", "someuser", "somepassword")))
       }
 
 * testing the view logic is as simple as:
