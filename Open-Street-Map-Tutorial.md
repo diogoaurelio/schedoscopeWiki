@@ -150,45 +150,45 @@ Let's get started:
 
 Open a new terminal. Use the Hive CLI to see the data materialized by Schedoscope:
 
-* Start Hive: 
+1. Start Hive: 
 
 		[cloudera@quickstart ~]$ hive
 
-* List the databases that Schedoscope automatically created: 
+2. List the databases that Schedoscope automatically created: 
 
 		hive> show databases;
 
-The database names look like `{environment}_{packagename}`, with the dots in the package name of the materialized views replaced by underscores. The environment is set in `~/schedscope/schedoscope-tutorial/src/main/resources/schedoscope.conf`.
+   The database names look like `{environment}_{packagename}`, with the dots in the package name of the materialized views replaced by underscores. The environment is set in `~/schedscope/schedoscope-tutorial/src/main/resources/schedoscope.conf`.
 
-* List the tables of a database: 
+3. List the tables of a database: 
 
 		hive> use demo_schedoscope_example_osm_datamart;
 		hive> show tables;
 
-A table name is the name of the corresponding view class extending base class `View` in lower case. E.g. `NodesWithGeohash` becomes a hive table named `nodes_with_geohash`.
+   A table name is the name of the corresponding view class extending base class `View` in lower case. E.g. `NodesWithGeohash` becomes a hive table named `nodes_with_geohash`.
 
-* List the columns of a table: 
+4. List the columns of a table: 
 
 		hive> describe shop_profiles;
 
-Column names are the same as the names of the fields specified in the corresponding view class, similarly transformed to lower case.
+   Column names are the same as the names of the fields specified in the corresponding view class, similarly transformed to lower case.
 
-* List the first 10 entries of a table: 
+5. List the first 10 entries of a table: 
 
 		hive> select * from shop_profiles limit 10;
 
-* Take a look at the tables yourself.
+6. Take a look around the tables yourself.
 
-As one can see, every tutorial table does contain columns `id`, `created_at` (when was the data loaded)
+   As one can see, every tutorial table does contain columns `id`, `created_at` (when was the data loaded)
 and `created_by` (which Job provided the data). These fields are defined using common  [[traits|View Traits]] carrying predefined fields.
 
-* Let's take a look at the MySQL server running in the quickstart VM: 
+7. Let's take a surprised look at the MySQL server running in the quickstart VM: 
 		
 		[cloudera@quickstart ~]$ mysql schedoscope_tutorial -u root -pcloudera
 
 		mysql> select * from demo_schedoscope_example_osm_datamart_shop_profiles limit 10;
 
-A MySQL export has been configured with the `ShopProfiles` view. As a result, not only has `ShopProfiles` been materialized in hive; after transformation, Schedoscope created an equivalent table in MySQL and exported `ShopProfiles` to that table using a mapreduce job. Schedoscope's export module supports simple, parallel export to [JDBC](JDBC Export), [Redis](Redis Export), and [Kafka](Kafka Export).
+   A MySQL export has been configured with the `ShopProfiles` view. As a result, not only has `ShopProfiles` been materialized in hive; after transformation, Schedoscope created an equivalent table in MySQL and exported `ShopProfiles` to that table using a mapreduce job. Schedoscope's export module supports simple, parallel export to [JDBC](JDBC Export), [Redis](Redis Export), and [Kafka](Kafka Export).
 
 ## Dealing with change
 
