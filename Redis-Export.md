@@ -1,6 +1,6 @@
 # Summary
 
-You can configure a parallel export of view data to a Redis key-value store by specifying an `exportTo()` clause with `Redis` in a view. Whenever the view performs its transformation successfully and materializes, the view's data (i.e., the data of the Hive partition the view represents) is written to Redis using a specified field as the key. 
+You can configure a parallel export of view data to a Redis key-value store by specifying an `exportTo()` clause with `Redis` in a view. Whenever the view performs its transformation successfully and materializes, Schedoscope triggers a mapreduce job that writes the view's data (i.e., the data of the Hive partition the view represents) to Redis using a specified field as the key. 
 
 # Syntax
     def Redis(
