@@ -1,4 +1,4 @@
-Schedoscope commands address views by URL paths. View URL paths have the following format:
+Schedoscope commands address views by paths. View paths have the following format:
 
     {package}/{view}(/{view parameter value})*
 
@@ -26,7 +26,7 @@ Examples:
     example.datamart/SearchExport/SHOP10/2015/05
     example.datamart/ViewHavingAStringIntFloatBooleanAndSomeNullParameter/SHOP10/i(2015)/f(5.23)/t(true)/null()
 
-View URL paths can not only address individual views but also collections of views. To that end, they support range expressions:
+View paths can not only address individual views but also collections of views. To that end, they support range expressions:
 
 - `rym(yyyyMM-yyyyMM)`: a range of `MonthlyParameterization`s between two months (inclusive)
 - `rymd(yyyyMMdd-yyyyMMdd)`:a range of `DailyParameterization`s between two days (inclusive)
