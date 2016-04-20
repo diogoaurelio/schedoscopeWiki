@@ -8,10 +8,7 @@ The goals of this tutorial are to:
 * get the [[tutorial set up in your IDE|Open Street Map Tutorial#setting-up-scala-ide]];
 * get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
 * get the [[tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
-* show[[how to integrate Schedoscope with cron|Open Street Map Tutorial#scheduling]].
-.
-
-You can find a list of [[hints|Open Street Map Tutorial#hints]] at the end of this tutorial.
+* show [[how to integrate Schedoscope with cron|Open Street Map Tutorial#scheduling]].
 
 ## Prerequisites
 * Basic knowledge of [Apache Hive](http://hive.apache.org/)
@@ -413,28 +410,11 @@ Go into directory `schedoscope/schedoscope-tutorial` and [[execute|Open Street M
 
 ## Scheduling 
 
-Schedoscope is a Webservice with [[REST API|Schedoscope REST API]]. If you want your data up-to-date every hour during business time (8am-8pm) simply register cronjobs like:
+Schedoscope offers an [[HTTP API|Schedoscope HTTP API]]. If you want your data up-to-date 5 minutes past every hour during business time (8am-8pm) simply register a cronjob, such as:
 
        5   8-20 * * *  curl http://localhost:20698/materialize/schedoscope.example.osm.datamart/ShopProfiles
 
-This is the default webservice configured in `schedoscope/schedoscope-core/src/main/resources/reference.conf`, the command `materialize` and the [[View URL|View Pattern Reference]] of the view you're interested in. Reloading the requested view `ShopProfiles` only starts if any of its source views `ShopProfiles` depends on or `ShopProfiles` itself has changed!
-
-
-## Hints
-* The Cloudera QuickStart VM comes with low memory settings for YARN/MapReduce which can result in memory problems. It is recommended to check the schedoscope and YARN logs. In case of `OutOfMemory` exceptions increase the following values:
-
-        YARN: Cloudera Manager -> Hive -> Configuration -> mapreduce.map.memory.mb, mapreduce.reduce.memory.mb, mapreduce.map.java.opts.max.heap, mapreduce.reduce.java.opts.max.heap, yarn.nodemanager.resource.memory-mb, yarn.scheduler.maximum-allocation-mb
-        Hive: Cloudera Manager -> Hive -> Configuration -> HiveServer2 Heap Size
-
-* It is also recommended to limit the number of simultaneously running applications to 2:
-
-        YARN Scheduler: Cloudera Manager -> Clusters -> Resource Management -> Dynamic Resource Pools -> Configuration -> Edit -> YARN
-
-* Defining a field of type BIGINT in hive, works with LONG in Schedoscope: `val id = fieldOf[Long]`
-
-* Testing views of the same name (but different layers): Run the test by right clicking on the word "should" in the test class source code and choosing Run As > Scala Test - Test
-
-* Schedoscope shell cannot cope with leading white spaces. It will prompt a list of possible commands.
+The registered GET request is the HTTP API equivalent to the `materialize -v schedoscope.example.osm.datamart/ShopProfiles` command you have issued on the shell before. Upon receiving this request, Schedoscope will check for new or changed direct or indirect dependencies to `ShopProfiles`, for structural changes, and changes of transformation logic. Only if any of these criteria apply, Schedoscope will trigger a (re-)computation. 
 
 ## Acknowledgement
 Our example data was taken from the [Open Street Map project](http://www.openstreetmap.org/copyright)
