@@ -5,9 +5,9 @@ The goals of this tutorial are to:
 * [[watch Schedoscope doing its work|Open Street Map Tutorial#watching-schedoscope-work]];
 * [[explore the results|Open Street Map Tutorial#exploring-the-results]];
 * [[watch Schedoscope dealing with change|Open Street Map Tutorial#dealing-with-change]];
-* get the [[tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
 * get the [[tutorial set up in your IDE|Open Street Map Tutorial#setting-up-scala-ide]];
-* get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]].
+* get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
+* get the [[tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]].
 
 You can find a list of [[hints|Open Street Map Tutorial#hints]] at the end of this tutorial.
 
@@ -275,54 +275,6 @@ _Way more interesting is to see Schedoscope discover change all by itself, howev
 
 The criteria for detecting changes to transformation logic depend on the respective transformation type. Please have a look at the various transformation type descriptions for more information on this topic.
 
-## Running on a real cluster
-You can get the tutorial running on your own hadoop cluster.
- 
-Install the Schedoscope tutorial on a gateway machine to your cluster:
-
-1. Clone the source code (see [[Installation|Open Street Map Tutorial#installing]] Step 4).
-
-2. Prepare a `/hdp` folder in your cluster's HDFS and give proper write permissions for the user with which you want to execute Schedoscope. (similar to [[Installation|Open Street Map Tutorial#installing]] Step 3).
-
-3. Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` to match the needs of your cluster. The [[default configuration settings|Configuring Schedoscope]] are defined in`schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in `schedoscope.conf`. Perform the following changes:
-
-        schedoscope {
-          app {
-             # The chosen environment name is set as root HDFS folder.
-             # The data for each view will end up in `/hdp/${env}/${package_name}/${ViewName}`.
-             environment = "yourenvironmentasyoulikeit"    
-          }
-
-          hadoop {
-             resourceManager = "yourhost:yourport"
-             nameNode = "hdfs://yourhost:yourport"
-          }
-
-          metastore {
-            metastoreUri = "thrift://your/hive/metastore/uri"
-            jdbcUrl = "your/hive/jdbc/uri" # include the kerberos principal if needed
-          }
-
-          kerberos {
-            principal = "your/kerberos/principal"   # if needed
-          }
-          
-          transformations = {
-            hive : {
-                libDirectory = "/your/local/absolute/path/to/schedoscope/schedoscope-tutorial/target/hive-libraries"
-                url = ${schedoscope.metastore.jdbcUrl} #include the kerberos principal if needed
-            }
-          }
-        }
-
-
-4. Compile Schedoscope (similar to [[Installation|Open Street Map Tutorial#installing]] Step 5).
-
-Go into directory `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial#execution]] the tutorial using your own hadoop cluster:
-
-    mvn exec:java
-
-
 ## Setting up Scala IDE
 
 Now it's time to design your own Schedoscope views and their dependencies. For this purpose, we need to
@@ -407,6 +359,55 @@ The custom [Test Framework](Test Framework) of Schedoscope facilitates quick tes
 3. Rerun the test.
 
 3. The tests can also be executed via Maven: `mvn test`. 
+
+## Running on a real cluster
+You can get the tutorial running on your own hadoop cluster.
+ 
+Install the Schedoscope tutorial on a gateway machine to your cluster:
+
+1. Clone the source code (see [[Installation|Open Street Map Tutorial#installing]] Step 4).
+
+2. Prepare a `/hdp` folder in your cluster's HDFS and give proper write permissions for the user with which you want to execute Schedoscope. (similar to [[Installation|Open Street Map Tutorial#installing]] Step 3).
+
+3. Then change the [[configuration settings|Configuring Schedoscope]] in `schedoscope-tutorial/src/main/resources/schedoscope.conf` to match the needs of your cluster. The [[default configuration settings|Configuring Schedoscope]] are defined in`schedoscope-core/src/main/resources/reference.conf`. They are overwritten by the settings you define in `schedoscope.conf`. Perform the following changes:
+
+        schedoscope {
+          app {
+             # The chosen environment name is set as root HDFS folder.
+             # The data for each view will end up in `/hdp/${env}/${package_name}/${ViewName}`.
+             environment = "yourenvironmentasyoulikeit"    
+          }
+
+          hadoop {
+             resourceManager = "yourhost:yourport"
+             nameNode = "hdfs://yourhost:yourport"
+          }
+
+          metastore {
+            metastoreUri = "thrift://your/hive/metastore/uri"
+            jdbcUrl = "your/hive/jdbc/uri" # include the kerberos principal if needed
+          }
+
+          kerberos {
+            principal = "your/kerberos/principal"   # if needed
+          }
+          
+          transformations = {
+            hive : {
+                libDirectory = "/your/local/absolute/path/to/schedoscope/schedoscope-tutorial/target/hive-libraries"
+                url = ${schedoscope.metastore.jdbcUrl} #include the kerberos principal if needed
+            }
+          }
+        }
+
+
+4. Compile Schedoscope (similar to [[Installation|Open Street Map Tutorial#installing]] Step 5).
+
+Go into directory `schedoscope/schedoscope-tutorial` and [[execute|Open Street Map Tutorial#execution]] the tutorial using your own hadoop cluster:
+
+    mvn exec:java
+
+
 
 ## Scheduling 
 
