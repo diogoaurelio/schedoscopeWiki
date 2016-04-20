@@ -1,8 +1,8 @@
 # Summary
 
-You can configure parallel export of view data to a relational database via JDBC by specifying an `exportTo()` clause with `Jdbc` in a view. Whenever the view performs its transformation successfully and materializes the view's data (i.e., the data of the Hive partition the view represents) is written into a table within the specified database. 
+You can configure a parallel export of view data to a relational database system via JDBC by specifying an `exportTo()` clause with `Jdbc` in a view. Whenever the view performs its transformation successfully and materializes, Schedoscope triggers a mapreduce job that writes the view's data (i.e., the data of the Hive partition the view represents) to a table within the specified database. 
 
-Currently, the DBMSs Derby, MySQL, PostgreSQL, and ExaSolutions are supported.
+Currently, the database systems Derby, MySQL, PostgreSQL, and ExaSolutions are supported.
 
 # Syntax
 
