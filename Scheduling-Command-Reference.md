@@ -28,10 +28,9 @@ must point to the running Schedoscope HTTP service
 
 # View Paths
 
-Schedoscope views are referenced by their name and their parameters. For easy specification of views
-and view ranges, Schedoscope makes use of a view pattern language:
+Schedoscope views are referenced by their name and their parameters. This makes for view path. For easy specification of views and view ranges, Schedoscope makes use of a view path pattern language:
 
-* [Specification of View Urls](View-Pattern-Reference)
+* [Specification of View Paths](View-Pattern-Reference)
 
 ## Commands
 
