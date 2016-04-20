@@ -95,7 +95,7 @@ Examples:
 
 ### transformations
 
-`transformations` lists the transformation status, i.e., executing transformations.
+`transformations` lists the status of transformation drivers, i.e., executing transformations.
 
 Supported options:
 - `-s`, `--status`: filter by status (e.g. 'queued, running, idle')
