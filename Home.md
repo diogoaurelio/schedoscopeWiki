@@ -52,7 +52,7 @@ Read the View DSL Primer for more information about the capabilities of the Sche
 - [Configuring](Configuring Schedoscope)
 - [Starting](Starting Schedoscope)
 - [Scheduling](Scheduling)
-- [REST API](Schedoscope REST API)
+- [HTTP API](Schedoscope HTTP API)
 - [Command Reference](Scheduling Command Reference)
 - [View Pattern Reference](View Pattern Reference)
 
