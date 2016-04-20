@@ -7,8 +7,7 @@ The goals of this tutorial are to:
 * [[watch Schedoscope dealing with change|Open Street Map Tutorial#dealing-with-change]];
 * get the [[tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
 * get the [[tutorial set up in your IDE|Open Street Map Tutorial#setting-up-scala-ide]];
-* get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
-* implement and schedule [[your own views|Open Street Map Tutorial#developing-views]].
+* get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]].
 
 You can find a list of [[hints|Open Street Map Tutorial#hints]] at the end of this tutorial.
 
@@ -408,43 +407,6 @@ The custom [Test Framework](Test Framework) of Schedoscope facilitates quick tes
 3. Rerun the test.
 
 3. The tests can also be executed via Maven: `mvn test`. 
-
-## Developing views
-
-You might want to have a look at the [View DSL Primer](Schedoscope View DSL Primer) first.
-
-There are other Open Street Map TSV-files provided by the dependency `schedoscope-tutorial-osm-data`:
-
-* `ways.txt`  (a way is a sequence of 2-2000 nodes)
-
-        id BIGINT
-        version INT
-        user_id INT
-        tstamp TIMESTAMP
-        changeset_id BIGINT
-
-* `way_nodes.txt`  (mapping nodes to ways)
-
-        way_id BIGINT
-        node_id BIGINT
-        sequence_id INT
-
-* `way_tags.txt`  (tags for ways)
-
-        way_id BIGINT
-        k STRING
-        v STRING
-
-You could create stage views `schedoscope.example.osm.stage.Ways`, `schedoscope.example.osm.stage.WayNodes`, and `schedoscope.example.osm.stage.WayTags` that capture those files by reading them from the classpath. The tutorial class `schedoscope.example.osm.stage.Nodes` can serve as your template for how this can be done.
-
-You can implement a view `schedoscope.example.osm.processed.Ways` that comprises all information about ways. This view should have `schedoscope.example.osm.processed.Nodes`, as well as, the new stage views you created above as dependencies. Establishing a monthly partitioning from `tstmp` would also be appropriate. You can use a Hive transformation that uses the brickhouse UDF `collect` to create a map of tags and an array of with all `node_id` which each way comprises. Take a look at `Nodes` for a template of how to use `collect`. 
-
-When done, rebuild and restart Schedoscope:
-
-    mvn install
-    mvn exec:java
-
-In case of trouble have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
 
 ## Scheduling 
 
