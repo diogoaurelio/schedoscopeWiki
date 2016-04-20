@@ -1,13 +1,9 @@
-Schedoscope offers a REST api for remote control. The schedoscopeControl shell makes use of this API, but it may be also used to trigger new materializations or notify the scheduler upon the arrival of new data.
+Schedoscope can be remotely controlled via a simple HTTP API. It can be used for triggering new materializations or notify the scheduler upon the arrival of new data, but also for checking view scheduling states remotely.
 
-## REST Methods
-Currently all requests to schedoscope use method GET. Parameters are passed as URL parameters, e.g.
-GET /views?status=transforming
+## API Request Types
+Currently, all remote requests to Schedoscope use the HTTP GET method. Parameters are passed as URL parameters and need to be URL-encoded appropriately. Results are returned as JSON documents. In case of errors, HTTP error codes <> 200 are set.
 
-## View Url Path Specification 
-Schedoscope views are referenced by their name and their parameters. For easy specification of Views
-and view ranges, Schedoscope offers a special view specification language named ViewUrl
-* [Specification of View Urls](View-Pattern-Reference)
+The currently implemented request types are as follows:
 
 #### views
 List all currently active views  
@@ -15,34 +11,34 @@ List all currently active views
 Method: GET  
 Path: /views/  
 or  
-Path: /views/`ViewUrlPath`  
+Path: /views/`ViewPattern`  
 
-if a ViewUrlPath is given, only the specified View (with Parametrization) is returned
+if a `ViewPattern` is given, only information about views matching the [pattern](View-Pattern-Reference) is returned
 
 **Parameters:**  
 
 - status=\[transforming,nodata,materialized,failed,waiting\]  
-    passing this parameter will restrict the output to views with the given state.
-- filter=String  
-    filter regular expression to filter views to be invalidated (e.g. '?filter=my.database%2F.%2FPartition1%2F.')
+    passing this parameter will further restrict the output to views with the given state.
+- filter=Regexp
+    apply a regular expression filter on the view path to further limit information to certain views (e.g. '?filter=.*Visit.*')
 - dependencies=[true|false]  
-    if a specific view is requested, setting this to true will also return all dependent views
+    if a specific view is requested, setting this to true will also return information about all dependent views
 - overview=[true|false]  
-    only return aggregate numbers  
+    only return aggregate counts about view scheduling states and not information about individual views.
 
 **Returns**  
 
      {  
        "overview": {  
          "nodata": 1  
-        "materialized" : 1  
+         "materialized" : 1  
       },  
       "views": [{  
         "view": "example.osm/Stage/2015/01",  
         "status": "nodata"  
       }, {  
         "view": "example.osm/Stage/2015/02",  
-        "status": "materializes"  
+        "status": "materialized"  
       }]  
     }  
 
