@@ -182,6 +182,14 @@ Let's get started:
     As one can see, every tutorial table does contain columns `id`, `created_at` (when was the data loaded)
     and `created_by` (which Job provided the data). These fields are defined using common  [[traits|View Traits]] carrying predefined fields.
 
+    * Let's take a look at the MySQL server running in the quickstart VM: 
+            
+            [cloudera@quickstart ~]$ mysql schedoscope_tutorial -u root -pcloudera
+
+            mysql> select * from demo_schedoscope_example_osm_datamart_shop_profiles limit 10;
+
+    A MySQL export has been configured with the `ShopProfiles` view. As a result, not only has `ShopProfiles` been materialized in hive; after transformation, Schedoscope created an equivalent table in MySQL and exported `ShopProfiles` to that table using a mapreduce job. Schedoscope's export module supports simple, parallel export to [JDBC](JDBC Export), [Redis](Redis Export), and [Kafka](Kafka Export).
+            
 ## Dealing with change
 
 One way to deal with change is to explicitly retrigger computation of views:
