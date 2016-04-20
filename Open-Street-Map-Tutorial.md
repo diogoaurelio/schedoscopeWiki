@@ -5,7 +5,7 @@ The goals of this tutorial are to:
 * [[watch Schedoscope doing its work|Open Street Map Tutorial#watching-schedoscope-work]];
 * [[explore the results|Open Street Map Tutorial#exploring-the-results]];
 * [[watch Schedoscope dealing with change|Open Street Map Tutorial#dealing-with-change]];
-* understand [[components of a view specification|Open Street Map Tutorial#how-does-this-work]];
+* understand [[the components of a view specification|Open Street Map Tutorial#how-does-this-work]];
 * get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
 * get the [[tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
 * show [[how to integrate Schedoscope with cron|Open Street Map Tutorial#scheduling]].
@@ -292,14 +292,28 @@ _Way more interesting is to see Schedoscope discover change all by itself, howev
 
 ## How does this work?
 
-Now it's time to design your own Schedoscope views and their dependencies. For this purpose, we need to
-set up an IDE. 
+In order to understand how the demonstrated functionality is possible, it is time to look at the constituents of a view specification. This is best done from within a Scala IDE.
 
-1. You need a Scala IDE, e.g. [Scala IDE for Eclipse](http://scala-ide.org/download/sdk.html)
+### Set up the IDE
 
-2. Import the maven projects schedoscope-core and schedoscope-tutorial. 
+1. Download [Scala IDE for Eclipse](http://scala-ide.org/download/sdk.html) into your quickstart VM (Note that you can also use IntelliJ).
 
-In case your Scala IDE has problems importing the schedoscope-tutorial project, disable the shift of build phases for mixed compilation in the maven-compiler-plugin and scala-maven-plugin configurations in the pom. You can do this by commenting the following section prior to import and then removing the comments after import:
+        [cloudera@quickstart ~]$ wget http://downloads.typesafe.com/scalaide-pack/4.4.0-vfinal-luna-211-20160401/scala-SDK-4.4.0-vfinal-2.11-linux.gtk.x86_64.tar.gz
+
+2. Extract it to a folder and launch it:
+
+        [cloudera@quickstart ~]$ tar xzf scala-SDK-4.4.0-vfinal-2.11-linux.gtk.x86_64.tar.gz 
+        [cloudera@quickstart ~]$ cd eclipse; ./eclipse
+
+3. Select `File > Import > Maven > Existing Maven Projects`
+
+4. Choose the root folder `~/schedoscope`
+
+5. Check all pom.xml files offered to you (schedoscope-suite, -export, -core, -tutorial)
+
+6. Choose import
+
+In case your IDE has problems importing the schedoscope-tutorial project, you need to disable the shift of build phases for mixed compilation in the maven-compiler-plugin and scala-maven-plugin configurations in the pom. You can do this by commenting the `<executions>` sections for those plugiins prior to import and then removing the comments after import:
 
 	<plugin>
 		<groupId>org.apache.maven.plugins</groupId>
@@ -357,9 +371,14 @@ In case your Scala IDE has problems importing the schedoscope-tutorial project, 
 		-->
 	</plugin>
 
-3. Make sure the scala compiler is set to version 2.11 in the projects' properties
+7. Sometimes the Scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
 
-4. Sometimes the scala folders need to be added as source folders manually; right click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder" and select the missing folders `src/main/scala` and `src/test/scala`.
+### Examine `ShopProfiles`
+
+Finally, we are able to look at the `ShopProfiles` view. Press `CTRL-T` and start to enter `ShopProfile` and you should be able to select `ShopProfiles.scala`. The file looks like this:
+
+
+
 
 ## Exploring the Test Framework
 
