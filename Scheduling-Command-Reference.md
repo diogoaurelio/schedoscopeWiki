@@ -1,4 +1,4 @@
-Schedoscope can be controlled with scheduling commands. There are two means of issuing these commands:
+Schedoscope can be controlled with scheduling commands. There are two ways of issuing these commands:
 
 * using the Schedoscope shell command prompt opening when Schedoscope is not launched as a daemon;
 * using the Schedoscope REST client based on the [REST API](Schedoscope REST API) 
@@ -29,7 +29,8 @@ must point to the running Schedoscope REST service
 # View Paths
 
 Schedoscope views are referenced by their name and their parameters. For easy specification of Views
-and view ranges, Schedoscope offers a special view specification language named ViewUrl
+and view ranges, Schedoscope makes use of a view pattern language:
+
 * [Specification of View Urls](View-Pattern-Reference)
 
 ## Commands
@@ -132,6 +133,8 @@ Supported options:
 - `-f`, `--filterregular <regex>`: materliaze only views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`). These views must have been initialized before, e.g, by a views command.
 - `-m`, `--mode RESET_TRANSFORMATION_CHECKSUMS`: ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations in way that does not require recomputation.
 - `-m`, `--mode RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS`: perform a "dry run" where transformation checksums and timestamps are set along the usual rules, however with no actual transformations taking place. As a result, all checksums in the metastore should be current and transformation timestamps should be consistent, such that no materialization will take place upon subsequent normal materializations.
+- `-m`, `--mode TRANSFORM_ONLY`: materialize the given views, but without asking the views' dependencies to materialize as well. This is useful when a transformation higher up in the dependency lattice has failed and you want to retry it without potentially rematerializing all dependencies.
+- `-m`, `--mode SET_ONLY`: force the given views into the materialized state. No transformation is performed, and all the views' transformation timestamps and checksums are set to current.
 
 Examples:
 
