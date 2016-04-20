@@ -5,7 +5,7 @@ The goals of this tutorial are to:
 * [[watch Schedoscope doing its work|Open Street Map Tutorial#watching-schedoscope-work]];
 * [[explore the results|Open Street Map Tutorial#exploring-the-results]];
 * [[watch Schedoscope dealing with change|Open Street Map Tutorial#dealing-with-change]];
-* get the [[tutorial set up in your IDE|Open Street Map Tutorial#setting-up-scala-ide]];
+* understand [[components of a view specification|Open Street Map Tutorial#how-does-this-work]];
 * get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
 * get the [[tutorial running on your own Hadoop Cluster|Open Street Map Tutorial#running-on-a-real-cluster]];
 * show [[how to integrate Schedoscope with cron|Open Street Map Tutorial#scheduling]].
@@ -290,7 +290,7 @@ _Way more interesting is to see Schedoscope discover change all by itself, howev
 
    Note how the changes have been reflected by the MySQL export as well.
 
-## Setting up Scala IDE
+## How does this work?
 
 Now it's time to design your own Schedoscope views and their dependencies. For this purpose, we need to
 set up an IDE. 
