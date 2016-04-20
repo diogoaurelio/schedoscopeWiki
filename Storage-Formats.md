@@ -1,6 +1,4 @@
-Storage formats specify the format in which view data ist to be stored. Schedoscope distinguishes internal and external storage formats. 
-
-For both kinds of formats, storage is declared using the `storedAs` clause. In case no `storedAs` clause is given, the `TextFile` storage format is used as a default.
+Storage formats specify the format in which view data ist to be stored. Storage is declared using the `storedAs` clause. In case no `storedAs` clause is given, the `TextFile` storage format is used as a default.
 
     def storedAs(f: StorageFormat, additionalStoragePathPrefix: String, additionalStoragePathSuffix: String)
 
@@ -19,9 +17,7 @@ A Parquet storage format declaration with an additional storage path prefix:
     
     storedAs(Parquet(), additionalStoragePathPrefix="tables")
 
-# Internal Storage Formats
-
-Internal storage formats are used for storing views within Hive tables on HDFS. The following formats are supported:
+Here is a description of currently supported storage formats:
 
 ## TextFile
 
@@ -50,35 +46,9 @@ View data can also be stored using Parquet:
 
     case class Parquet()
 
-
-# External Storage Formats
-
-Schedoscope supports special storage formats used for storing view data outside of HDFS / Hive. With these formats, Schedoscope can also be used to schedule exports of views to targets like CSV files, key-value stores, or relational databases. External storage formats only work in combination with [Morphline transformations](Morphline Transformations).
-
-## ExternalTextFile
-Exports the View as text file to the local filesystem. Otherwise identical to TextFile
-
-    case class ExternalTextFile(val fieldTerminator: String, collectionItemTerminator: String, mapKeyTerminator: String, lineTerminator: String) extends ExternalStorageFormat
-
-
-## JDBC
-    case class JDBC(jdbcUrl: String, 
-                    userName: String, 
-                    password: String, 
-                    jdbcDriver: String) 
-
-## Redis
-
-    case class Redis(host: String, 
-                    port: Long = 9393, 
-                    password: String = "", 
-                    keys: Seq[String] = List("id"), 
-                    cols: Seq[Named] = List())
-
-## NullStorage
 # Storage Paths
 
-For the common case of internal storage formats, a Schedoscope view represents a Hive table partition stored in HDFS. Views offer the following properties with regard to their HDFS storage location:
+A Schedoscope view represents a Hive table partition stored in HDFS. Views offer the following properties with regard to their HDFS storage location:
 
 * `fullPath`: the absolute path to the folder of the Hive table partition represented by the view.  For example, the `fullPath` of the view `schedoscope.example.osm.processed.NodesWithGeohash(p("2013"), p("12"))` would be `/hdp/dev/schedoscope/example/osm/processed/nodes_with_geohash/year=2013/month=12` in the default environment `dev`. For a view `v`, `v.fullpath`is the concatenation of `v.tablePath` and `v.partitionPath`.
 
