@@ -11,7 +11,7 @@ The goals of this tutorial are to:
 * show [[how to integrate Schedoscope with cron|Open Street Map Tutorial#scheduling]].
 
 ## Prerequisites
-* Basic knowledge of [Apache Hive](http://hive.apache.org/)
+* Basic knowledge of [Apache Hive](http://Hive.apache.org/)
 
 ## The Story
 Imagine you had a fantastic business idea. You would like to buy a promising shop in Hamburg, Germany. However... **which shop in Hamburg is the one located best?**
@@ -152,30 +152,30 @@ Open a new terminal. Use the Hive CLI to see the data materialized by Schedoscop
 
 1. Start Hive: 
 
-		[cloudera@quickstart ~]$ hive
+        [cloudera@quickstart ~]$ hive
 
 2. List the databases that Schedoscope automatically created: 
 
-		hive> show databases;
+        hive> show databases;
 
    The database names look like `{environment}_{packagename}`, with the dots in the package name of the materialized views replaced by underscores. The environment is set in `~/schedscope/schedoscope-tutorial/src/main/resources/schedoscope.conf`.
 
 3. List the tables of a database: 
 
-		hive> use demo_schedoscope_example_osm_datamart;
-		hive> show tables;
+        hive> use demo_schedoscope_example_osm_datamart;
+        hive> show tables;
 
-   A table name is the name of the corresponding view class extending base class `View` in lower case. E.g. `NodesWithGeohash` becomes a hive table named `nodes_with_geohash`.
+   A table name is the name of the corresponding view class extending base class `View` in lower case. E.g. `NodesWithGeohash` becomes a Hive table named `nodes_with_geohash`.
 
 4. List the columns of a table: 
 
-		hive> describe shop_profiles;
+        hive> describe shop_profiles;
 
    Column names are the same as the names of the fields specified in the corresponding view class, similarly transformed to lower case.
 
 5. List the first 10 entries of a table: 
 
-		hive> select * from shop_profiles limit 10;
+        hive> select * from shop_profiles limit 10;
 
 6. Take a look around the tables yourself.
 
@@ -183,12 +183,12 @@ Open a new terminal. Use the Hive CLI to see the data materialized by Schedoscop
 and `created_by` (which Job provided the data). These fields are defined using common  [[traits|View Traits]] carrying predefined fields.
 
 7. Let's take a surprised look at the MySQL server running in the quickstart VM: 
-		
-		[cloudera@quickstart ~]$ mysql schedoscope_tutorial -u root -pcloudera
+        
+        [cloudera@quickstart ~]$ mysql schedoscope_tutorial -u root -pcloudera
 
-		mysql> select * from demo_schedoscope_example_osm_datamart_shop_profiles limit 10;
+        mysql> select * from demo_schedoscope_example_osm_datamart_shop_profiles limit 10;
 
-   A MySQL export has been configured with the `ShopProfiles` view. As a result, not only has `ShopProfiles` been materialized in hive; after transformation, Schedoscope created an equivalent table in MySQL and exported `ShopProfiles` to that table using a mapreduce job. Schedoscope's export module supports simple, parallel export to [JDBC](JDBC Export), [Redis](Redis Export), and [Kafka](Kafka Export).
+   A MySQL export has been configured with the `ShopProfiles` view. As a result, not only has `ShopProfiles` been materialized in Hive; after transformation, Schedoscope created an equivalent table in MySQL and exported `ShopProfiles` to that table using a mapreduce job. Schedoscope's export module supports simple, parallel export to [JDBC](JDBC Export), [Redis](Redis Export), and [Kafka](Kafka Export).
 
 ## Dealing with change
 
@@ -240,7 +240,7 @@ One way to deal with change is to explicitly retrigger computation of views:
         transforming: 1
         waiting: 1
 
-8. Switch to hive CLI and compare column `created_at` of `restaurants` and `shops`. As you can see table `restaurants` has been written again during recalculation. Table `shops` has not been touched.
+8. Switch to Hive CLI and compare column `created_at` of `restaurants` and `shops`. As you can see table `restaurants` has been written again during recalculation. Table `shops` has not been touched.
 
 9. Have a look at the logfile `schedoscope/schedoscope-tutorial/target/logs/schedoscope.log`.
 
@@ -254,7 +254,7 @@ _Way more interesting is to see Schedoscope discover change all by itself, howev
 
 7. Open the query that computes the `Restaurants` view in an editor:
 
-        [cloudera@quickstart schedoscope-tutorial]$ vim src/main/resources/hiveql/datahub/insert_restaurants.sql 
+        [cloudera@quickstart schedoscope-tutorial]$ vim src/main/resources/Hiveql/datahub/insert_restaurants.sql 
 
 7. From now on, restaurant names are to be uppercase. So wrap the statement
 
@@ -315,61 +315,61 @@ In order to understand how the demonstrated functionality is possible, it is tim
 
 In case your IDE has problems importing the schedoscope-tutorial project, you need to disable the shift of build phases for mixed compilation in the maven-compiler-plugin and scala-maven-plugin configurations in the pom. You can do this by commenting the `<executions>` sections for those plugins prior to import and then removing the comments after import:
 
-	<plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-compiler-plugin</artifactId>
-		<version>3.3</version>
-		<configuration>
-			<source>1.7</source>
-			<target>1.7</target>
-		</configuration>
-		<!--
-		<executions>
-			<execution>
-				<id>default-compile</id>
-				<phase>none</phase>
-			</execution>
-			<execution>
-				<id>default-testCompile</id>
-				<phase>none</phase>
-			</execution>
-		</executions>
-		-->
-	</plugin>
-	...
-	<plugin>
-		<groupId>net.alchim31.maven</groupId>
-		<artifactId>scala-maven-plugin</artifactId>
-		<version>3.2.2</version>
-		<configuration>
-			<recompileMode>incremental</recompileMode>
-			<args>
-				<arg>-target:jvm-1.7</arg>
-			</args>
-			<javacArgs>
-				<javacArg>-source</javacArg>
-				<javacArg>1.7</javacArg>
-				<javacArg>-target</javacArg>
-				<javacArg>1.7</javacArg>
-			</javacArgs>
-		</configuration>
-		<!--
-		<executions>
-			<execution>
-				<id>scala-compile</id>
-				<goals>
-					<goal>compile</goal>
-				</goals>
-			</execution>
-			<execution>
-				<id>scala-test-compile</id>
-				<goals>
-					<goal>testCompile</goal>
-				</goals>
-			</execution>
-		</executions>
-		-->
-	</plugin>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+            <source>1.7</source>
+            <target>1.7</target>
+        </configuration>
+        <!--
+        <executions>
+            <execution>
+                <id>default-compile</id>
+                <phase>none</phase>
+            </execution>
+            <execution>
+                <id>default-testCompile</id>
+                <phase>none</phase>
+            </execution>
+        </executions>
+        -->
+    </plugin>
+    ...
+    <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.2.2</version>
+        <configuration>
+            <recompileMode>incremental</recompileMode>
+            <args>
+                <arg>-target:jvm-1.7</arg>
+            </args>
+            <javacArgs>
+                <javacArg>-source</javacArg>
+                <javacArg>1.7</javacArg>
+                <javacArg>-target</javacArg>
+                <javacArg>1.7</javacArg>
+            </javacArgs>
+        </configuration>
+        <!--
+        <executions>
+            <execution>
+                <id>scala-compile</id>
+                <goals>
+                    <goal>compile</goal>
+                </goals>
+            </execution>
+            <execution>
+                <id>scala-test-compile</id>
+                <goals>
+                    <goal>testCompile</goal>
+                </goals>
+            </execution>
+        </executions>
+        -->
+    </plugin>
 
 Sometimes the Scala folders need to be added as source folders manually. Right-click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder", and select the missing folders `src/main/scala` and `src/test/scala`.
 
@@ -396,7 +396,7 @@ Finally, we are able to take a look at the `ShopProfiles` view. Press `CTRL-T` a
         HiveTransformation(
           insertInto(
             this,
-            queryFromResource("hiveql/datamart/insert_shop_profiles.sql"),
+            queryFromResource("Hiveql/datamart/insert_shop_profiles.sql"),
             settings = Map("parquet.compression" -> "GZIP")))
           .configureWith(defaultHiveQlParameters(this))
       }
@@ -513,8 +513,8 @@ Install the Schedoscope tutorial on a gateway machine to your cluster:
           }
 
           metastore {
-            metastoreUri = "thrift://your/hive/metastore/uri"
-            jdbcUrl = "your/hive/jdbc/uri" # include the kerberos principal if needed
+            metastoreUri = "thrift://your/Hive/metastore/uri"
+            jdbcUrl = "your/Hive/jdbc/uri" # include the kerberos principal if needed
           }
 
           kerberos {
@@ -522,8 +522,8 @@ Install the Schedoscope tutorial on a gateway machine to your cluster:
           }
           
           transformations = {
-            hive : {
-                libDirectory = "/your/local/absolute/path/to/schedoscope/schedoscope-tutorial/target/hive-libraries"
+            Hive : {
+                libDirectory = "/your/local/absolute/path/to/schedoscope/schedoscope-tutorial/target/Hive-libraries"
                 url = ${schedoscope.metastore.jdbcUrl} #include the kerberos principal if needed
             }
           }
