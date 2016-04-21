@@ -434,6 +434,8 @@ Hence, Schedoscope was able to compute `ShopProfiles` from  `Shops`, `Restaurant
 
 What's essential: only because this explicit definition of data structure, dependencies, and logic, Schedoscope is able to identify when changes to structure and logic happen, and to derive a minimal transformation / materialization plan to accommodate the changes.
 
+Refer to the [Schedoscope View DSL Primer](Schedoscope View DSL Primer) for more detailed information about the capabilities of the Schedoscope view DSL.
+
 ## Exploring the Test Framework
 
 Schedoscope comes with a nice [Test Framework](Test Framework) that facilitates quick testing of code. 
