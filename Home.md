@@ -20,7 +20,13 @@ Get a glance of what Schedoscope does for you:
 
 - [Schedoscope at a Glance](Schedoscope at a Glance)
 
-Follow the Open Street Map tutorial to install, compile, and run Schedoscope in a standard Hadoop distribution image:
+Build it:
+
+     [~]$ git clone https://github.com/ottogroup/schedoscope.git
+     [~]$ cd schedoscope
+     [~/schedoscope]$  MAVEN_OPTS='-XX:MaxPermSize=512m' mvn clean install
+
+Follow the Open Street Map tutorial to install and run Schedoscope in a standard Hadoop distribution image:
 
 - [Open Street Map Tutorial](Open Street Map Tutorial)
 
