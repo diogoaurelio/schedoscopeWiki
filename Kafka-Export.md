@@ -22,7 +22,9 @@ You can configure a parallel export of view data to a Kafka topic by specifying 
 
 # Description
 
-The `Kafka` export can transport a view's data in one of two ways. It can export each record as a one-line JSON string or as Avro with the Avro schema tailored to the view's structure. Note that in both cases the data export is lossless, i.e., even complex or nested field types are recursively and adequately translated to JSON or Avro.
+The `Kafka` export can transport a view's data in one of two ways: it can export each record as a one-line JSON string or as Avro with the Avro schema tailored to the view's structure. 
+
+Note that in both cases the data export is lossless, i.e., even complex or nested field types are recursively and adequately translated to JSON or Avro.
 
 The name of the topic the data is exported to is the table name associated with the view. The topic is created if it does not exist already.
 
