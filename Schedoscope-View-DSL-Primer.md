@@ -553,7 +553,53 @@ In the following example, brand data is supposed to be delivered by an ETL proce
 
 Note that according to [Storage Formats](Storage Formats), the `fullPath` of view `Brand(p("101"), p("2014"), p("12"), p("12"))` in the default `dev` environment would be `/hdp/dev/test/module/brand/shopCode=101/year=2014/month=12/day=12/dateId=20141212`. The external process would have to write into that folder.
 
-## Materialize Once
+# View Exports
+
+A common use case of a Hadoop datahub is to aggregate views of data that are then to be exported and consumed by other systems, such as interactive analytics environments, web services, recommender engines, etc. Overtime, implementing and maintaining a growing number of usually dumb data export jobs becomes tedious overhead.
+
+To eliminate that burden, Schedoscope's DSL offers an `exportTo` clause allowing one to register one or more export targets with a view in just a single line. For example: 
+
+    case class ProductWithBrand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+      with JobMetadata {
+      val productId = fieldOf[String]
+      val productName = fieldOf[String]
+      val productPrice = fieldOf[Double]
+      val brandName = fieldOf[String]
+      val brandId = fieldOf[String]
+     
+      val product = dependsOn(() => Product(p(shopCode), p(year), p(month), p(day)))
+      val brand = dependsOn(() => Brand(p(shopCode), p(year), p(month), p(day)))
+     
+      transformVia (() =>
+        HiveQl(
+          insertInto(this,
+            queryFromResource("/productWithBrand.sql")
+        ))).configureWith(Map(
+            "env" -> this.env,
+            "shopCode" -> this.shopCode.v.get,
+            "year" -> this.year.v.get,
+            "month" -> this.month.v.get,
+            "day" -> this.day.v.get,
+            "dateId" -> s"${this.year.v.get}${this.month.v.get}${this.day.v.get}"
+        ))
+
+	  exportTo(() => Jdbc(this, "jdbc:mysql://localhost:3306/targetdb", "user", "password"))
+
+    }
+
+The effect of an `exportTo` clause is that whenever a view has successfully performed and finished its transformation, Schedoscope writes the view's data in parallel and efficiently to the specified target. This happens by means of a mapreduce job, whose number of reducers can be configured such that it does not overload the target system; also, the view's structure is preserved in the target system as much as possible and data duplication because of multiple exports of the same view is avoided.
+
+In the example, whenever the view `ProductWithBrand` has been transformed for a given shop and date, Schedoscope automatically exports the view data to an identically structured MySQL database table (using the default of 10 reducers as the default).
+
+Schedoscope's export framework currently supports export to the [JDBC targets Derby, MySQL, PostgreSQL, and ExaSolutions](JDBC Exports) as well as to [Redis KV stores](Redis Exports) and [Kafka Topics](Kafka Exports).
+
+# Materialize Once
 
 A view can be augmented with the `materializeOnce` clause. Such a view will only be materialized once, regardless of whether new dependencies have occurred, existing dependencies have been rematerialized, or its transformation logic has changed. Views based on a materialize once view will also not be rematerialized.
 
