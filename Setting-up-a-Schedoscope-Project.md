@@ -166,6 +166,7 @@ In real-world production deployment scenarios, you should probably follow a diff
 		</repositories>
 	</project> 
 
+In case you want use [JDBC exports](JDBC Exports), you should also add the JDBC driver of your database to your pom.
 
 As a reminder, a Maven project folder structure looks like this:
 
