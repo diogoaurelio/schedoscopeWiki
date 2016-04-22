@@ -24,3 +24,11 @@ Please note that configuration properties you attach to the transformation are p
           "viewTable" -> view.tableName
         )
      )  
+
+# Packaging and Deployment
+
+Schedoscope offers no special support for packaging or deploying shell scripts. They are assumed to exist on the machine Schedoscope runs on.
+
+# Change Detection
+
+Schedoscope considers the logic of a shell transformation to have changed if either the passed script string or the name of the script file has changed.
