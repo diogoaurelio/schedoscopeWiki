@@ -16,10 +16,11 @@ Please note that configuration properties you attach to the transformation are p
 
 # Example
 
-     transformVia(() => ShellTransformation("hive -e\"select * from ${viewTable}\" > ${target}"))
-        .configureWith(
-            Map(
-              "target" -> s"/tmp/${view.n}.tsv",
-              "viewTable" -> view.tableName
-            )
-         )  
+     transformVia(
+        () => ShellTransformation("hive -e \"select * from ${viewTable}\" > ${target}")
+     ).configureWith(
+        Map(
+          "target" -> s"/tmp/${view.n}.tsv",
+          "viewTable" -> view.tableName
+        )
+     )  
