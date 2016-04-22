@@ -593,11 +593,11 @@ To eliminate that burden, Schedoscope's DSL offers an `exportTo` clause allowing
 
     }
 
-The effect of an `exportTo` clause is that whenever a view has successfully performed and finished its transformation, Schedoscope writes the view's data in parallel and efficiently to the specified target. This happens by means of a mapreduce job, whose number of reducers can be configured such that it does not overload the target system; also, the view's structure is preserved in the target system as much as possible and data duplication because of multiple exports of the same view is avoided.
+The effect of an `exportTo` clause is that whenever a view has successfully performed and finished its transformation, Schedoscope writes the view's data in parallel and efficiently to the specified target. This happens by means of a mapreduce job, whose number of reducers can be configured such that it does not overload the target system; also, the view's structure is preserved in the target system as much as possible and data duplication due to multiple exports of the same view is avoided.
 
 In the example, whenever the view `ProductWithBrand` has been transformed for a given shop and date, Schedoscope automatically exports the view data to an identically structured MySQL database table (using the default of 10 reducers as the default).
 
-Schedoscope's export framework currently supports export to the [JDBC targets Derby, MySQL, PostgreSQL, and ExaSolutions](JDBC Exports) as well as to [Redis KV stores](Redis Exports) and [Kafka Topics](Kafka Exports).
+Schedoscope's export framework currently supports export to the [JDBC targets Derby, MySQL, PostgreSQL, and ExaSolutions](JDBC Export) as well as to [Redis KV stores](Redis Export) and [Kafka Topics](Kafka Export).
 
 # Materialize Once
 
