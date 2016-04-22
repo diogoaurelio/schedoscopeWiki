@@ -6,7 +6,7 @@ We have released Version 0.4.0 as a Maven artifact to our Bintray repository (se
 
 This is a big release including:
 
-* a complete overhaul of scheduling state machine with significant improvement of test coverage
+* a complete overhaul of the scheduling state machine with significant improvement of test coverage
 
 * `exportTo` clause for simple, seamless, and parallel export of views to relational databases, Redis key-value stores, and Kafka topics (see [View DSL Primer](https://github.com/ottogroup/schedoscope/wiki/Schedoscope-View-DSL-Primer))
 
