@@ -26,7 +26,7 @@ The `Kafka` export can transport a view's data in one of two ways: it can export
 
 Note that in both cases the data export is lossless, i.e., even complex or nested field types are recursively and adequately translated to JSON or Avro.
 
-The name of the topic the data is exported to is the table name associated with the view. The topic is created if it does not exist already.
+The name of the topic the data is exported to is the name of the database and table name associated with the view concatenated by underscore. The topic is created if it does not exist already.
 
 Here is a description the parameters you must or can pass to `Kafka` exports:
 
@@ -48,6 +48,8 @@ Here is a description the parameters you must or can pass to `Kafka` exports:
  
 # Example
 
+    package test.export
+
     case class ClickWithKafkaExport(
       year: Parameter[String],
       month: Parameter[String],
@@ -63,7 +65,7 @@ Here is a description the parameters you must or can pass to `Kafka` exports:
         () => HiveTransformation(
           insertInto(this, s"""SELECT id, url FROM ${stage().tableName} WHERE date_id='${dateId}'""")))
 
-      // Export the view's data to the Kafka topic click_with_kafka_export in JSON format.
+      // Export the view's data to the Kafka topic dev_test_export_click_with_kafka_export in JSON format.
       // Each record would be translated to a JSON line of the form of:
       // { id: "id", url: "url", year: "year", month: "month", day: "day", date_id: "date_id" }
       // The value of id is specified to be the record's key in the topic.
