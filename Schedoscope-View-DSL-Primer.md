@@ -557,7 +557,7 @@ Note that according to [Storage Formats](Storage Formats), the `fullPath` of vie
 
 # View Exports
 
-A common use case of a Hadoop datahub is to aggregate views of data that are then to be exported and consumed by other systems, such as interactive analytics environments, web services, recommender engines, etc. Overtime, implementing and maintaining a growing number of usually dumb data export jobs becomes tedious overhead.
+A common use case of a Hadoop datahub is to aggregate views of data that are then to be exported and consumed by other systems, such as interactive analytics environments, web services, recommender engines, etc. Given Hadoop's optimization for batch processing, these systems usually use their own data stores like relational database systems or key-value stores instead of directly accessing HDFS or Hive. Over time, however, implementing and maintaining a growing number of usually dumb data export jobs becomes tedious overhead.
 
 To eliminate that burden, Schedoscope's DSL offers an `exportTo` clause allowing one to register one or more export targets with a view in just a single line. For example: 
 
