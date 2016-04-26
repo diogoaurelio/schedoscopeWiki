@@ -67,6 +67,13 @@ Read the View DSL Primer for more information about the capabilities of the Sche
 
 ## News
 
+###### 04/26/2016 - Release 0.4.3
+
+We have released Version 0.4.3 as a Maven artifact to our Bintray repository (see [Setting Up A Schedoscope Project](https://github.com/ottogroup/schedoscope/wiki/Setting-up-a-Schedoscope-Project) for an example pom). 
+
+This release makes `exportTo` support the `isPrivacySensitive` clause of the View DSL. Fields and partition parameters marked with `isPrivacySensitive` are hashed during export.
+
+
 ###### 04/25/2016 - Release 0.4.2
 
 We have released Version 0.4.2 as a Maven artifact to our Bintray repository (see [Setting Up A Schedoscope Project](https://github.com/ottogroup/schedoscope/wiki/Setting-up-a-Schedoscope-Project) for an example pom). 
