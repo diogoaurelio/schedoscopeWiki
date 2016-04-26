@@ -237,6 +237,12 @@ For an example of how to override these settings, you can also take a look at th
         export {
             
             #
+            # Export settings for all export types
+            #
+            
+            salt = "vD75MqvaasIlCf7H"
+            
+            #
             # JDBC exporter settings.
             #
             
