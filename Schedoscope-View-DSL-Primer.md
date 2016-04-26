@@ -591,7 +591,7 @@ To eliminate that burden, Schedoscope's DSL offers an `exportTo` clause allowing
             "dateId" -> s"${this.year.v.get}${this.month.v.get}${this.day.v.get}"
         ))
 
-	  exportTo(() => Jdbc(this, "jdbc:mysql://localhost:3306/targetdb", "user", "password"))
+      exportTo(() => Jdbc(this, "jdbc:mysql://localhost:3306/targetdb", "user", "password"))
 
     }
 
@@ -651,3 +651,45 @@ Example:
         
         materializeOnce
     }
+    
+# Privacy
+
+Fields and parameters of a view can be tagged as privacy-sensitive. Such privacy tags are considered during exports of view data: exports automatically and consistently hash the tagged fields and parameters with MD5. The MD5 hash is salted. The salt can be globally overridden with the configuration property `schedoscope.export.salt` or individually set per `exportTo` clause.
+
+Example:
+
+    case class ProductWithBrand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with DailyShopParameterization
+      with JobMetadata {
+      val productId = fieldOf[String]MyExportSpecificSalt
+      val productName = fieldOf[String]
+      val productPrice = isPrivacySensitive(fieldOf[Double])
+      val brandName = fieldOf[String]
+      val brandId = fieldOf[String]
+     
+      val product = dependsOn(() => Product(p(shopCode), p(year), p(month), p(day)))
+      val brand = dependsOn(() => Brand(p(shopCode), p(year), p(month), p(day)))
+     
+      transformVia (() =>
+        HiveQl(
+          insertInto(this,
+            queryFromResource("/productWithBrand.sql")
+        ))).configureWith(Map(
+            "env" -> this.env,
+            "shopCode" -> this.shopCode.v.get,
+            "year" -> this.year.v.get,
+            "month" -> this.month.v.get,
+            "day" -> this.day.v.get,
+            "dateId" -> s"${this.year.v.get}${this.month.v.get}${this.day.v.get}"
+        ))
+
+      exportTo(() => Jdbc(this, "jdbc:mysql://localhost:3306/targetdb", "user", "password", exportSalt="MyExportSpecificSalt"))
+
+    }
+    
+Here, our JDBC export example has been modified to tag the `productPrice` field privacy-sensitive. During export to the MySQL database, the values of this field will be automatically hashed with MD5 and the salt `MyExportSpecificSalt`. As a consequence, the type of the column in MySQL will be text and not double.
