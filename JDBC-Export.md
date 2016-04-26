@@ -12,6 +12,7 @@ Currently, the database systems Derby, MySQL, PostgreSQL, and ExaSolutions are s
         dbUser: String = null,
         dbPass: String = null,
         distributionKey: Field[_] = null,
+        exportSalt: String = Schedoscope.settings.exportSalt,
         storageEngine: String = Schedoscope.settings.jdbcStorageEngine,
         numReducers: Int = Schedoscope.settings.jdbcExportNumReducers,
         commitSize: Int = Schedoscope.settings.jdbcExportBatchSize,
@@ -31,6 +32,8 @@ The target table for a view is created automatically if it does not exist alread
 
 Values of complex types (maps, structures, lists) are serialized to corresponding JSON structures, maps, or lists and stored as strings in the target table.
 
+The JDBC export hashes view fields and parameters marked with the `isPrivacySensitive` with MD5.
+
 Should a view be exported more than once, the rows of previous exports are deleted in the target table to avoid duplicates. In order to achieve this, each table gets an additional column `used_filter` which contains the parameter values of the exported view.
 
 Here is a description the parameters you must or can pass to `Jdbc` exports:
@@ -40,6 +43,7 @@ Here is a description the parameters you must or can pass to `Jdbc` exports:
 - `dbUser`: the database user for accessing the target database. No authentication by default.
 - `dbPass`: the database user's password. No authentication by default
 - `distributionKey`: if the target database system supports the notion of distribution keys for table partitioning suchas ExaSolutions, you can pass the view field that provides the values for the distribution key here. By default, no distribution key is enabled.
+- `exportSalt: the salt to use for MD5-hashing of view fields and parameters marked with `isPrivacySensitive`. Defaults to the config setting `schedoscope.export.salt`.
 - `storageEngine`: if your target database system supports different storage engines (e.g., MySQL) you can set the one to use here. By default, the standard storage engine of the target system is used
 - `numReducers`: the number of reducers to use during the exports. This defines the parallelism of the export. Defaults to the config setting `schedoscope.export.jdbc.numberOfReducers` (i.e., 10)
 - `commitSize`: The batch size to use by each reducer for inserting into its temp table. Defaults to the config setting `schedoscope.export.jdbc.insertBatchSize` (i.e., false)
