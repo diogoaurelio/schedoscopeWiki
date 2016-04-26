@@ -666,7 +666,7 @@ Example:
     ) extends View 
       with DailyShopParameterization
       with JobMetadata {
-      val productId = fieldOf[String]MyExportSpecificSalt
+      val productId = fieldOf[String]
       val productName = fieldOf[String]
       val productPrice = isPrivacySensitive(fieldOf[Double])
       val brandName = fieldOf[String]
