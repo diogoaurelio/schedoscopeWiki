@@ -9,6 +9,7 @@ You can configure a parallel export of view data to a Redis key-value store by s
         key: Field[_],
         value: Field[_] = null,
         keyPrefix: String = "",
+        exportSalt: String = Schedoscope.settings.exportSalt,
         replace: Boolean = true,
         flush: Boolean = false,
         redisPort: Int = 6379,
@@ -27,6 +28,8 @@ The `Redis` export supports two modes:
 
 2.  Value export: Alternatively, you can specify a value field in addition to the key field. Only that field's value is then assigned to the respective key. This makes particular sense for complex fields since the export will translate Hive sets, maps, and structures to Redis sets, maps, and maps, respectively. In case of nested complex fields, these are translated to JSON strings as with the full export. In case of primitive fields, the value field's value is directly assigned to the key.
 
+View fields and parameters marked with `isPrivacySensitive` are hashed with MD5 during export.
+
 Here is a description the parameters you must or can pass to `Redis` exports:
 
 - `v`: a reference to the view being exported, usually `this` (mandatory)
@@ -34,6 +37,7 @@ Here is a description the parameters you must or can pass to `Redis` exports:
 - `key`: the field which provides the values for the Redis key in your export, usually the ID of your view (mandatory)
 - `value`: the value field to use if value export is desired. Defaults to null, which means full export
 - `keyPrefix`: an optional string prefix to put in front of the key field's name to avoid clashes with other applications
+- `exportSalt: the salt to use for MD5-hashing of view fields and parameters marked with `isPrivacySensitive`. Defaults to the config setting `schedoscope.export.salt`
 - `replace`: indicates whether a key should be erased before a new value is written during the export. Defaults to true.
 - `flush`: indicates whether the target keyspace should be flushed (completely erased) prior to the export. Defaults to false.
 - `redisPort`: the port number the target Redis service is listening on. Defaults to 6379
