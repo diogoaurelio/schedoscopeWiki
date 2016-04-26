@@ -37,7 +37,7 @@ Here is a description the parameters you must or can pass to `Kafka` exports:
 - `zookeeperHosts`: domain names or IP addresses of the hosts in the Zookeeper cluster which Kafka operates on (mandatory)
 - `replicationFactor`: the replication factor to use on the target topic. Defaults to 1
 - `numPartitions`: the number of partitions to divide the target topic into. Defaults to 3
-- `exportSalt: the salt to use for MD5-hashing of view fields and parameters marked with `isPrivacySensitive`. Defaults to the config setting `schedoscope.export.salt`.
+- `exportSalt`: the salt to use for MD5-hashing of view fields and parameters marked with `isPrivacySensitive`. Defaults to the config setting `schedoscope.export.salt`.
 - `producerType`: indicates whether to use a synchronous (`sync`) or asynchronous producer (`async`) to write to the target topic. Defaults to synchronous
 - `cleanupPolicy`: indicates whether log compaction is enabled for the topic (`compact`). Defaults to a `delete` policy.
 - `compressionCodec`: indicicates whether compression is to be applied during export and which codec to use. Can be `none`, `snappy`, or `gzip`(default)
