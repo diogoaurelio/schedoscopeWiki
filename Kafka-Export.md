@@ -11,6 +11,7 @@ You can configure a parallel export of view data to a Kafka topic by specifying 
         zookeeperHosts: String,
         replicationFactor: Int = 1,
         numPartitons: Int = 3,
+        exportSalt: String = Schedoscope.settings.exportSalt,
         producerType: ProducerType = ProducerType.sync,
         cleanupPolicy: CleanupPolicy = CleanupPolicy.delete,
         compressionCodec: CompressionCodec = CompressionCodec.gzip,
@@ -24,7 +25,7 @@ You can configure a parallel export of view data to a Kafka topic by specifying 
 
 The `Kafka` export can transport a view's data in one of two ways: it can export each record as a one-line JSON string or as Avro with the Avro schema tailored to the view's structure. 
 
-Note that in both cases the data export is lossless, i.e., even complex or nested field types are recursively and adequately translated to JSON or Avro.
+Note that in both cases the data export is lossless, i.e., even complex or nested field types are recursively and adequately translated to JSON or Avro. View fields and parameters marked with `isPrivacySensitive` are hashed with MD5 during export.
 
 The name of the topic the data is exported to is the name of the database and table name associated with the view concatenated by underscore. The topic is created if it does not exist already.
 
@@ -36,6 +37,7 @@ Here is a description the parameters you must or can pass to `Kafka` exports:
 - `zookeeperHosts`: domain names or IP addresses of the hosts in the Zookeeper cluster which Kafka operates on (mandatory)
 - `replicationFactor`: the replication factor to use on the target topic. Defaults to 1
 - `numPartitions`: the number of partitions to divide the target topic into. Defaults to 3
+- `exportSalt: the salt to use for MD5-hashing of view fields and parameters marked with `isPrivacySensitive`. Defaults to the config setting `schedoscope.export.salt`.
 - `producerType`: indicates whether to use a synchronous (`sync`) or asynchronous producer (`async`) to write to the target topic. Defaults to synchronous
 - `cleanupPolicy`: indicates whether log compaction is enabled for the topic (`compact`). Defaults to a `delete` policy.
 - `compressionCodec`: indicicates whether compression is to be applied during export and which codec to use. Can be `none`, `snappy`, or `gzip`(default)
