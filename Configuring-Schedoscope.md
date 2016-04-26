@@ -81,34 +81,23 @@ For an example of how to override these settings, you can also take a look at th
         
         
             #
-            # Various timeouts to obey to during scheduling
+            # Various timeouts to obey
             #
             
             timeouts {
                 
                 #
-                # Timeout waiting for database schema operations
+                # Timeout waiting for metastore operations
                 #
                 
                 schema = 1 hour
+               
                 
                 #
-                # Timeout waiting for transformation status list aggregation.
+                # Timeout waiting for scheduling command to return
                 #
                 
-                statusListAggregation = 60 seconds
-                
-                #
-                # Timeout waiting for view status aggregation
-                #
-                
-                viewManagerResponse = 60 seconds 
-                
-                #
-                # Timeout waiting for view materialization completion
-                #
-                
-                completion = 3 days
+                schedulingCommand = 1 hour
             }
         }
 
@@ -119,12 +108,6 @@ For an example of how to override these settings, you can also take a look at th
 
         webservice {
         
-        
-            #
-            # Timeout for web service calls
-            #
-            
-            timeout = 10 minutes
             
             #
             # Host where Schedoscope instance is running
@@ -145,10 +128,10 @@ For an example of how to override these settings, you can also take a look at th
             resourceDirectory = "www"
             
             #
-            # Number of webservice actors to answer request.
+            # Number of webservice actors to answer requests.
             #
             
-            concurrency = 10
+            concurrency = 5
         }
 
 
@@ -246,6 +229,73 @@ For an example of how to override these settings, you can also take a look at th
         #
         
         action.retry = 5
+
+        #
+        # Default settings for exportTo() exporters.
+        #
+        
+        export {
+            
+            #
+            # JDBC exporter settings.
+            #
+            
+            jdbc {
+            
+                #
+                # Number of reducers to use for parallel writing to JDBC.
+                #   
+                
+                numberOfReducers = 10
+            
+                #
+                # Batch size for insert statements to use
+                #
+                
+                insertBatchSize = 10000
+                
+                #
+                # Storage engine to use (in case of MySQL JDBC targets)
+                #
+                
+                storageEngine = "InnoDB"
+            
+            }
+            
+            #
+            # Redis exporter.
+            #
+            
+            redis {
+            
+                #
+                # Number of reducers to use for parallel writing to Redis.
+                #   
+                
+                numberOfReducers = 10
+                
+                #
+                # Usage of pipeline mode for writing to Redis.
+                #
+                
+                usePipelineMode = false
+            
+            }
+
+            #
+            # Kafka exporter
+            #
+
+            kafka {
+
+                #
+                # Number of reducer to use for parallel writing to Kafka.
+                #
+
+                numberOfReducers = 10
+
+            }
+        }
         
         #
         # Driver settings for the different transformation types. 
@@ -525,19 +575,20 @@ For an example of how to override these settings, you can also take a look at th
             },
             
             #
-            # Morphline driver settings
+            # Sequence driver settings
             #
-                
-            morphline : {
+             
+            seq : {
             
                 #
-                # Number of parallel Morphline Driver actors to use
+                # Number of parallel Driver actors to use for executing seq
+                # transformations
                 #
-                
-                concurrency = 1
+            
+                concurrency = 10
                 
                 #
-                # Ignored
+                # Ignored.
                 #
                 
                 location = "/"
@@ -547,7 +598,7 @@ For an example of how to override these settings, you can also take a look at th
                 #
                 
                 libDirectory = ""
-                
+
                 #
                 # Ignored
                 #
@@ -561,7 +612,7 @@ For an example of how to override these settings, you can also take a look at th
                 unpack = false
                 
                 #
-                # Timeout for Morphline transformations
+                # Timeout for seq transformations
                 #
                 
                 timeout = 1 day
@@ -574,7 +625,8 @@ For an example of how to override these settings, you can also take a look at th
                 
                 driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
                 
-            }
+            },
+            
             #
             # Shell driver settings
             #
@@ -657,7 +709,7 @@ For an example of how to override these settings, you can also take a look at th
         
             #
             # Given the variety of component-specific dispatchers used by Schedoscope
-            # we limit the Akka default dispatcher to 8 threads.
+            # we limit the Akka default dispatcher to 4 threads.
             #
             
             default-dispatcher {
@@ -665,9 +717,9 @@ For an example of how to override these settings, you can also take a look at th
                 type = Dispatcher
                                      
                 thread-pool-executor {
-                    core-pool-size-min = 2
+                    core-pool-size-min = 4
                     core-pool-size-factor = 1.0
-                    core-pool-size-max = 2
+                    core-pool-size-max = 4
                     task-queue-size = -1
                 }
 
@@ -770,9 +822,9 @@ For an example of how to override these settings, you can also take a look at th
                 type = Dispatcher
                                      
                 fork-join-executor {
-                    parallelism-min = 16 
-                    parallelism-factor = 4.0
-                    parallelism-max = 16
+                    parallelism-min = 8 
+                    parallelism-factor = 2.0
+                    parallelism-max = 8
                     task-queue-size = -1
                 }
 
@@ -803,7 +855,7 @@ For an example of how to override these settings, you can also take a look at th
 
             #
             # Due to API limitations, we can currently only execute file system, Pig, 
-            # Morphline, and Hive transformations asynchronously by employing futures. 
+            # and Hive transformations asynchronously by employing futures. 
             #
             # The following threadpool / dispatcher feeds those futures. Hence, it 
             # should grow proportionally with the concurrency settings of the 
@@ -815,9 +867,9 @@ For an example of how to override these settings, you can also take a look at th
                 executor = "thread-pool-executor"  
 
                 thread-pool-executor {
-                    core-pool-size-min = 24
-                    core-pool-size-factor = 6.0
-                    core-pool-size-max = 24
+                    core-pool-size-min = 16
+                    core-pool-size-factor = 4.0
+                    core-pool-size-max = 16
                     task-queue-size = -1
                 }
 
@@ -842,58 +894,3 @@ For an example of how to override these settings, you can also take a look at th
     spray.can.host-connector.idle-timeout = infinite
     spray.can.server.request-timeout = infinite
     spray.can.server.idle-timeout = infinite
-   
-
-# Configuring Logback
-
-Schedoscope configures the underlying Akka framework to use SLF4J for logging; it also links [Logback](http://logback.qos.ch/) as a dependency. As a consequence, logback is the logging backend used as default.
-
-Logback requires a configuration `logback.xml` file as well. That file can either be put onto the classpath or one can pass a system property `-Dlogback.configurationFile` pointing to the files to the JVM.
-
-An example `logback.xml` is given here:
-
-	<!-- Logback configuration -->
-
-	<configuration>
-
-		<!-- Use the logback rolling file appender -->
-
-		<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-
-			<!-- Set your logpath to whatever file/folder you like -->
-
-			<file>log/schedoscope.log</file>
-			
-			<!-- Some example logging pattern -->
-			
-			<encoder>
-				<pattern>[%-4level] [%date{ISO8601}] [%thread %X{sourceThread}] [%X{akkaSource}] [%logger{36}] - %msg%n</pattern>
-			</encoder>
-			
-			<!-- Define the rolled log file naming scheme -->
-			
-			<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-					<fileNamePattern>log/schedoscope.%i.log</fileNamePattern>
-					<minIndex>1</minIndex>
-					<maxIndex>20</maxIndex>
-			</rollingPolicy>
-			
-			<!-- Define that rolling should be triggered after 100MB of log data -->
-			
-			<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-					<maxFileSize>100MB</maxFileSize>
-			</triggeringPolicy>
-		</appender>
-		
-		<!-- Set the logging levels for the various packages -->
-		
-		<logger name="akka" level="INFO"/>
-
-		<logger name="org.schedoscope" level="INFO"/>
-		
-		<logger name="your.application.package" level="INFO"/>
-		
-		<root level="ERROR">
-			<appender-ref ref="FILE"/>
-		</root>
-	</configuration>
