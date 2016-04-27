@@ -8,7 +8,7 @@ A view comprises
 - its dependencies, i.e. the data sets a view is based on;
 - the transformation rule by which it is computed from its dependencies;
 - additional storage hints about how to store a view's data when materializing it;
-- as well as export clause for automated exports to external systems.
+- as well as export clauses for automated exports to external systems.
 
 In a sense, a view can be thought of a partitioned database table. In fact, Schedoscope maps views directly to Hive table partitions. 
 
