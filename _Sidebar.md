@@ -1,3 +1,5 @@
+[[[https://raw.githubusercontent.com/ottogroup/schedoscope/master/schedoscope-tutorial/docs/pictures/schedoscope_logo.jpg|alt="Schedoscope Logo"|height=210px|width=210px]]](https://schedoscope.org)
+
 Schedoscope
 ===============
 * [Home](Home)
