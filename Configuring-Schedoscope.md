@@ -5,6 +5,7 @@ Hence, all configuration properties and their default values are defined in and 
 Individual instances of Schedoscope can override these properties. This can happen by either
 - putting a file `application.conf` onto the classpath or
 - setting the system property `-Dconfig.file` pointing to a conf file when launching the JVM.
+- for more information regarding Metascope check [Metascope Configuration](#)
 
 # Reference configuration
 
