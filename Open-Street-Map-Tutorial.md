@@ -192,7 +192,9 @@ and `created_by` (which Job provided the data). These fields are defined using c
 
 ## Exploring the results and data lineage with Metascope
 
-Metascope is a metadata management platform for Schedoscope. It lets you browse and search your views, their schema information and many more through a REST API or web interface. Let's start Metascope:
+Metascope is a metadata management platform for Schedoscope. It lets you browse and search your views, their schema information, data lineage and many more through a REST API or web interface. 
+
+Let's start Metascope:
 
 1. Open a new terminal.
 
