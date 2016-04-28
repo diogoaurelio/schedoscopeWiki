@@ -190,6 +190,19 @@ and `created_by` (which Job provided the data). These fields are defined using c
 
    A MySQL export has been configured with the `ShopProfiles` view. As a result, not only has `ShopProfiles` been materialized in Hive; after transformation, Schedoscope created an equivalent table in MySQL and exported `ShopProfiles` to that table using a mapreduce job. Schedoscope's export module supports simple, parallel export to [JDBC](JDBC Export), [Redis](Redis Export), and [Kafka](Kafka Export).
 
+## Exploring the results and data lineage with Metascope
+
+Metascope is a metadata management platform for Schedoscope. It lets you browse and search your views, their schema information and many more through a REST API or web interface. Let's start Metascope:
+
+1. Open a new terminal.
+
+2. Change the directory and start Metascope:
+
+        [cloudera@quickstart ~]$ cd schedoscope/schedoscope-metascope
+        [cloudera@quickstart ~]$ MAVEN_OPTS='-Xmx1024m -XX:MaxPermSize=512M' mvn exec:java -Dconfig.file=../schedoscope-tutorial/src/main/resources/schedoscope.conf
+
+3. Browse to http://localhost:8080 and login with `user: admin` and `password: admin`
+
 ## Dealing with change
 
 One way to deal with change is to explicitly retrigger computation of views:
