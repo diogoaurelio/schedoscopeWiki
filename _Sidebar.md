@@ -38,6 +38,3 @@ Schedoscope
 * [HTTP API](Schedoscope HTTP API)
 * [Command Reference](Scheduling Command Reference)
 * [View Pattern Reference](View Pattern Reference)
-
-### Extending Schedoscope
-* [Architecture](Architecture)
