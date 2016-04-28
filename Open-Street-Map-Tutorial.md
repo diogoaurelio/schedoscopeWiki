@@ -201,7 +201,7 @@ Metascope is a metadata management platform for Schedoscope. It lets you browse 
         [cloudera@quickstart ~]$ cd schedoscope/schedoscope-metascope
         [cloudera@quickstart ~]$ MAVEN_OPTS='-Xmx1024m -XX:MaxPermSize=512M' mvn exec:java -Dconfig.file=../schedoscope-tutorial/src/main/resources/schedoscope.conf
 
-3. Browse to http://localhost:8080 and login with `user: admin` and `password: admin`
+3. Browse to http://localhost:8080 and login with user `admin` and password `admin`
 
 ## Dealing with change
 
