@@ -1,5 +1,3 @@
-# ![Schedoscope](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/schedoscope_logo.jpg)
-
 ## Introduction
 
 Schedoscope is a scheduling framework for agile development, testing, (re)loading, and monitoring of your Hadoop data warehouse.
