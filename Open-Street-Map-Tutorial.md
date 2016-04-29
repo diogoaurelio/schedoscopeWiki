@@ -205,6 +205,8 @@ Let's start Metascope:
 
 3. Browse to http://localhost:8080 and login with user `admin` and password `admin`
 
+Metacope offers you many possibilities to navigate and browse through the metadata of your datahub. Use the facetted filters and search functionality to find the view you need.
+
 ![Metascope Home](images/filtersearch.png)
 
 ![Table sample page](images/sample.png)
