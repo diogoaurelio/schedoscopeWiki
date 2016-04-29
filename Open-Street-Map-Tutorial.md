@@ -205,6 +205,7 @@ Let's start Metascope:
 
 3. Browse to http://localhost:8080 and login with user `admin` and password `admin`
 
+![Metascope Home](images/filtersearch.png)
 ## Dealing with change
 
 One way to deal with change is to explicitly retrigger computation of views:
