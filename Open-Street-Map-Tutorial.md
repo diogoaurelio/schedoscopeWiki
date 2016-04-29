@@ -209,6 +209,7 @@ Metacope offers you many possibilities to navigate and browse through the metada
 
 ![Metascope Home](images/filtersearch.png)
 
+Click on the view you 
 ![Table sample page](images/sample.png)
 
 ![Table dependency page](images/dependency.png)
