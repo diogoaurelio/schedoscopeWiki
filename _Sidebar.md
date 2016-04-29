@@ -1,4 +1,4 @@
-[[[https://raw.githubusercontent.com/ottogroup/schedoscope/master/schedoscope-tutorial/docs/pictures/schedoscope_logo.jpg|alt="Schedoscope Logo"]]](https://schedoscope.org)
+[[[images/schedoscope_logo.jpg|alt="Schedoscope Logo"]]](https://schedoscope.org)
 
 Schedoscope
 ===============
