@@ -217,6 +217,8 @@ You need to know the dependencies for a table or need to figure out which other 
 
 ![Table dependency page](images/dependency.png)
 
+Take a look at the lineage graph to get a better understanding of your data. Click on the nodes to get further metadata for tables and transformations, e.g. last transformations timestamps and status information:
+
 ![Table lineage graph](images/lineage.png)
 
 
