@@ -328,66 +328,6 @@ In order to understand how the demonstrated functionality is possible, it is tim
 
 6. Choose import
 
-In case your IDE has problems importing the schedoscope-tutorial project, you need to disable the shift of build phases for mixed compilation in the maven-compiler-plugin and scala-maven-plugin configurations in the pom. You can do this by commenting the `<executions>` sections for those plugins prior to import and then removing the comments after import:
-
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
-        <configuration>
-            <source>1.7</source>
-            <target>1.7</target>
-        </configuration>
-        <!--
-        <executions>
-            <execution>
-                <id>default-compile</id>
-                <phase>none</phase>
-            </execution>
-            <execution>
-                <id>default-testCompile</id>
-                <phase>none</phase>
-            </execution>
-        </executions>
-        -->
-    </plugin>
-    ...
-    <plugin>
-        <groupId>net.alchim31.maven</groupId>
-        <artifactId>scala-maven-plugin</artifactId>
-        <version>3.2.2</version>
-        <configuration>
-            <recompileMode>incremental</recompileMode>
-            <args>
-                <arg>-target:jvm-1.7</arg>
-            </args>
-            <javacArgs>
-                <javacArg>-source</javacArg>
-                <javacArg>1.7</javacArg>
-                <javacArg>-target</javacArg>
-                <javacArg>1.7</javacArg>
-            </javacArgs>
-        </configuration>
-        <!--
-        <executions>
-            <execution>
-                <id>scala-compile</id>
-                <goals>
-                    <goal>compile</goal>
-                </goals>
-            </execution>
-            <execution>
-                <id>scala-test-compile</id>
-                <goals>
-                    <goal>testCompile</goal>
-                </goals>
-            </execution>
-        </executions>
-        -->
-    </plugin>
-
-Sometimes the Scala folders need to be added as source folders manually. Right-click on the project go to Build Path > Configure Build Path, then choose "Java Build Path" on the left menu and tab "Source", click "Add Folder", and select the missing folders `src/main/scala` and `src/test/scala`.
-
 ### Examine `ShopProfiles`
 
 Finally, we are able to take a look at the `ShopProfiles` view. Press `CTRL-T` and start to type `ShopProfile` and you should be able to select `ShopProfiles.scala` in the dialog that pops up. The file looks like this:
