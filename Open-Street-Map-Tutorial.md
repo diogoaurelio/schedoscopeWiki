@@ -196,7 +196,7 @@ Metascope is a metadata management platform for Schedoscope. It lets you browse 
 
 Let's start Metascope:
 
-1. Open a new terminal.
+1. Open a new terminal (Note: Schedoscope still needs to be running).
 
 2. Change the directory and start Metascope:
 
@@ -217,10 +217,11 @@ You need to know the dependencies for a table or need to figure out which other 
 
 ![Table dependency page](images/dependency.png)
 
-Take a look at the lineage graph to get a better understanding of your data. Click on the nodes to get further metadata for tables and transformations, e.g. last transformations timestamps and status information:
+Take a look at the lineage graph to get a better understanding of your data. Click on the nodes to get further metadata for tables and transformations, e.g. last transformations timestamps and table status information:
 
 ![Table lineage graph](images/lineage.png)
 
+Visit [Metascope](#) to get a list of all features which Metascope has to offer.
 
 ## Dealing with change
 
