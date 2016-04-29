@@ -76,7 +76,7 @@ Note that rematerialization of a view results in a new transformation timestamp,
 
 ## Scheduling States
 
-![View Scheduling States](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/scheduling%20states.png)
+![View Scheduling States](images/scheduling%20states.png)
 
 On the way its materialization, a view can go through the following states (see picture above):
 
