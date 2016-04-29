@@ -209,10 +209,11 @@ Metacope offers you many possibilities to navigate and browse through the metada
 
 ![Metascope Home](images/filtersearch.png)
 
-Click on a view to open the view detail page. This page shows all critical metadata of the selected table. Use the navigation tabs to browse through the different sections, e.g. click on 'Sample' tab to view a sample of the data:
+Click on a view to open the table detail page. This page shows all critical metadata of the selected table. Use the navigation tabs to browse through the different sections, e.g. click on 'Sample' tab to view a sample of the data:
 
 ![Table sample page](images/sample.png)
 
+You need to know the dependencies for a table or need to figure out which other tables are using a specific view? Metascope will tell you in seconds:  
 
 ![Table dependency page](images/dependency.png)
 
