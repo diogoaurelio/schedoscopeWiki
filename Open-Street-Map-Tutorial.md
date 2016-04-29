@@ -50,7 +50,7 @@ To measure distance, we use a geo hash. Two nodes are close to each other if the
 
 For the tutorial, we translated this plan into a hierarchy of interdependent Schedoscope views, which means Hive tables:
  
-![dwh-structure.jpg](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/dwh-structure.jpg)
+![dwh-structure.jpg](images/dwh-structure.jpg)
 
 ## Installing
 Let's get started:
@@ -411,7 +411,7 @@ Schedoscope comes with a nice [Test Framework](Test Framework) that facilitates 
 
 2. Initially, this will fail because you need to provide a `HADOOP_HOME` environment variable setting. Lookup the IDE's run configuration for your failed test and set `HADOOP_HOME` to `~/schedoscope/schedoscope-tutorial/target/hadoop`. The Schedoscope test framework will automatically deploy a local Hadoop installation in that folder.
 
-![test_run_configurations](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/test_run_configurations.png)
+![test_run_configurations](images/test_run_configurations.png)
 
 3. Rerun the test.
 
