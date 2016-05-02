@@ -1,4 +1,4 @@
-[[[https://raw.githubusercontent.com/ottogroup/schedoscope/master/schedoscope-tutorial/docs/pictures/schedoscope_logo.jpg|alt="Schedoscope Logo"]]](https://schedoscope.org)
+[[[images/schedoscope_logo.jpg|alt="Schedoscope Logo"]]](http://www.schedoscope.org)
 
 Schedoscope
 ===============
@@ -29,6 +29,11 @@ Schedoscope
 * [JDBC](JDBC Export)
 * [Kafka](Kafka Export)
 * [Redis](Redis Export)
+
+### Metascope
+* [Metascope Primer](Metascope Primer)
+* [Configuration](Configuring Metascope)
+* [Architecture](Metascope Architecture)
 
 ### Operating Schedoscope
 * [Bundling and Deploying](Bundling and Deploying)

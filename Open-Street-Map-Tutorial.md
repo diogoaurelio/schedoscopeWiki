@@ -4,6 +4,7 @@ The goals of this tutorial are to:
 * get the [[Schedoscope tutorial code running|Open Street Map Tutorial#installing]] in the Cloudera Quickstart VM; 
 * [[watch Schedoscope doing its work|Open Street Map Tutorial#watching-schedoscope-work]];
 * [[explore the results|Open Street Map Tutorial#exploring-the-results]];
+* [[explore Metascope|Open Street Map Tutorial#exploring-the-results-and-data-lineage-with-metascope]];
 * [[watch Schedoscope dealing with change|Open Street Map Tutorial#dealing-with-change]];
 * understand [[the components of a view specification|Open Street Map Tutorial#how-does-this-work]];
 * get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
@@ -50,7 +51,7 @@ To measure distance, we use a geo hash. Two nodes are close to each other if the
 
 For the tutorial, we translated this plan into a hierarchy of interdependent Schedoscope views, which means Hive tables:
  
-![dwh-structure.jpg](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/dwh-structure.jpg)
+![dwh-structure.jpg](images/dwh-structure.jpg)
 
 ## Installing
 Let's get started:
@@ -196,7 +197,7 @@ Metascope is a metadata management platform for Schedoscope. It lets you browse 
 
 Let's start Metascope:
 
-1. Open a new terminal.
+1. Open a new terminal (Note: Schedoscope still needs to be running).
 
 2. Change the directory and start Metascope:
 
@@ -205,16 +206,23 @@ Let's start Metascope:
 
 3. Browse to http://localhost:8080 and login with user `admin` and password `admin`
 
-Metacope offers you many possibilities to navigate and browse through the metadata of your datahub. Use the facetted filters and search functionality to find the view you need.
+Metacope offers you various ways to navigate and browse through the metadata of your datahub. Use the facetted filters and search functionality to find the view you need.
 
 ![Metascope Home](images/filtersearch.png)
 
+Click on a view to open the table detail page. This page shows all critical metadata of the selected table. Use the navigation tabs to browse through the different sections, e.g. click on 'Sample' tab to view a sample of the data:
+
 ![Table sample page](images/sample.png)
+
+You need to know the dependencies for a table or need to figure out which other tables are using a specific view? Click on the 'Dependency' tab:  
 
 ![Table dependency page](images/dependency.png)
 
+Take a look at the lineage graph to get a better understanding of your data. Click on the nodes to get further metadata for tables and transformations, e.g. last transformations timestamps and table status information:
+
 ![Table lineage graph](images/lineage.png)
 
+Check the [Metascope Primer](#) to get a complete list of features which Metascope has to offer.
 
 ## Dealing with change
 
@@ -335,7 +343,7 @@ In order to understand how the demonstrated functionality is possible, it is tim
 
 4. Choose the root folder `~/schedoscope`
 
-5. Check all pom.xml files offered to you (schedoscope-suite, -export, -core, -tutorial)
+5. Check all pom.xml files offered to you (schedoscope-suite, -export, -core, -tutorial, -metascope)
 
 6. Choose import
 
@@ -410,7 +418,7 @@ Schedoscope comes with a nice [Test Framework](Test Framework) that facilitates 
 
 2. Initially, this will fail because you need to provide a `HADOOP_HOME` environment variable setting. Lookup the IDE's run configuration for your failed test and set `HADOOP_HOME` to `~/schedoscope/schedoscope-tutorial/target/hadoop`. The Schedoscope test framework will automatically deploy a local Hadoop installation in that folder.
 
-![test_run_configurations](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-tutorial/docs/pictures/test_run_configurations.png)
+![test_run_configurations](images/test_run_configurations.png)
 
 3. Rerun the test.
 
