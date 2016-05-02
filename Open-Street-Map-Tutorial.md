@@ -206,7 +206,7 @@ Let's start Metascope:
 
 3. Browse to http://localhost:8080 and login with user `admin` and password `admin`
 
-Metacope offers you many possibilities to navigate and browse through the metadata of your datahub. Use the facetted filters and search functionality to find the view you need.
+Metacope offers you various ways to navigate and browse through the metadata of your datahub. Use the facetted filters and search functionality to find the view you need.
 
 ![Metascope Home](images/filtersearch.png)
 
@@ -214,7 +214,7 @@ Click on a view to open the table detail page. This page shows all critical meta
 
 ![Table sample page](images/sample.png)
 
-You need to know the dependencies for a table or need to figure out which other tables are using a specific view? Metascope will tell you in seconds:  
+You need to know the dependencies for a table or need to figure out which other tables are using a specific view? Click on the 'Dependency' tab:  
 
 ![Table dependency page](images/dependency.png)
 
@@ -222,7 +222,7 @@ Take a look at the lineage graph to get a better understanding of your data. Cli
 
 ![Table lineage graph](images/lineage.png)
 
-Visit [Metascope](#) to get a complete list of features which Metascope has to offer.
+Check the [Metascope Primer](#) to get a complete list of features which Metascope has to offer.
 
 ## Dealing with change
 
