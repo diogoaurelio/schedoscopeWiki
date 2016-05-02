@@ -1,24 +1,8 @@
-Internally, Schedoscope uses Typesafe's [Akka framework](http://akka.io/). As a consequence, Schedoscope makes use of the [Typesafe Config Library](https://github.com/typesafehub/config) for configuration purposes. 
-
-Hence, all configuration properties and their default values are defined in and taken from the file `reference.conf` on the classpath in the JSON-like HOCON format. 
-
-Individual instances of Schedoscope can override these properties. This can happen by either
-- putting a file `application.conf` onto the classpath or
-- setting the system property `-Dconfig.file` pointing to a conf file when launching the JVM.
-- for more information regarding Metascope check [Metascope Configuration](#)
+Metascope shares the same config file as Schedoscope. All possible properties can be found in the according section `schedoscope.metascope`. For more information regarding the settings and the HCON format, see [Schedoscope Configuration](https://github.com/ottogroup/schedoscope/wiki/Configuring Schedoscope).
 
 # Reference configuration
 
-Here, you find the commented default configuration of Schedoscope's `reference.conf`. 
-
-At the very minimum, you should check and set if necessary:
-- the environment name (`schedoscope.app.environment`);
-- the earliest day to consider (`schedoscope.scheduler.earliestDay`);
-- the Resource Manager, Namenode, and Metastore hosts (`schedoscope.hadoop.*`, `schedoscope.metastore.*`);
-- the Kerberos Metastore principal (`schedoscope.kerberos.principal`);
-- the Hive JDBC URL (`schedoscope.metastore.jdbcUrl`, `schedoscope.transformations.hive.url` )
-- the number of concurrent driver actors for each transformation type (`schedoscope.transformations.*.concurrency`);
-- the `future-driver-dispatcher` threadpool configuration depending on your concurrency settings.
+Here, you find the commented default configuration of Metascope in Schedoscope's `reference.conf`. 
 
 For an example of how to override these settings, you can also take a look at the [tutorial](Open Street Map Tutorial).
 
