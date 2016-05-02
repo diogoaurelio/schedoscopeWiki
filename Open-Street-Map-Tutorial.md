@@ -343,7 +343,7 @@ In order to understand how the demonstrated functionality is possible, it is tim
 
 4. Choose the root folder `~/schedoscope`
 
-5. Check all pom.xml files offered to you (schedoscope-suite, -export, -core, -tutorial)
+5. Check all pom.xml files offered to you (schedoscope-suite, -export, -core, -tutorial, -metascope)
 
 6. Choose import
 
