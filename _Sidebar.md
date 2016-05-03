@@ -7,7 +7,7 @@ Schedoscope
 
 ### Getting Started
 * [Schedoscope at a Glance](Schedoscope at a Glance)
-* [Open Street Map Tutorial](Open Street Map Tutorial)
+* [Schedoscope Tutorial](Open Street Map Tutorial)
 * [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
 
 ### Implementing Views
