@@ -8,9 +8,10 @@ Schedoscope
 ### Getting Started
 * [Schedoscope at a Glance](Schedoscope at a Glance)
 * [Schedoscope Tutorial](Open Street Map Tutorial)
-* [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
+* [Schedoscope View DSL Primer](Schedoscope View DSL Primer)
 
 ### Implementing Views
+* [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
 * [Schedoscope View DSL Primer](Schedoscope View DSL Primer)
 * [Storage Formats](Storage Formats)
 * [View Traits](View Traits)
