@@ -4,7 +4,7 @@ The goals of this tutorial are to:
 * get the [[Schedoscope tutorial code running|Open Street Map Tutorial#installing]] in the Cloudera Quickstart VM; 
 * [[watch Schedoscope doing its work|Open Street Map Tutorial#watching-schedoscope-work]];
 * [[explore the results|Open Street Map Tutorial#exploring-the-results]];
-* [[explore Metascope|Open Street Map Tutorial#exploring-the-results-and-data-lineage-with-metascope]];
+* [[explore metadata and data lineage with Metascope|Open Street Map Tutorial#exploring-the-results-and-data-lineage-with-metascope]];
 * [[watch Schedoscope dealing with change|Open Street Map Tutorial#dealing-with-change]];
 * understand [[the components of a view specification|Open Street Map Tutorial#how-does-this-work]];
 * get familiar with the [[Schedoscope test framework|Open Street Map Tutorial#exploring-the-test-framework]];
