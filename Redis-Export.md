@@ -13,7 +13,9 @@ You can configure a parallel export of view data to a Redis key-value store by s
         replace: Boolean = true,
         flush: Boolean = false,
         redisPort: Int = 6379,
+        redisPassword: String = null,
         redisKeySpace: Int = 0,
+        commitSize: Int = Schedoscope.settings.redisExportBatchSize,
         numReducers: Int = Schedoscope.settings.redisExportNumReducers,
         pipeline: Boolean = Schedoscope.settings.redisExportUsesPipelineMode,
         isKerberized: Boolean = !Schedoscope.settings.kerberosPrincipal.isEmpty(),
@@ -41,7 +43,9 @@ Here is a description the parameters you must or can pass to `Redis` exports:
 - `replace`: indicates whether a key should be erased before a new value is written during the export. Defaults to true.
 - `flush`: indicates whether the target keyspace should be flushed (completely erased) prior to the export. Defaults to false.
 - `redisPort`: the port number the target Redis service is listening on. Defaults to 6379
+- `redisPassword`: an optional password for authenticating with Redis. Defaults to null, meaning no authentication
 - `redisKeySpace`: the key space to use for the export. Defaults to 0
+- `commitSize`: batch size for writing to Redis. Defaults to the config setting `schedoscope.export.redis.insertBatchSize` (i.e., 10000)
 - `numReducers`: the number of reducers to use during the exports, which defines the parallelism of the export. Defaults to the config setting `schedoscope.export.redis.numberOfReducers` (i.e., 10)
 - `pipeline`: use pipeline connection mode for the export? Defaults to the config setting `schedoscope.export.redis.usePipelineMode` (i.e., false)
 - `isKerberized`: is this a kerberized cluster environment? Defaults to true, if `schedoscope.kerberos.principal` is set in the configuration
