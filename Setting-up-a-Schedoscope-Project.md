@@ -152,6 +152,7 @@ In real-world production deployment scenarios, you should probably follow a diff
 							<additionalClasspathElement>/etc/hadoop/conf</additionalClasspathElement>
 							<additionalClasspathElement>/etc/hive/conf</additionalClasspathElement>
 							<additionalClasspathElement>target/${project.build.finalName}-mapreduce.jar</additionalClasspathElement>
+                            <additionalClasspathElement>target/${project.build.finalName}-hive.jar</additionalClasspathElement>
 						</additionalClasspathElements>
 					</configuration>
 				</plugin>
