@@ -222,7 +222,7 @@ Take a look at the lineage graph to get a better understanding of your data. Cli
 
 ![Table lineage graph](images/lineage.png)
 
-Check the [Metascope Primer](#) to get a complete list of features which Metascope has to offer.
+Check the [Metascope Primer](Metascope Primer) to get a complete list of features which Metascope has to offer.
 
 ## Dealing with change
 
