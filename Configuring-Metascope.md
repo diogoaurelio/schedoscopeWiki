@@ -160,8 +160,8 @@ For an example of how to override these settings, you can also take a look at th
 
 Metascope uses a relational database as the main metadata repository and an [Apache Solr](http://lucene.apache.org/solr/) instance as an index for searching and filtering purposes. If Metascope is run in embedded mode (which is the default), it will create an embedded instance of [Apache Derby](https://db.apache.org/derby/) and a embedded Solr core in the metascope target folder:
 
-* `.../schedoscope-metascope/target/repository/`: Local metadata repository (Apache Derby)
-* `.../schedoscope-metascope/target/solr/`: Local index (Apache Solr)
+* `.../schedoscope-metascope/target/metascope-deployment/repository/`: Local metadata repository (Apache Derby)
+* `.../schedoscope-metascope/target/metascope-deployment/solr/`: Local index (Apache Solr)
 
 In production, especially when you have a huge amount of tables and partitions, it is recommended to use a standalone database and Solr server.
 
