@@ -33,7 +33,9 @@ Schedoscope
 
 ### Metascope
 * [Metascope Primer](Metascope Primer)
+* [Building and Deploying](Building-and-Deploying-Metascope)
 * [Configuration](Configuring Metascope)
+* [Starting](Starting Metascope)
 
 ### Operating Schedoscope
 * [Bundling and Deploying](Bundling and Deploying)
