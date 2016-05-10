@@ -8,7 +8,9 @@ In this section, we explore the latter approach.
 
 ## 1. Build Metascope
 
-Build Metascope via Maven with `mvn install -DXX:MaxPermSize=512m`. Check the target directory, which will now contain our deployment folder named metascope. This folder includes all dependencies (metascope/lib/*), the metascope application (metascope/metascope.jar) and a start script (metascope/start-metascope.sh), which results in the following directory structure:
+Build Metascope via Maven with `mvn install -DXX:MaxPermSize=512m`. Check the target directory, which will now contain our deployment folder named metascope. 
+
+The build results in the following directory structure:
 
     ${baseDir}
     |
@@ -25,3 +27,5 @@ Build Metascope via Maven with `mvn install -DXX:MaxPermSize=512m`. Check the ta
             +-- start.sh
             |
             +-- metascope.jar
+
+The `lib` folder contains all dependencies, `metascope.jar` contains the metascope application and the `start-metascope.sh` script is used to start Metascope from commandline.
