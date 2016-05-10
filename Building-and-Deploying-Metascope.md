@@ -22,11 +22,17 @@ The build results in the following directory structure:
         |   |
         |   +-- ...
         |
+        +-- solr
+        |   |
+        |   +-- solr.xml
+        |   |
+        |   +-- ...
+        |
         +-- start.sh
         |
         +-- metascope.jar
 
-The `lib` folder contains all dependencies, `metascope.jar` contains the metascope application and the `start-metascope.sh` script is used to start Metascope from commandline.
+The `lib` folder contains all dependencies, `metascope.jar` contains the metascope application and the `start-metascope.sh` script is used to start Metascope from commandline. The `solr` folder contains the schema and config for the Solr index if the embedded mode is used. Check [Metascope Configuration](Metascope Configuration) for further information.
 
 ## 2. Create Launch Script
 
