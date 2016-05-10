@@ -51,4 +51,4 @@ A launch script has to do two things: construct the classpath and launch the Met
 
 ## 3. Bundle and Deploy
 
-As the last step, one needs to package `${baseDir}/deployment/deployment-package` and distribute it to the node where Metascope is supposed to run. This step depends on your environment so we will not make any suggestions on how to do this. Take into consideration that Metascope needs to be able to connect to Schedoscope, the Hive Metastore, the Hive Server and the HDFS to be fully functional.
+As the last step, one needs to package `${baseDir}/metascope-deployment` and distribute it to the node where Metascope is supposed to run. This step depends on your environment so we will not make any suggestions on how to do this. Take into consideration that Metascope needs to be able to connect to Schedoscope, the Hive Metastore, the Hive Server and the HDFS to be fully functional.
