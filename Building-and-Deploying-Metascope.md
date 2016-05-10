@@ -40,11 +40,14 @@ A launch script has to do two things: construct the classpath and launch the Met
 
     #!/bin/bash
     CP=""
-    for D in ./lib/*.jar; do CP=${CP}:${D}; done
-    for S in .*.jar; do CP=${S}:${CP}; done
-    CP=${CP}:`hadoop classpath`
+    for D in lib/*.jar; do CP=${CP}:${D}; done
+    CP=${CP}:metascope.jar
 
-    java -Xmx1024m -XX:MaxPermSize=512M -cp ${CP} -Dconfig.file=/path/to/schedoscope.conf org.schedoscope.metascope.Metascope
+    if [ -z "$1" ]; then
+      echo "No argument supplied. Please set the path to schedoscope.conf, e.g. './start-metascope /apps/schedoscope/schedoscope.conf'"
+    else
+      java -Xmx1024m -XX:MaxPermSize=512M -cp ${CP} -Dconfig.file=${1} org.schedoscope.metascope.Metascope
+    fi
 
 ## 3. Bundle and Deploy
 
