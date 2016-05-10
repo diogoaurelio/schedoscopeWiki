@@ -38,7 +38,7 @@ A launch script has to do two things: construct the classpath and launch the Met
     for S in .*.jar; do CP=${S}:${CP}; done
     CP=${CP}:`hadoop classpath`
 
-    java -cp ${CP} -Dlogback.configurationFile=logback.xml -Dconfig.file=schedoscope.conf org.schedoscope.scheduler.api.SchedoscopeRestService --shell
+    java -Xmx2048m -XX:MaxPermSize=1024M -cp ${CP} -Dconfig.file=/path/to/schedoscope.conf org.schedoscope.metascope.Metascope
 
 ## 3. Bundle and Deploy
 
