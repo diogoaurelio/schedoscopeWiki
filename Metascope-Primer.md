@@ -24,6 +24,9 @@ In the following, we will present and describe each feature of Metascope in deta
 ![Schema](images/schema.png)
 
 ## Data Lineage
+![Dependencies](images/dependency.png)
+
+![Lineage](images/lineage.png)
 
 ## Data sample and distribution
 ![Data sample](images/sample.png)
