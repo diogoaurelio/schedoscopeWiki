@@ -8,8 +8,8 @@ Schedoscope
 ### Getting Started
 * [Schedoscope at a Glance](Schedoscope at a Glance)
 * [Schedoscope Tutorial](Open Street Map Tutorial)
-* [Schedoscope View DSL Primer](Schedoscope View DSL Primer)´
-* [How Schedoscope Schedules](Scheduling)
+* [Schedoscope DSL Primer](Schedoscope View DSL Primer)
+* [Schedoscope Scheduling](Scheduling)
 
 ### Implementing Views
 * [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
@@ -43,7 +43,7 @@ Schedoscope
 * [Configuration](Configuring Schedoscope)
 * [Starting](Starting Schedoscope)
 
-### Schedoscope Commands
-* [HTTP API](Schedoscope HTTP API)
+### Scheduling Commands
 * [Command Reference](Scheduling Command Reference)
 * [View Pattern Reference](View Pattern Reference)
+* [HTTP API](Schedoscope HTTP API)
