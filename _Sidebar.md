@@ -32,7 +32,8 @@ Schedoscope
 * [Kafka](Kafka Export)
 * [Redis](Redis Export)
 
-### Metascope
+Metascope
+===============
 * [Metascope Primer](Metascope Primer)
 * [Building and Deploying](Building-and-Deploying-Metascope)
 * [Configuration](Configuring Metascope)
