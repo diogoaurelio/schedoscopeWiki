@@ -21,11 +21,14 @@ In the following, we will present and describe each feature of Metascope in deta
 ## Taxonomies and tags
 
 ## View schema
-![Navigation](images/schema.png)
+![Schema](images/schema.png)
 
 ## Data Lineage
 
 ## Data sample and distribution
+![Data sample](images/sample.png)
+
+![Data distribution](images/data.png)
 
 ## View storage and transformation information
 
