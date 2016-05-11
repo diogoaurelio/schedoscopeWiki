@@ -19,6 +19,9 @@ In the following, we will present and describe each feature of Metascope in deta
 ## Rich inline documentation
 
 ## Taxonomies and tags
+![Taxonomy administration](images/ctaxonomy.png)
+
+![Add taxonomy and tags](images/taxonomy.png)
 
 ## View schema
 ![Schema](images/schema.png)
