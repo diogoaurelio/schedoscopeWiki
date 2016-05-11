@@ -7,7 +7,7 @@ Metascope offers
 * an search index which allows **facetted navigation** and **full-text search**
 * **data lineage** throughout all views
 * an detailed overview of **all critical metadata** in one spot
-* **collaboration features**: create documentation and comments on different levels of your views
+* **collaboration features**: create inline documentation and comments on many different levels
 * the possibility to create **custom taxonomies** and to **tag and categorize** your data
 * data samples, data distribution and many more ...
 
