@@ -38,8 +38,8 @@ In the following, we will present and describe each feature of Metascope in deta
 ![Data distribution](images/data.png)
 
 ## View storage and transformation information
-![Navigation](images/storage.png)
-![Navigation](images/transformation.png)
+![Storage](images/estorage.png)
+![Transformation](images/transformation.png)
 
 ## Collaboration
 * Create documentation for each view, its fields and its parameters
