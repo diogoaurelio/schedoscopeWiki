@@ -41,7 +41,17 @@ In the following, we will present and describe each feature of Metascope in deta
 ![Navigation](images/transformation.png)
 
 ## Collaboration
+* Create documentation for each view, its fields and its parameters
+* Create taxonomies and categorize the data with category objects and free tags
+* Discuss a certain view with your colleagues
+* Recent activity stream
+* Most viewed datasets
 
 ## User management
+* LDAP Authentication or custom user management
+* Different groups which will show other content to different users (TODO)
 
 ## View administration
+* Invalidate and materialize your Schedoscope views from Metascope
+* Set the data owner ('person responsible')
+* Set the timestamp field for 'Last data from' metadata
