@@ -12,3 +12,5 @@ Metascope offers
 * data samples, data distribution and many more ...
 
 In the following, we will present and describe each feature of Metascope in detail. 
+
+## Facetted navigation and full-text search
