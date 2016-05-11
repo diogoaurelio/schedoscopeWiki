@@ -9,4 +9,6 @@ Metascope offers
 * an detailed overview of **all critical metadata** in one spot
 * **collaboration features**: create documentation and comments on different levels of your views
 * the possibility to create **custom taxonomies** and to **tag and categorize** your data
- 
+* data samples, data distribution and many more ...
+
+In the following, we will present and describe each feature of Metascope in detail. 
