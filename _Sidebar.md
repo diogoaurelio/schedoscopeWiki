@@ -42,6 +42,8 @@ Schedoscope
 * [Configuration](Configuring Schedoscope)
 * [Starting](Starting Schedoscope)
 * [Scheduling](Scheduling)
+
+### Schedoscope Commands
 * [HTTP API](Schedoscope HTTP API)
 * [Command Reference](Scheduling Command Reference)
 * [View Pattern Reference](View Pattern Reference)
