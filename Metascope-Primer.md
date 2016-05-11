@@ -6,4 +6,6 @@ Metascope offers
 * a **complete overview of all views** of your datahub
 * an search index which allows **facetted navigation** and **full-text search**
 * **data lineage** throughout all views
+* an detailed overview of **all critical metadata** in one spot
+* **collaboration features**: create documentation and comments on different levels of your views
  
