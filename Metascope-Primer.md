@@ -29,6 +29,6 @@ In the following, we will present and describe each feature of Metascope in deta
 
 ## Collaboration
 
-## User Management
+## User management
 
 ## View administration
