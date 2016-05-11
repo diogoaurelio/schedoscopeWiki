@@ -14,6 +14,7 @@ Metascope offers
 In the following, we will present and describe each feature of Metascope in detail. 
 
 ## Facetted navigation and full-text search
+![Navigation](images/filtersearch.jpg)
 
 ## Rich inline documentation
 
