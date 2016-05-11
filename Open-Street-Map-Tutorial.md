@@ -75,7 +75,7 @@ Let's get started:
 5. Go into directory `schedoscope` and build the project:
 
          [cloudera@quickstart ~]$ cd ~/schedoscope
-         [cloudera@quickstart schedoscope]$ mvn install -DXX:MaxPermSize=512m
+         [cloudera@quickstart schedoscope]$ mvn install -DXX:MaxPermSize=512m -DskipTests
 
 
 ## Watching Schedoscope work
@@ -145,7 +145,7 @@ Let's get started:
 
         [cloudera@quickstart ~]$ tail -F ~/schedoscope/schedoscope-tutorial/target/logs/schedoscope.log
 
-9. Type `shutdown` or `^C` in the Schedoscope shell if you want to stop Schedoscope. You should wait for it to complete the materialization of views to continue with the tutorial, though.
+9. Type `shutdown` or `^C` in the Schedoscope shell if you want to stop Schedoscope. You should wait for it to complete the materialization of views to continue with the tutorial, though. This might take up to an hour.
 
 ## Exploring the results
 
@@ -203,6 +203,8 @@ Let's start Metascope:
 
         [cloudera@quickstart ~]$ cd schedoscope/schedoscope-metascope
         [cloudera@quickstart ~]$ MAVEN_OPTS='-Xmx1024m -XX:MaxPermSize=512M' mvn exec:java -Dconfig.file=../schedoscope-tutorial/src/main/resources/schedoscope.conf
+
+Metascope will start an embedded web server, connect to Schedoscope, the Hive Metastore and the HDFS, retrieve all necessary metadata and write it to the repository. Depending on the amount of your views and your data, this may take a while. In this tutorial, it shouldn't take more than a minute.
 
 3. Browse to http://localhost:8080 and login with user `admin` and password `admin`
 
