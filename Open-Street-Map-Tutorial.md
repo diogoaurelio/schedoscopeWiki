@@ -206,7 +206,7 @@ Let's start Metascope:
 
 Metascope will start an embedded web server, connect to Schedoscope, the Hive Metastore and the HDFS, retrieve all necessary metadata and write it to the repository. Depending on the amount of your views and your data, this may take a while. In this tutorial, it shouldn't take more than a minute.
 
-3. Browse to http://localhost:8080 and login with user `admin` and password `admin`
+5. Browse to http://localhost:8080 and login with user `admin` and password `admin`
 
 Metacope offers you various ways to navigate and browse through the metadata of your datahub. Use the facetted filters and search functionality to find the view you need.
 
