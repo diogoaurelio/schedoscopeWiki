@@ -14,3 +14,11 @@ Metascope offers
 In the following, we will present and describe each feature of Metascope in detail. 
 
 ## Facetted navigation and full-text search
+
+## Data Lineage
+
+## Rich inline documentation
+
+## Taxonomies and tags
+
+## User Management
