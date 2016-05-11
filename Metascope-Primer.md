@@ -15,11 +15,19 @@ In the following, we will present and describe each feature of Metascope in deta
 
 ## Facetted navigation and full-text search
 
-## Data Lineage
-
 ## Rich inline documentation
 
 ## Taxonomies and tags
+
+## View schema
+
+## Data Lineage
+
+## Data sample and distribution
+
+## View storage and transformation information
+
+## Collaboration
 
 ## User Management
 
