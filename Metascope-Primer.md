@@ -8,5 +8,5 @@ Metascope offers
 * **data lineage** throughout all views
 * an detailed overview of **all critical metadata** in one spot
 * **collaboration features**: create documentation and comments on different levels of your views
-* the possibility to create **custom taxonomies** and to *tag and categorize* your data
+* the possibility to create **custom taxonomies** and to **tag and categorize** your data
  
