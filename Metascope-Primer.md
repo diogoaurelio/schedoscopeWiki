@@ -22,3 +22,5 @@ In the following, we will present and describe each feature of Metascope in deta
 ## Taxonomies and tags
 
 ## User Management
+
+## View administration
