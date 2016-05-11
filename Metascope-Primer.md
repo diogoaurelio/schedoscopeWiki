@@ -17,6 +17,7 @@ In the following, we will present and describe each feature of Metascope in deta
 ![Navigation](images/filtersearch.png)
 
 ## Rich inline documentation
+![Add taxonomy and tags](images/docu.png)
 
 ## Taxonomies and tags
 ![Taxonomy administration](images/ctaxonomy.png)
@@ -37,6 +38,7 @@ In the following, we will present and describe each feature of Metascope in deta
 ![Data distribution](images/data.png)
 
 ## View storage and transformation information
+![Navigation](images/transformation.png)
 
 ## Collaboration
 
