@@ -64,6 +64,8 @@ If the view is partitioned, a seperate section named 'Parameters' shows a simila
 
 ![Lineage](images/lineage.png)
 
+## Table partitions
+
 ## Data sample and distribution
 ![Data sample](images/sample.png)
 
