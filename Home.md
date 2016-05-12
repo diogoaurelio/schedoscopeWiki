@@ -32,6 +32,10 @@ Read the View DSL Primer for more information about the capabilities of the Sche
 
 - [Schedoscope View DSL Primer](Schedoscope View DSL Primer)
 
+Check out [Metascope](Metascope Primer)! Metascope is a metadata management and data discovery tool which serves as an add-on to Schedoscope
+
+![Metascope](images/lineage.png)
+
 ## Implementing Views
 - [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
 - [Schedoscope View DSL Primer](Schedoscope View DSL Primer)
