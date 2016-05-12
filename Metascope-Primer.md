@@ -102,7 +102,7 @@ Following metric are displayed if available:
 * Partitions: the total amount of partitions for this view
 * Table created: timestamp of table creation (in Hive Metastore)
 * Last transformation: last materialization of the view
-* Last data from: the latest data row (calculated by max(timestamp_field))
+* Last data from: the latest data row, which illustrates the up-to-dateness of the view (see [View administration](# View administration))
 * Last partition created: timestamp of last partition creation (in Hive Metastore)
 
 The transformation describes the job which is used to calculate the view.
@@ -122,9 +122,9 @@ Metascope comes with various collaborative features:
 
 ## User management
 Metascope has a custom user management. As an admin, you are able to create, edit and delete users to administrate access and privileges. Furthermore Metascope comes with an LDAP integration: Check [the configuration](https://github.com/ottogroup/schedoscope/wiki/Configuring%20Metascope) on how to use LDAP with Metascope
-* Different groups which will show other content to different users (TODO)
 
 ## View administration
-* Invalidate and materialize your Schedoscope views from Metascope
-* Set the data owner ('person responsible')
-* Set the timestamp field for 'Last data from' metadata
+* Invalidate/Materialize views: As an admin user, you are able to trigger invalidation/materialization from Metascope.
+* Set a data owner: Besides the technical user, an 'data owner' or 'person responsible' can be set for each view. This feature can be found on the documentation section and allows to enter the name of a contact person for the dataset. If the user is registered in Metascope (a list of users will be suggested), further information will be displayed.
+* Set the timestamp field: The storage sections contains the metadata 'Last data from', which shows the timestamp of the *latest* record. Metascope tries to guess the timestamp field and its format, but sometimes the information needs to be set manually. This is possible in die 'Administration' section.
+(e.g. you have a table named *sales* with a field called *ts* which contains a timestamp with ISO 8601 format, say *YYYY-MM-DDThh:mm:ss*. Set the timestamp field to *ts* and the timestamp format to *YYYY-MM-DD'T'hh:mm:ss*)
