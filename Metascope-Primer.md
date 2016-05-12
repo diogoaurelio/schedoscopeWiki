@@ -85,7 +85,7 @@ Metascope will automatically generate insights into your data. Automatic jobs wi
 
 The calculation depend on the field type. Following metrics are created for the appropriate types:
 * int/double/long: min, max, average, standard derivation, sum
-* boolean,String: min, max, Enum (If the field contains < 255 distinct values, Metascope will interpret is as an enumeration and displays the values)
+* boolean/String: min, max, Enum (If the field contains < 255 distinct values, Metascope will interpret is as an enumeration and displays the values)
 
 ## View storage and transformation information
 ![Storage](images/estorage.png)
