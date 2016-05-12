@@ -39,12 +39,18 @@ Metascope gives you the ability to document your view. A WYSIWYG editor allows t
 
 ![WYSIWYG documentation](images/docu.png)
 
-Besides documenting on table level, each field and parameter of the table can be documented similarly.
+Besides documenting on table level, each table field and parameter can be documented similarly.
 
 ## Taxonomies and tags
+Taxonomies can be created, maintained, and assigned to the datasets. This allows to categorize your views throughout the entire datahub and increase the search and browsing capabilities for the users.
+
 ![Taxonomy administration](images/ctaxonomy.png)
 
+Each taxonomy consists of a taxonomy name and a set of categories, which in turn also has a name and a set of category objects. The category object is an entity which can be assigned to a view. It contains a object name and an appropriate description.
+
 ![Add taxonomy and tags](images/taxonomy.png)
+
+
 
 ## View schema
 ![Schema](images/schema.png)
