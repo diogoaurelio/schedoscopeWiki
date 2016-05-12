@@ -109,9 +109,10 @@ The transformation describes the job which is used to calculate the view.
 
 ![Transformation](images/transformation.png)
 
-Schedoscope allows to export the views into various systems. Each export and its parameters will be displayed next to the transformation table.
+Schedoscope allows to [export the views](https://github.com/ottogroup/schedoscope/wiki/Schedoscope%20View%20DSL%20Primer#view-exports) into numerous systems. Each export and its parameters will be displayed next to the transformation table.
 
 ## Collaboration
+Metascope comes with various  
 * Create documentation for each view, its fields and its parameters
 * Create taxonomies and categorize the data with category objects and free tags
 * Discuss a certain view with your colleagues
