@@ -60,9 +60,17 @@ The schema section shows the table structure of the view. It displays the field 
 If the view is partitioned, a seperate section named 'Parameters' shows a similar table with the partition parameters.
 
 ## Data Lineage
+One of the key features of Metascope is the data lineage. The views have explicit definition of dependencies, which makes it easy for Metascope to gather the dependency information and display it to the users. There is no need for retroactive crawling through the Hadoop logs to find data lineage information, which could be inaccurate.
+
 ![Dependencies](images/dependency.png)
 
+The dependency section shows all views which are used by as well as depend on the selected view. It is indispensable to know the data flow through the entire datahub to rely on analysis and reports. 
+
 ![Lineage](images/lineage.png)
+
+The default table will only show direct dependencies. *Show transitive dependencies* will recursively navigate through the lineage graph and find all direct and indirect dependencies. This could help the developers when they have to change the schema of a view and need to find all views which will be affected by the change.
+
+The lineage graph is a visual representation of the data lineage information. It helps the user to get a better understanding of the relations between the datasets and allows him directly to navigate to depended or subsequent view. 
 
 ## Table partitions
 
