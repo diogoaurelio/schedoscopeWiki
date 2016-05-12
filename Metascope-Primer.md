@@ -105,7 +105,11 @@ Following metric are displayed if available:
 * Last data from: the latest data row (calculated by max(timestamp_field))
 * Last partition created: timestamp of last partition creation (in Hive Metastore)
 
+The transformation describes the job which is used to calculate the view.
+
 ![Transformation](images/transformation.png)
+
+Schedoscope allows to export the views into various systems. Each export and its parameters will be displayed next to the transformation table.
 
 ## Collaboration
 * Create documentation for each view, its fields and its parameters
