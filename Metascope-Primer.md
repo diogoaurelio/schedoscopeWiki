@@ -93,16 +93,17 @@ The storage section shows technical metadata and storage information
 ![Storage](images/estorage.png)
 
 Following metric are displayed if available:
-* Owner: the techincal user which owns the underlying data files
-* Storage format: storage format defined in Schedoscope
-* Input format: the appropriate input format from the Hive metastore
-* Output format: the appropriate output format from the Hive metastore
-* Location: the location of the underlying data files
-* Size: the total size of the underlying data files
-* Partitions: the total amount of partitions for this view
-* Table created: timestamp of table creation (in Hive Metastore)
-* Last transformation: last materialization of the view
-* Last data from: the latest data row, which illustrates the up-to-dateness of the view (see [View administration](#view-administration))
+* **Owner**: the techincal user which owns the underlying data files
+* **Permissions**: the permissions of underlying data files
+* **Storage format**: storage format defined in Schedoscope
+* **Input format**: the appropriate input format from the Hive metastore
+* **Output format**: the appropriate output format from the Hive metastore
+* **Location**: the location of the underlying data files
+* **Size**: the total size of the underlying data files
+* **Partitions**: the total amount of partitions for this view
+* **Table created**: timestamp of table creation (in Hive Metastore)
+* **Last transformation**: last materialization of the view
+* **Last data from**: the latest data row, which illustrates the up-to-dateness of the view (see [View administration](#view-administration))
 * Last partition created: timestamp of last partition creation (in Hive Metastore)
 
 The transformation describes the job which is used to calculate the view.
