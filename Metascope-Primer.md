@@ -4,21 +4,21 @@ Metascope uses the internal view descriptions from Schedoscope to build a metada
 
 Metascope offers
 * a **complete overview of all views** of your datahub
-* an search index which allows **facetted navigation** and **full-text search**
+* an search index which allows **faceted navigation** and **full-text search**
 * **data lineage** throughout all views
 * an detailed overview of **all critical metadata** in one spot
-* **collaboration features**: create inline documentation and comments on many different levels
+* **collaboration features**: create in-line documentation and comments on many different levels
 * the possibility to create **custom taxonomies** and to **tag and categorize** your data
 * data samples, data distribution and many more ...
 
 In the following, we will present and describe each feature of Metascope in detail. 
 
-## Facetted navigation and full-text search
-Metascope uses a relational database to store the Schedoscope data and further metadata from various Hadoop frameworks. For navigation and search purposes, all data is indexed by [Apache Solr](http://lucene.apache.org/solr/). This allows Metascope to offer the user a facetted navigation and a full-text search.
+## Faceted navigation and full-text search
+Metascope uses a relational database to store the Schedoscope data and further metadata from various Hadoop frameworks. For navigation and search purposes, all data is indexed by [Apache Solr](http://lucene.apache.org/solr/). This allows Metascope to offer the user a faceted navigation and a full-text search.
 
 ![Navigation](images/filtersearch.png)
 
-a
+The faceted navigation gives the user a simple mechanism to find a specific view in seconds. The full-text search can be used to refine the search results. The facets can be combined arbitrary and always show the number of resulting hits.
 
 ## Rich inline documentation
 ![Add taxonomy and tags](images/docu.png)
