@@ -1,4 +1,4 @@
-Metascope operates as a REST web service. There are two ways of launching this service.
+Metascope operates as a web service. There are two ways of launching this service.
 
 # Launching via start-metascope.sh script
 
