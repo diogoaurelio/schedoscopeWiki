@@ -32,12 +32,6 @@ Schedoscope
 * [Kafka](Kafka Export)
 * [Redis](Redis Export)
 
-### Metascope
-* [Metascope Primer](Metascope Primer)
-* [Building and Deploying](Building-and-Deploying-Metascope)
-* [Configuration](Configuring Metascope)
-* [Starting](Starting Metascope)
-
 ### Operating Schedoscope
 * [Bundling and Deploying](Bundling and Deploying)
 * [Configuration](Configuring Schedoscope)
@@ -47,3 +41,10 @@ Schedoscope
 * [Command Reference](Scheduling Command Reference)
 * [View Pattern Reference](View Pattern Reference)
 * [HTTP API](Schedoscope HTTP API)
+
+Metascope
+===============
+* [Metascope Primer](Metascope Primer)
+* [Building and Deploying](Building-and-Deploying-Metascope)
+* [Configuration](Configuring Metascope)
+* [Starting](Starting Metascope)
