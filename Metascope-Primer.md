@@ -53,7 +53,11 @@ Each taxonomy consists of a taxonomy name and a set of categories, which in turn
 Users are able to assign appropriate category objects to the datasets via a fixed drop-down menu. Metascope will automatically assign the parent taxonomies and categories to the view. If no suitable taxonomy or category object is present, the user is able to assign free tags. The taxonomy information is present at the taxonomy section as well as in the faceted navigation. The user is now able to query for specific taxonomies, categories and/or category objects. 
 
 ## View schema
+The schema section shows the table structure of the view. It displays the field name, type and description. Just like on table level, the users are able to create documentation for each field.
+
 ![Schema](images/schema.png)
+
+If the view is partitioned, a seperate section named 'Parameters' shows a similar table with the partition parameters.
 
 ## Data Lineage
 ![Dependencies](images/dependency.png)
