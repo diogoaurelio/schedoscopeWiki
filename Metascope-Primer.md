@@ -21,16 +21,16 @@ Metascope uses a relational database to store the Schedoscope data and further m
 The faceted navigation gives the user a simple mechanism to find a specific view in seconds. The full-text search can be used to refine the search results. The facets can be combined arbitrary and always show the number of resulting hits.
 
 There are facets for:
-* Type (Table or Partition)
-* Database name
-* Table name
-* Table status
-* Table transformations
-* Table exports
-* Creation time
-* Last transformation time
-* [Taxonomies and tags](#taxonomies-and-tags)
-* Partition parameters
+* **Type** (Table or Partition)
+* **Database name**
+* **Table name**
+* **Table status**
+* **Table transformations**
+* **Table exports**
+* **Creation time**
+* **Last transformation time**
+* [**Taxonomies and tags**](#taxonomies-and-tags)
+* **Partition parameters**
 
 The full-text search also offers a auto-complete function depending on the indexed data to help the user to get more and precise search results.
 
