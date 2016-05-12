@@ -112,15 +112,16 @@ The transformation describes the job which is used to calculate the view.
 Schedoscope allows to [export the views](https://github.com/ottogroup/schedoscope/wiki/Schedoscope%20View%20DSL%20Primer#view-exports) into numerous systems. Each export and its parameters will be displayed next to the transformation table.
 
 ## Collaboration
-Metascope comes with various  
+Metascope comes with various collaborative features: 
 * Create documentation for each view, its fields and its parameters
 * Create taxonomies and categorize the data with category objects and free tags
-* Discuss a certain view with your colleagues
-* Recent activity stream
-* Most viewed datasets
+* Discuss a certain view with your colleagues and create comments on documentation
+* The activity stream shows the recent changes and discussions in Metascope 
+* Most viewed datasets shows the most clicked views
+* Add datasets to your 'Favourites' to create a short cut to your views
 
 ## User management
-* LDAP Authentication or custom user management
+Metascope has a custom user management. As an admin, you are able to create, edit and delete users to administrate access and privileges. Furthermore Metascope comes with an LDAP integration: Check [the configuration](https://github.com/ottogroup/schedoscope/wiki/Configuring%20Metascope) on how to use LDAP with Metascope
 * Different groups which will show other content to different users (TODO)
 
 ## View administration
