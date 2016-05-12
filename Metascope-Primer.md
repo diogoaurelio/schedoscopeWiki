@@ -73,11 +73,14 @@ The default table will only show direct dependencies. *Show transitive dependenc
 The lineage graph is a visual representation of the data lineage information. It helps the user to get a better understanding of the relations between the datasets and allows him directly to navigate to depended or subsequent views. 
 
 ## Table partitions
+This section displays all partitions on the table. It shows the partition parameter and their values, the status of the partition, the last successful transformation and the duration.
 
 ![Partitions](images/partitions.png)
 
+Furthermore detailed lineage information on partition level is given. The table shows for each partition the direct dependencies and successors. This enables the user to navigate through the data on partition level. 
+
 ## Data sample and distribution
-The sample sections shows a small (ten rows) data sample of the current table. If the table is partitioned, the user is able to retrieve a sample for a given parameter or partition.
+The sample sections shows a small (ten rows) data sample of the current table. If the table is partitioned, the user is able to retrieve a sample for a specific parameter or partition.
 
 ![Data sample](images/sample.png)
 
