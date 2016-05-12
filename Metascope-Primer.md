@@ -75,11 +75,17 @@ The lineage graph is a visual representation of the data lineage information. It
 ## Table partitions
 
 ## Data sample and distribution
-The sample sections shows a small (ten rows) data sample of the current table. If the table is partitioned, the user is able to ask for a sample for a given parameter or partition.
+The sample sections shows a small (ten rows) data sample of the current table. If the table is partitioned, the user is able to retrieve a sample for a given parameter or partition.
 
 ![Data sample](images/sample.png)
 
+Metascope will automatically generate insights into your data. Automatic jobs will calculate different metrics for each table field, interpret and displays them to the user.
+
 ![Data distribution](images/data.png)
+
+The calculation depend on the field type. Following metrics are created for the appropriate types:
+* int/double/long: min, max, average, standard derivation, sum
+* boolean,String: min, max, Enum (If the field contains < 255 distinct values, Metascope will interpret is as an enumeration and displays the values)
 
 ## View storage and transformation information
 ![Storage](images/estorage.png)
