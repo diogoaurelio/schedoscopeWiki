@@ -74,6 +74,8 @@ The lineage graph is a visual representation of the data lineage information. It
 
 ## Table partitions
 
+![Partitions](images/partitions.png)
+
 ## Data sample and distribution
 The sample sections shows a small (ten rows) data sample of the current table. If the table is partitioned, the user is able to retrieve a sample for a given parameter or partition.
 
@@ -90,7 +92,7 @@ The calculation depend on the field type. Following metrics are created for the 
 ## View storage and transformation information
 The storage section shows technical metadata and storage information
 
-![Storage](images/estorage.png)
+![Storage](images/storage.png)
 
 Following metric are displayed if available:
 * **Owner**: the techincal user which owns the underlying data files
