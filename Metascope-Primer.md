@@ -70,11 +70,13 @@ The dependency section shows all views which are used by as well as depend on th
 
 The default table will only show direct dependencies. *Show transitive dependencies* will recursively navigate through the lineage graph and find all direct and indirect dependencies. This could help the developers when they have to change the schema of a view and need to find all views which will be affected by the change.
 
-The lineage graph is a visual representation of the data lineage information. It helps the user to get a better understanding of the relations between the datasets and allows him directly to navigate to depended or subsequent view. 
+The lineage graph is a visual representation of the data lineage information. It helps the user to get a better understanding of the relations between the datasets and allows him directly to navigate to depended or subsequent views. 
 
 ## Table partitions
 
 ## Data sample and distribution
+The sample sections shows a small (ten rows) data sample of the current table. If the table is partitioned, the user is able to ask for a sample for a given parameter or partition.
+
 ![Data sample](images/sample.png)
 
 ![Data distribution](images/data.png)
