@@ -104,7 +104,7 @@ Following metric are displayed if available:
 * **Table created**: timestamp of table creation (in Hive Metastore)
 * **Last transformation**: last materialization of the view
 * **Last data from**: the latest data row, which illustrates the up-to-dateness of the view (see [View administration](#view-administration))
-* Last partition created: timestamp of last partition creation (in Hive Metastore)
+* **Last partition created**: timestamp of last partition creation (in Hive Metastore)
 
 The transformation describes the job which is used to calculate the view.
 
