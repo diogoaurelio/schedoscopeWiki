@@ -34,7 +34,7 @@ There are facets for:
 
 The full-text search also offers a auto-complete function depending on the indexed data to help the user to get more and precise search results.
 
-## Rich inline documentation
+## In-line documentation
 Metascope gives you the ability to document your view. A WYSIWYG editor allows to create rich documentation (Fonts, Size, Colors, HTML structures, ...) and stores it right at your view. There is no need to use external portals or wikis like [Confluence](https://www.atlassian.com/software/confluence) anymore, which allows more consistent documentation of your datahub.
 
 ![WYSIWYG documentation](images/docu.png)
