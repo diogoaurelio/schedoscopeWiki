@@ -14,7 +14,7 @@ Metascope offers
 In the following, we will present and describe each feature of Metascope in detail. 
 
 ## Facetted navigation and full-text search
-Metascope uses a relational database to store all the Schedoscope metadata. For navigation and search purposes, all data is indexed by [Apache Solr](http://lucene.apache.org/solr/). This allows Metascope to offer the user a facetted navigation and a full-text search.
+Metascope uses a relational database to store the Schedoscope data and further metadata from various Hadoop frameworks. For navigation and search purposes, all data is indexed by [Apache Solr](http://lucene.apache.org/solr/). This allows Metascope to offer the user a facetted navigation and a full-text search.
 
 ![Navigation](images/filtersearch.png)
 
