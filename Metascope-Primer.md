@@ -92,6 +92,7 @@ The storage section shows technical metadata and storage information
 
 ![Storage](images/estorage.png)
 
+Following metric are displayed if available:
 * Owner: the techincal user which owns the underlying data files
 * Storage format: storage format defined in Schedoscope
 * Input format: the appropriate input format from the Hive metastore
