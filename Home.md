@@ -34,9 +34,9 @@ Read the View DSL Primer for more information about the capabilities of the Sche
 
 Check out Metascope! It's a meta data management and data discovery tool which serves as an add-on to Schedoscope.
 
-![Metascope](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png)
-
 - [Metascope Features and Screenshots](Metascope Primer)
+
+![Metascope](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png)
 
 ## Implementing Views
 - [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
