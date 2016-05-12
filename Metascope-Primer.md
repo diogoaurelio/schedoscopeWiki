@@ -88,7 +88,22 @@ The calculation depend on the field type. Following metrics are created for the 
 * boolean/String: min, max, enum (If the field contains <255 distinct values, Metascope will interpret the field as an enumeration and displays the values)
 
 ## View storage and transformation information
+The storage section shows technical metadata and storage information
+
 ![Storage](images/estorage.png)
+
+* Owner: the techincal user which owns the underlying data files
+* Storage format: storage format defined in Schedoscope
+* Input format: the appropriate input format from the Hive metastore
+* Output format: the appropriate output format from the Hive metastore
+* Location: the location of the underlying data files
+* Size: the total size of the underlying data files
+* Partitions: the total amount of partitions for this view
+* Table created: timestamp of table creation (in Hive Metastore)
+* Last transformation: last materialization of the view
+* Last data from: the latest data row (calculated by max(timestamp_field))
+* Last partition created: timestamp of last partition creation (in Hive Metastore)
+
 ![Transformation](images/transformation.png)
 
 ## Collaboration
