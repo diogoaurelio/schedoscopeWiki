@@ -36,7 +36,7 @@ Check out Metascope! It's a meta data management and data discovery tool which s
 
 ![Metascope](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png)
 
-- [Metascope](Metascope Primer)
+- [Metascope Features and Screenshots](Metascope Primer)
 
 ## Implementing Views
 - [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
