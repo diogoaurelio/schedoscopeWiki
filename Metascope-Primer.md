@@ -29,7 +29,7 @@ There are facets for:
 * Table exports
 * Creation time
 * Last transformation time
-* Taxonomies and tags
+* [Taxonomies and tags](#taxonomies-and-tags)
 * Partition parameters
 
 The full-text search also offers a auto-complete function depending on the indexed data to help the user to get more and precise search results.
