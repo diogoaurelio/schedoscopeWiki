@@ -46,11 +46,11 @@ Taxonomies can be created, maintained, and assigned to the datasets. This allows
 
 ![Taxonomy administration](images/ctaxonomy.png)
 
-Each taxonomy consists of a taxonomy name and a set of categories, which in turn also has a name and a set of category objects. The category object is an entity which can be assigned to a view. It contains a object name and an appropriate description.
+Each taxonomy consists of a taxonomy name and a set of categories, which in turn also have a name and a set of category objects. The category object is an entity which can be assigned to a view. It contains a object name and an suitable description.
 
 ![Add taxonomy and tags](images/taxonomy.png)
 
-
+Users are able to assign appropriate category objects to the datasets via a fixed drop-down menu. Metascope will automatically assign the parent taxonomies and categories to the view. If no suitable taxonomy or category object is present, the user is able to assign free tags. The taxonomy information is present at the taxonomy section as well as in the faceted navigation. The user is now able to query for specific taxonomies, categories and/or category objects. 
 
 ## View schema
 ![Schema](images/schema.png)
