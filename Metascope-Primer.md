@@ -36,7 +36,7 @@ There are facets for:
 
 The full-text search also offers an auto-complete function based on already indexed data to help the user to get more and precise search results.
 
-## Documentation
+## Inline documentation
 Metascope extracts view descriptions that were provided by the developers of views via the Schedoscope view DSL and stores them in its metadata catalog for display and search. These are usually of rather technical nature and terse. 
 
 Metascope gives users - in particular business users - the ability to collaboratively annotate and extend this documentation. A WYSIWYG editor allows one to easily create richly formatted table documentation (fonts, size, colors, HTML structures, ...), which is then stored alongside the developer-provided documentation in Metascope's catalog and indexed for search as well. There is no need to use external systems like [Confluence](https://www.atlassian.com/software/confluence) for business documentation, keeping it more consistent and in-sync with your datahub's reality.
