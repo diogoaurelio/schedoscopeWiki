@@ -158,12 +158,12 @@ For an example of how to override these settings, you can also take a look at th
 
 # Repository configuration
 
-Metascope uses a relational database as the main metadata repository and an [Apache Solr](http://lucene.apache.org/solr/) instance as an index for searching and filtering purposes. If Metascope is run in embedded mode (which is the default), it will create an embedded instance of [Apache Derby](https://db.apache.org/derby/) and a embedded Solr core in the metascope target folder:
+Metascope uses a relational database as the main metadata repository and an [Apache Solr](http://lucene.apache.org/solr/) instance as an index for searching and filtering purposes. If Metascope is run in embedded mode (which is the default), it will create an embedded instance of [Apache Derby](https://db.apache.org/derby/) and an embedded Solr core in the metascope target folder:
 
 * `.../schedoscope-metascope/target/metascope-deployment/repository/`: Local metadata repository (Apache Derby)
 * `.../schedoscope-metascope/target/metascope-deployment/solr/`: Local index (Apache Solr)
 
-In production, especially when you have a huge amount of tables and partitions, it is recommended to use a standalone database and Solr server.
+In production, especially when you have a large amount of tables and partitions, it is recommended to use a standalone database and Solr server.
 
 ***
 
@@ -186,6 +186,5 @@ Here is an example for a MySQL configuration:
 
 **External (Standalone) Metadata Index**
 
-To use a standalone Solr server, set the `metascope.solr.url` in the `application.conf` file to `http://solrhost:solrport`. The Solr instance needs a core (the actual index) named `metascope` in which it persists the indexed data. At the moment, it is not possible to create a Solr core on the fly.
-Create a core named `metascope` with the appropriate [solrconfig.xml](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-metascope/src/main/resources/solr/metascope/conf/solrconfig.xml) and [schema.xml](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-metascope/src/main/resources/solr/metascope/conf/schema.xml) files. For further information, check
+To use a standalone Solr server, set `metascope.solr.url` in `application.conf` file to `http://solrhost:solrport`. The Solr instance needs a core (the actual index) named `metascope`, in which it persists the indexed data. At the moment, it is not possible to create a Solr core on the fly. Create a core named `metascope` with the appropriate [solrconfig.xml](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-metascope/src/main/resources/solr/metascope/conf/solrconfig.xml) and [schema.xml](https://github.com/ottogroup/schedoscope/blob/master/schedoscope-metascope/src/main/resources/solr/metascope/conf/schema.xml) files. For further information, check
 [How do I create a Solr Core](https://www.codeenigma.com/host/faq/how-do-i-create-solr-core-my-server#solr4)
