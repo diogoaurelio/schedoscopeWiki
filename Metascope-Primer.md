@@ -1,6 +1,6 @@
 Metascope is a web application for collaborative discovery, search, annotation, and documentation of your Hadoop datahub.
 
-Metascope uses Schedoscope's view specifications integrating definitions of table structure, dependencies, and computation logic to build a metadata repository. A lightweight web interface and a REST API exposes this repository to users - not just technical users but also business users - and applications.
+Metascope uses Schedoscope's view specifications integrating definitions of table structure, dependencies, and computation logic to build a metadata repository. A lightweight web interface and a REST API exposes this repository to users - not just technical users but **especially business users** - and applications.
 
 Metascope offers
 * a **complete overview of the Hive tables** of your datahub that were created as Schedoscope views
