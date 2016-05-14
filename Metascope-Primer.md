@@ -43,7 +43,7 @@ Metascope gives users - in particular business users - the ability to collaborat
 
 ![WYSIWYG documentation](images/docu.png)
 
-One can assign a data owner to a table as an additional means of documentation. This is meant to be interpreted as a "go-to-person" with detailed knowledge about the table. Should the data owner be identical to a Metascope user account, additional contact information is displayed.
+One can assign a data owner (person responsible) to a table as an additional means of documentation. This is meant to be interpreted as a "go-to-person" with detailed knowledge about the table. Should the data owner be identical to a Metascope user account, additional contact information is displayed.
 
 ## Taxonomies and tags
 
