@@ -1,10 +1,10 @@
-This section describes how to build and deploy Metascope for productional use.
+This section describes how to build and deploy Metascope for production use.
 
 When using Maven as your build tool, the basic bundling options are:
 - creating and distributing a fat jar using the Maven assembly plugin;
 - copying all jars into a separate deployment folder with the Maven dependency plugin, creating a shell script that constructs the classpath and launches the application, and distribute that folder.
 
-In this section, we explore the latter approach. 
+This sections describe the latter approach:
 
 ## 1. Build Metascope
 
@@ -32,7 +32,7 @@ The build results in the following directory structure:
         |
         +-- metascope.jar
 
-The `lib` folder contains all dependencies, `metascope.jar` contains the metascope application and the `start-metascope.sh` script is used to start Metascope from commandline. The `solr` folder contains the schema and config for the Solr index if the embedded mode is used. Check [Configuring Metascope](Configuring Metascope) for further information.
+The `lib` folder contains all dependencies, `metascope.jar` contains the metascope application, and the `start-metascope.sh` script is used to start Metascope from commandline. The `solr` folder contains the schema and config for the Solr index if the embedded mode is used. Check [Configuring Metascope](Configuring Metascope) for further information.
 
 ## 2. Create Launch Script
 
@@ -51,4 +51,4 @@ A launch script has to do two things: construct the classpath and launch the Met
 
 ## 3. Bundle and Deploy
 
-As the last step, one needs to package `${baseDir}/metascope-deployment` and distribute it to the node where Metascope is supposed to run. This step depends on your environment so we will not make any suggestions on how to do this. Take into consideration that Metascope needs to be able to connect to Schedoscope, the Hive Metastore, the Hive Server and the HDFS to be fully functional.
+As the last step, one needs to package `${baseDir}/metascope-deployment` and distribute it to the node where Metascope is supposed to run. This step depends on your environment so we will not make any suggestions on how to do this. Take into consideration that Metascope needs to be able to connect to Schedoscope, the Hive Metastore, the Hive Server, and HDFS to be fully functional.
