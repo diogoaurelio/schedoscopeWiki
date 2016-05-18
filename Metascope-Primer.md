@@ -22,7 +22,7 @@ Metascope uses a relational database to catalog information about views from Sch
 
 ![Navigation](images/filtersearch.png)
 
-With the combination of full-text search and facetted navigation, users have a simple mechanism at their disposal to discover interesting tables / views while at the same time being able to drill down and hone in quickly on interesting information. 
+With the combination of full-text search and faceted navigation, users have a simple mechanism at their disposal to discover interesting tables / views while at the same time being able to drill down and hone in quickly on interesting information. 
 
 The facets can be combined arbitrarily and always show the number of results that will be returned when selecting the facet.
 
@@ -51,7 +51,7 @@ One can assign a data owner (person responsible) to a table as an additional mea
 
 ## Taxonomies and tags
 
-Metascope can align your datahub's tables with business concepts. Metascope administrators can create taxonomies of business objects, IT systems, organizations, or other concepts. Users can then label tables using those taxononmies. As taxonomies are indexed and included both in the faceted and full-text search, this increases the search and browsing capabilities of business users.
+Metascope can align your datahub's tables with business concepts. Metascope administrators can create taxonomies of business objects, IT systems, organizations, or other concepts. Users can then label tables using those taxonomies. As taxonomies are indexed and included both in the faceted and full-text search, this increases the search and browsing capabilities of business users.
 
 ![Taxonomy administration](images/ctaxonomy.png)
 
@@ -61,14 +61,14 @@ Metascope taxonomies have a name and consist of a set of (business) objects, whi
 
 Users are able to assign category objects to tables via simple drop-down menus, one for each defined taxonomy. 
 
-In case that the administrator-defined taxonomies do not satisify one's classification needs, Metascope users can also assign arbitrary tags to tables. Tags are also indexed and accessible by facetted navigation and full-text search.
+In case that the administrator-defined taxonomies do not satisfy one's classification needs, Metascope users can also assign arbitrary tags to tables. Tags are also indexed and accessible by faceted navigation and full-text search.
 
 ## View schema
 The schema section shows the fields of a table. It displays the field name, type, and developer-provided description. Just like for tables, users are able to create additional documentation for each field using the WYSIWYG editor.
 
 ![Schema](images/schema.png)
 
-If the table is partitioned, a seperate section named 'Parameters' shows a similar table with the partition parameters.
+If the table is partitioned, a separate section named 'Parameters' shows a similar table with the partition parameters.
 
 ## Data Lineage
 One of the key features of Metascope is the ability to trace data lineage of tables and table partitions. Understanding the flow of data through your datahub is essential for interpreting data, judging its origins and quality.
@@ -99,7 +99,7 @@ The sample sections shows a small (ten rows) data sample of the current table to
 
 ## Data distribution
 
-While seeing data samples is definitely helpful for a user trying to make sense of a table, another piece of the puzzle is information about the domains of fields. The schema section already describes the fields' data types. The data distribution section additionaly takes a look at the concrete values within each field and generates metrics describing field domains more precisely.
+While seeing data samples is definitely helpful for a user trying to make sense of a table, another piece of the puzzle is information about the domains of fields. The schema section already describes the fields' data types. The data distribution section additionally takes a look at the concrete values within each field and generates metrics describing field domains more precisely.
 
 ![Data distribution](images/data.png)
 
@@ -115,7 +115,7 @@ This section shows technical metadata and storage information about a table.
 ![Storage](images/storage.png)
 
 Following metrics are displayed if available:
-* **Owner**: the techincal user which owns the underlying data files
+* **Owner**: the technical user which owns the underlying data files
 * **Permissions**: the permissions of underlying data files
 * **Storage format**: storage format defined in Schedoscope
 * **Input format**: the appropriate input format from the Hive Metastore
@@ -145,10 +145,10 @@ Metascope comes with various collaborative features. Together, users can
 Moreover,
 * an activity stream shows recent changes and discussions in Metascope;
 * a most viewed datasets view shows the most clicked tables;
-* one can tag tables as 'favorites' to define navigational shortcuts.
+* one can tag tables as 'favourites' to define navigational short cuts.
 
 ## User management
-Metascope implemens a simple user management. As an administrator, you are able to create, edit and delete users to administrate access and privileges. Furthermore Metascope comes with an LDAP integration: Check [the configuration](https://github.com/ottogroup/schedoscope/wiki/Configuring%20Metascope) on how to use LDAP with Metascope.
+Metascope implements a simple user management. As an administrator, you are able to create, edit and delete users to administrate access and privileges. Furthermore Metascope comes with an LDAP integration: Check [the configuration](https://github.com/ottogroup/schedoscope/wiki/Configuring%20Metascope) on how to use LDAP with Metascope.
 
 ## View administration
 * **Invalidate and materialize views**: As an administrator, you are able to trigger Schedoscope invalidation and materialization commands from Metascope.
