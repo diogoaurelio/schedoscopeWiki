@@ -2,6 +2,8 @@ Metascope is a web application for collaborative discovery, search, annotation, 
 
 Metascope uses Schedoscope's view specifications integrating definitions of table structure, dependencies, and computation logic to build a metadata repository. A lightweight web interface and a REST API exposes this repository to users - not just technical users but **especially business users** - and applications.
 
+![Lineage](images/lineage.png)
+
 Metascope offers
 * a **complete overview of the Hive tables** of your datahub that were created as Schedoscope views
 * an index for **faceted navigation** and **full-text search**
