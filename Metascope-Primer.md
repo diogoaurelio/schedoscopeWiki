@@ -13,7 +13,7 @@ Metascope offers
 * a detailed overview of **all critical metadata** in one place
 * **collaboration features**: create in-line documentation and comments on many different levels
 * the ability to create **custom taxonomies** and to **tag and categorize** your data
-* partition data samples, data distribution and many more ...
+* partition, data samples, data distribution and many more ...
 
 In the following, we present and describe the main features of Metascope in more detail. 
 
@@ -73,7 +73,7 @@ If the table is partitioned, a separate section named 'Parameters' shows a simil
 ## Data Lineage
 One of the key features of Metascope is the ability to trace data lineage of tables and table partitions. Understanding the flow of data through your datahub is essential for interpreting data, judging its origins and quality.
 
-Schedoscope views explicitly specify their dependencies. This makes it easy for Metascope to gather dependency information and display it to the users. There is no need for retroactive crawling through Hadoop system logs to infer data lineage information, which would not only be computationally expensive and frequently inaccurrate but most likely too technical and fine-grained for consumption by business users.
+Schedoscope views explicitly specify their dependencies. This makes it easy for Metascope to gather dependency information and display it to the users. There is no need for retroactive crawling through Hadoop system logs to infer data lineage information, which would not only be computationally expensive and frequently inaccurate but most likely too technical and fine-grained for consumption by business users.
 
 ![Dependencies](images/dependency.png)
 
@@ -133,7 +133,7 @@ This section provides information about the way data in a table is computed. For
 
 ![Transformation](images/transformation.png)
 
-Schedoscope additionally allows one to [export](https://github.com/ottogroup/schedoscope/wiki/Schedoscope%20View%20DSL%20Primer#view-exports) view date to external systems. Each export and its parameters will be displayed next to the transformation information.
+Schedoscope additionally allows one to [export](https://github.com/ottogroup/schedoscope/wiki/Schedoscope%20View%20DSL%20Primer#view-exports) view data to external systems. Each export and its parameters will be displayed next to the transformation information.
 
 ## Collaboration
 
