@@ -35,7 +35,9 @@ Read the View DSL Primer for more information about the capabilities of the Sche
 Check out Metascope! It's an add-on to Schedoscope for collaborative metadata management, data discovery and exploration, and data lineage tracing:
 
 <p align="center">
+<a href="https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png">
 <img src="https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png" width="75%">
+</a>
 </p>
 
 - [Metascope Features and Screenshots](Metascope Primer)
