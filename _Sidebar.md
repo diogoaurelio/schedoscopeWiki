@@ -1,4 +1,4 @@
-[[images/schedoscope_logo.jpg|alt="Schedoscope Logo"]](http://www.schedoscope.org)
+[[[images/schedoscope_logo.jpg|alt="Schedoscope Logo"]]](http://www.schedoscope.org)
 
 Schedoscope
 ===============
