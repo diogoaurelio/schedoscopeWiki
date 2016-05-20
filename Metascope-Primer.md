@@ -22,7 +22,7 @@ In the following, we present and describe the main features of Metascope in more
 ## Faceted navigation and full-text search
 Metascope uses a relational database to catalog information about views from Schedoscope and further metadata from other sources, such as the Hive Metastore. For navigation and search purposes, all data is indexed by [Apache Solr](http://lucene.apache.org/solr/). This allows Metascope to offer users faceted navigation and full-text search.
 
-![Navigation](images/filtersearch.png)
+[[[images/filtersearch.png|alt="Navigation"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/filtersearch.png)
 
 With the combination of full-text search and faceted navigation, users have a simple mechanism at their disposal to discover interesting tables / views while at the same time being able to drill down and hone in quickly on interesting information. 
 
