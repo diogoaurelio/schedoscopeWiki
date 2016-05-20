@@ -47,7 +47,7 @@ Metascope extracts view descriptions that were provided by the developers of vie
 
 Metascope gives users - in particular business users - the ability to collaboratively annotate and extend this documentation. A WYSIWYG editor allows one to easily create richly formatted table documentation (fonts, size, colors, HTML structures, ...), which is then stored alongside the developer-provided documentation in Metascope's catalog and indexed for search as well. There is no need to use external systems like [Confluence](https://www.atlassian.com/software/confluence) for business documentation, keeping it more consistent and in-sync with your datahub's reality.
 
-![WYSIWYG documentation](images/docu.png)
+[[[images/docu.png|alt="WYSIWYG documentation"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/docu.png)
 
 One can assign a data owner (person responsible) to a table as an additional means of documentation. This is meant to be interpreted as a "go-to-person" with detailed knowledge about the table. Should the data owner be identical to a Metascope user account, additional contact information is displayed.
 
@@ -55,11 +55,11 @@ One can assign a data owner (person responsible) to a table as an additional mea
 
 Metascope can align your datahub's tables with business concepts. Metascope administrators can create taxonomies of business objects, IT systems, organizations, or other concepts. Users can then label tables using those taxonomies. As taxonomies are indexed and included both in the faceted and full-text search, this increases the search and browsing capabilities of business users.
 
-![Taxonomy administration](images/ctaxonomy.png)
+[[[images/ctaxonomy.png|alt="Taxonomy administration"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/ctaxonomy.png)
 
 Metascope taxonomies have a name and consist of a set of (business) objects, which can be grouped into categories. I.e., Metascope taxonomies constitute two-level concept hierarchies. Each category and category object can be given a name and a description.
 
-![Add taxonomy and tags](images/taxonomy.png)
+[[[images/taxonomy.png|alt="Add taxonomy and tags"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/taxonomy.png)
 
 Users are able to assign category objects to tables via simple drop-down menus, one for each defined taxonomy. 
 
@@ -68,7 +68,7 @@ In case that the administrator-defined taxonomies do not satisfy one's classific
 ## View schema
 The schema section shows the fields of a table. It displays the field name, type, and developer-provided description. Just like for tables, users are able to create additional documentation for each field using the WYSIWYG editor.
 
-![Schema](images/schema.png)
+[[[images/schema.png|alt="Schema"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/schema.png)
 
 If the table is partitioned, a separate section named 'Parameters' shows a similar table with the partition parameters.
 
@@ -77,33 +77,33 @@ One of the key features of Metascope is the ability to trace data lineage of tab
 
 Schedoscope views explicitly specify their dependencies. This makes it easy for Metascope to gather dependency information and display it to the users. There is no need for retroactive crawling through Hadoop system logs to infer data lineage information, which would not only be computationally expensive and frequently inaccurate but most likely too technical and fine-grained for consumption by business users.
 
-![Dependencies](images/dependency.png)
+[[[images/dependency.png|alt="Dependencies"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/dependency.png)
 
 The dependency section shows all tables from which the current table was computed as well as all tables which are computed from the current table. 
 
 As a default, only direct dependencies are shown. *Show transitive dependencies* will recursively navigate through the lineage graph and display all direct and indirect dependencies. This is a neat feature if one wants to judge the impact a change to a table would have.
 
-![Lineage](images/lineage.png)
+[[[images/lineage.png|alt="Lineage"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png)
 
 The lineage graph provides a visual representation of data lineage information. Navigating this graph, users can get a better understanding of the interrelationships between tables and navigate between them.
 
 ## Table partitions
 This section displays all partitions on the table. It shows the partition parameters and their values, Schedoscope's scheduling status for the partition, when the last successful transformation of the partition occurred, and how long it took.
 
-![Partitions](images/partitions.png)
+[[[images/partitions.png|alt="Partitions"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/partitions.png)
 
 Furthermore, data lineage information is given not just for tables but for partitions as well. One can investigate from which partitions a given partition was derived and which other partitions were computed based on this partition. One can also display transitive dependencies.
 
 ## Data samples 
 The sample sections shows a small (ten rows) data sample of the current table to give the user an impression of what's in a table. If the table is partitioned, the user is able to retrieve a sample for a specific partition.
 
-![Data sample](images/sample.png)
+[[[images/sample.png|alt="Data sample"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/sample.png)
 
 ## Data distribution
 
 While seeing data samples is definitely helpful for a user trying to make sense of a table, another piece of the puzzle is information about the domains of fields. The schema section already describes the fields' data types. The data distribution section additionally takes a look at the concrete values within each field and generates metrics describing field domains more precisely.
 
-![Data distribution](images/data.png)
+[[[images/data.png|alt="Data distributione"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/data.png)
 
 The following field domain metrics are computed depending of the field types:
 * int/float/double/long: min, max, average, standard derivation, sum
@@ -114,7 +114,7 @@ The following field domain metrics are computed depending of the field types:
 
 This section shows technical metadata and storage information about a table.
 
-![Storage](images/storage.png)
+[[[images/storage.png|alt="Storage"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/storage.png)
 
 Following metrics are displayed if available:
 * **Owner**: the technical user which owns the underlying data files
@@ -133,7 +133,7 @@ Following metrics are displayed if available:
 ## View transformation
 This section provides information about the way data in a table is computed. For example, the respective HiveQL query is shown for tables computed by Hive transformations.
 
-![Transformation](images/transformation.png)
+[[[images/transformation.png|alt="Transformation"]]](https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/transformation.png)
 
 Schedoscope additionally allows one to [export](https://github.com/ottogroup/schedoscope/wiki/Schedoscope%20View%20DSL%20Primer#view-exports) view data to external systems. Each export and its parameters will be displayed next to the transformation information.
 
