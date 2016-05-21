@@ -36,7 +36,7 @@ Check out Metascope! It's an add-on to Schedoscope for collaborative metadata ma
 
 <p align="center">
 <a href="https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png">
-<img src="https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png" width="75%">
+<img src="https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png" width="100%">
 </a>
 </p>
 
