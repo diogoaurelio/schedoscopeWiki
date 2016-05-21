@@ -232,13 +232,13 @@ these are:
 * `basedOn(View*)` : Using this function, we can define the actual
   input data for our view to be tested. Usually, one defines 
   one dataset for each view dependency.
-* `then(sortedBy?)` : When calling this function, the materialization process of 
+* `then(sortedBy?, disableDependencyCheck?)` : When calling this function, the materialization process of 
   the view is triggered - in other words, the transformation which 
   populates the view is being executed in local mode. Plain local mode is
   currently available for Hive, Pig, and Mapreduce transformations; 
   Oozie transformations can be tested against a local minicluster (see
   advanced section below). One can optionally pass a view field to `then` as a sorting criteria to
-  make sure result rows are returned and checkable in a predictable order.
+  make sure result rows are returned and checkable in a predictable order. Also, the test framework checks by default, whether for each type of dependency there is at least one view passed as input data to the test via `basedOn()`. This check can be disabled by setting `disableDependencyCheck` to `true`.
 * `numRows()` : after the transformation has been executed, this function
   yields the number of rows in the resulting view.
 * `row()` : By invoking this function, test results can be inspected
