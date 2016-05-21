@@ -9,6 +9,7 @@ Schedoscope
 * [Schedoscope at a Glance](Schedoscope at a Glance)
 * [Schedoscope Tutorial](Open Street Map Tutorial)
 * [Schedoscope DSL Primer](Schedoscope View DSL Primer)
+* [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
 * [Schedoscope Scheduling](Scheduling)
 
 ### Implementing Views
