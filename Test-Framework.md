@@ -232,13 +232,12 @@ these are:
 * `basedOn(View*)` : Using this function, we can define the actual
   input data for our view to be tested. Usually, one defines 
   one dataset for each view dependency.
-* `then(sortedBy?, disableDependencyCheck?)` : When calling this function, the materialization process of 
-  the view is triggered - in other words, the transformation which 
+* `then(sortedBy?, disableDependencyCheck?, disableTransformationValidation?)` : When calling this function, the materialization process of the view is triggered - in other words, the transformation which 
   populates the view is being executed in local mode. Plain local mode is
   currently available for Hive, Pig, and Mapreduce transformations; 
   Oozie transformations can be tested against a local minicluster (see
   advanced section below). One can optionally pass a view field to `then` as a sorting criteria to
-  make sure result rows are returned and checkable in a predictable order. Also, the test framework checks by default, whether for each type of dependency there is at least one view passed as input data to the test via `basedOn()`. This check can be disabled by setting `disableDependencyCheck` to `true`.
+  make sure result rows are returned and checkable in a predictable order. The test framework checks by default, whether each input view you pass to the test via `basedOn()` among the tested view's dependencies and whether you pass at least one input view for each type of dependency as sanitys check for dependency declarations. This check can be disabled by setting `disableDependencyCheck` to `true`. Finally, the test framework performs some core validations on transformations, which can be disabled by setting `disableTransformationValidation` to `true`. Currently, this only checks whether each `JOIN` clause in your hive transformations is accompanied by an `ON` predicate.
 * `numRows()` : after the transformation has been executed, this function
   yields the number of rows in the resulting view.
 * `row()` : By invoking this function, test results can be inspected
