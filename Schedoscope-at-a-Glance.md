@@ -182,3 +182,12 @@ Running the Schedoscope shell,
         materialized: 1
         waiting: 1
         transforming: 1
+
+Using [Metascope](Metascope Primer) 
+* metadata management, data discovery and exploration, and data lineage tracing looks like
+
+<p align="center">
+<a href="https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png">
+<img src="https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png" width="100%">
+</a>
+</p>
