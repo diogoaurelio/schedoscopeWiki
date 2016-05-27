@@ -236,8 +236,14 @@ these are:
   populates the view is being executed in local mode. Plain local mode is
   currently available for Hive, Pig, and Mapreduce transformations; 
   Oozie transformations can be tested against a local minicluster (see
-  advanced section below). One can optionally pass a view field to `then` as a sorting criteria to
-  make sure result rows are returned and checkable in a predictable order. The test framework checks by default, whether each input view you pass to the test via `basedOn()` among the tested view's dependencies and whether you pass at least one input view for each type of dependency as sanitys check for dependency declarations. This check can be disabled by setting `disableDependencyCheck` to `true`. Finally, the test framework performs some core validations on transformations, which can be disabled by setting `disableTransformationValidation` to `true`. Currently, this only checks whether each `JOIN` clause in your hive transformations is accompanied by an `ON` predicate.
+  advanced section below). 
+
+  One can optionally pass a view field to `then` as a sorting criteria to
+  make sure result rows are returned and checkable in a predictable order. 
+
+  The test framework checks by default, whether each input view you pass to the test via `basedOn()` is among the tested view's dependencies and whether you pass at least one input view for each type of dependency as sanity checks for dependency declarations. This check can be disabled by setting `disableDependencyCheck` to `true`. 
+
+  Finally, the test framework performs some core validations on transformations, which can be disabled by setting `disableTransformationValidation` to `true`. Currently, this only checks whether each `JOIN` clause in your Hive transformations is accompanied by an `ON` predicate.
 * `numRows()` : after the transformation has been executed, this function
   yields the number of rows in the resulting view.
 * `row()` : By invoking this function, test results can be inspected
