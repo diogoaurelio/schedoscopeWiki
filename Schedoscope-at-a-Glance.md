@@ -184,7 +184,7 @@ Running the Schedoscope shell,
         transforming: 1
 
 Using [Metascope](Metascope Primer) 
-* metadata management, data discovery and exploration, and data lineage tracing looks like
+* metadata management, data discovery and exploration, and data lineage tracing is as easy as
 
 <p align="center">
 <a href="https://raw.githubusercontent.com/wiki/ottogroup/schedoscope/images/lineage.png">
