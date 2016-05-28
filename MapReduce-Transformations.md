@@ -104,7 +104,7 @@ With Maven, a `-mapreduce.jar` jar can be packaged using the Proguard plugin, fo
         </executions>
     </plugin>
 
-Here, all classes in the package `example.functions` are bundled, along with the used classes from the geohash and Apache commons library. The resulting jar ends up in the Maven target directory.
+Here, all classes in the package `example.osm.mapreduce` are bundled, along with the used classes from the geohash and Apache commons library. The resulting jar ends up in the Maven target directory.
 
 ## Ex-Project
 
@@ -112,4 +112,4 @@ Should a MapReduce job reside in an external jar file, it just needs to be refer
 
 # Change detection
 
-Schedoscope tries to automatically detect changes to MapReduce transformation-based views and to initiate rematerialization of views if the tranformation logic has potentially changed. For MapReduce transformations, this checksum is based on the jar file name the MapReduce job classes reside in. As a consequence, if you want to trigger automatic rematerialization of MapReduce-based views, you need to change the jar filename of the job, i.e., by incrementing a version number.
+Schedoscope tries to automatically detect changes to MapReduce transformation-based views and to initiate rematerialization of views if the tranformation logic has potentially changed. For MapReduce transformations, this checksum is based on the jar file name the MapReduce job classes reside in. As a consequence, if you want to trigger automatic rematerialization of MapReduce-based views, you need to change the jar filename of the job, e.g., by incrementing a version number.
