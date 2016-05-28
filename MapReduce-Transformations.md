@@ -4,13 +4,17 @@ Views can be computed using MapReduce transformations. This provides the lowest 
 
 # Syntax
 
-    case class MapreduceTransformation(v: View, createJob: (Map[String, Any]) => Job, dirsToDelete: List[String] = List())
+    case class MapreduceTransformation(
+         v: View, createJob: (Map[String, Any]) => Job,     
+         cleanupAfterJob: (Job, MapreduceDriver, DriverRunState[MapreduceTransformation]) => DriverRunState[MapreduceTransformation] = (_, __, completionRunState) => completionRunState,
+         dirsToDelete: List[String] = List())
 
 # Description
 
 MapReduce transformations have the following parameters:
 * `v`: the view being computed by the MapReduce transformation.
 * `createJob`: a function receiving a Map with config values passed by `.configureWith()` and returning a properly configured Hadoop `org.apache.hadoop.mapreduce.Job` object.
+* `cleanupAfterJob`: a function being called after the job has completed, receiving the Hadoop `org.apache.hadoop.mapreduce.Job` object, a reference to the `MapreduceDriver` that executed the job, and the `DriverRunState` of the job. The function is expected to perform any relevant cleanup and to return a final run state.  The default implementation does nothing and simply passes on the run state.
 * `dirsToDelete`: HDFS paths to be deleted prior to transformation execution. The `fullPath` of the view is always deleted prior to execution, because MapReduce jobs expect empty target directories.
 
 # Helpers
