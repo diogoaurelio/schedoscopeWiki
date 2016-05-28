@@ -42,37 +42,6 @@ Check out Metascope! It's an add-on to Schedoscope for collaborative metadata ma
 
 - [Metascope Features and Screenshots](Metascope Primer)
 
-## Implementing Views
-- [Setting up a Schedoscope Project](Setting up a Schedoscope Project)
-- [Schedoscope View DSL Primer](Schedoscope View DSL Primer)
-- [Storage formats](Storage Formats)
-- Transformations
- - [NoOp](NoOp Transformations)
- - [File System](File System Transformations)
- - [Hive](Hive Transformations)
- - [Pig](Pig-Transformations)
- - [MapReduce](MapReduce Transformations)
- - [Oozie](Oozie Transformations)
- - [Shell](Shell Transformations)
-- Exporting to
-  - [JDBC](JDBC Export)
-  - [Redis](Redis Export)
-  - [Kafka](Kafka Export)
-- [View Traits](View Traits)
-- [Test Framework](Test Framework)
-
-## Operating Schedoscope
-- [Bundling and Deploying](Bundling and Deploying)
-- [Configuring](Configuring Schedoscope)
-- [Starting](Starting Schedoscope)
-- [Scheduling](Scheduling)
-- [HTTP API](Schedoscope HTTP API)
-- [Command Reference](Scheduling Command Reference)
-- [View Pattern Reference](View Pattern Reference)
-
-## Extending Schedoscope
-- [Architecture](Architecture)
-
 ## News
 
 ###### 05/27/2016 - Release 0.6.0
