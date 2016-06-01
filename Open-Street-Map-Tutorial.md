@@ -75,7 +75,7 @@ Let's get started:
 5. Go into directory `schedoscope` and build the project:
 
          [cloudera@quickstart ~]$ cd ~/schedoscope
-         [cloudera@quickstart schedoscope]$ mvn install -DXX:MaxPermSize=512m -DskipTests
+         [cloudera@quickstart schedoscope]$ MAVEN_OPTS="-XX:MaxPermSize=512m" mvn install -DskipTests
 
 
 ## Watching Schedoscope work
@@ -83,7 +83,7 @@ Let's get started:
 1. Launch Schedoscope:
 
         [cloudera@quickstart schedoscope]$ cd ~/schedoscope/schedoscope-tutorial
-        [cloudera@quickstart schedoscope-tutorial]$ mvn exec:java
+        [cloudera@quickstart schedoscope-tutorial]$ MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=512m" mvn exec:java
 
 2. The Schedoscope Shell opens in the terminal. You can find the full [[command reference|Scheduling Command Reference]] in the Schedoscope wiki.
 
