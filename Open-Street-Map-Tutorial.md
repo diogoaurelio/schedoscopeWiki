@@ -83,7 +83,7 @@ Let's get started:
 1. Launch Schedoscope:
 
         [cloudera@quickstart schedoscope]$ cd ~/schedoscope/schedoscope-tutorial
-        [cloudera@quickstart schedoscope-tutorial]$ MAVEN_OPTS="-Xmx4096m" mvn exec:java
+        [cloudera@quickstart schedoscope-tutorial]$ MAVEN_OPTS="-Xmx6000m -XX:MaxPermSize=512m" mvn exec:java
 
 2. The Schedoscope Shell opens in the terminal. You can find the full [[command reference|Scheduling Command Reference]] in the Schedoscope wiki.
 
