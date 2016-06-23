@@ -5,7 +5,9 @@ Hive transformations facilitate the computation of views using HiveQL queries. F
 > In order to ease heap consumption within Schedoscope by avoiding local map join processing, all queries are issued 
 > by default with the Hive setting `hive.auto.convert.join` set to `false`. If a query needs map joins for performance
 > reasons, set `hive.auto.convert.join` to `true` by either adding `SET hive.auto.convert.join=true;` in front of
-> your query or passing `hive.auto.convert.join -> "true"` in the `settings` map of `insertInto()`.
+> your query or passing `hive.auto.convert.join -> "true"` in the `settings` map of `insertInto()`. Should you
+> run into trouble after doing so this might a sign of an OutOfMemoryException in the bowels of `hive-exec`. Try
+> to increase Schedoscope's heap size in this case.
 
 # Syntax
     case class HiveTransformation(sql: String, udfs: List[Function] = List())
