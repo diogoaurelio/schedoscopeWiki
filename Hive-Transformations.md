@@ -1,11 +1,11 @@
 # Summary
 Hive transformations facilitate the computation of views using HiveQL queries. For this purpose, they also support the deployment and registration of user-defined functions (UDF).
 
-> Please note that Hive queries are no longer submitted via Hive-Server but directly using the Hive-Exec library.
+> Please note that Hive queries are no longer submitted via Hive Server 2 but directly using the `hive-exec` library.
 > In order to ease heap consumption within Schedoscope by avoiding local map join processing, all queries are issued 
 > by default with the Hive setting `hive.auto.convert.join` set to `false`. If a query needs map joins for performance
-> reasons, set `hive.auto.convert.join` to `true` by either a adding `SET` statement in front of your query or 
-> passing `hive.auto.convert.join -> "true"` within the `settings` map of `insertInto()`.
+> reasons, set `hive.auto.convert.join` to `true` by either adding `SET hive.auto.convert.join=true;` in front of ´
+> your query or passing `hive.auto.convert.join -> "true"` in the `settings` map of `insertInto()`.
 
 # Syntax
     case class HiveTransformation(sql: String, udfs: List[Function] = List())
