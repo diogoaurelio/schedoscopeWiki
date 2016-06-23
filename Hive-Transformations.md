@@ -4,7 +4,7 @@ Hive transformations facilitate the computation of views using HiveQL queries. F
 > Please note that Hive queries are no longer submitted via Hive Server 2 but directly using the `hive-exec` library.
 > In order to ease heap consumption within Schedoscope by avoiding local map join processing, all queries are issued 
 > by default with the Hive setting `hive.auto.convert.join` set to `false`. If a query needs map joins for performance
-> reasons, set `hive.auto.convert.join` to `true` by either adding `SET hive.auto.convert.join=true;` in front of ´
+> reasons, set `hive.auto.convert.join` to `true` by either adding `SET hive.auto.convert.join=true;` in front of
 > your query or passing `hive.auto.convert.join -> "true"` in the `settings` map of `insertInto()`.
 
 # Syntax
