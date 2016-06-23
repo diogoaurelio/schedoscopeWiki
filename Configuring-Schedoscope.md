@@ -22,6 +22,7 @@ At the very minimum, you should check and set if necessary:
 
 For an example of how to override these settings, you can also take a look at the [tutorial](Open Street Map Tutorial).
 
+
     #
     # Schedoscope configuration properties and default values
     #
@@ -167,13 +168,13 @@ For an example of how to override these settings, you can also take a look at th
             # takes precedence.
             #
             
-            nameNode = "localhost:8020" 
-
+            nameNode = "localhost:8020"     
+            
             #
             # HDFS URI
             #
-        
-            hdfs = "hdfs://localhost:8020"       
+            
+            hdfs = "hdfs://localhost:8020"   
         }
 
 
@@ -246,9 +247,9 @@ For an example of how to override these settings, you can also take a look at th
             #
             # Export settings for all export types
             #
-            
+
             salt = "vD75MqvaasIlCf7H"
-            
+
             #
             # JDBC exporter settings.
             #
@@ -292,6 +293,12 @@ For an example of how to override these settings, you can also take a look at th
                 #
                 
                 usePipelineMode = false
+                
+                #
+                # Batch size for Redis pipeline mode
+                #
+                
+                insertBatchSize = 10000
             
             }
 
@@ -309,83 +316,83 @@ For an example of how to override these settings, you can also take a look at th
 
             }
         }
-
+        
         #
         # Metascope related settings
         #
-    
+        
         metascope {
-  
+      
           #
           # Metascope webservice port
           #
-  
+      
           port = 8080
-    
+        
           #
           # Configure authentication method
           #
-  
+      
           auth {
-  
+      
             #
             # Possible methods = ["simple", "ldap"]
             # simple: custom user management
             # ldap: external ldap directory is used for authentication
             #
-  	
+        
             authentication = "simple"
-  	
+        
             #
             # ldap settings
             #
-  	
+        
             ldap {
-  	  
+          
               #
               # ldap server url
               #
-  	  
+          
               url = ""
-  	  
+          
               #
               # ldap manager dn
               #
-  	  
+          
               managerDn = ""
-  	  
+          
               #
               # ldap manager password
               #
-  	  
+          
               managerPassword = ""
-  	  
+          
               #
               # ldap user dn pattern
-              #	
-  	  
+              # 
+          
               userDnPattern = ""
-  	  
+          
               #
               # ldap group search base
               #
-  	  
+          
               groupSearchBase = ""
-  	  
+          
               #
               # Allowed groups to access Metascope
               #
-  	  
+          
               allowedGroups = ""
-  	  
+          
               #
               # Admin group(s): User will have admin rights
               #
-  	  
+          
               adminGroups = ""
-      
+          
             }
-  	
+        
           }
 
           #
@@ -455,7 +462,7 @@ For an example of how to override these settings, you can also take a look at th
           }
 
         }
-
+        
         #
         # Driver settings for the different transformation types. 
         #
@@ -483,11 +490,10 @@ For an example of how to override these settings, you can also take a look at th
                 libDirectory = ""
                 
                 #
-                # Hive JDBC URL to use for issueing queries. Should equal 
-                # schedoscope.metastore.jdbcUrl
+                # Ignored
                 #
                 
-                url = "jdbc:hive2://localhost:10000/default"
+                url = ""
                 
                 #
                 # Do not change. Hive UDF jars should not be unpacked in HDFS.
@@ -1053,3 +1059,4 @@ For an example of how to override these settings, you can also take a look at th
     spray.can.host-connector.idle-timeout = infinite
     spray.can.server.request-timeout = infinite
     spray.can.server.idle-timeout = infinite
+
