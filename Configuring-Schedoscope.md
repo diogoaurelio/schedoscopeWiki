@@ -16,7 +16,7 @@ At the very minimum, you should check and set if necessary:
 - the earliest day to consider (`schedoscope.scheduler.earliestDay`);
 - the Resource Manager, Namenode, and Metastore hosts (`schedoscope.hadoop.*`, `schedoscope.metastore.*`);
 - the Kerberos Metastore principal (`schedoscope.kerberos.principal`);
-- the Hive JDBC URL (`schedoscope.metastore.jdbcUrl`, `schedoscope.transformations.hive.url` )
+- the Hive JDBC URL (`schedoscope.metastore.jdbcUrl` )
 - the number of concurrent driver actors for each transformation type (`schedoscope.transformations.*.concurrency`);
 - the `future-driver-dispatcher` threadpool configuration depending on your concurrency settings.
 
