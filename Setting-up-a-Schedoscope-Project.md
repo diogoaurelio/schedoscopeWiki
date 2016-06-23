@@ -21,7 +21,7 @@ In real-world production deployment scenarios, you should probably follow a diff
 			<dependency>
 				<groupId>schedoscope</groupId>
 				<artifactId>schedoscope-core</artifactId>
-				<version>0.6.0</version>
+				<version>0.6.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.scalatest</groupId>
