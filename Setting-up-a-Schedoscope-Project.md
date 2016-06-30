@@ -21,7 +21,7 @@ In real-world production deployment scenarios, you should probably follow a diff
 			<dependency>
 				<groupId>schedoscope</groupId>
 				<artifactId>schedoscope-core</artifactId>
-				<version>0.6.1</version>
+				<version>0.6.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.scalatest</groupId>
@@ -38,18 +38,8 @@ In real-world production deployment scenarios, you should probably follow a diff
 			<dependency>
 				<groupId>minioozie</groupId>
 				<artifactId>minioozie</artifactId>
-				<version>0.1.12</version>
+				<version>1.2.1</version>
 				<scope>test</scope>
-				<exclusions>
-					<exclusion>
-						<groupId> org.cloudera.logredactor</groupId>
-						<artifactId>logredactor</artifactId>
-					</exclusion>
-					<exclusion>
-						<artifactId>jersey-server</artifactId>
-						<groupId>com.sun.jersey</groupId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 		</dependencies>
 
