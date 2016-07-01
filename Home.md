@@ -44,6 +44,12 @@ Check out Metascope! It's an add-on to Schedoscope for collaborative metadata ma
 
 ## News
 
+
+###### 07/01/2016 - Release 0.6.3
+We have released Version 0.6.3 as a Maven artifact to our Bintray repository (see [Setting Up A Schedoscope Project](https://github.com/ottogroup/schedoscope/wiki/Setting-up-a-Schedoscope-Project) for an example pom).
+
+We have fixed a security issue with Metascope that allowed non-admin users to edit taxonomies.
+
 ###### 06/30/2016 - Release 0.6.2
 We have released Version 0.6.2 as a Maven artifact to our Bintray repository (see [Setting Up A Schedoscope Project](https://github.com/ottogroup/schedoscope/wiki/Setting-up-a-Schedoscope-Project) for an example pom).
 
