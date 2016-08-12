@@ -5,13 +5,6 @@ A view comprises
 - data fields and their types;
 - partitioning parameters;
 - comments;
-- its dependencies, i.e. the data sets a view is bThe core of Schedoscope consists of an internal Scala DSL for modeling data sets, their structure, dependencies, and transformation rules as so-called _views_.
-
-A view comprises
-- a name and module;
-- data fields and their types;
-- partitioning parameters;
-- comments;
 - its dependencies, i.e. the data sets a view is based on;
 - the transformation rule by which it is computed from its dependencies;
 - additional storage hints about how to store a view's data when materializing it;
@@ -1339,7 +1332,7 @@ The effect of an `exportTo` clause is that whenever a view has successfully perf
 
 In the example, whenever the view `ProductWithBrand` has been transformed for a given shop and date, Schedoscope automatically exports the view data to an identically structured MySQL database table (using the default of 10 reducers as the default).
 
-Schedoscope's export framework currently supports export to the [JDBC targets Derby, MySQL, PostgreSQL, and ExaSolutions](JDBC Export) as well as to [Redis KV stores](Redis Export) and [Kafka Topics](Kafka Export).
+Schedoscope's export framework currently supports export to the [JDBC targets Derby, MySQL, PostgreSQL, and ExaSolutions](JDBC Export), [Redis KV stores](Redis Export), [Kafka Topics](Kafka Export), as well as [(S)FTP servers]((S)FTP Export).
 
 # Materialize Once
 
