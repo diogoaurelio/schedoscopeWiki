@@ -32,6 +32,10 @@ Read the View DSL Primer for more information about the capabilities of the Sche
 
 - [Schedoscope View DSL Primer](Schedoscope View DSL Primer)
 
+Read more about how Schedoscope actually performs its scheduling work:
+
+- [Schedoscope Scheduling](Scheduling)
+
 Check out Metascope! It's an add-on to Schedoscope for collaborative metadata management, data discovery and exploration, and data lineage tracing:
 
 <p align="center">
