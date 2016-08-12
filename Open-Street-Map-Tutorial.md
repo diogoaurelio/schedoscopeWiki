@@ -14,10 +14,10 @@ The goals of this tutorial are to:
 ## Prerequisites
 * Basic knowledge of [Apache Hive](http://Hive.apache.org/)
 
-## The Story
-Imagine you had a fantastic business idea. You would like to buy a promising shop in Hamburg, Germany. However... **which shop in Hamburg is the one located best?**
+## Background
+In this tutorial, we want to explore how one could find an ideal shop location using a Hadoop data warehouse controlled by Schedoscope.
 
-For implementing this tutorial, we use geospatial data from the [Open Street Map](http://www.openstreetmap.org/copyright) project. The data is available in two TSV files, which for convenience we provide by the Maven artifact `schedoscope-tutorial-osm-data`. The structure of the files looks like this:
+We use geospatial data of the Hamburg area from the [Open Street Map](http://www.openstreetmap.org/copyright) project. The data is available in two TSV files, which for convenience we provide by the Maven artifact `schedoscope-tutorial-osm-data`. The structure of the files looks like this:
 
         nodes  -- points on the map defined by longitude and latitude 
 
@@ -34,7 +34,7 @@ For implementing this tutorial, we use geospatial data from the [Open Street Map
           k STRING
           v STRING
 
-For measuring the "best" shop location, we assume the following:
+For measuring the suitability of a shop location, we assume the following:
 * The more _restaurants_ are around, the more customers will show up. (+)
 * The more _trainstations_ are around, the more customers will show up. (+)
 * The more other _shops_ are around, the fewer customers will show up. They rather might go to the competitors. (-)
@@ -49,7 +49,7 @@ To measure distance, we use a geo hash. Two nodes are close to each other if the
 
 3. Provide aggregated data such that the measures can be applied; the aggregation is stored in view `schedoscope.example.osm.datamart/ShopProfiles`. You can then find the best location for your shop by analyzing `schedoscope.example.osm.datamart/ShopProfiles`.
 
-For the tutorial, we translated this plan into a hierarchy of interdependent Schedoscope views, which means Hive tables:
+For the tutorial, we translated this plan into a hierarchy of interdependent Schedoscope views, i.e., Hive tables:
  
 ![dwh-structure.jpg](images/dwh-structure.jpg)
 
