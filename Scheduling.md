@@ -101,6 +101,8 @@ You can force the rematerialization of a view by sending it the `invalidate` com
 Example:
 
     invalidate -v app.eci.datamart/SearchExport/SHOP10/2015/05
+
+This is generally useful in combination with `NoOp` stage views. If those receive new or corrected data by an external ETL process, an invalidate will trigger all necessary recomputations of dependant views.
     
 #### Overriding Transformation Version Checksums
 
@@ -142,17 +144,17 @@ Example:
 
      materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS
      
-#### Transform an individual view
+#### Transforming an Individual View
 
-One can transform an individual view without checking its dependencies using the materialization mode `TRANSFORM_ONLY`. This is useful when a transformation higher up in the dependency lattice has failed and you want to retry it without potentially rematerializing all dependencies.
+One can transform an individual view without checking its dependencies using the materialization mode `TRANSFORM_ONLY`. This is useful when a transformation higher up in the dependency lattice has failed and you want to retry it without potentially rematerializing any dependencies.
 
 Example:
 
      materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode TRANSFORM_ONLY
      
-Note, however, that the view will get a new transformation timestamp and potentially update its transformation version checksum. If `TRANSFORM_ONLY` is not applied to top-level views, any dependant views would be transformed upon the next materialization command. So it may be wise to follow up `TRANSFORM_ONLY` with a `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` of dependant views.
+Note, however, that the view will get a new transformation timestamp and potentially update its transformation version checksum. If `TRANSFORM_ONLY` is not applied to top-level views, any dependant views will be transformed upon the next materialization command. So it may be wise to follow up `TRANSFORM_ONLY` with a `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` of dependant views.
 
-#### Force materialization state
+#### Forcing Materialized State
 
 You can force a view into the state materialized without performing a transformation using the materialization mode `SET_ONLY`. 
 
@@ -160,4 +162,4 @@ Example:
 
      materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode SET_ONLY
      
-Again note, that the view will get a new transformation timestamp and potentially update its transformation version checksum. If not applied to top-level views, any dependant views would be transformed upon the next materialization command. So it may be wise to follow up `SET_ONLY` with a `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` of dependant views.
+Again note, that the view will get a new transformation timestamp and potentially update its transformation version checksum. If not applied to top-level views, any dependant views will be transformed upon the next materialization command. So it may be wise to follow up `SET_ONLY` with a `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` of dependant views.
