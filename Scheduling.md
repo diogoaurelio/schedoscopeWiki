@@ -94,14 +94,6 @@ On the way its materialization, a view can go through the following states (see 
 
 While the default behavior of materialization and rematerialization based on transformation version checksums and timestamps usually should be what you want, there are nevertheless situations in which one would like to bypass this process.
 
-#### Resetting Transformation Version Checksums
-
-Changes to transformations might change the transformation version checksum, but the ouput of the computation might change. For example, one might use a new version of an external UDF library jar file for a Hive transformation, but the UDF called has not changed. In this case, adding the option `--mode RESET_TRANSFORMATION_CHECKSUMS` to materialize will avoid triggering of rematerializations based on transformation version checksums (see also [Command Reference](Command Reference)).
-
-Example:
-
-     materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode RESET_TRANSFORMATION_CHECKSUMS
-
 #### Invalidating Views
 
 You can force the rematerialization of a view by sending it the `invalidate` command (see also [Command Reference](Command Reference)). The view will then enter the `receive` state again; upon receiving a subsequent `materialize` command, it will consequently be recomputed.
@@ -109,3 +101,63 @@ You can force the rematerialization of a view by sending it the `invalidate` com
 Example:
 
     invalidate -v app.eci.datamart/SearchExport/SHOP10/2015/05
+    
+#### Overriding Transformation Version Checksums
+
+The way how Schedoscope computes transformation version checksums depends on the transformation type. In case of [Hive transformations](Hive Transformations), for instance, a checksum of the query is created (ignoring whitespace, line breaks, `SET`s, and comments) and combined with the file names of any external UDF library jars. 
+
+There may be cases where automatic detection of changes triggers too many false alarms for a given business logic resulting in unnecessary recomputations. In such a situation, one can manually define a version ID for the transformation with `defineVersion`. Checksums are then computed using the version ID only; consequently, only manual changes to the ID result in a transformation version checksum change.
+
+For example:
+
+      transformVia (() =>
+        HiveQl(
+          insertInto(this,
+            queryFromResource("/productWithBrand.sql")
+        )))
+        .defineVersion("1.0.0")
+        .configureWith(Map(
+            "env" -> this.env,
+            "shopCode" -> this.shopCode.v.get,
+            "year" -> this.year.v.get,
+            "month" -> this.month.v.get,
+            "day" -> this.day.v.get,
+            "dateId" -> s"${this.year.v.get}${this.month.v.get}${this.day.v.get}"
+        ))
+
+
+#### Resetting Transformation Version Checksums
+
+Changes to transformations might change the transformation version checksum, but the ouput of the computation might not change. For example, one might use a new version of an external UDF library jar file for a Hive transformation, but the UDF called has not changed. In this case, adding the option `--mode RESET_TRANSFORMATION_CHECKSUMS` to the `materialize`command will avoid triggering of rematerializations based on transformation version checksums and update all changed transformation version checksums in the Hive Metastore (see also [Command Reference](Command Reference)).
+
+Example:
+
+     materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode RESET_TRANSFORMATION_CHECKSUMS
+
+#### Resetting Transformation Version Checksums And Timestamps
+
+It is always possible to bring the whole dependency hierarchy of a view into a stable state. The materialization mode `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` performs a "dry run" where transformation checksums and timestamps are computed and set along the usual rules, however with no actual transformations taking place. As a result, all checksums in the metastore should be current and transformation timestamps should be consistent, such that no materialization will take place upon subsequent normal materializations.
+
+Example:
+
+     materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS
+     
+#### Transform an individual view
+
+One can transform an individual view without checking its dependencies using the materialization mode `TRANSFORM_ONLY`. This is useful when a transformation higher up in the dependency lattice has failed and you want to retry it without potentially rematerializing all dependencies.
+
+Example:
+
+     materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode TRANSFORM_ONLY
+     
+Note, however, that the view will get a new transformation timestamp and potentially update its transformation version checksum. If `TRANSFORM_ONLY` is not applied to top-level views, any dependant views would be transformed upon the next materialization command. So it may be wise to follow up `TRANSFORM_ONLY` with a `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` of dependant views.
+
+#### Force materialization state
+
+You can force a view into the state materialized without performing a transformation using the materialization mode `SET_ONLY`. 
+
+Example:
+
+     materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode SET_ONLY
+     
+Again note, that the view will get a new transformation timestamp and potentially update its transformation version checksum. If not applied to top-level views, any dependant views would be transformed upon the next materialization command. So it may be wise to follow up `SET_ONLY` with a `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` of dependant views.
