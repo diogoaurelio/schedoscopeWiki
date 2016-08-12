@@ -555,6 +555,29 @@ In the following example, brand data is supposed to be delivered by an ETL proce
 
 Note that according to [Storage Formats](Storage Formats), the `fullPath` of view `Brand(p("101"), p("2014"), p("12"), p("12"))` in the default `dev` environment would be `/hdp/dev/test/module/brand/shopCode=101/year=2014/month=12/day=12/dateId=20141212`. The external process would have to write into that folder.
 
+## Defining Transformation Versions
+
+Schedoscope automatically tries to detect changes to transformation logic and schedule recomputations of views in case such as change happens. This is explained in more detail in the [Section Scheduling](Scheduling). How this works exactly depends on the particular type of the transformation. For [Hive transformations](Hive Transformations), for instance, a checksum of the query is created (ignoring whitespace, line breaks, `SET`s, and comments). 
+
+There may be cases where automatic detection of changes triggers too many false alarms resulting in unnecessary recomputations. In such a situation, one can manually define a version ID for the transformation with `defineVersion`. Only upon changes to this version ID a recomputation is performed.
+
+For example:
+
+      transformVia (() =>
+        HiveQl(
+          insertInto(this,
+            queryFromResource("/productWithBrand.sql")
+        )))
+        .defineVersion("1.0.0")
+        .configureWith(Map(
+            "env" -> this.env,
+            "shopCode" -> this.shopCode.v.get,
+            "year" -> this.year.v.get,
+            "month" -> this.month.v.get,
+            "day" -> this.day.v.get,
+            "dateId" -> s"${this.year.v.get}${this.month.v.get}${this.day.v.get}"
+        ))
+
 # View Exports
 
 A common use case of a Hadoop datahub is to aggregate views of data that are then to be exported and consumed by other systems, such as interactive analytics environments, web services, recommender engines, etc. Given Hadoop's optimization for batch processing, these systems usually use their own data stores like relational database systems or key-value stores instead of directly accessing HDFS or Hive. Over time, however, implementing and maintaining a growing number of usually dumb data export jobs becomes tedious overhead.
