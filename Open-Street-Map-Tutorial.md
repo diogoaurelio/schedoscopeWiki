@@ -502,7 +502,6 @@ Install the Schedoscope tutorial on a gateway machine to your cluster:
           transformations = {
             Hive : {
                 libDirectory = "/your/local/absolute/path/to/schedoscope/schedoscope-tutorial/target/Hive-libraries"
-                url = ${schedoscope.metastore.jdbcUrl} #include the kerberos principal if needed
             }
           }
         }
