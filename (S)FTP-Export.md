@@ -1,9 +1,9 @@
 # Summary
 
 You can configure a parallel export of view data to an FTP or an SFTP server using `exportTo()` clause with `Ftp` in a view. Whenever the view performs its transformation successfully and materializes, Schedoscope triggers a mapreduce job that 
-* splits up the view's data in chunks;
+* splits up the view's data in a configurable number of chunks;
 * in parallel encodes the data in those chunks as JSON or CSV;
-* aggregates and optionally compresses the chunks into separate files;
+* aggregates and optionally compresses the chunks into chunk files;
 * and finally copies the chunk files in parallel via (S)FTP to the specified server.
 
 # Syntax
@@ -30,17 +30,29 @@ You can configure a parallel export of view data to an FTP or an SFTP server usi
 
 # Description
 
+When exporting via (S)FTP, you must to define whether you would like to export the data in CSV or one-line JSON format. In case of the latter, the views data are exported losslessly, i.e., even complex or nested field types are recursively and adequately translated to JSON. For CSV exports, complex structured are translated to JSON strings and written as string fields.
+
+View fields and parameters marked with isPrivacySensitive are hashed with MD5 during export.
+
+Additionally, the export files can be compressed with `gzip` and `bzip2`.
+
+The file naming scheme of the generated chunk files is as follows:
+
+    <prefix>-<mr-task-id-that-generated-the-chunk>-<number-of-chunks>.json|csv[.gz|.bz2]
+
+The prefix is freely configurable.
+
 Here is a description the parameters you must or can pass to `Ftp` exports:
 
 - `v`: a reference to the view being exported, usually `this` (mandatory)
 - `ftpEndpoint`: an `ftp://` or `sftp://` URL pointing to the (S)FTP server to which the view's data are to be copied (mandatory)
 - `ftpUser`: the (S)FTP user for connecting to the server (mandatory) 
 - `ftpPass`: the (S)FTP user's password or SSH key passphrase. No password by default
-- `filePrefix`: the filename prefix of the resulting files being copied. The default is the Hive database concatenated with the Hive table name using `-`
+- `filePrefix`: the filename prefix of the resulting files being copied. The default is the view's Hive database and table name concatenated using `-`
 - `delimiter`: in case the view's data is to be exported in CSV format, this specifies the CSV delimiter to use. The default is `\t`
 - `keyFile`: the location of the private SSH key file when SFTP transport with key-based authentication is used. Defaults to `~/.ssh/id_rsa`
 - `fileType`: specifies the export format, either `FileOutputType.csv` or `FileOutputType.json`
-- `numReducers`: the number of reducers to use during the exports. This defines the parallelism of the export, i.e., how many chunk files to generate for the view export. Defaults to the config setting `schedoscope.export.ftp.numberOfReducers` (i.e., 10)
+- `numReducers`: the number of reducers to use during the export. This defines the parallelism of the export, i.e., how many chunk files to generate for the view export. Defaults to the config setting `schedoscope.export.ftp.numberOfReducers` (i.e., 10)
 - `passiveMode`: specifies whether to use FTP passive mode or not, defaults to `true`
 - `userIsRoot`: specifies whether the FTP root directory after login is the user directory (`true`) or `/`(`false`). Default is `true`
 - `cleanHdfsDir`: clean up the temporary HDFS dir used during export. Default is `true`
@@ -70,10 +82,20 @@ Here is a description the parameters you must or can pass to `Ftp` exports:
         () => HiveTransformation(
           insertInto(this, s"""SELECT id, url FROM ${stage().tableName} WHERE date_id='${dateId}'""")))
 
-       // This will create a table named dev_test_export_click_with_jdbc_export in the MySQL database test_db
-       // (assuming an environment named dev).
-       // The columns of this table would be:
-       // id text, url text, year text, month text, day text, date_id text, used_filter text
-       exportTo(() => Jdbc(this, "jdbc:mysql://localhost:3306/test_db", "root", "root"))
-
+       // This will create 3 bzip'ed CSV files (with header row, |-separated) and upload them to an STP server 
+       // using key authentication (with the key file at ~/.ssh/id_rsa and secured by password).
+       //
+       // The CSV header row looks like this:
+       // id|url|year|month|day|date_id
+       // 
+       // The file prefix will be set to click-${year}${month}${day}
+       //
+       exportTo(() => Ftp(
+                          this, 
+                          "sftp://somewhere.com", 
+                          "exportUser", "keyPassword", 
+                          filePrefix=s"clicks-${date_id.v.get}", "|",
+                          numReducers=3,
+                          codec=FileCompressionCodec.bzip2)
+                      )
     }
