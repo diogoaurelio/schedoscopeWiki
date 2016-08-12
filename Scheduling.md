@@ -130,7 +130,7 @@ For example:
 
 #### Resetting Transformation Version Checksums
 
-Changes to transformations might change the transformation version checksum, but the ouput of the computation might not change. For example, one might use a new version of an external UDF library jar file for a Hive transformation, but the UDF called has not changed. In this case, adding the option `--mode RESET_TRANSFORMATION_CHECKSUMS` to the `materialize`command will avoid triggering of rematerializations based on transformation version checksums and update all changed transformation version checksums in the Hive Metastore (see also [Command Reference](Command Reference)).
+Changes to transformations might change the transformation version checksum, but the ouput of the computation might not change. For example, one might use a new version of an external UDF library jar file for a Hive transformation, but the UDF called has not changed. In this case, adding the passing the mode `RESET_TRANSFORMATION_CHECKSUMS` to the `materialize` command will avoid triggering of rematerializations based on transformation version checksums and update all changed transformation version checksums in the Hive Metastore (see also [Command Reference](Command Reference)).
 
 Example:
 
