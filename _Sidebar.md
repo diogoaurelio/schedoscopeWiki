@@ -32,6 +32,7 @@ Schedoscope
 * [JDBC](JDBC Export)
 * [Kafka](Kafka Export)
 * [Redis](Redis Export)
+* [(S)FTP]((S)FTP Export)
 
 ### Operating Schedoscope
 * [Bundling and Deploying](Bundling and Deploying)
