@@ -94,7 +94,7 @@ Here is a description the parameters you must or can pass to `Ftp` exports:
                           this, 
                           "sftp://somewhere.com:22", 
                           "exportUser", "keyPassword", 
-                          filePrefix=s"clicks-${date_id.v.get}", "|",
+                          filePrefix=s"clicks-${date_id.v.get}", delimiter="|",
                           numReducers=3,
                           codec=FileCompressionCodec.bzip2)
                       )
