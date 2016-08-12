@@ -26,7 +26,7 @@ For this work, the configuration properties
 
 must point to the running Schedoscope HTTP service
 
-# View Paths
+## View Paths
 
 Schedoscope views are referenced by their name and their parameters. This makes for view path. For easy specification of views and view ranges, Schedoscope makes use of a view path pattern language:
 
