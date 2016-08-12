@@ -22,7 +22,6 @@ At the very minimum, you should check and set if necessary:
 
 For an example of how to override these settings, you can also take a look at the [tutorial](Open Street Map Tutorial).
 
-
     #
     # Schedoscope configuration properties and default values
     #
@@ -313,6 +312,20 @@ For an example of how to override these settings, you can also take a look at th
                 #
 
                 numberOfReducers = 10
+
+            }
+
+            #
+            # Ftp exporter
+            #
+
+            ftp {
+
+                #
+                # Number of reducers to use for parallel exporting to a (S)Ftp Server.
+                #
+
+                numberOfReducers = 2
 
             }
         }
@@ -1059,4 +1072,6 @@ For an example of how to override these settings, you can also take a look at th
     spray.can.host-connector.idle-timeout = infinite
     spray.can.server.request-timeout = infinite
     spray.can.server.idle-timeout = infinite
+
+
 
