@@ -88,7 +88,7 @@ Here is a description the parameters you must or can pass to `Ftp` exports:
        // The CSV header row looks like this:
        // id|url|year|month|day|date_id
        // 
-       // The file prefix will be set to click-${year}${month}${day}
+       // The file prefix will be set to clicks-${year}${month}${day}
        //
        exportTo(() => Ftp(
                           this, 
