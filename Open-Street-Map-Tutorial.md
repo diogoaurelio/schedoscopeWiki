@@ -189,7 +189,7 @@ and `created_by` (which Job provided the data). These fields are defined using c
 
         mysql> select * from demo_schedoscope_example_osm_datamart_shop_profiles limit 10;
 
-   A MySQL export has been configured with the `ShopProfiles` view. As a result, not only has `ShopProfiles` been materialized in Hive; after transformation, Schedoscope created an equivalent table in MySQL and exported `ShopProfiles` to that table using a mapreduce job. Schedoscope's export module supports simple, parallel export to [JDBC](JDBC Export), [Redis](Redis Export), and [Kafka](Kafka Export).
+   A MySQL export has been configured with the `ShopProfiles` view. As a result, not only has `ShopProfiles` been materialized in Hive; after transformation, Schedoscope created an equivalent table in MySQL and exported `ShopProfiles` to that table using a mapreduce job. Schedoscope's export module supports simple, parallel export to [JDBC](JDBC Export), [Redis](Redis Export), [Kafka](Kafka Export), and [(S)FTP]((S)FTP Export).
 
 ## Exploring the results and data lineage with Metascope
 
