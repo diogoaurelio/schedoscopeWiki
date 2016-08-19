@@ -2,13 +2,7 @@
 
 With Oozie transformations, one can compute views with Oozie workflows. Oozie workflows can be parameterized with `${parameter}`-style placeholders; values for these parameters can be passed using the `.configureWith()` clause.
 
-If you want to use Oozie transformations, you need to add the following to your `pom.xml`:
-
-    <dependency>
-        <groupId>schedoscope</groupId>
-        <artifactId>schedoscope-transformation-oozie</artifactId>
-        <version>0.6.5</version>
-    </dependency>
+If you want to use Oozie transformations, you need to [add the artifact `schedoscope-transformation-oozie` to your `pom.xml`](Setting up a Schedoscope Project).
 
 # Syntax
 
