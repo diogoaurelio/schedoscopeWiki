@@ -2,13 +2,7 @@
 
 With Pig transformations, one can compute views by means of Pig Latin. In this sense, Pig transformations are very similar to [Hive transformations](Hive Transformations). They differ, however, by the fact that using and deploying Pig UDFs is not yet supported.
 
-In order to use Pigtransformations, you need to add the following dependency to your `pom.xml`:
-
-    <dependency>
-        <groupId>schedoscope</groupId>
-        <artifactId>schedoscope-transformation-pig</artifactId>
-        <version>0.6.5</version>
-    </dependency>
+If you want to use Pig transformations, you need to [add the artifact `schedoscope-transformation-pig` to your `pom.xml`](Setting up a Schedoscope Project).
 
 
 # Syntax
