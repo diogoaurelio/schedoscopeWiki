@@ -2,13 +2,8 @@
 
 The shell transformation executes arbitrary executables on the machine the schedoscope scheduler runs on.
 
-In order to use shell transformations, you need to add the following to your `pom.xml`:
 
-    <dependency>
-        <groupId>schedoscope</groupId>
-        <artifactId>schedoscope-transformation-shell</artifactId>
-        <version>0.6.5</version>
-    </dependency>
+If you want to use shell transformations, you need to [add the artifact `schedoscope-transformation-shell` to your `pom.xml`](Setting up a Schedoscope Project).
 
 # Syntax
 
