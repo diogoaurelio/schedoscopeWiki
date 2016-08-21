@@ -57,6 +57,7 @@ In real-world production deployment scenarios, you should probably follow a diff
                 <version>0.1.1</version>
                 <scope>test</scope>
             </dependency>
+            <!-- For tests of Oozie transformations, add this dependency -->
             <dependency>
                 <groupId>minioozie</groupId>
                 <artifactId>minioozie</artifactId>
