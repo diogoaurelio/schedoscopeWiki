@@ -111,7 +111,7 @@ Examples:
     |        /user/root/actions/pig-40 |   idle |         |      |             |       |
     ...
 
-   transformations -f .*hive.*
+    transformations -f .*hive.*
 
     +----------------------------------+--------+---------+------+-------------+-------+
     |               ACTOR              | STATUS | STARTED | DESC | TARGET_VIEW | PROPS |
