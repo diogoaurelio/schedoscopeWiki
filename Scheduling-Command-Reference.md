@@ -141,24 +141,9 @@ Examples:
 
     materialize -v  app.eci.datamart/SearchExport/SHOP10/2015/05
 
-    id: materialize_view::app.eci.datamart/SearchExport/SHOP10/2015/05::20150611121128
-    start: 6/11/15 12:11 PM 
-    end: 6/12/15 1:08 PM
-    status: Map(submitted -> 1)
-
     materialize -v  app.eci.datamart/SearchExport/e(SHOP10,SHOP11)/rym(201505-201410)
-
-    id: materialize_view::app.eci.datamart/SearchExport/e(SHOP10,SHOP11)/rym(201505-201410)::20150611121128
-    start: 6/11/15 12:11 PM 
-    end: 6/12/15 1:08 PM
-    status: Map(submitted -> 1)
  
     materialize -v  app.eci.datamart/SearchExport/SHOP10/2015/05 -m RESET_TRANSFORMATION_CHECKSUMS
-
-    id: materialize_view::app.eci.datamart/SearchExport/SHOP10/2015/05::20150611121128
-    start: 6/11/15 12:11 PM 
-    end: 6/12/15 1:08 PM
-    status: Map(submitted -> 1)
 
 ### invalidate
 
@@ -176,43 +161,6 @@ Examples:
 
     invalidate -v  app.eci.datamart/SearchExport/SHOP10/2015/05
 
-    id: invalidate::app.eci.datamart/SearchExport/SHOP10/2015/05::20150612132735
-    start: 6/12/15 1:27 PM
-    end: 
-    status: Map(submitted -> 1)
-
     invalidate -v  app.eci.datamart/SearchExport/e(SHOP10,SHOP11)/rym(201505-201410)
 
-    id: invalidate::app.eci.datamart/SearchExport/e(SHOP10,SHOP11)/rym(201505-201410)::20150612132735
-    start: 6/12/15 1:27 PM
-    end: 
-    status: Map(submitted -> 1)
-
     invalidate -v  app.eci.datamart/SearchExport/SHOP10/2015/05 -d
-
-    id: invalidate::app.eci.datamart/SearchExport/SHOP10/2015/05::20150612132735
-    start: 6/12/15 1:27 PM
-    end: 
-    status: Map(submitted -> 1)
-
-### commands 
-
-List the commands issued to Schedoscope and their state. The latter is a map of states (submitted, running, materialized, no-data) with counts.
-
-Supported options:
-- `-s`, `--status <status>`: all ands with a given status (e.g. 'running')
-- `-f`, `--filterregular <regex>`: show only commands with an ID matching a regular expression (e.g., `my.database/.*/Partition1/.*`)
-
-Examples:
-
-    commands -s materialized
-
-    id: materialize_view::app.eci.datamart/SearchExport/SHOP10/2015/05::20150611121128
-    start: 6/11/15 12:11 PM 
-    end: 6/12/15 1:08 PM
-    status: Map(submitted -> 1, materialized -> 1)
-
-    id: materialize_view::example.datamart/AffinityFeatureMatrix/2015/05::20150611163426
-    start: 6/11/15 4:34 PM
-    end: 6/12/15 1:08 PM
-    status: Map(submitted -> 1, materialized -> 1)
