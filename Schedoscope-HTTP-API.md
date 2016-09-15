@@ -181,15 +181,6 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
 
 **Returns**  
 
-	{
-	  "id": "invalidate::schedoscope.example/Example/2015/06::20150617183733",
-	  "start": "6/17/15 6:37 PM",
-	  "status": {
-	    "submitted": 1
-	  }
-
-**Returns**  
-
 A record consisting of an overview of the views invalidated summarized according to the view status prior to invalidation and the list of invalidated views with their individual status.
 
      {  
