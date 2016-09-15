@@ -103,7 +103,7 @@ Path: /queues
 
 **Returns**  
 
-A record consisting of an overview summarizing the number of transformations queued up per type and the currently running transformations.
+A record consisting of an overview summarizing the number of transformations queued up per type and the heads of the transformation type-specific queues.
 
 E.g.,
 
