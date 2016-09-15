@@ -9,7 +9,7 @@ In case of errors, HTTP error codes <> 200 are set. Currently these are:
 
 The currently implemented request types are as follows:
 
-#### views
+### views
 List all instantiated views  
 
 Method: GET  
