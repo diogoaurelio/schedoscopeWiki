@@ -104,7 +104,7 @@ Path: /queues
 ### materialize 
 Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksums.
 
-The materialization command ID is returned as a result.
+The views being materialized are returned along with their state prior to receiving the materialize command. 
 
 Method: GET  
 Path: /materialize/`ViewPattern`  
@@ -126,17 +126,24 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
 
 **Returns**  
 
-	{
- 	 "id": "materialize_view::schedoscope.example/Example/2015/06::20150617183559",
- 	 "start": "6/17/15 6:35 PM",
- 	 "status": {
-  	  "submitted": 1
- 	 }
+     {  
+       "overview": {  
+         "nodata": 1  
+         "materialized" : 1  
+      },  
+      "views": [{  
+        "view": "example.osm/Stage/2015/01",  
+        "status": "receive"  
+      }, {  
+        "view": "example.osm/Stage/2015/02",  
+        "status": "materialized"  
+      }]  
+    }  
 	
 ### invalidate
 Invalidate views, i.e., force a materialization upon subsequent materialize.
 
-The invalidation command ID is returned as a result.
+The views invalidated are returned along with their state prior to invalidation.
 
 Method: GET  
 Path: /invalidate/`ViewPattern`  
@@ -161,3 +168,18 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
 	    "submitted": 1
 	  }
 
+**Returns**  
+
+     {  
+       "overview": {  
+         "nodata": 1  
+         "materialized" : 1  
+      },  
+      "views": [{  
+        "view": "example.osm/Stage/2015/01",  
+        "status": "materialized"  
+      }, {  
+        "view": "example.osm/Stage/2015/02",  
+        "status": "materialized"  
+      }]  
+    }  
