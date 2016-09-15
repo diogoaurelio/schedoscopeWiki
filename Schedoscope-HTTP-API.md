@@ -66,6 +66,8 @@ Path:  /transformations
 
 A record consisting of an overview with the transformation drivers returned summarized according to their status and the list of drivers with their individual status.
 
+E.g.,
+
     {
 	  "overview": {
 	    "idle": 860
@@ -103,6 +105,8 @@ Path: /queues
 
 A record consisting of an overview summarizing the number of transformations queued up per type and the currently running transformations.
 
+E.g.,
+
      {  
        "overview": {  
         "hive": 1  
@@ -139,6 +143,8 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
 **Returns**  
 
 A record consisting of an overview of the views being materialized summarized according to the view status prior to materialization and the list of views being materialized with their individual status.
+
+E.g.,
 
      {  
        "overview": {  
