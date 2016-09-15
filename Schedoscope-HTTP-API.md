@@ -1,19 +1,23 @@
 Schedoscope can be remotely controlled via a simple HTTP API. It can be used for triggering new materializations or notify the scheduler upon the arrival of new data, but also for checking view scheduling states remotely.
 
 ## API Request Types
-Currently, all remote requests to Schedoscope use the HTTP GET method. Parameters are passed as URL parameters and need to be URL-encoded appropriately. Results are returned as JSON documents. In case of errors, HTTP error codes <> 200 are set.
+Currently, all remote requests to Schedoscope use the HTTP GET method. Parameters are passed as URL parameters and need to be URL-encoded appropriately. Results are returned as JSON documents. 
+
+In case of errors, HTTP error codes <> 200 are set. Currently these are:
+* Bad Request (400): invalid parameters have been passed. Fix the call.
+* Internal Server Error (500): some unforeseen problem occurred internally within Schedoscope. This should not happen and you need to check the logs to find out what's wrong.
 
 The currently implemented request types are as follows:
 
 #### views
-List all currently active views  
+List all instantiated views  
 
 Method: GET  
 Path: /views/  
 or  
 Path: /views/`ViewPattern`  
 
-if a `ViewPattern` is given, only information about views matching the [pattern](View-Pattern-Reference) is returned
+If a `ViewPattern` is given, only information about views matching the [pattern](View-Pattern-Reference) is returned
 
 **Parameters:**  
 
@@ -27,6 +31,10 @@ if a `ViewPattern` is given, only information about views matching the [pattern]
     only return aggregate counts about view scheduling states and not information about individual views.
 
 **Returns**  
+
+A record consisting of an overview with the views returned summarized according to the view status and the list of views with their individual status.
+
+E.g.,
 
      {  
        "overview": {  
@@ -55,6 +63,8 @@ Path:  /transformations
     apply a regular expression filter on driver name (e.g. '?filter=.*hive.*')
 
 **Returns**  
+
+A record consisting of an overview with the transformation drivers returned summarized according to their status and the list of drivers with their individual status.
 
     {
 	  "overview": {
@@ -91,6 +101,8 @@ Path: /queues
 
 **Returns**  
 
+A record consisting of an overview summarizing the number of transformations queued up per type and the currently running transformations.
+
      {  
        "overview": {  
         "hive": 1  
@@ -125,6 +137,8 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
   force the given views into the materialized state. No transformation is performed, and all the views' transformation timestamps and checksums are set to current.
 
 **Returns**  
+
+A record consisting of an overview of the views being materialized summarized according to the view status prior to materialization and the list of views being materialized with their individual status.
 
      {  
        "overview": {  
@@ -169,6 +183,8 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
 	  }
 
 **Returns**  
+
+A record consisting of an overview of the views invalidated summarized according to the view status prior to invalidation and the list of invalidated views with their individual status.
 
      {  
        "overview": {  
