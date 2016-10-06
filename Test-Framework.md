@@ -1,4 +1,4 @@
-Schedoscope's test framework integrates tightly with view development. Faciliating frequent test runs, it speeds up development-testing roundtrip time. 
+Schedoscope's test framework integrates tightly with view development. Facilitating frequent test runs, speeding up development-testing roundtrip time. 
 
 From a conceptual point of view, the framework provides "unit testing" for Schedoscope views and transformations. The focus is neither on integration testing with a target / staging environment nor on load testing against large datasets. Rather, the framework supports correctness tests for views and transformations with simple specification of test input data, fast test execution, and painless checking of resulting view data with expected results.
 
@@ -7,7 +7,7 @@ The main design principles of Schedoscope's test framework are:
 * _Integration with Scalatest_: Test specification and result checking is based on [Scalatest](http://scalatest.org), with its expressive library of assertions.
 * _Local transformation execution_: In order to decouple testing from the availability of a Hadoop cluster environment and to achieve fast test execution times, the framework embeds various cluster components required for executing the different transformation types and configures most of them to run in _local_ mode.
 * _Typesafe test data specification_: Because the specification of input and output data of tests "lives" within Scala, we can completely eliminate errors stemming from wrong types, column names, etc. by compile time checks. Another beneficial side-effect of this approach is that one can use auto-completion in IDEs like Eclipse while writing tests.
-* _Default data generation_: The framework encourages you to write separate tests for different aspects of a view transformation by generating reasonable default values for non-specified columns of input data. It is thus possible to focus on some specific colums, reducing the effort of specifying test data to a minimal amount. This is in stark contrast to other approaches where the test data definition overhead encourages you to create one huge input data set coveriing all test cases.
+* _Default data generation_: The framework encourages you to write separate tests for different aspects of a view transformation by generating reasonable default values for non-specified columns of input data. It is thus possible to focus on some specific colums, reducing the effort of specifying test data to a minimal amount. This is in stark contrast to other approaches where the test data definition overhead encourages you to create one huge input data set covering all test cases.
   
 Briefly summarized, writing a test of a given view `V` with the Schedoscope test framework consists of the following steps:
 
@@ -15,17 +15,18 @@ Briefly summarized, writing a test of a given view `V` with the Schedoscope test
 2. adapting the configuration of `V` to accommodate local test execution (if necessary)
 3. executing the transformation of `V` (in local mode)
 4. checking the outcomes against expected results
-   
-The following section shows a complete test example based on the [tutorial](Open Street Map Tutorial); the subsequent sections detail on the individual testing aspects.
 
-## Complete Example
+To express these steps you can choose between different testing styles, depending on your concrete test case.
+
+The following section shows complete test examples based on the [tutorial](Open Street Map Tutorial); the subsequent sections detail on the individual testing aspects.
+
+## Complete Basic Example
 
 The following example is taken from the tutorial. It tests the view `Restaurants` that is populated
-by a Hive transformation from a single other view `Nodes`. Comments can be found within the source code; details on specifying test data input can be found in the subsequent section _Test Data Definition_; the section _Test Running & Result Checking_ then explaines test execution and result inspection.
+by a Hive transformation from a single other view `Nodes`. Comments can be found within the source code; details on specifying test data input can be found in the subsequent section _Test Data Definition_; the section _Test Running & Result Checking_ then explains test execution and result inspection. Schedoscope ships with its own test spec for ScalaTest: _SchedoscopeSpec_.
 
 
-    case class RestaurantsTest() extends FlatSpec
-      with Matchers {
+    case class RestaurantsTest() extends SchedoscopeSpec {
       
       //
       // specify input data (OSM nodes). By extending the actual view by
@@ -180,7 +181,7 @@ The resulting table looks like this:
 
 #### Defining Structs as Input
 
-When the test input data contains structured fiels (i.e. fields of the Hive STRUCT type), each struct input 
+When the test input data contains structured fields (i.e. fields of the Hive STRUCT type), each struct input 
 must be defined manually. Let's say we have a struct that looks like this:
 
     case class ProductInList() extends Structure {
@@ -203,7 +204,7 @@ functions you already know for setting values:
 
 The execution of tests is based on Scalatest and can look like this:
 
-    case class RestaurantsTest() extends FlatSpec with Matchers {
+    case class RestaurantsTest() extends SchedoscopeSpec {
 
       val nodesInput = new Nodes(p("2014"), p("09")) with rows {
           // input data definition from above
