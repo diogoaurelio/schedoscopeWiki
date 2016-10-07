@@ -327,8 +327,9 @@ case class RestaurantsTest() extends SchedoscopeSpec {
   }
   
   //
-  //If you are testing subsequent rows you have to forward the row index before  
-  //defining assertions. This is done by calling startWithRow(index)
+  //If you are testing subsequent rows you have to 
+  //forward the row index before defining assertions. 
+  //This is done by calling startWithRow(index).
   //
   it should "have a second restaurant" in {
     startWithRow(1)
