@@ -355,7 +355,7 @@ val restaurant = putViewUnderTest{
 
 #### Reusing HiveSchemas Inside a Test Suite 
 
-Both of the shown test styles rely upon definition of all dependent views and the input outside of the test cases. There are numerous reasons you want to test the same transformation with different input. In the previous examples, this would mean to define the same view schema multiple times but with different input or once with all the input. Instead, the `ReusableHiveSchema` should be used. It circumvents the previously discussed problems and provides the means for better-structured tests. The trait allows you to reuse predefined schemas for views in multiple tests. The test suite will fill these schemas during the tests. After each test case the schemas are emptied. The following example shows a refactoring of the previous full test case.
+Both of the shown test styles rely upon definition of all dependent views and the input outside of the test cases. There are numerous reasons you want to test the same transformation with different input. In the previous examples, this would mean to define the same view schema multiple times but with different input or once with all the input. The `ReusableHiveSchema` provides a way to separate View definition from input data. This solves the discussed problems and provides the means for better-structured tests. The trait allows you to reuse predefined schemas for views in multiple tests. The test suite will fill these schemas during the tests. After each test case the schemas are then emptied. The following example shows a refactoring of the previous full test case:
 
 ```scala
 case class RestaurantsTest() extends SchedoscopeSpec with ReusableHiveSchema {
