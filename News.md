@@ -1,5 +1,12 @@
 ## News
 
+###### 10/07/2016 - Release 0.6.6
+We have released Version 0.6.6 as a Maven artifact to our Bintray repository (see [Setting Up A Schedoscope Project](https://github.com/ottogroup/schedoscope/wiki/Setting-up-a-Schedoscope-Project) for an example pom).
+
+The test framework has received some love. There are [two new testing styles](https://github.com/ottogroup/schedoscope/wiki/Test%20Framework#alternative-testing-styles) that can make your tests look prettier and run faster:
+* compute a view once and execute multiple tests on its data;
+* create the Hive structures for input views and views under test once and load these with different data within each test case saving Hive environment setup overhead and keeping input data and assertions next to each other within each test.
+
 ###### 08/19/2016 - Release 0.6.5
 We have released Version 0.6.5 as a Maven artifact to our Bintray repository (see [Setting Up A Schedoscope Project](https://github.com/ottogroup/schedoscope/wiki/Setting-up-a-Schedoscope-Project) for an example pom).
 
