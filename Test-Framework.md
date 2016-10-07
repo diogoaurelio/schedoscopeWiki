@@ -256,6 +256,14 @@ these are:
   in the current result row. The value is returned in a typesafe manner,
   and can be compared using the full [Scalatest matcher](http://scalatest.org/user_guide/using_matchers)   
   functionality (e.g. `shouldBe` , `shouldHaveLength`, ...). 
+
+## Alternative Testing Styles
+
+Schedoscope offers some slight variations from the standart test style to enhance the readability and runtime for certain test scenarios.
+
+#### Pre-transforming the View Under Test
+
+#### Reusing HiveSchemas Inside a Test Suite  
   
 ## Advanced Features
 
