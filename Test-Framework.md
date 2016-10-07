@@ -373,19 +373,22 @@ case class RestaurantsTest() extends SchedoscopeSpec with ReusableHiveSchema {
   
   //
   //Import the input schema in order to have access to its fields.
-  //If you have multiple output schemas to test you have to import the specific schema 
+  //If you have multiple output schemas to test 
+  //you have to import the specific schema 
   //you're testing into the test case.
   //
   import restaurant._
   
   //
-  //Each test case now follows the pattern of filling the input schema with data.
-  //Triggering a transformation and verifying the results.
+  //Each test case now follows the pattern of 
+  //filling the input schema with data, 
+  //triggering a transformation and verifying the results.
   //
   it should "load an italian restaurant" in {
     //Fill the input schema
     { 
-      //define which schema you're acessing. Make sure to enclose it in it's own scope.
+      //define which schema you're acessing. 
+      //Make sure to enclose it in it's own scope.
       import nodes._
       set(v(id, "267622930"),
         v(geohash, "t1y06x1xfcq0"),
