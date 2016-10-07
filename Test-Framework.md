@@ -26,61 +26,61 @@ The following example is taken from the tutorial. It tests the view `Restaurants
 by a Hive transformation from a single other view `Nodes`. Comments can be found within the source code; details on specifying test data input can be found in the subsequent section _Test Data Definition_; the section _Test Running & Result Checking_ then explains test execution and result inspection. Schedoscope ships with its own test spec for ScalaTest: _SchedoscopeSpec_.
 
 ```scala
-    class RestaurantsTest() extends SchedoscopeSpec {
-      
-      //
-      // specify input data (OSM nodes). By extending the actual view by
-      // "with rows", we can specify input data. Each call of "set"
-      // adds a line of input data; "v" sets the value for a particular
-      // column.
-      //
+class RestaurantsTest() extends SchedoscopeSpec {
+  
+  //
+  // specify input data (OSM nodes). By extending the actual view by
+  // "with rows", we can specify input data. Each call of "set"
+  // adds a line of input data; "v" sets the value for a particular
+  // column.
+  //
 
-      val nodes = new Nodes(p("2014"), p("09")) with rows {
-        set(v(id, "267622930"),
-          v(geohash, "t1y06x1xfcq0"),
-          v(tags, Map("name" -> "Cuore Mio",
-            "cuisine" -> "italian",
-            "amenity" -> "restaurant")))
-        set(v(id, "288858596"),
-          v(geohash, "t1y1716cfcq0"),
-          v(tags, Map("name" -> "Jam Jam",
-            "cuisine" -> "japanese",
-            "amenity" -> "restaurant")))
-        set(v(id, "302281521"),
-          v(geohash, "t1y17m91fcq0"),
-          v(tags, Map("name" -> "Walddörfer Croque Café",
-            "cuisine" -> "burger",
-            "amenity" -> "restaurant")))
-        set(v(id, "30228"),
-          v(geohash, "t1y77d8jfcq0"),
-          v(tags, Map("name" -> "Giovanni",
-            "cuisine" -> "italian")))
-      }
-    
-      //
-      // run tests & check results. By extending the actual view by "with test",
-      // we enable test running and result checking. With "basedOn", the input
-      // views ares specified; "then" actually runs the transformation,
-      // "numRows" yields the number of result rows, and "row" fetches a single
-      // line of test output. Within a row, individual column values can 
-      // be checked by "v", using Scalatest assertions like "shouldBe".
-      // 
-      // Please note that for sake of brevity, we only inspect the details
-      // of the first output row.
-      //
+  val nodes = new Nodes(p("2014"), p("09")) with rows {
+    set(v(id, "267622930"),
+      v(geohash, "t1y06x1xfcq0"),
+      v(tags, Map("name" -> "Cuore Mio",
+        "cuisine" -> "italian",
+        "amenity" -> "restaurant")))
+    set(v(id, "288858596"),
+      v(geohash, "t1y1716cfcq0"),
+      v(tags, Map("name" -> "Jam Jam",
+        "cuisine" -> "japanese",
+        "amenity" -> "restaurant")))
+    set(v(id, "302281521"),
+      v(geohash, "t1y17m91fcq0"),
+      v(tags, Map("name" -> "Walddörfer Croque Café",
+        "cuisine" -> "burger",
+        "amenity" -> "restaurant")))
+    set(v(id, "30228"),
+      v(geohash, "t1y77d8jfcq0"),
+      v(tags, Map("name" -> "Giovanni",
+        "cuisine" -> "italian")))
+  }
 
-      "datahub.Restaurants" should "load correctly from processed.nodes" in {
-        new Restaurants() with test {
-          basedOn(nodes)
-          then()
-          numRows shouldBe 3
-          row(v(id) shouldBe "267622930",
-            v(restaurant_name) shouldBe "Cuore Mio",
-            v(restaurant_type) shouldBe "italian",
-            v(area) shouldBe "t1y06x1")
-        }
-      }
+  //
+  // run tests & check results. By extending the actual view by "with test",
+  // we enable test running and result checking. With "basedOn", the input
+  // views ares specified; "then" actually runs the transformation,
+  // "numRows" yields the number of result rows, and "row" fetches a single
+  // line of test output. Within a row, individual column values can 
+  // be checked by "v", using Scalatest assertions like "shouldBe".
+  // 
+  // Please note that for sake of brevity, we only inspect the details
+  // of the first output row.
+  //
+
+  "datahub.Restaurants" should "load correctly from processed.nodes" in {
+    new Restaurants() with test {
+      basedOn(nodes)
+      then()
+      numRows shouldBe 3
+      row(v(id) shouldBe "267622930",
+        v(restaurant_name) shouldBe "Cuore Mio",
+        v(restaurant_type) shouldBe "italian",
+        v(area) shouldBe "t1y06x1")
     }
+  }
+}
 ```
 
 ## Test Input Data Definition
@@ -96,41 +96,43 @@ For this reason, the framework allows for the specification of datasets in a row
 To stick with the above example, the view _Restaurants_ depends on the view _Nodes_. Its
 (simplified) definition looks like
 
-    case class Nodes(
-      year: Parameter[String],
-      month: Parameter[String]) extends View
-      [...] {
-    
-      val version = fieldOf[Int]
-      val user_id = fieldOf[Int]
-      val longitude = fieldOf[Double]
-      val latitude = fieldOf[Double]
-      val geohash = fieldOf[String]
-      val tags = fieldOf[Map[String, String]]
-    [...]
-    )
+```scala
+case class Nodes(
+  year: Parameter[String],
+  month: Parameter[String]) extends View
+  [...] {
+
+  val version = fieldOf[Int]
+  val user_id = fieldOf[Int]
+  val longitude = fieldOf[Double]
+  val latitude = fieldOf[Double]
+  val geohash = fieldOf[String]
+  val tags = fieldOf[Map[String, String]]
+[...]
+)
+```
 
 _Nodes_ maps to a Hive table with columns `version`, `user_id`, etc., and the partitions `year` and `month`. In order to generate input rows for this view, creates an anonymous subclass of _Nodes_ with the trait `rows`. Then, one can call the `set` method to add rows and `v` to set column values. 
 
 For example:
-
-      val nodes = new Nodes(p("2014"), p("09")) with rows {
-        set(v(version, 1),
-          v(user_id, 1234),
-          v(longitude, 11111.11),
-          v(latitude, 22222.22),
-          v(geohash, "t1y1716cfcq0"),
-          v(tags, Map("tag1" -> "val1",
-            "tag2" -> "val2")))
-        set(v(version, 2),
-          v(user_id, 5678),
-          v(longitude, 33333.33),
-          v(latitude, 33333.33),
-          v(geohash, "t1y1716cfcqx"),
-          v(tags, Map("tag3" -> "val3",
-            "tag3" -> "val3")))          
-      }
-
+```scala
+val nodes = new Nodes(p("2014"), p("09")) with rows {
+  set(v(version, 1),
+    v(user_id, 1234),
+    v(longitude, 11111.11),
+    v(latitude, 22222.22),
+    v(geohash, "t1y1716cfcq0"),
+    v(tags, Map("tag1" -> "val1",
+      "tag2" -> "val2")))
+  set(v(version, 2),
+    v(user_id, 5678),
+    v(longitude, 33333.33),
+    v(latitude, 33333.33),
+    v(geohash, "t1y1716cfcqx"),
+    v(tags, Map("tag3" -> "val3",
+      "tag3" -> "val3")))          
+}
+```
 This results in the following two rows in the input table:
 
 | version | user_id | longitude | latitude | geohash | tags |
@@ -163,13 +165,14 @@ for the current row number the schema for generating default values for a field 
 To stick with the `Nodes` example, let's say only _longitude_ and
 _latitude_ would be of interest for our current test. Then we could write:
 
-
-      val nodes = new Nodes(p("2014"), p("09")) with rows {
-        set(v(longitude, 11111.11),
-          v(latitude, 22222.22))
-        set(v(longitude, 33333.33),
-          v(latitude, 33333.33))          
-      }
+```scala
+val nodes = new Nodes(p("2014"), p("09")) with rows {
+  set(v(longitude, 11111.11),
+    v(latitude, 22222.22))
+  set(v(longitude, 33333.33),
+    v(latitude, 33333.33))          
+}
+```
 
 The resulting table looks like this:
 
@@ -183,46 +186,48 @@ The resulting table looks like this:
 
 When the test input data contains structured fields (i.e. fields of the Hive STRUCT type), each struct input 
 must be defined manually. Let's say we have a struct that looks like this:
-
-    case class ProductInList() extends Structure {
-      val productName = fieldOf[String]
-      val productNumber = fieldOf[String]
-      val productPosition = fieldOf[String]
-    }
-
+```scala
+case class ProductInList() extends Structure {
+  val productName = fieldOf[String]
+  val productNumber = fieldOf[String]
+  val productPosition = fieldOf[String]
+}
+```
 Then, values for it can be assigned by subclassing with trait `values`, together with the `set` and `v` 
 functions you already know for setting values:
-
-    val product0815 = new ProductInList with values {
-      set(
-        v(productName, "The Gadget"),
-        v(productNumber, "0815"),
-        v(productPosition, "rec-2"))
-    }
-
+```scala
+val product0815 = new ProductInList with values {
+  set(
+    v(productName, "The Gadget"),
+    v(productNumber, "0815"),
+    v(productPosition, "rec-2"))
+}
+```
 ## Test Running & Result Checking
 
 The execution of tests is based on Scalatest and can look like this:
 
-    case class RestaurantsTest() extends SchedoscopeSpec {
+```scala
+case class RestaurantsTest() extends SchedoscopeSpec {
 
-      val nodesInput = new Nodes(p("2014"), p("09")) with rows {
-          // input data definition from above
-      }
-          
-      // test 
-      "datahub.Restaurants" should "load correctly from processed.nodes" in {
-        new Restaurants() with test {
-          basedOn(nodes)
-          then()
-          numRows() shouldBe 3
-          row(v(id) shouldBe "267622930",
-            v(restaurant_name) shouldBe "Cuore Mio",
-            v(restaurant_type) shouldBe "italian",
-            v(area) shouldBe "t1y06x1")
-        }
-      }                
+  val nodesInput = new Nodes(p("2014"), p("09")) with rows {
+      // input data definition from above
+  }
+      
+  // test 
+  "datahub.Restaurants" should "load correctly from processed.nodes" in {
+    new Restaurants() with test {
+      basedOn(nodes)
+      then()
+      numRows() shouldBe 3
+      row(v(id) shouldBe "267622930",
+        v(restaurant_name) shouldBe "Cuore Mio",
+        v(restaurant_type) shouldBe "italian",
+        v(area) shouldBe "t1y06x1")
     }
+  }                
+}
+```
 
 As you can see, the view which is to be tested is actually being 
 instantiated by `new Restaurants()` (this is an example of a 
@@ -273,65 +278,65 @@ To do this you simply have to tell the test suite which rows you want to transfo
 ```scala
 case class RestaurantsTest() extends SchedoscopeSpec {
 
-      // specify input data. This step is the same as before.
+  // specify input data. This step is the same as before.
 
-      val nodes = new Nodes(p("2014"), p("09")) with rows {
-        set(v(id, "267622930"),
-          v(geohash, "t1y06x1xfcq0"),
-          v(tags, Map("name" -> "Cuore Mio",
-            "cuisine" -> "italian",
-            "amenity" -> "restaurant")))
-        set(v(id, "288858596"),
-          v(geohash, "t1y1716cfcq0"),
-          v(tags, Map("name" -> "Jam Jam",
-            "cuisine" -> "japanese",
-            "amenity" -> "restaurant")))
-      }
-    
-      // 
-      //The view under test is registered at the test suite.
-      //The suite will transform this view at the beginning of the test run
-      //before any tests are evaluated. 
-      //You can add multiple views under tests.
-      //
-      val restaurant = putViewUnderTest{
-        new Restaurants() with test {
-          basedOn(nodes)
-          sortRowsBy(restaurant_name)
-        }
-      }
-
-      //
-      //Import the view under test in order to have access to its fields.
-      //If you have multiple views under test you have to import the specific view 
-      //you're testing into the test case.
-      //
-      import restaurant._
-
-      //Now you are able to define multiple tests on the same transformed view.
-      "datahub.Restaurants" should "have the right amount of rows" in {
-        numRows shouldBe 2 
-      }
-
-      //A second test on the first row
-      it should "have a restaurant" in {
-        row(v(id) shouldBe "267622930",
-          v(restaurant_name) shouldBe "Cuore Mio",
-          v(restaurant_type) shouldBe "italian",
-          v(area) shouldBe "t1y06x1")
-      }
-    
-      //
-      //If you are testing subsequent rows you have to forward the row index before  
-      //defining assertions. This is done by calling startWithRow(index)
-      //
-      it should "have a second restaurant" in {
-        startWithRow(1)
-        row(v(id) shouldBe "288858596",
-          v(restaurant_name) shouldBe "Jam Jam",
-          v(restaurant_type) shouldBe "japanese")
-      }
+  val nodes = new Nodes(p("2014"), p("09")) with rows {
+    set(v(id, "267622930"),
+      v(geohash, "t1y06x1xfcq0"),
+      v(tags, Map("name" -> "Cuore Mio",
+        "cuisine" -> "italian",
+        "amenity" -> "restaurant")))
+    set(v(id, "288858596"),
+      v(geohash, "t1y1716cfcq0"),
+      v(tags, Map("name" -> "Jam Jam",
+        "cuisine" -> "japanese",
+        "amenity" -> "restaurant")))
+  }
+  
+  // 
+  //The view under test is registered at the test suite.
+  //The suite will transform this view at the beginning of the test run
+  //before any tests are evaluated. 
+  //You can add multiple views under tests.
+  //
+  val restaurant = putViewUnderTest{
+    new Restaurants() with test {
+      basedOn(nodes)
+      sortRowsBy(restaurant_name)
     }
+  }
+
+  //
+  //Import the view under test in order to have access to its fields.
+  //If you have multiple views under test you have to import the specific view 
+  //you're testing into the test case.
+  //
+  import restaurant._
+
+  //Now you are able to define multiple tests on the same transformed view.
+  "datahub.Restaurants" should "have the right amount of rows" in {
+    numRows shouldBe 2 
+  }
+
+  //A second test on the first row
+  it should "have a restaurant" in {
+    row(v(id) shouldBe "267622930",
+      v(restaurant_name) shouldBe "Cuore Mio",
+      v(restaurant_type) shouldBe "italian",
+      v(area) shouldBe "t1y06x1")
+  }
+  
+  //
+  //If you are testing subsequent rows you have to forward the row index before  
+  //defining assertions. This is done by calling startWithRow(index)
+  //
+  it should "have a second restaurant" in {
+    startWithRow(1)
+    row(v(id) shouldBe "288858596",
+      v(restaurant_name) shouldBe "Jam Jam",
+      v(restaurant_type) shouldBe "japanese")
+  }
+}
 ```
 
 The above example shows the `then()` method is not invoked by the developer anymore, the transformation is triggered by the test suite in the background. You can still change the settings for the test transformation by using dedicated methods:
@@ -354,69 +359,69 @@ Both of the shown test styles rely upon definition of all dependent views and th
 ```scala
 case class RestaurantsTest() extends SchedoscopeSpec with ReusableHiveSchema {
 
-      // Specify an input schema:
-      val nodes = new Nodes(p("2014"), p("09")) with InputSchema 
-     
-      //
-      // Specify an output schema:
-      // The basedOn() method defines which `InputSchema` the `OutputSchema` will 
-      // use for input the tests.
-      //
-      val restaurant = new Restaurants() with OutputSchema {
-        basedOn(nodes)
-      }
-      
-      //
-      //Import the input schema in order to have access to its fields.
-      //If you have multiple output schemas to test you have to import the specific schema 
-      //you're testing into the test case.
-      //
-      import restaurant._
-      
-      //
-      //Each test case now follows the pattern of filling the input schema with data.
-      //Triggering a transformation and verifying the results.
-      //
-      it should "load an italian restaurant" in {
-        //Fill the input schema
-        { 
-          //define which schema you're acessing. Make sure to enclose it in it's own scope.
-          import nodes._
-          set(v(id, "267622930"),
-            v(geohash, "t1y06x1xfcq0"),
-            v(tags, Map("name" -> "Cuore Mio",
-              "cuisine" -> "italian",
-              "amenity" -> "restaurant")))
-        }
-        //trigger the test transformation
-        then(restaurants)
-        //validate input
-        numRows() shouldBe 1
-        row(v(id) shouldBe "267622930",
-          v(restaurant_name) shouldBe "Cuore Mio",
-          v(restaurant_type) shouldBe "italian",
-          v(area) shouldBe "t1y06x1")
-      }
-    
-      //
-      //Use the schemas for another test.
-      //
-      it should "load an japanese restaurant" in {
-        {
-          import nodes._
-          set(v(id, "288858596"),
-            v(geohash, "t1y1716cfcq0"),
-            v(tags, Map("name" -> "Jam Jam",
-              "cuisine" -> "japanese",
-              "amenity" -> "restaurant")))
-        }
-        then(restaurants)
-        numRows() shouldBe 1
-        row(v(id) shouldBe "288858596",
-          v(restaurant_name) shouldBe "Jam Jam",
-          v(restaurant_type) shouldBe "japanese")
-      }
+  // Specify an input schema:
+  val nodes = new Nodes(p("2014"), p("09")) with InputSchema 
+ 
+  //
+  // Specify an output schema:
+  // The basedOn() method defines which `InputSchema` the `OutputSchema` will 
+  // use for input the tests.
+  //
+  val restaurant = new Restaurants() with OutputSchema {
+    basedOn(nodes)
+  }
+  
+  //
+  //Import the input schema in order to have access to its fields.
+  //If you have multiple output schemas to test you have to import the specific schema 
+  //you're testing into the test case.
+  //
+  import restaurant._
+  
+  //
+  //Each test case now follows the pattern of filling the input schema with data.
+  //Triggering a transformation and verifying the results.
+  //
+  it should "load an italian restaurant" in {
+    //Fill the input schema
+    { 
+      //define which schema you're acessing. Make sure to enclose it in it's own scope.
+      import nodes._
+      set(v(id, "267622930"),
+        v(geohash, "t1y06x1xfcq0"),
+        v(tags, Map("name" -> "Cuore Mio",
+          "cuisine" -> "italian",
+          "amenity" -> "restaurant")))
     }
+    //trigger the test transformation
+    then(restaurants)
+    //validate input
+    numRows() shouldBe 1
+    row(v(id) shouldBe "267622930",
+      v(restaurant_name) shouldBe "Cuore Mio",
+      v(restaurant_type) shouldBe "italian",
+      v(area) shouldBe "t1y06x1")
+  }
+
+  //
+  //Use the schemas for another test.
+  //
+  it should "load an japanese restaurant" in {
+    {
+      import nodes._
+      set(v(id, "288858596"),
+        v(geohash, "t1y1716cfcq0"),
+        v(tags, Map("name" -> "Jam Jam",
+          "cuisine" -> "japanese",
+          "amenity" -> "restaurant")))
+    }
+    then(restaurants)
+    numRows() shouldBe 1
+    row(v(id) shouldBe "288858596",
+      v(restaurant_name) shouldBe "Jam Jam",
+      v(restaurant_type) shouldBe "japanese")
+  }
+}
 ```
 
 The `ReusableHiveSchema` trait tries to reuse also some resources between test cases, so it should have some minor improvements in runtime in regards to the default test style.
@@ -432,13 +437,13 @@ mechanism by using key-value pairs. Typically, the required configuration
 is specified directly within the transformation definition of the view
 like this (simplified Pig transformation, taken from the tutorial view
 `Trainstations`):
-
-    transformVia(() =>
-      PigTransformation(
-        scriptFromResource("pig_scripts/datahub/insert_trainstations.pig"))
-        .configureWith(
-          Map("storage_format" -> "parquet.pig.ParquetStorer()")))
-
+```scala
+  transformVia(() =>
+    PigTransformation(
+      scriptFromResource("pig_scripts/datahub/insert_trainstations.pig"))
+      .configureWith(
+        Map("storage_format" -> "parquet.pig.ParquetStorer()")))
+```
 As you can see, view configuration is done by the `configureWith` method.
 In some cases, it can be necessary to override these specifications for testing.
 In the current example, the Pig script produces Parquet output; 
@@ -446,13 +451,15 @@ however, for local testing, a plain text output (i.e. PigStorage)
 is desired. This can be accomplished by the following mechanism 
 in the test case:
 
-    "datahub.Trainstations" should "load correctly from processed.nodes" in {
-      new Trainstations() with test {
-        basedOn(nodesInput)
-        withConfiguration(
-          ("storage_format" -> "PigStorage()"))
-       ...    
-    }
+```scala
+"datahub.Trainstations" should "load correctly from processed.nodes" in {
+  new Trainstations() with test {
+    basedOn(nodesInput)
+    withConfiguration(
+      ("storage_format" -> "PigStorage()"))
+   ...    
+}
+```
 
 This allows to override any predefined configuration property in order
 to adapt the views to the test environment.
@@ -466,43 +473,43 @@ definition. Let's say we have a little example view called `FilteredUsers`,
 which is populated by a Hive transformation which includes a UDF called
 `filter_users`, which takes a username as an argument, together with 
 a path to a user whitelist file:
+```scala
+case class FilteredUsers {
+  [...]
 
-    case class FilteredUsers {
-      [...]
-
-      transformVia(() =>
-        HiveTransformation(
-          "SELECT filter_users(user_name, ${user_whitelist}) FROM users"
-          withFunctions(
-            this,
-            Map("filter_users" -> classOf[GenericUDFFilterUsers]))
-        .configureWith(
-          Map("user_whitelist" -> "/hdfs/path/to/user.whitelist")))
-      
-      [...]    
-    }
-
+  transformVia(() =>
+    HiveTransformation(
+      "SELECT filter_users(user_name, ${user_whitelist}) FROM users"
+      withFunctions(
+        this,
+        Map("filter_users" -> classOf[GenericUDFFilterUsers]))
+    .configureWith(
+      Map("user_whitelist" -> "/hdfs/path/to/user.whitelist")))
+  
+  [...]    
+}
+```
 Now we have the situation that this transformation will run perfectly
 fine in the target hadoop cluster, because the user whitelist file 
 has been (hopefully ;) ) deployed there; however, for local testing,
 this file is not available. For this purpose, the Schedoscope testing
 framework allows to specify a _local_ resource for the given configuration
 property as follows: 
-
-    case class FilteredUsersTest() ... {
-      
-      [...]    
-      
-      "filtered users" should "load correctly from users" in {
-        new FilteredUsers() with test {
-          basedOn(...)
-          withResource(("user_whitelist", "src/test/resources/user.whitelist"))
-          then()
-          [...]
-        }
-      }                
+```scala
+case class FilteredUsersTest() ... {
+  
+  [...]    
+  
+  "filtered users" should "load correctly from users" in {
+    new FilteredUsers() with test {
+      basedOn(...)
+      withResource(("user_whitelist", "src/test/resources/user.whitelist"))
+      then()
+      [...]
     }
-
+  }                
+}
+```
 Using this approach, test resource files can be managed comfortably 
 within the standard Maven project location, and are made available during
 the local mode testing.
@@ -517,20 +524,21 @@ It ships with all necessary things to run Oozie transformations.
 
 Setting up the minicluster is easy - just replace the `with test` clause in the test case specification by `with clustertest`. Then, behind the scenes the minicluster will be launched
 prior to test execution. Properties of the minicluster (e.g. the namenode URI) can be accesed by the `cluster()` method: 
-
-    "my cool view" should s"load correctly " in {
-      new CoolView() with clustertest {
-        basedOn(dependency1)
-        withConfiguration(
-          ("jobTracker" -> cluster().getJobTrackerUri),
-          ("nameNode" -> cluster().getNameNodeUri),
-          ...
-        )
-      }
-    }      
-
+```scala
+"my cool view" should s"load correctly " in {
+  new CoolView() with clustertest {
+    basedOn(dependency1)
+    withConfiguration(
+      ("jobTracker" -> cluster().getJobTrackerUri),
+      ("nameNode" -> cluster().getNameNodeUri),
+      ...
+    )
+  }
+}      
+```
 A requirement for this to work is that the minicluster can use some specific ports; these have to be defined in a file called `minicluster.properties` on your project classpath; we recommend to place it at `src/test/resources/minicluster.properties` with the following content:
-
+```
     hadoop.namenode.port=9000
     hive.server.port=10000
     hive.metastore.port=30000
+```
