@@ -263,7 +263,162 @@ Schedoscope offers some slight variations from the standart test style to enhanc
 
 #### Pre-transforming the View Under Test
 
-#### Reusing HiveSchemas Inside a Test Suite  
+The _SchedoscopeSpec_ trait offers the possibility to declare a view under test to the test suite. This has two advantages:
+
+1. The view  has be only transformed once during a test.
+2. You can define several independent tests on the result of one transformation.
+
+To do this you simply have to tell the test suite which rows you want to transform before testing. This is done by passing a `View` with a `test` trait into `putViewUnderTest()` 
+
+```java
+case class RestaurantsTest() extends SchedoscopeSpec {
+
+      // specify input data. This step is the same as before.
+
+      val nodes = new Nodes(p("2014"), p("09")) with rows {
+        set(v(id, "267622930"),
+          v(geohash, "t1y06x1xfcq0"),
+          v(tags, Map("name" -> "Cuore Mio",
+            "cuisine" -> "italian",
+            "amenity" -> "restaurant")))
+        set(v(id, "288858596"),
+          v(geohash, "t1y1716cfcq0"),
+          v(tags, Map("name" -> "Jam Jam",
+            "cuisine" -> "japanese",
+            "amenity" -> "restaurant")))
+      }
+    
+      // 
+      //The view under test is registered at the test suite.
+      //The suite will transform this view at the beginning of the test run
+      //before any tests are evaluated. 
+      //You can add multiple views under tests.
+      //
+      val restaurant = putViewUnderTest{
+        new Restaurants() with test {
+          basedOn(nodes)
+          sortRowsBy(restaurant_name)
+        }
+      }
+
+      //
+      //Import the view under test in order to have access to its fields.
+      //If you have multiple views under test you have to import the specific view 
+      //you're testing into the test case.
+      //
+      import restaurant._
+
+      //Now you are able to define multiple tests on the same transformed view.
+      "datahub.Restaurants" should "have the right amount of rows" in {
+        numRows shouldBe 2 
+      }
+
+      //A second test on the first row
+      it should "have a restaurant" in {
+        row(v(id) shouldBe "267622930",
+          v(restaurant_name) shouldBe "Cuore Mio",
+          v(restaurant_type) shouldBe "italian",
+          v(area) shouldBe "t1y06x1")
+      }
+    
+      //
+      //If you are testing subsequent rows you have to forward the row index before  
+      //defining assertions. This is done by calling startWithRow(index)
+      //
+      it should "have a second restaurant in {
+        startWithRow(1)
+        row(v(id) shouldBe "288858596",
+          v(restaurant_name) shouldBe "Jam Jam",
+          v(restaurant_type) shouldBe "japanese")
+      }
+    }
+```
+
+The above example shows the `then()` method is not invoked by the developer anymore, the transformation is triggered by the test suite in the background. You can still change the settings for the test transformation by using dedicated methods:
+```java
+val restaurant = putViewUnderTest{
+  new Restaurants() with test {
+    basedOn(nodes)
+    sortRowsBy(restaurant_name)
+    disableDependencyCheck()
+    disableTransformationValidation()
+  }
+}
+```
+
+#### Reusing HiveSchemas Inside a Test Suite 
+
+Both of the shown test styles rely upon definition of all dependent views and the input outside of the test cases. There are numerous reasons you want to test the same transformation with different input. In the previous examples, this would mean to define the same view schema multiple times but with different input or once with all the input. Instead, the `ReusableHiveSchema` should be used. It circumvents the previously discussed problems and provides the means for better-structured tests. The trait allows you to reuse predefined schemas for views in multiple tests. The test suite will fill these schemas during the tests. After each test case the schemas are emptied. The following example shows a refactoring of the previous full test case.
+
+```java
+case class RestaurantsTest() extends SchedoscopeSpec {
+
+      // Specify an input schema:
+      val nodes = new Nodes(p("2014"), p("09")) with InputSchema 
+     
+      //
+      // Specify an output schema:
+      // The basedOn() method defines which `InputSchema` the `OutputSchema` will 
+      // use for input the tests.
+      //
+      val restaurant = new Restaurants() with OutputSchema {
+        basedOn(nodes)
+      }
+      
+      //
+      //Import the input schema in order to have access to its fields.
+      //If you have multiple output schemas to test you have to import the specific schema 
+      //you're testing into the test case.
+      //
+      import restaurant._
+      
+      //
+      //Each test case now follows the pattern of filling the input schema with data.
+      //Triggering a transformation and verifying the results.
+      //
+      it should "have a restaurant" in {
+        //Fill the input schema
+        { 
+          //define which schema you're acessing. Make sure to enclose it in it's own scope.
+          import nodes._
+          set(v(id, "267622930"),
+            v(geohash, "t1y06x1xfcq0"),
+            v(tags, Map("name" -> "Cuore Mio",
+              "cuisine" -> "italian",
+              "amenity" -> "restaurant")))
+        }
+        //trigger the test transformation
+        then(restaurants)
+        //validate input
+        numRows() shouldBe 1
+        row(v(id) shouldBe "267622930",
+          v(restaurant_name) shouldBe "Cuore Mio",
+          v(restaurant_type) shouldBe "italian",
+          v(area) shouldBe "t1y06x1")
+      }
+    
+      //
+      //Use the schemas for another test.
+      //
+      it should "have a second restaurant in {
+        {
+          import nodes._
+          set(v(id, "288858596"),
+            v(geohash, "t1y1716cfcq0"),
+            v(tags, Map("name" -> "Jam Jam",
+              "cuisine" -> "japanese",
+              "amenity" -> "restaurant")))
+        }
+        then(restaurants)
+        numRows() shouldBe 1
+        row(v(id) shouldBe "288858596",
+          v(restaurant_name) shouldBe "Jam Jam",
+          v(restaurant_type) shouldBe "japanese")
+      }
+    }
+```
+
+The `ReusableHiveSchema` trait tries to reuse some resources between test cases, so it should have some minor improvements in runtime in regards to the default test style.
   
 ## Advanced Features
 
