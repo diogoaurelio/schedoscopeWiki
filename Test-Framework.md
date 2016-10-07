@@ -25,8 +25,8 @@ The following section shows complete test examples based on the [tutorial](Open 
 The following example is taken from the tutorial. It tests the view `Restaurants` that is populated
 by a Hive transformation from a single other view `Nodes`. Comments can be found within the source code; details on specifying test data input can be found in the subsequent section _Test Data Definition_; the section _Test Running & Result Checking_ then explains test execution and result inspection. Schedoscope ships with its own test spec for ScalaTest: _SchedoscopeSpec_.
 
-
-    case class RestaurantsTest() extends SchedoscopeSpec {
+```scala
+    class RestaurantsTest() extends SchedoscopeSpec {
       
       //
       // specify input data (OSM nodes). By extending the actual view by
@@ -81,7 +81,7 @@ by a Hive transformation from a single other view `Nodes`. Comments can be found
         }
       }
     }
-
+```
 
 ## Test Input Data Definition
 
