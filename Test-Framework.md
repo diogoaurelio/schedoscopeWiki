@@ -308,8 +308,8 @@ case class RestaurantsTest() extends SchedoscopeSpec {
 
   //
   //Import the view under test in order to have access to its fields.
-  //If you have multiple views under test you have to import the specific view 
-  //you're testing into the test case.
+  //If you have multiple views under test, 
+  //you have to import the specific view you're testing into the test case.
   //
   import restaurant._
 
