@@ -1,4 +1,4 @@
-Schedoscope's test framework integrates tightly with view development. Facilitating frequent test runs, speeding up development-testing roundtrip time. 
+Schedoscope's test framework integrates tightly with view development. It facilitate frequent test runs, speeding up development-testing roundtrip time. 
 
 From a conceptual point of view, the framework provides "unit testing" for Schedoscope views and transformations. The focus is neither on integration testing with a target / staging environment nor on load testing against large datasets. Rather, the framework supports correctness tests for views and transformations with simple specification of test input data, fast test execution, and painless checking of resulting view data with expected results.
 
@@ -264,16 +264,16 @@ these are:
 
 ## Alternative Testing Styles
 
-Schedoscope offers some slight variations from the standart test style to enhance the readability and runtime for certain test scenarios.
+Schedoscope offers some slight variations from the standard test style to enhance the readability and faster runtime for certain test scenarios.
 
 #### Pre-transforming the View Under Test
 
 The _SchedoscopeSpec_ trait offers the possibility to declare a view under test to the test suite. This has two advantages:
 
-1. The view  has be only transformed once during a test.
-2. You can define several independent tests on the result of one transformation.
+1. The view is only transformed once during a test.
+2. You can define several independent tests on the result of this one transformation.
 
-To do this you simply have to tell the test suite which rows you want to transform before testing. This is done by passing a `View` with a `test` trait into `putViewUnderTest()` 
+To do this, you simply tell the test suite which rows you want to transform before testing. This is done by passing a `View` with a `test` trait into `putViewUnderTest()` 
 
 ```scala
 case class RestaurantsTest() extends SchedoscopeSpec {
@@ -355,7 +355,7 @@ val restaurant = putViewUnderTest{
 
 #### Reusing HiveSchemas Inside a Test Suite 
 
-Both of the shown test styles rely upon definition of all dependent views and the input outside of the test cases. There are numerous reasons you want to test the same transformation with different input. In the previous examples, this would mean to define the same view schema multiple times but with different input or once with all the input. The `ReusableHiveSchema` provides a way to separate View definition from input data. This solves the discussed problems and provides the means for better-structured tests. The trait allows you to reuse predefined schemas for views in multiple tests. The test suite will fill these schemas during the tests. After each test case the schemas are then emptied. The following example shows a refactoring of the previous full test case:
+The test styles shown require that all input views and their data are defined outside the test cases. You migh want to test the same transformation with different input sets, however. In the previous examples, this would mean to define the same view schema multiple times but with different data or once with all data for all test cases. `ReusableHiveSchema` provides a way to separate view definition from input data. This solves the discussed problems and provides the means for better-structured tests. The trait allows you to reuse predefined schemas for views in multiple tests. The test suite will fill these schemas during the tests. After each test case, the schemas are then emptied. The following example shows a refactoring of the previous full test case:
 
 ```scala
 case class RestaurantsTest() extends SchedoscopeSpec with ReusableHiveSchema {
