@@ -270,7 +270,7 @@ The _SchedoscopeSpec_ trait offers the possibility to declare a view under test 
 
 To do this you simply have to tell the test suite which rows you want to transform before testing. This is done by passing a `View` with a `test` trait into `putViewUnderTest()` 
 
-```java
+```scala
 case class RestaurantsTest() extends SchedoscopeSpec {
 
       // specify input data. This step is the same as before.
@@ -325,7 +325,7 @@ case class RestaurantsTest() extends SchedoscopeSpec {
       //If you are testing subsequent rows you have to forward the row index before  
       //defining assertions. This is done by calling startWithRow(index)
       //
-      it should "have a second restaurant in {
+      it should "have a second restaurant" in {
         startWithRow(1)
         row(v(id) shouldBe "288858596",
           v(restaurant_name) shouldBe "Jam Jam",
@@ -335,7 +335,8 @@ case class RestaurantsTest() extends SchedoscopeSpec {
 ```
 
 The above example shows the `then()` method is not invoked by the developer anymore, the transformation is triggered by the test suite in the background. You can still change the settings for the test transformation by using dedicated methods:
-```java
+
+```scala
 val restaurant = putViewUnderTest{
   new Restaurants() with test {
     basedOn(nodes)
@@ -350,8 +351,8 @@ val restaurant = putViewUnderTest{
 
 Both of the shown test styles rely upon definition of all dependent views and the input outside of the test cases. There are numerous reasons you want to test the same transformation with different input. In the previous examples, this would mean to define the same view schema multiple times but with different input or once with all the input. Instead, the `ReusableHiveSchema` should be used. It circumvents the previously discussed problems and provides the means for better-structured tests. The trait allows you to reuse predefined schemas for views in multiple tests. The test suite will fill these schemas during the tests. After each test case the schemas are emptied. The following example shows a refactoring of the previous full test case.
 
-```java
-case class RestaurantsTest() extends SchedoscopeSpec {
+```scala
+case class RestaurantsTest() extends SchedoscopeSpec with ReusableHiveSchema {
 
       // Specify an input schema:
       val nodes = new Nodes(p("2014"), p("09")) with InputSchema 
@@ -376,7 +377,7 @@ case class RestaurantsTest() extends SchedoscopeSpec {
       //Each test case now follows the pattern of filling the input schema with data.
       //Triggering a transformation and verifying the results.
       //
-      it should "have a restaurant" in {
+      it should "load an italian restaurant" in {
         //Fill the input schema
         { 
           //define which schema you're acessing. Make sure to enclose it in it's own scope.
@@ -400,7 +401,7 @@ case class RestaurantsTest() extends SchedoscopeSpec {
       //
       //Use the schemas for another test.
       //
-      it should "have a second restaurant in {
+      it should "load an japanese restaurant" in {
         {
           import nodes._
           set(v(id, "288858596"),
@@ -418,7 +419,7 @@ case class RestaurantsTest() extends SchedoscopeSpec {
     }
 ```
 
-The `ReusableHiveSchema` trait tries to reuse some resources between test cases, so it should have some minor improvements in runtime in regards to the default test style.
+The `ReusableHiveSchema` trait tries to reuse also some resources between test cases, so it should have some minor improvements in runtime in regards to the default test style.
   
 ## Advanced Features
 
