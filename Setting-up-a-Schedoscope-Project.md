@@ -21,28 +21,28 @@ In real-world production deployment scenarios, you should probably follow a diff
             <dependency>
                 <groupId>schedoscope</groupId>
                 <artifactId>schedoscope-core</artifactId>
-                <version>0.6.5</version>
+                <version>0.6.6</version>
             </dependency>
 
             <!-- If you need Oozie transformations, add the following dependency -->
             <dependency>
                 <groupId>schedoscope</groupId>
                 <artifactId>schedoscope-transformation-oozie</artifactId>
-                <version>0.6.5</version>
+                <version>0.6.6</version>
             </dependency>
 
             <!-- If you need Pig transformations, add the following dependency -->
             <dependency>
                 <groupId>schedoscope</groupId>
                 <artifactId>schedoscope-transformation-pig</artifactId>
-                <version>0.6.5</version>
+                <version>0.6.6</version>
             </dependency>
 
             <!-- If you need Shell transformations, add the following dependency -->
             <dependency>
                 <groupId>schedoscope</groupId>
                 <artifactId>schedoscope-transformation-shell</artifactId>
-                <version>0.6.5</version>
+                <version>0.6.6</version>
             </dependency>
 
             <dependency>
