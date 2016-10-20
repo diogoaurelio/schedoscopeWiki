@@ -276,10 +276,9 @@ The _SchedoscopeSpec_ trait offers the possibility to declare a view under test 
 To do this, you simply tell the test suite which rows you want to transform before testing. This is done by passing a `View` with a `test` trait into `putViewUnderTest()` 
 
 ```scala
-case class RestaurantsTest() extends SchedoscopeSpec {
+class RestaurantsTest extends SchedoscopeSpec {
 
   // specify input data. This step is the same as before.
-
   val nodes = new Nodes(p("2014"), p("09")) with rows {
     set(v(id, "267622930"),
       v(geohash, "t1y06x1xfcq0"),
@@ -358,7 +357,7 @@ val restaurant = putViewUnderTest{
 The test styles shown require that all input views and their data are defined outside the test cases. You migh want to test the same transformation with different input sets, however. In the previous examples, this would mean to define the same view schema multiple times but with different data or once with all data for all test cases. `ReusableHiveSchema` provides a way to separate view definition from input data. This solves the discussed problems and provides the means for better-structured tests. The trait allows you to reuse predefined schemas for views in multiple tests. The test suite will fill these schemas during the tests. After each test case, the schemas are then emptied. The following example shows a refactoring of the previous full test case:
 
 ```scala
-case class RestaurantsTest() extends SchedoscopeSpec with ReusableHiveSchema {
+class RestaurantsTest extends SchedoscopeSpec with ReusableHiveSchema {
 
   // Specify an input schema:
   val nodes = new Nodes(p("2014"), p("09")) with InputSchema 
@@ -398,7 +397,7 @@ case class RestaurantsTest() extends SchedoscopeSpec with ReusableHiveSchema {
           "amenity" -> "restaurant")))
     }
     //trigger the test transformation
-    then(restaurants)
+    then(restaurant)
     //validate input
     numRows() shouldBe 1
     row(v(id) shouldBe "267622930",
@@ -419,7 +418,7 @@ case class RestaurantsTest() extends SchedoscopeSpec with ReusableHiveSchema {
           "cuisine" -> "japanese",
           "amenity" -> "restaurant")))
     }
-    then(restaurants)
+    then(restaurant)
     numRows() shouldBe 1
     row(v(id) shouldBe "288858596",
       v(restaurant_name) shouldBe "Jam Jam",
