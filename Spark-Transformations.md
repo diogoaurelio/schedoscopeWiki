@@ -66,7 +66,7 @@ Here is a basic Spark transformation launching a Spark job somewhere on the file
 
     transformVia(() =>
         SparkTransformation(
-             "aJbb", "/usr/local/spark/some-spark-job.jar", "org.example.ASparkJob",
+             "aJob", "/usr/local/spark/some-spark-job.jar", "org.example.ASparkJob",
              List("argument1", "argument2")
         )
     )
@@ -84,7 +84,7 @@ A Python job can be launched like this:
 
     transformVia(() =>
         SparkTransformation(
-             "aJbb", "/usr/local/spark/some-spark-job.py",
+             "aJob", "/usr/local/spark/some-spark-job.py",
              applicationArgs = List("argument1", "argument2")
         )
     )
