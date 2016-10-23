@@ -1,6 +1,6 @@
 # Summary
 
-Views can be computed using Spark transformations. A Spark transformation simply calls a Spark job, which may be written in Scala or Python and use SQL and Hive contexts. The Spark job reside in jar files or Python script files. The Spark job is assumed to read the view's dependencies and write in the view's `fullPath` (the HDFS location of the Hive partition the view represents).
+Views can be computed using Spark transformations. A Spark transformation simply calls a Spark job, which may be written in Scala or Python and use SQL and Hive contexts. The Spark job resides in jar files or Python script files. The Spark job is assumed to read the view's dependencies and write its results in the view's `fullPath` (the HDFS location of the Hive partition the view represents).
 
 # Syntax
 
@@ -17,25 +17,24 @@ Views can be computed using Spark transformations. A Spark transformation simply
 # Description
 
 Spark transformations have the following parameters:
-* `applicationName`: The logical name of the Spark job, used for creating a logging ID among other things. Required.
+* `applicationName`: The logical name of the Spark job used for creating a logging ID among other things. Required.
 * `mainJarOrPy`: The absolute path to the jar or Python file the Spark job resides in. Required.
 * `mainClass`: In case the Spark job is implemented in Scala, the fully qualified class name with the job's main method.
 * `applicationArgs`: The list of command line arguments to pass to the spark job.
-* `master`: The master supposed to execute the job. This defaults to `yarn-cluster`. Note that local masters are not available to normal use as Schedoscope assumes that such Jobs are to be executed within the context of the test framework, which you do not want in production.
+* `master`: The master supposed to execute the job. This defaults to `yarn-cluster`. Note that local masters are not available for normal use as Schedoscope assumes that such Jobs are to be executed within the context of the test framework, which you do not want in production.
 * `deployMode`: The deployment mode to use. Should be `cluster`, usually.
 * `additionalJars`: An optional list of additional jar files to submit with the job.
 * `additionalPys`: An optional list of additional Python files to submit with the job.
-* `additionalFiles`: An optional list of additional other files to submit with the job.
 * `additionalFiles`: An optional list of additional other files to submit with the job.
 * `propertiesFile`: The absolute path to a properties file with Spark configuration properties to submit with the job.
 
 Environment variables, Spark arguments, and Spark configuration values can be passed to the job using the tranformation's configuration. The configuration entries are interpreted as follows:
 
-* if the configuration key starts with `--` the value is considered a Spark arguments;
+* if the configuration key starts with `--` the key / value pair is considered a Spark argument;
 * if the configuration key starts with `spark.` the key / value pair is considered a Spark configuration;
 * otherwise the key / value pair is considered an environment variable.
 
-In order for Hive contexts to work, the appropriate `hive-site.xml` file needs to be on the Spark extra classpath and reside in the given location on all nodes of your cluster. By default, Schedoscope adds the configuration value of schedoscope.tranformation.spark.libDirectory to the Spark extra classpath, assuming that `hive-site.xml` is available on all nodes of the cluster in that location. The default value for this property is `/etc/hive/conf`. 
+In order for Hive contexts to work, the appropriate `hive-site.xml` file needs to be on Spark's extra classpath and reside in the given location on all nodes of your cluster. By default, Schedoscope adds the configuration value of schedoscope.tranformation.spark.libDirectory to the Spark extra classpath, assuming that `hive-site.xml` is available on all nodes of the cluster in that location. The default value for this configuration property is `/etc/hive/conf`. 
 
 # Helpers
 
