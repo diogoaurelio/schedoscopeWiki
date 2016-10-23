@@ -1,3 +1,6 @@
+
+> Spark transformations will be available with Schedoscope Release 0.7.0
+
 # Summary
 
 Views can be computed using Spark transformations. A Spark transformation simply calls a Spark job, which may be written in Scala or Python and use SQL and Hive contexts. The Spark job resides in jar files or Python script files. The Spark job is assumed to read the view's dependencies and write its results in the view's `fullPath` (the HDFS location of the Hive partition the view represents).
