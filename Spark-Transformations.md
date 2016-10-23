@@ -50,14 +50,13 @@ The `SparkTransformation` companion object provides the following helper methods
 
 ### runOnSpark
 
-`runOnSpark(hiveTransformation: HiveTransformation)` creates a Spark transformation from a given Hive transformation as to execute it with SparkSQL. Note that there may be syntactical, semantical, and configuration differences between HiveQL and SparkSQL.
+`runOnSpark(hiveTransformation: HiveTransformation)` creates a Spark transformation from a given Hive transformation in order to execute it with SparkSQL. Note that there may be syntactical, semantical, and configuration differences between HiveQL and SparkSQL.
 
-`runOnSpark()` can also accept the following parameters of `SparkTransformation` for further configuration:
+`runOnSpark()` can also accept the following optional parameters of `SparkTransformation` for further configuration:
 * `master`
 * `deployMode`
 * `additionalJars`
 * `additionalPys`
-* `additionalFiles`
 * `additionalFiles`
 * `propertiesFile`
 
