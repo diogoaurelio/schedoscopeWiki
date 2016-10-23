@@ -363,6 +363,7 @@ The following transformation types are supported:
 - [Hive](Hive Transformations)
 - [Pig](Pig-Transformations)
 - [MapReduce](MapReduce Transformations)
+- [Spark](Spark Transformations)
 - [Oozie](Oozie Transformations)
 - [Shell](Shell Transformations)
 
