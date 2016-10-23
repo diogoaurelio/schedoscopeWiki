@@ -1,6 +1,6 @@
 # Summary
 
-Views can be computed using MapReduce transformations. This provides the lowest but also the most complete level of implementation for transformation logic. 
+Views can be computed using MapReduce transformations. This provides the lowest but also the most complete level of implementation for transformation logic. The MapReduce job is assumed to read the view's dependencies and write in the view's `fullPath` (the HDFS location of the Hive partition the view represents).
 
 # Syntax
 
