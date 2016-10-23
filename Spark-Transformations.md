@@ -105,7 +105,7 @@ If you need to pass Spark configurations and arguments, you can do this with `.c
         )
     )
     
-Finally, you can launch SparkSQL jobs using Hive transformations, a shown by the following example from the tutorial:
+Finally, you can launch SparkSQL jobs using Hive transformations, as shown by the following example from the tutorial:
 
     transformVia { () =>
         runOnSpark(
