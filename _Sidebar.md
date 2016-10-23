@@ -24,6 +24,7 @@ Schedoscope
 * [File System](File System Transformations)
 * [Hive](Hive Transformations)
 * [MapReduce](MapReduce Transformations)
+* [Spark](Spark Transformations)
 * [Pig](Pig Transformations)
 * [Oozie](Oozie Transformations)
 * [Shell](Shell Transformations)
