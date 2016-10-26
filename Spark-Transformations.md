@@ -51,6 +51,10 @@ The `SparkTransformation` companion object provides the following helper methods
 
 `classNameOf(classImplementingSparkJob: Object)` returns the fully qualified class name of the passed class / object implementing a Spark job. This is useful, if the Spark job resides on Schedoscope's classpath.
 
+### resource
+
+`resource(pathToClasspathResource: String)` allows one to use a resource from the classpath, e.g., a Python script packaged with Schedoscope, to be used as the `mainJarOrPy` of a Spark transformation. Given a resource path starting with `classpath://`, it returns an absolute filesystem path to the resource after copying that resource to a temporary file.
+
 ### runOnSpark
 
 `runOnSpark(hiveTransformation: HiveTransformation)` creates a Spark transformation from a given Hive transformation in order to execute it with SparkSQL. Note that there may be syntactical, semantical, and configuration differences between HiveQL and SparkSQL.
@@ -88,6 +92,15 @@ A Python job can be launched like this:
     transformVia(() =>
         SparkTransformation(
              "aJob", "/usr/local/spark/some-spark-job.py",
+             applicationArgs = List("argument1", "argument2")
+        )
+    )
+
+or like this, if the Python script is packaged in a jar on Schedoscope's classpath:
+
+    transformVia(() =>
+        SparkTransformation(
+             "aJob", "classpath://pythonscripts/some-spark-job.py",
              applicationArgs = List("argument1", "argument2")
         )
     )
