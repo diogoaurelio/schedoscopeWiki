@@ -525,11 +525,11 @@ purpose, we are using a predefined _Hadoop minicluster_, which is
 basically a small virtual Hadoop cluster running directly in the JVM.
 It ships with all necessary things to run Oozie transformations.
 
-Setting up the minicluster is easy - just replace the `with test` clause in the test case specification by `with clustertest`. Then, behind the scenes the minicluster will be launched
+Setting up the minicluster is easy - just replace the `with test` clause in the test case specification by `with oozieTest`. Then, behind the scenes the minicluster will be launched
 prior to test execution. Properties of the minicluster (e.g. the namenode URI) can be accesed by the `cluster()` method: 
 ```scala
 "my cool view" should s"load correctly " in {
-  new CoolView() with clustertest {
+  new CoolView() with oozieTest {
     basedOn(dependency1)
     withConfiguration(
       ("jobTracker" -> cluster().getJobTrackerUri),
