@@ -1,6 +1,6 @@
 ## News
 
-###### 10/20/2016 - Release 0.7.0
+###### 11/01/2016 - Release 0.7.0
 
 [Spark transformations, finally](https://github.com/ottogroup/schedoscope/wiki/Spark-Transformations)! Build views based on Scala and Python Spark 1.6.0 jobs or run your Hive transformations on Spark. Test them using the Schedoscope test framework like any other transformation type. `HiveContext` is supported.
 
