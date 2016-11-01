@@ -69,7 +69,7 @@ In real-world production deployment scenarios, you should probably follow a diff
             <dependency>
                 <groupId>minioozie</groupId>
                 <artifactId>minioozie</artifactId>
-                <version>1.2.1</version>
+                <version>1.2.2</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
