@@ -16,7 +16,7 @@ Hive transformations facilitate the computation of views using HiveQL queries. F
 Hive Transformations have the following parameters:
 
 * `sql`: the HiveQL query string.  
-         It supports `${parameter}` style placeholders, which are replaced at query execution time by the values passed using the `.configureWith()` clause (see below).
+         It supports `${parameter}` and `§{parameter}`-style placeholders, which are replaced at query execution time by the values passed using the `.configureWith()` clause (see below). Values passed to `${parameter}`-style placeholders are quoted prior to insertion to prevent SQL injection and syntax errors induced by stop characters in data. In particular, `;`, `'`, `"` are quoted with backslashes. There are also `§{parameter}` placeholders for a more relaxed quoting which only puts backslashes in front of `;`.
 
 * `udfs`: a list of `org.apache.hadoop.hive.metastore.api.Function` function descriptors, defaulting to an empty 
   list.  
