@@ -56,7 +56,7 @@ For the tutorial, we translated this plan into a hierarchy of interdependent Sch
 ## Installing
 Let's get started:
 
-1. Download [Cloudera Quickstart VM 5.5](http://www.cloudera.com/content/www/en-us/downloads/quickstart_vms/5-5.html). The tutorial has been tested with the VirtualBox variant of it.
+1. Download [Cloudera Quickstart VM 5.8](http://www.cloudera.com/content/www/en-us/downloads/quickstart_vms/5-8.html). The tutorial has been tested with the VirtualBox variant of it.
 
 2. Start Cloudera VM.
 
