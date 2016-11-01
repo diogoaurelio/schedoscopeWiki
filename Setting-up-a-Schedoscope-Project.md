@@ -45,7 +45,7 @@ In real-world production deployment scenarios, you should probably follow a diff
                 <version>0.7.0</version>
             </dependency>
 
-           <!-- If you need Spark transformations, add the following dependency -->
+            <!-- If you need Spark transformations, add the following dependency -->
             <dependency>
                 <groupId>schedoscope</groupId>
                 <artifactId>schedoscope-transformation-spark</artifactId>
