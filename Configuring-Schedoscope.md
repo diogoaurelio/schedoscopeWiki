@@ -166,7 +166,7 @@ For an example of how to override these settings, you can also take a look at th
 
         #
         # Address and port of the HDFS namenode. Note that any locally configured Hadoop environment
-        # takes precedence.
+        # takes precedence. 
         #
 
         nameNode = "localhost:8020"
@@ -176,6 +176,13 @@ For an example of how to override these settings, you can also take a look at th
         #
 
         hdfs = "hdfs://localhost:8020"
+
+        #
+        # Schedoscope stores view data by default below this root folder.
+        #
+
+        viewDataHdfsRoot = "/hdp"
+
       }
 
 
@@ -628,7 +635,7 @@ For an example of how to override these settings, you can also take a look at th
           # Ignored.
           #
 
-          location = "/"
+          location = "/tmp/schedoscope/filesystem/"
 
           #
           # Ignored
@@ -687,7 +694,7 @@ For an example of how to override these settings, you can also take a look at th
           # Ignored.
           #
 
-          location = "/"
+          location = "/tmp/schedoscope/seq/"
 
           #
           # Ignored
@@ -1109,7 +1116,7 @@ If you use shell transformations, you likely want to set up concurrency for this
           # Ignored
           #
 
-          location = "/"
+          location = "/tmp/schedoscope/shell/"
 
           #
           # Ignored
@@ -1145,3 +1152,64 @@ If you use shell transformations, you likely want to set up concurrency for this
         }
       }
     }
+
+## `reference.conf` (`schedoscope-transformation-spark`)
+
+If you use spark transformations, you likely want to set up concurrency for this transformation type. Here is the `reference.conf` with the default configs for spark:
+
+
+   spark: {
+
+      #
+      # Class implementing the Oozie driver
+      #
+
+      driverClassName = "org.schedoscope.scheduler.driver.SparkDriver"
+
+      #
+      # Ignored
+      #
+
+      location = "/tmp/schedoscope/spark/"
+
+      #
+      # Paths to add to the spark.executor.extraClassPath and spark.driver.extraClassPath properties
+      #
+
+      libDirectory = "/etc/hive/conf:/etc/hadoop/conf"
+
+      #
+      # Ignored
+      #
+
+      url = ""
+
+      #
+      # Number of parallel Driver actors to use for executing Spark transformations
+      #
+
+      concurrency = 10
+
+      #
+      # Ignored
+      #
+
+      unpack = false
+
+      #
+      # Timeout for Spark transformations
+      #
+
+      timeout = 1 day
+
+      #
+      # The handlers being notified after each driver run has
+      # finished (succeeded or failed). These must implement the
+      # trait org.schedoscope.scheduler.driver.DriverRunCompletionHandler
+      #
+
+      driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
+
+    }
+
+
