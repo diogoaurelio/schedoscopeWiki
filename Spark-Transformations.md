@@ -34,7 +34,9 @@ Environment variables, Spark arguments, and Spark configuration values can be pa
 * if the configuration key starts with `spark.` the key / value pair is considered a Spark configuration;
 * otherwise the key / value pair is considered an environment variable.
 
-In order for Hive contexts to work, the appropriate `hive-site.xml` file needs to be on Spark's extra classpath and reside in the given location on all nodes of your cluster. By default, Schedoscope adds the configuration value of schedoscope.tranformation.spark.libDirectory to the Spark extra classpath, assuming that `hive-site.xml` is available on all nodes of the cluster in that location. The default value for this configuration property is `/etc/hive/conf`. 
+In order for Hive contexts to work, the appropriate `hive-site.xml` file needs to be on Spark's extra classpath and reside in the given location on all nodes of your cluster. By default, Schedoscope adds the configuration value of schedoscope.transformation.spark.libDirectory to the Spark extra classpath, assuming that `hive-site.xml` is available on all nodes of the cluster in that location. The default value for this configuration property is `/etc/hive/conf`. 
+
+If `hive-site.xml` is not available on your data nodes, you can pass it as via `additionalFiles` so that it is available for the Spark job.
 
 # Helpers
 
