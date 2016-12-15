@@ -42,6 +42,7 @@ Supported options:
 - `-s`, `--status <status>`: filter views by their status (e.g. 'transforming')
 - `-v`, `--viewPattern <viewPattern>`: select only views with paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
 - `-f`, `--filterregular <regex>`: select only views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`)
+- `-i`, `--issueFilter <errors/incomplete=boolean>`: select only views by their dependencies transformation success (e.g. 'errors=true' or 'incomplete=false' or 'errors=false&&incomplete=true')
 - `-d`, `--dependencies`: include dependencies in this view list
 - `-o`, `--overview`: only show a count of views by status
 
@@ -85,12 +86,43 @@ Examples:
     
     views -f *.datamart/.*/2015/05
    
-    +----------------------------------------------------+--------------+-------+
-    |                        VIEW                        |    STATUS    | PROPS |
-    +----------------------------------------------------+--------------+-------+
-    |     example.datamart/AffinityFeatureMatrix/2015/05 | materialized |       |
-    |       example.datamart/SearchExport/SHOP10/2015/05 |      receive |       |
-    +----------------------------------------------------+--------------+-------+
+    +----------------------------------------------------+--------------+--------------------------------+
+    |                        VIEW                        |    STATUS    |              PROPS             |
+    +----------------------------------------------------+--------------+--------------------------------+
+    |     example.datamart/AffinityFeatureMatrix/2015/05 | materialized | errors=false, incomplete=false |
+    |       example.datamart/SearchExport/SHOP10/2015/05 |      receive |                                |
+    +----------------------------------------------------+--------------+--------------------------------+
+    
+    views -i errors=true
+   
+    +----------------------------------------------------+--------------+--------------------------------+
+    |                        VIEW                        |    STATUS    |              PROPS             |
+    +----------------------------------------------------+--------------+--------------------------------+
+    |     example.datamart/AffinityFeatureMatrix/2015/05 | materialized | errors=true, incomplete=true   |
+    |       example.datamart/SearchExport/SHOP10/2015/05 | materialized | errors=true, incomplete=true   |
+    +----------------------------------------------------+--------------+--------------------------------+
+    
+    views -i incomplete=true
+   
+    +----------------------------------------------------+--------------+--------------------------------+
+    |                        VIEW                        |    STATUS    |              PROPS             |
+    +----------------------------------------------------+--------------+--------------------------------+
+    |     example.datamart/AffinityFeatureMatrix/2015/05 | materialized | errors=true, incomplete=true   |
+    |       example.datamart/SearchExport/SHOP10/2015/05 | materialized | errors=true, incomplete=true   |
+    +----------------------------------------------------+--------------+--------------------------------+
+    
+    views -i errors=false&&incomplete=false
+   
+    +----------------------------------------------------+--------------+--------------------------------+
+    |                        VIEW                        |    STATUS    |              PROPS             |
+    +----------------------------------------------------+--------------+--------------------------------+
+    |     example.datamart/AffinityFeatureMatrix/2015/05 | materialized | errors=false, incomplete=false |
+    |       example.datamart/SearchExport/SHOP10/2015/05 | materialized | errors=false, incomplete=false |
+    +----------------------------------------------------+--------------+--------------------------------+
+     
+     
+    
+    
 
 ### transformations
 
@@ -130,6 +162,7 @@ Supported options:
 - `-s`, `--status <status>`: materialize all views that have a given status (e.g. 'failed')
 - `-v`, `--viewPattern <viewPattern>`: materialize all views with paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
 - `-f`, `--filterregular <regex>`: materliaze only views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`). These views must have been initialized before, e.g, by a views command.
+- `-i`, `--issueFilter <errors/incomplete=boolean>`: select only views by their dependencies transformation success (e.g. 'errors=true' or 'incomplete=false' or 'errors=false&&incomplete=true')
 - `-m`, `--mode RESET_TRANSFORMATION_CHECKSUMS`: ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations in way that does not require recomputation.
 - `-m`, `--mode RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS`: perform a "dry run" where transformation checksums and timestamps are set along the usual rules, however with no actual transformations taking place. As a result, all checksums in the metastore should be current and transformation timestamps should be consistent, such that no materialization will take place upon subsequent normal materializations.
 - `-m`, `--mode TRANSFORM_ONLY`: materialize the given views, but without asking the views' dependencies to materialize as well. This is useful when a transformation higher up in the dependency lattice has failed and you want to retry it without potentially rematerializing all dependencies.
@@ -155,6 +188,7 @@ Supported options:
 - `-s`, `--status <status>`: invalidate all views that have a given status (e.g. 'failed')
 - `-v`, `--viewPattern <viewPattern>`: invalidate all views with paths matching a [view pattern](View Pattern Reference)  (e.g., `my.database/MyView/Partition1/Partition2`)
 - `-f`, `--filterregular <regex>`: invalidate all views with URL paths matching a regular expression (e.g., `my.database/.*/Partition1/.*`)
+- `-i`, `--issueFilter <errors|incomplete=boolean>`: select only views by their dependencies transformation success (e.g. 'errors=true' or 'incomplete=false' or 'errors=false&&incomplete=true')
 - `-d`, `--dependencies`: invalidate the dependencies of the views as well
 
 Examples:
