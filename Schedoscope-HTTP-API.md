@@ -21,12 +21,12 @@ If a `ViewPattern` is given, only information about views matching the [pattern]
 
 **Parameters:**  
 
-- `status=(transforming|nodata|materialized|failed|retrying|waiting)`
+- `status=(transforming|nodata|materialized|failed|retrying|waiting)`  
     passing this parameter will further restrict the output to views with the given state.
-- `filter=Regexp`
+- `filter=Regexp`  
     apply a regular expression filter on the view path to further limit information to certain views (e.g. '?filter=.*Visit.*')
-- `issueFilter=(errors:boolean|incomplete:boolean|errors:booleanANDincomplete:boolean|errors:booleanORincomplete:boolean)` 
-    select only views by their dependencies transformation success (e.g. 'error:true' or 'incomplete:false' or 'errors:falseANDincomplete:true')
+- `issueFilter=(errors|incomplete|errorsANDincomplete)`   
+    select only views whose dependencies had issues - failed or incomplete data - during their transformation (e.g. 'error' or 'incomplete' or 'errorsANDincomplete')
 - `dependencies=(true|false)`  
     if a specific view is requested, setting this to true will also return information about all dependent views
 - `overview=(true|false)`  
@@ -61,7 +61,7 @@ Path:  /transformations
 **Parameters:**  
 - `status=(running|idle)`
     passing this parameter will further restrict the output to transformation drivers with the given state.
-- `filter=Regexp`
+- `filter=Regexp`  
     apply a regular expression filter on driver name (e.g. '?filter=.*hive.*')
 
 **Returns**  
@@ -131,17 +131,17 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
 
 **Parameters:**  
 
-- `status=(transforming|nodata|materialized|failed|retrying|waiting)`
+- `status=(transforming|nodata|materialized|failed|retrying|waiting)`  
    materialize all views that have a given status (e.g. 'failed')
-- `issueFilter=(errors:boolean|incomplete:boolean|errors:booleanANDincomplete:boolean|errors:booleanORincomplete:boolean)` 
-    select only views by their dependencies transformation success (e.g. 'error:true' or 'incomplete:false' or 'errors:falseANDincomplete:true')
-- `mode=RESET_TRANSFORMATION_CHECKSUMS`
+- `issueFilter=(errors|incomplete|errorsANDincomplete)`   
+    select only views whose dependencies had issues - failed or incomplete data - during their transformation (e.g. 'error' or 'incomplete' or 'errorsANDincomplete')
+- `mode=RESET_TRANSFORMATION_CHECKSUMS`  
   ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations in way that does not require recomputation.
-- `mode=RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS`
+- `mode=RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS`  
    perform a "dry run" where transformation checksums and timestamps are set along the usual rules, however with no actual transformations taking place. As a result, all checksums in the metastore should be current and transformation timestamps should be consistent, such that no materialization will take place upon subsequent normal materializations.
-- `mode=TRANSFORM_ONLY`
+- `mode=TRANSFORM_ONLY`  
   materialize the given views, but without asking the views' dependencies to materialize as well. This is useful when a transformation higher up in the dependency lattice has failed and you want to retry it without potentially rematerializing all dependencies.
-- `mode=SET_ONLY`
+- `mode=SET_ONLY`  
   force the given views into the materialized state. No transformation is performed, and all the views' transformation timestamps and checksums are set to current.
 
 **Returns**  
@@ -176,13 +176,13 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
 
 
 **Parameters:**  
-- `status=(transforming|nodata|materialized|failed|retrying|waiting)`
+- `status=(transforming|nodata|materialized|failed|retrying|waiting)`  
    materialize all views that have a given status (e.g. 'failed')
-- `filter=Regexp`
+- `filter=Regexp`  
     invalidate all views with their path matching regular expression (e.g. '?filter=.*Visit.*')
-- `issueFilter=(errors:boolean|incomplete:boolean|errors:booleanANDincomplete:boolean|errors:booleanORincomplete:boolean)` 
-    select only views by their dependencies transformation success (e.g. 'error:true' or 'incomplete:false' or 'errors:falseANDincomplete:true')
-- `dependencies=(true|false)`
+- `issueFilter=(errors|incomplete|errorsANDincomplete)`   
+    select only views whose dependencies had issues - failed or incomplete data - during their transformation (e.g. 'error' or 'incomplete' or 'errorsANDincomplete')
+- `dependencies=(true|false)`  
    invalidate the dependencies of the views as well
 
 **Returns**  
