@@ -25,6 +25,8 @@ If a `ViewPattern` is given, only information about views matching the [pattern]
     passing this parameter will further restrict the output to views with the given state.
 - `filter=Regexp`
     apply a regular expression filter on the view path to further limit information to certain views (e.g. '?filter=.*Visit.*')
+- `issueFilter=(errors:boolean|incomplete:boolean|errors:booleanANDincomplete:boolean|errors:booleanORincomplete:boolean)` 
+    select only views by their dependencies transformation success (e.g. 'error:true' or 'incomplete:false' or 'errors:falseANDincomplete:true')
 - `dependencies=(true|false)`  
     if a specific view is requested, setting this to true will also return information about all dependent views
 - `overview=(true|false)`  
@@ -131,6 +133,8 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
 
 - `status=(transforming|nodata|materialized|failed|retrying|waiting)`
    materialize all views that have a given status (e.g. 'failed')
+- `issueFilter=(errors:boolean|incomplete:boolean|errors:booleanANDincomplete:boolean|errors:booleanORincomplete:boolean)` 
+    select only views by their dependencies transformation success (e.g. 'error:true' or 'incomplete:false' or 'errors:falseANDincomplete:true')
 - `mode=RESET_TRANSFORMATION_CHECKSUMS`
   ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations in way that does not require recomputation.
 - `mode=RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS`
@@ -176,6 +180,8 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
    materialize all views that have a given status (e.g. 'failed')
 - `filter=Regexp`
     invalidate all views with their path matching regular expression (e.g. '?filter=.*Visit.*')
+- `issueFilter=(errors:boolean|incomplete:boolean|errors:booleanANDincomplete:boolean|errors:booleanORincomplete:boolean)` 
+    select only views by their dependencies transformation success (e.g. 'error:true' or 'incomplete:false' or 'errors:falseANDincomplete:true')
 - `dependencies=(true|false)`
    invalidate the dependencies of the views as well
 
