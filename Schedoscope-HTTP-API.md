@@ -1,7 +1,7 @@
 Schedoscope can be remotely controlled via a simple HTTP API. It can be used for triggering new materializations or notify the scheduler upon the arrival of new data, but also for checking view scheduling states remotely.
 
 ## API Request Types
-Currently, all remote requests to Schedoscope use the HTTP GET method. Parameters are passed as URL parameters and need to be URL-encoded appropriately. Results are returned as JSON documents. 
+Currently, all remote requests to Schedoscope use the HTTP GET method. Parameters are passed as URL parameters and need to be URL-encoded appropriately. Results are returned as JSON documents.
 
 In case of errors, HTTP error codes <> 200 are set. Currently these are:
 * Bad Request (400): invalid parameters have been passed. Fix the call.
@@ -25,6 +25,8 @@ If a `ViewPattern` is given, only information about views matching the [pattern]
     passing this parameter will further restrict the output to views with the given state.
 - `filter=Regexp`
     apply a regular expression filter on the view path to further limit information to certain views (e.g. '?filter=.*Visit.*')
+- `issueFilter=(errors|incomplete)`
+    filter only those views that have been computed based on failed dependencies or dependencies with no data.
 - `dependencies=(true|false)`  
     if a specific view is requested, setting this to true will also return information about all dependent views
 - `overview=(true|false)`  
@@ -91,7 +93,7 @@ E.g.,
 	  }]
 	}
 
-### queues 
+### queues
 Returns the existing transformation queues and their contents. All transformations to be executed are lined up in those queues.
 
 Method: GET  
@@ -114,13 +116,13 @@ E.g.,
       },  
       "queues": {  
         "oozie": [],
-        "hive : [] 
+        "hive : []
       }  
 
-### materialize 
+### materialize
 Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksums.
 
-The views being materialized are returned along with their state prior to receiving the materialize command. 
+The views being materialized are returned along with their state prior to receiving the materialize command.
 
 Method: GET  
 Path: /materialize/`ViewPattern`  
@@ -130,15 +132,19 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
 **Parameters:**  
 
 - `status=(transforming|nodata|materialized|failed|retrying|waiting)`
-   materialize all views that have a given status (e.g. 'failed')
+   materialize views that have a given status (e.g. 'failed')
+- `filter=Regexp`
+   materialize views satisfying the given regular expression filter on the view path (e.g. '?filter=.*Visit.*')
+- `issueFilter=(errors|incomplete)`
+   materialize views that have been computed based on failed dependencies or dependencies with no data.
 - `mode=RESET_TRANSFORMATION_CHECKSUMS`
-  ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations in way that does not require recomputation.
+   ignore transformation version checksums when detecting whether views need to be rematerialized. The new checksum overwrites the old checksum. Useful when changing the code of transformations in way that does not require recomputation.
 - `mode=RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS`
    perform a "dry run" where transformation checksums and timestamps are set along the usual rules, however with no actual transformations taking place. As a result, all checksums in the metastore should be current and transformation timestamps should be consistent, such that no materialization will take place upon subsequent normal materializations.
 - `mode=TRANSFORM_ONLY`
-  materialize the given views, but without asking the views' dependencies to materialize as well. This is useful when a transformation higher up in the dependency lattice has failed and you want to retry it without potentially rematerializing all dependencies.
+   materialize the given views, but without asking the views' dependencies to materialize as well. This is useful when a transformation higher up in the dependency lattice has failed and you want to retry it without potentially rematerializing all dependencies.
 - `mode=SET_ONLY`
-  force the given views into the materialized state. No transformation is performed, and all the views' transformation timestamps and checksums are set to current.
+   force the given views into the materialized state. No transformation is performed, and all the views' transformation timestamps and checksums are set to current.
 
 **Returns**  
 
@@ -159,7 +165,7 @@ E.g.,
         "status": "materialized"  
       }]  
     }  
-	
+
 ### invalidate
 Invalidate views, i.e., force a materialization upon subsequent materialize.
 
@@ -173,9 +179,11 @@ Refer to [the view pattern reference](View-Pattern-Reference) for how to specify
 
 **Parameters:**  
 - `status=(transforming|nodata|materialized|failed|retrying|waiting)`
-   materialize all views that have a given status (e.g. 'failed')
+   materialize views that have a given status (e.g. 'failed')
 - `filter=Regexp`
-    invalidate all views with their path matching regular expression (e.g. '?filter=.*Visit.*')
+   invalidate views with their view paths matching a given regular expression (e.g. '?filter=.*Visit.*')
+- `issueFilter=(errors|incomplete)`
+   ivalidate views that have been computed based on failed dependencies or dependencies with no data.
 - `dependencies=(true|false)`
    invalidate the dependencies of the views as well
 

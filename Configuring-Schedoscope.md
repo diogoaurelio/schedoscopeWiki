@@ -1,6 +1,6 @@
-Internally, Schedoscope uses Typesafe's [Akka framework](http://akka.io/). As a consequence, Schedoscope makes use of the [Typesafe Config Library](https://github.com/typesafehub/config) for configuration purposes. 
+Internally, Schedoscope uses Typesafe's [Akka framework](http://akka.io/). As a consequence, Schedoscope makes use of the [Typesafe Config Library](https://github.com/typesafehub/config) for configuration purposes.
 
-Hence, all configuration properties and their default values are defined in and taken from the file `reference.conf` on the classpath in the JSON-like HOCON format. 
+Hence, all configuration properties and their default values are defined in and taken from the file `reference.conf` on the classpath in the JSON-like HOCON format.
 
 Individual instances of Schedoscope can override these properties. This can happen by either
 - putting a file `application.conf` onto the classpath or
@@ -9,7 +9,7 @@ Individual instances of Schedoscope can override these properties. This can happ
 
 # Reference configuration
 
-Here, you find the commented default configuration of Schedoscope's core as stored in artifact `schedoscope-conf`'s `reference.conf` file. 
+Here, you find the commented default configuration of Schedoscope's core as stored in artifact `schedoscope-conf`'s `reference.conf` file.
 
 At the very minimum, you should check and set if necessary:
 - the environment name (`schedoscope.app.environment`);
@@ -166,7 +166,7 @@ For an example of how to override these settings, you can also take a look at th
 
         #
         # Address and port of the HDFS namenode. Note that any locally configured Hadoop environment
-        # takes precedence. 
+        # takes precedence.
         #
 
         nameNode = "localhost:8020"
@@ -182,7 +182,6 @@ For an example of how to override these settings, you can also take a look at th
         #
 
         viewDataHdfsRoot = "/hdp"
-
       }
 
 
@@ -202,6 +201,12 @@ For an example of how to override these settings, you can also take a look at th
         #
 
         jdbcUrl = "jdbc:hive2://localhost:10000/default"
+
+        #
+        # Path to hive config files on your cluster
+        #
+
+        hiveConfDir = "/etc/hive/conf/"
 
         #
         # Number of parallel connections to use for schema- and partition creation
@@ -245,6 +250,33 @@ For an example of how to override these settings, you can also take a look at th
       #
 
       action.retry = 5
+
+      #
+      # Setting concerning the usage of external dependencies
+      #
+
+      external-dependencies {
+
+        #
+        # This setting allows you to use external dependencies and operate several schedoscope instances in conjunction.
+        #
+
+        enabled = false
+
+        #
+        # A list of prefixes of packages with internal views. Every package not starting with a string in this list
+        # will be treated as external and can not be referenced from the client or used as dependency if not flagged as
+        # exernal
+        #
+
+        home = ["${env}.test.datahub"]
+
+        #
+        # Toggles checks whether internal views are used as external views and vice versa
+        #
+
+        checks = true
+      }
 
       #
       # Default settings for exportTo() exporters.
@@ -378,7 +410,7 @@ For an example of how to override these settings, you can also take a look at th
             url = ""
 
             #
-            #   ldap manager dn
+            #	ldap manager dn
             #
 
             managerDn = ""
@@ -408,7 +440,7 @@ For an example of how to override these settings, you can also take a look at th
             allowedGroups = ""
 
             #
-            #   Admin group(s): User will have admin rights
+            #	Admin group(s): User will have admin rights
             #
 
             adminGroups = ""
@@ -490,6 +522,38 @@ For an example of how to override these settings, you can also take a look at th
       #
 
       transformations = {
+
+        noop: {
+          #
+          # Class implementing the NoOp driver
+          #
+          driverClassName = "org.schedoscope.scheduler.driver.NoOpDriver"
+
+          #
+          # ignored
+          #
+          location = "/tmp/schedoscope/noop/"
+
+          #
+          # concurrency for NoOp transformations
+          #
+          concurrency = 5
+
+          #
+          # Timeout for NoOp transformations.
+          #
+
+          timeout = 1 day
+
+          #
+          # The handlers being notified after each driver run has
+          # finished (succeeded or failed). These must implement the
+          # trait org.schedoscope.scheduler.driver.DriverRunCompletionHandler
+          #
+
+          driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
+
+        }
 
         #
         # Settings for Hive transformations
@@ -733,7 +797,7 @@ For an example of how to override these settings, you can also take a look at th
     }
 
     #
-    # This section covers general Akka settings, in particular concerning the 
+    # This section covers general Akka settings, in particular concerning the
     # various dispatchers / threadpools.
     #
 
@@ -789,9 +853,9 @@ For an example of how to override these settings, you can also take a look at th
           executor = "thread-pool-executor"
 
           thread-pool-executor {
-            core-pool-size-min = 4
-            core-pool-size-factor = 1.0
-            core-pool-size-max = 4
+            core-pool-size-min = 8
+            core-pool-size-factor = 2.0
+            core-pool-size-max = 8
             task-queue-size = -1
           }
 
@@ -930,21 +994,92 @@ For an example of how to override these settings, you can also take a look at th
     }
 
     #
-    # The following are a list of "suggestions" for spray settings to use for the 
-    # Schedoscope web service and client. Akka will not pick them up automatically. 
-    # They need to be copied and potentially adapted in your schedoscope.conf / 
-    # application conf. As Schedoscope web service calls can take a bit to return a 
-    # result and results can be quite large, the settings naively disable timeouts and 
-    # payload limits.
+    # The following are a list of "suggestions" for spray settings to use for the
+    # Schedoscope web service and client. They are not automatically pulled
+    # but have to be explicitly set in your application.conf / schedoscope.conf.
     #
 
-    spray.can.client.parsing.max-content-length = 100000000
-    spray.can.client.request-timeout = infinite
-    spray.can.client.connecting-timeout = infinite
-    spray.can.client.idle-timeout = infinite
-    spray.can.host-connector.idle-timeout = infinite
-    spray.can.server.request-timeout = infinite
-    spray.can.server.idle-timeout = infinite
+    spray.can {
+      client {
+        parsing {
+          max-content-length = 100m
+        }
+
+        # The time after which an idle connection will be automatically closed.
+        # Set to `infinite` to completely disable idle timeouts.
+        idle-timeout = 1200s
+
+        #  The max time period that a client connection will be waiting for a response
+        #  before triggering a request timeout. The timer for this logic is not started
+        #  until the connection is actually in a state to receive the response, which
+        #  may be quite some time after the request has been received from the
+        #  application!
+        #  There are two main reasons to delay the start of the request timeout timer:
+        #    1. On the host-level API with pipelining disabled:
+        #  If the request cannot be sent immediately because all connections are
+        #  currently busy with earlier requests it has to be queued until a
+        #  connection becomes available.
+        #  2. With pipelining enabled:
+        #    The request timeout timer starts only once the response for the
+        #  preceding request on the connection has arrived.
+        #  Set to `infinite` to completely disable request timeouts.
+        request-timeout = 900s
+
+        # The time period within which the TCP connecting process must be completed.
+        # Set to `infinite` to disable.
+        connecting-timeout = 10s
+
+      }
+      server {
+        # If a request hasn't been responded to after the time period set here
+        # a `spray.http.Timedout` message will be sent to the timeout handler.
+        # Set to `infinite` to completely disable request timeouts.
+        request-timeout = 900s
+
+        # After a `Timedout` message has been sent to the timeout handler and the
+        # request still hasn't been completed after the time period set here
+        # the server will complete the request itself with an error response.
+        # Set to `infinite` to disable timeout timeouts.
+        timeout-timeout = 6s
+
+        # The time after which an idle connection will be automatically closed.
+        # Set to `infinite` to completely disable idle connection timeouts.
+        idle-timeout = 1200s
+
+        # Enables/disables the returning of more detailed error messages to
+        # the client in the error response.
+        # Should be disabled for browser-facing APIs due to the risk of XSS attacks
+        # and (probably) enabled for internal or non-browser APIs.
+        # Note that spray will always produce log messages containing the full
+        # error details.
+        verbose-error-messages = off
+
+        # Enables/disables the logging of the full (potentially multiple line)
+        # error message to the server logs.
+        # If disabled only a single line will be logged.
+        verbose-error-logging = off
+
+        # Enables/disables support for statistics collection and querying.
+        # Even though stats keeping overhead is small,
+        # for maximum performance switch off when not needed.
+        stats-support = on
+
+        # Enables/disables automatic back-pressure handling by write buffering and
+        # receive throttling
+        automatic-back-pressure-handling = on
+        back-pressure {
+          # The reciprocal rate of requested Acks per NoAcks. E.g. the default value
+          # '10' means that every 10th write request is acknowledged. This affects the
+          # number of writes each connection has to buffer even in absence of back-pressure.
+          noack-rate = 10
+          # The lower limit the write queue size has to shrink to before reads are resumed.
+          # Use 'infinite' to disable the low-watermark so that reading is resumed instantly
+          # after the next successful write.
+          reading-low-watermark = infinite
+        }
+      }
+    }
+
 
 ## `reference.conf` (`schedoscope-transformation-oozie`)
 
@@ -1017,7 +1152,7 @@ If you use Oozie transformations, you likely want to set up concurrency and the 
 
       }
     }
-    
+
 ## `reference.conf` (`schedoscope-transformation-pig`)
 
 If you use Pig transformations, you likely want to set up concurrency for this transformation type. Here is the `reference.conf` with the default configs for Pig:
@@ -1085,7 +1220,7 @@ If you use Pig transformations, you likely want to set up concurrency for this t
         }
       }
     }
-    
+
 ## `reference.conf` (`schedoscope-transformation-shell`)
 
 If you use shell transformations, you likely want to set up concurrency for this transformation type. Here is the `reference.conf` with the default configs for shell:
@@ -1211,5 +1346,3 @@ If you use spark transformations, you likely want to set up concurrency for this
       driverRunCompletionHandlers = ["org.schedoscope.scheduler.driver.DoNothingCompletionHandler"]
 
     }
-
-
