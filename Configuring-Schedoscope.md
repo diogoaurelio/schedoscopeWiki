@@ -1083,7 +1083,7 @@ For an example of how to override these settings, you can also take a look at th
 
 ## `reference.conf` (`schedoscope-transformation-oozie`)
 
-If you use Oozie transformations, you likely want to set up concurrency and the Oozie server URL. Here is the `reference.conf` with the default configs for Oozie:
+If you use Oozie transformations, you will likely want to set up concurrency and the Oozie server URL. Here is the `reference.conf` with the default configs for Oozie:
 
     #
     # Oozie transformation settings
@@ -1155,7 +1155,7 @@ If you use Oozie transformations, you likely want to set up concurrency and the 
 
 ## `reference.conf` (`schedoscope-transformation-pig`)
 
-If you use Pig transformations, you likely want to set up concurrency for this transformation type. Here is the `reference.conf` with the default configs for Pig:
+If you use Pig transformations, you will likely want to set up concurrency for this transformation type. Here is the `reference.conf` with the default configs for Pig:
 
     #
     # Pig transformation settings
@@ -1223,7 +1223,7 @@ If you use Pig transformations, you likely want to set up concurrency for this t
 
 ## `reference.conf` (`schedoscope-transformation-shell`)
 
-If you use shell transformations, you likely want to set up concurrency for this transformation type. Here is the `reference.conf` with the default configs for shell:
+If you use shell transformations, you will likely want to set up concurrency for this transformation type. Here is the `reference.conf` with the default configs for shell:
 
     #
     # Shell transformation settings
@@ -1290,7 +1290,7 @@ If you use shell transformations, you likely want to set up concurrency for this
 
 ## `reference.conf` (`schedoscope-transformation-spark`)
 
-If you use spark transformations, you likely want to set up concurrency for this transformation type. Here is the `reference.conf` with the default configs for spark:
+If you use spark transformations, you will likely want to set up concurrency for this transformation type. Here is the `reference.conf` with the default configs for spark:
 
 
    spark: {
