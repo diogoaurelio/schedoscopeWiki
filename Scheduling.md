@@ -166,7 +166,7 @@ Again note, that the view will get a new transformation timestamp and potentiall
 
 ## Monitoring View Scheduling Status evolution
 
-Schedoscope provides a way to gather statistics and monitor view scheduling evolution through out time. One can do so by plugging one or more external custom listener classes. 
+Schedoscope provides a way to gather statistics and monitor view scheduling evolution related events throughout time. One can do so by plugging one or more external custom listener classes. 
 
 
 ### Setup
