@@ -163,3 +163,88 @@ Example:
      materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode SET_ONLY
      
 Again note, that the view will get a new transformation timestamp and potentially update its transformation version checksum. If not applied to top-level views, any dependant views will be transformed upon the next materialization command. So it may be wise to follow up `SET_ONLY` with a `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` of dependant views.
+
+## Monitoring View Scheduling Status evolution
+
+Schedoscope provides a way to gather statistics and monitor view scheduling evolution through out time. One can do so by plugging one or more external custom listener classes. 
+
+
+### Setup
+In order to do so, start by creating a class that implements schedoscope trait org.schedoscope.scheduler.listeners.ViewSchedulingListener and override the method viewSchedulingEvent as exemplified in the following example:
+
+      package com.mycompany.datalake.monitoring
+      
+      class MyViewSchedulingMonitor extends ViewSchedulingListener {
+        
+        val log = LoggerFactory.getLogger(getClass)
+        
+        override def viewSchedulingEvent(event: ViewSchedulingEvent): Unit = {
+            if (event.prevState.label != event.newState.label)
+                log.info(getMonitInit(event.prevState.view) + getViewStateChangeInfo(event))
+        }
+        
+      }
+
+Next, edit the Schedoscope configuration file (for example, in the schedoscope-tutorial it would be the file "resources/schedoscope.conf"), and either add your class to the already existing listener:
+
+      
+      schedoscope {
+          scheduler {
+            listeners {
+              viewSchedulingRunCompletionHandlers = ["org.schedoscope.scheduler.listeners.ViewSchedulingMonitor", "com.mycompany.datalake.monitoring.MyViewSchedulingMonitor"]
+            }
+          }
+      }
+
+... or simply specify your own listener to override Schedoscope's default view status change listener (org.schedoscope.scheduler.listeners.ViewSchedulingMonitor).
+
+      schedoscope {
+          scheduler {
+            listeners {
+              viewSchedulingRunCompletionHandlers = ["com.mycompany.datalake.monitoring.MyViewSchedulingMonitor"]
+            }
+          }
+      }
+
+Upon it's system initialization, Schedoscope will attempt to instantiate all classes provided in the configuration file viewSchedulingRunCompletionHandlers list.
+
+### Handling listener failure - from within the listeners themselves
+
+It may so be the case that while monitoring a View, the custom logic contained in the block of viewSchedulingEvent method fails to complete. The default behavior implemented for handling listeners' Exceptions is to simply restart them. 
+
+If the desired behavior is to retry to process the same Event, Schedoscope provides a custom exception for it:
+  
+      package com.mycompany.datalake.monitoring
+      
+      import org.schedoscope.scheduler.listeners.RetryableViewSchedulingListenerException
+      
+      class MyViewSchedulingMonitor extends ViewSchedulingListener {
+        
+        val log = LoggerFactory.getLogger(getClass)
+        
+        override def viewSchedulingEvent(event: ViewSchedulingEvent): Unit = {
+            try {
+                // dangerous block
+            } catch {
+                case err: IllegalStateException =>
+                    throw new RetryableViewSchedulingListenerException(err.getMessage, err.getCause)
+            }
+        }        
+      }
+      
+This informs Schedoscope that, besides restarting the monitoring listener, it should resend the last View Status Scheduling Event that occurred for each existing View to the restarted listener.
+
+### Handling listener failure - from schedoscope Akka actors
+
+To manage all view scheduling monitoring that occurs, Schedoscope uses a view scheduling listener manager actor. This supervisor instantiates one child actor for each listener class.
+To limit the maximum number of times a listener actor should be restarted, one can define a specific value in the configuration file, such as the following example:
+
+      akka {
+          actor {
+            view-scheduling-listener-actor {
+              maxRetries = 10
+            }
+          }
+      }
+
+By default this value is set to "-1", which corresponds to infinite. 
