@@ -106,8 +106,9 @@ For an example of how to override these settings, you can also take a look at th
        #
        # Registered listeners for view scheduling state changes
        #
-       viewSchedulingListeners = ["org.schedoscope.scheduler.listeners.ViewSchedulingMonitor"]
        
+       viewSchedulingListeners = ["org.schedoscope.scheduler.listeners.ViewSchedulingMonitor"]
+
       }
 
       #
