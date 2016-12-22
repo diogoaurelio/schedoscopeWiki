@@ -102,6 +102,12 @@ For an example of how to override these settings, you can also take a look at th
 
           schedulingCommand = 1 hour
         }
+
+       #
+       # Registered listeners for view scheduling state changes
+       #
+       viewSchedulingListeners = ["org.schedoscope.scheduler.listeners.ViewSchedulingMonitor"]
+       
       }
 
       #

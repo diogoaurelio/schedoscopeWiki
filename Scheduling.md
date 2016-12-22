@@ -51,14 +51,14 @@ Schedoscope attempts to automatically detect changes to data, data structure, an
 
 During a view's instantiation, Schedoscope checks for the existence of a table for the view in the metastore:
 
-- In case the table exists, the current view DDL checksum is compared with the checksum of stored with the table in the metastore; 
+- In case the table exists, the current view DDL checksum is compared with the checksum of stored with the table in the metastore;
 
 - If the checksums differ - i.e., if the table structure has changed in any way - the table and all its partitions are dropped and the current `CREATE TABLE` statement is executed. The new view DDL checksum is stored with the table in the metastore.
 
-Moreover, view instantiation also takes care that a table partition is available for each view. Missing partitions are created; for partitions that already exist, view instantiation loads the 
+Moreover, view instantiation also takes care that a table partition is available for each view. Missing partitions are created; for partitions that already exist, view instantiation loads the
 
 - transformation version checksums and
-- transformation timestamps 
+- transformation timestamps
 
 into the respective view actors for use during the following materialization proper phase.
 
@@ -86,7 +86,7 @@ On the way its materialization, a view can go through the following states (see 
 | `no-data`| `no-data`indicates that there is no data available for the view. A view enters `no-data` state upon a materialization request if (a) it has a `NoOp` transformation and there is no `_SUCCESS` flag in its `fullPath` or  (b) all its dependencies have entered `no-data` state. That means if only one dependency has data, the view will not enter `no-data` state but instead be materialized based on incomplete information. Should data for one dependency appear later, the view will be rematerialized because of the dependency's new transformation timestamp. |
 | `waiting` | A view has received a materialization request, passed it on to its dependencies, and waits for the materialization of its dependencies. If all dependencies have finished their processing or if a view does not have any dependencies, it will enter `transforming` state |
 | `transforming` |  If a view has a `NoOp` transformation it immediately moves on to `no-data` state or `materialized`, depending on whether there is a `_SUCCESS_FLAG` in its `fullPath` or not. For other transformation types, the transformation is executed. Depending on the result of the transformation, the view enters `materialized`, `retrying`, or `failed`.|
-| `materialized` | View data has been successfully materialized. Transformation version checksum and timestamp have been recorded with the Hive metastore. If the view receives another materialization request, it will enter `waiting` state again. | 
+| `materialized` | View data has been successfully materialized. Transformation version checksum and timestamp have been recorded with the Hive metastore. If the view receives another materialization request, it will enter `waiting` state again. |
 | `retrying` | There was an irrecoverable problem during transformation execution but the numbers of retries configured in the `schedoscope.action.retry` property has not yet been reached. The view will enter `transforming` state again. Note that network errors will be caught by the actions manager and retried indefinitely. Errors that result in `retrying` would be `OutOfMemoryException`s and similar problems. |
 | `failed` | A view's transformation has failed even after retrying. Views depending on that view will nevertheless try to materialize themselves even with the view's data missing. Should the view receive a another materialization request, it will enter `waiting` state again. Should it then succeed with its transformation, depending views will be rematerialized because of view's new transformation timestamp. |
 
@@ -103,10 +103,10 @@ Example:
     invalidate -v app.eci.datamart/SearchExport/SHOP10/2015/05
 
 This is generally useful in combination with `NoOp` stage views. If those receive new or corrected data by an external ETL process, an invalidate will trigger all necessary recomputations of dependant views.
-    
+
 #### Overriding Transformation Version Checksums
 
-The way how Schedoscope computes transformation version checksums depends on the transformation type. In case of [Hive transformations](Hive Transformations), for instance, a checksum of the query is created (ignoring whitespace, line breaks, `SET`s, and comments) and combined with the file names of any external UDF library jars. 
+The way how Schedoscope computes transformation version checksums depends on the transformation type. In case of [Hive transformations](Hive Transformations), for instance, a checksum of the query is created (ignoring whitespace, line breaks, `SET`s, and comments) and combined with the file names of any external UDF library jars.
 
 There may be cases where automatic detection of changes triggers too many false alarms for a given business logic resulting in unnecessary recomputations. In such a situation, one can manually define a version ID for the transformation with `defineVersion`. Checksums are then computed using the version ID only; consequently, only manual changes to the ID result in a transformation version checksum change.
 
@@ -143,7 +143,7 @@ It is always possible to bring the whole dependency hierarchy of a view into a s
 Example:
 
      materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS
-     
+
 #### Transforming an Individual View
 
 One can transform an individual view without checking its dependencies using the materialization mode `TRANSFORM_ONLY`. This is useful when a transformation higher up in the dependency lattice has failed and you want to retry it without potentially rematerializing any dependencies.
@@ -151,15 +151,90 @@ One can transform an individual view without checking its dependencies using the
 Example:
 
      materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode TRANSFORM_ONLY
-     
+
 Note, however, that the view will get a new transformation timestamp and potentially update its transformation version checksum. If `TRANSFORM_ONLY` is not applied to top-level views, any dependant views will be transformed upon the next materialization command. So it may be wise to follow up `TRANSFORM_ONLY` with a `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` of dependant views.
 
 #### Forcing Materialized State
 
-You can force a view into the state materialized without performing a transformation using the materialization mode `SET_ONLY`. 
+You can force a view into the state materialized without performing a transformation using the materialization mode `SET_ONLY`.
 
 Example:
 
      materialize -v app.eci.datamart/SearchExport/SHOP10/2015/05 --mode SET_ONLY
-     
+
 Again note, that the view will get a new transformation timestamp and potentially update its transformation version checksum. If not applied to top-level views, any dependant views will be transformed upon the next materialization command. So it may be wise to follow up `SET_ONLY` with a `RESET_TRANSFORMATION_CHECKSUMS_AND_TIMESTAMPS` of dependant views.
+
+## Monitoring View Scheduling Status Evolution
+
+Schedoscope provides a way to gather statistics and monitor view scheduling state-related events throughout time. One can do so by plugging one or more external custom listener classes.
+
+
+### Setup
+
+You start by creating a class that implements the trait `org.schedoscope.scheduler.listeners.ViewSchedulingListener` and override the method `viewSchedulingEvent` as shown in the following example:
+
+      package com.mycompany.datalake.monitoring
+
+      class MyViewSchedulingMonitor extends ViewSchedulingListener {
+
+        val log = LoggerFactory.getLogger(getClass)
+
+        override def viewSchedulingEvent(event: ViewSchedulingEvent): Unit = {
+            if (event.prevState.label != event.newState.label)
+                log.info(getMonitInit(event.prevState.view) + getViewStateChangeInfo(event))
+        }
+
+      }
+
+Next, edit the Schedoscope configuration file (for example, in the schedoscope-tutorial it would be the file `resources/schedoscope.conf`), and add your class to the already existing listeners:
+
+
+    schedoscope {
+        scheduler {
+            viewSchedulingListeners = ["org.schedoscope.scheduler.listeners.ViewSchedulingMonitor", "com.mycompany.datalake.monitoring.MyViewSchedulingMonitor"]
+        }
+    }
+
+Please note that you probably do not want to remove the default listener `org.schedoscope.scheduler.listeners.ViewSchedulingMonitor` from the list. Otherwise, you will disable Schedoscope's state change logging.
+
+Upon initialization, Schedoscope attempts to instantiate all classes provided in the configuration file's `viewSchedulingListeners` list. Non-instantiatable classes or classes throwing an exception upon instantiation are ignored.
+
+### Handling listener failure - from within the listeners
+
+While monitoring a view, custom logic contained in a scheduling state listener's `viewSchedulingEvent` method could fail and throw an exception. The default behavior is to simply restart the listener and drop the view scheduling event that caused the failure.
+
+If the desired behavior is to retry to process the same event, Schedoscope provides a custom exception for it:
+
+      package com.mycompany.datalake.monitoring
+
+      import org.schedoscope.scheduler.listeners.RetryableViewSchedulingListenerException
+
+      class MyViewSchedulingMonitor extends ViewSchedulingListener {
+
+        val log = LoggerFactory.getLogger(getClass)
+
+        override def viewSchedulingEvent(event: ViewSchedulingEvent): Unit = {
+            try {
+                // dangerous block
+            } catch {
+                case err: IllegalStateException =>
+                    throw new RetryableViewSchedulingListenerException(err.getMessage, err.getCause)
+            }
+        }        
+      }
+
+This informs Schedoscope that, besides restarting the listener, it should resend the last event that occurred for each existing view to the restarted listener.
+
+### Handling listener failure - from Akka
+
+Schedoscope uses a view scheduling listener manager Akka actor to propagate view scheduling events to their respective listeners. This actor acts as a supervisor and instantiates one child actor for each listener class. To limit the maximum number a listener should be restarted in case of errors, one can define a maximum retry value in the configuration file, as shown in the following example:
+
+      akka {
+          actor {
+            view-scheduling-listener-actor {
+              maxRetries = 10
+            }
+          }
+      }
+
+By default this value is set to "-1", which corresponds to infinite.
