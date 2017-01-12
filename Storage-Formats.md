@@ -124,21 +124,6 @@ For example, if you define a View in the following way:
     STORED AS ORC
     [...]
 
-## Optimized Row Columnar
-
-View data can also be stored using Optimized Row Columnar format:
-
-    case class OptimizedRowColumnar()
-
-For example, if you define a View in the following way:
-
-    storedAs(OptimizedRowColumnar())
-
-.. Schedoscope's HiveQL will automatically add in the SQL "CREATE EXTERNAL table ..." statement the following correspondent clause: 
-
-    [...]
-    STORED AS ORC
-    [...]
 
 ## Record Columnar File
 
