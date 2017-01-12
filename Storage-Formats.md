@@ -23,13 +23,48 @@ Here is a description of currently supported storage formats:
 
 With this storage format, view data is stored in the Hive `TEXTFILE` format.
 
-    case class TextFile(val fieldTerminator: String, collectionItemTerminator: String, mapKeyTerminator: String, lineTerminator: String) extends StorageFormat
+    case class TextFile(val fieldTerminator: String = null, collectionItemTerminator: String = null, mapKeyTerminator: String = null, lineTerminator: String = null) extends StorageFormat
   
 The `TextFile` supports various optional parameters that can be used to override separation characters along the options offered by Hive `TEXTFILE`:
 * `fieldTerminator`: character to use to separate fields;
 * `collectionItemTerminator`: character to use to separate collection items in collection-typed fields;
 * `mapKeyTerminator`: character to use to separate keys and values in map-type fields;
 * `lineTerminator`: character to terminate the record.
+
+For example, if you define a View in the following way:
+
+    storedAs(
+        TextFile(
+            fieldTerminator = """\\001""",
+            collectionItemTerminator = """\002""",
+            mapKeyTerminator = """\003""",
+            lineTerminator = """\n"""))
+
+
+.. Schedoscope's HiveQL will automatically add in the SQL "CREATE EXTERNAL table ..." statement the following correspondent clauses: 
+
+    [...]
+    ROW FORMAT DELIMITED
+	    FIELDS TERMINATED BY '\\001'
+	    LINES TERMINATED BY '\n'
+	    COLLECTION ITEMS TERMINATED BY '\002'
+	    MAP KEYS TERMINATED BY '\003'
+	STORED AS TEXTFILE
+    [...]
+
+As one can see, all of the four (4) parameters are optional. One could specify simply:
+
+    storedAs(TextFile())
+
+.. and Schedoscope's HiveQL would simply add: 
+
+    [...]
+	STORED AS TEXTFILE
+    [...]
+
+
+For more information about Hive native SerDes, please consult [Hive's developer guide](https://cwiki.apache.org/confluence/display/Hive/DeveloperGuide#DeveloperGuide-HiveSerDe)
+
 
 ## Avro
 
@@ -40,11 +75,228 @@ View data can also be stored in Avro format.
 Parameters:
 * `schemaPath`: path to the Avro schema file. The path is relative to the view's `avroSchemaPathPrefix`, which defaults to `/hdp/dev/global/datadictionary/schema/avro` for the `dev` environment. This prefix can be changed by setting a different `avroSchemaPathPrefixBuilder` for a view.
 
+For example, if you define a View in the following way:
+
+    storedAs(Avro("myUniqueExamplePath"))
+
+.. Schedoscope's HiveQL will automatically add in the SQL "CREATE EXTERNAL table ..." statement the following correspondent clauses: 
+
+    [...]
+    ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe'
+    WITH SERDEPROPERTIES (
+            'avro.schema.url' = 'hdfs:///hdp/<ENV>/global/datadictionary/schema/avro/myUniqueExamplePath'
+    )
+    STORED AS
+    		INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat'
+    		OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat'
+    [...]
+
 ## Parquet
 
 View data can also be stored using Parquet:
 
     case class Parquet()
+
+For example, if you define a View in the following way:
+
+    storedAs(Parquet())
+
+.. Schedoscope's HiveQL will automatically add in the SQL "CREATE EXTERNAL table ..." statement the following correspondent clause: 
+
+    [...]
+    STORED AS PARQUET
+    [...]
+
+
+## Optimized Row Columnar
+
+View data can also be stored using Optimized Row Columnar format:
+
+    case class OptimizedRowColumnar()
+
+For example, if you define a View in the following way:
+
+    storedAs(OptimizedRowColumnar())
+
+.. Schedoscope's HiveQL will automatically add in the SQL "CREATE EXTERNAL table ..." statement the following correspondent clause: 
+
+    [...]
+    STORED AS ORC
+    [...]
+
+## Optimized Row Columnar
+
+View data can also be stored using Optimized Row Columnar format:
+
+    case class OptimizedRowColumnar()
+
+For example, if you define a View in the following way:
+
+    storedAs(OptimizedRowColumnar())
+
+.. Schedoscope's HiveQL will automatically add in the SQL "CREATE EXTERNAL table ..." statement the following correspondent clause: 
+
+    [...]
+    STORED AS ORC
+    [...]
+
+## Record Columnar File
+
+View data can also be stored using older formats, such as Record Columnar format:
+
+    case class RecordColumnarFile()
+
+For example, if you define a View in the following way:
+
+    storedAs(RecordColumnarFile())
+
+.. Schedoscope's HiveQL will automatically add in the SQL "CREATE EXTERNAL table ..." statement the following correspondent clause: 
+
+    [...]
+    STORED AS RCFILE
+    [...]
+
+
+## JSON 
+
+View data can also be stored using JSON format:
+
+    case class Json()
+
+For example, if you define a View in the following way:
+
+    storedAs(Json())
+
+.. Schedoscope's HiveQL will automatically add in the SQL "CREATE EXTERNAL table ..." statement the following correspondent clause: 
+
+    [...]
+    ROW FORMAT SERDE 'org.apache.hive.hcatalog.data.JsonSerDe'
+	STORED AS TEXTFILE
+    [...]
+
+
+## CSV/TSV 
+
+View data can also be stored using JSON format:
+
+    case class Csv()
+
+For example, if you define a View in the following way:
+
+    storedAs(Csv())
+
+.. Schedoscope's HiveQL will automatically add in the SQL "CREATE EXTERNAL table ..." statement the following correspondent clause: 
+
+    [...]
+    ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+	STORED AS TEXTFILE
+    [...]
+
+In case one would like to specify SerDe properties (e.g. for TSV), one could do as follows:
+
+    storedAs(Csv())
+    serDeProperties(
+        Map("separatorChar"->"""\t""",
+            "escapeChar"->"""\\""",
+            "quoteChar"->"'"
+            )
+    )
+
+.. which would generate the following SQL:
+
+    [...]
+    ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+	WITH SERDEPROPERTIES (
+		 'quoteChar' = ''',
+		 'escapeChar' = '\\',
+		 'separatorChar' = '\t'
+	)
+	STORED AS TEXTFILE
+    [...]
+
+
+## AWS S3 [Experimental]
+
+Note: this feature is still in experimental mode. Please test it first before you roll it out to production
+
+Besides HDFS, Schedoscope is extending support for storing files in Cloud providers, starting with AWS (S3). 
+
+    case class S3(bucketName: String, storageFormat: StorageFormat, uriScheme: String = "s3n")
+
+Note that it assumes s3n URI Scheme by default. If one would require, for example, to use AWS Frankfurt datacenter (eu-central-1), one could specify "s3a", such as the following example:
+
+    storedAs(S3("schedoscope-bucket-test", OptimizedRowColumnar(), "s3a"))
+
+.. Schedoscope's HiveQL will automatically add in the SQL "CREATE EXTERNAL table ..." statement the following correspondent clause: 
+
+    [...]
+	STORED AS ORC
+	LOCATION 's3a://schedoscope-bucket-test/dev/test/views/<your-view-name-here>'
+    [...]
+
+
+## Using custom Hive SerDe
+
+Additionally, schedoscope provides a way to use Hive SerDes. We have seen that one can simply specify Json storage format and the SerDe will be automatically added. 
+However, let us assume for the sake of explanation that one would like to use a different SerDe. Here is how one would do it:
+
+    storedAs(TextFile())
+    rowFormat("com.amazon.elasticmapreduce.JsonSerde")
+    
+Schedoscope's HiveQL will generate the following: 
+
+    [...]
+    ROW FORMAT SERDE 'com.amazon.elasticmapreduce.JsonSerde'
+	STORED AS TEXTFILE
+    [...]
+
+Additionally, one might want to add custom SerDe properties. Here is an example of how one would do so:
+
+    storedAs(TextFile())
+    rowFormat("org.apache.hadoop.hive.serde2.OpenCSVSerde")
+    serDeProperties(
+        Map("separatorChar"->"""\t""",
+            "escapeChar"->"""\\"""
+            )
+    )
+
+Schedoscope's HiveQL will generate the following: 
+
+    [...]
+    ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+	WITH SERDEPROPERTIES (
+		 'escapeChar' = '\\',
+		 'separatorChar' = '\t'
+	)
+	STORED AS TEXTFILE
+    [...]
+
+
+## Using custom INPUT OUTPUT
+
+If, for example, you are using older/newer Hive versions, whose storage format was not contemplated in Schedoscope in a case class, you still have an additional alternative, namely with InOutputFormat case class.
+
+    case class InOutputFormat(input: String, output: String, serDe: Option[String] = None)
+
+The following example illustrates an alternative way of specifying ORC format:
+
+    storedAs(
+        InOutputFormat(
+            "org.apache.hadoop.hive.ql.io.orc.OrcInputFormat",
+            "org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat",
+            Some("org.apache.hadoop.hive.ql.io.orc.OrcSerde")
+            )
+    )
+    
+Schedoscope's HiveQL will generate the following: 
+
+    [...]
+    ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde'
+	STORED AS
+		INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat'
+		OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat'
+    [...]
+
 
 # Storage Paths
 
