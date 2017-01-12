@@ -238,7 +238,7 @@ Note that it assumes s3n URI Scheme by default. If one would require, for exampl
 ## Using custom Hive SerDe
 
 Additionally, schedoscope provides a way to use custom Hive SerDes. We have seen that one can simply specify Json storage format and the SerDe will be automatically added. 
-However, let us assume for the sake of explanation that one would like to use a different SerDe. Here is how one would do it:
+However, let us assume that, for the sake of explanation, one would like to use a different SerDe. Here is an example of how one could do it:
 
     storedAs(TextFile())
     rowFormat("com.amazon.elasticmapreduce.JsonSerde")
@@ -250,7 +250,7 @@ Schedoscope's HiveQL will generate the following:
 	STORED AS TEXTFILE
     [...]
 
-Additionally, one might want to add custom SerDe properties. Here is an example of how one would do so:
+Additionally, one might want to add custom SerDe properties, for example when using CSV/TSV. Here is an example of how one would do so:
 
     storedAs(TextFile())
     rowFormat("org.apache.hadoop.hive.serde2.OpenCSVSerde")
@@ -274,7 +274,7 @@ Schedoscope's HiveQL will generate the following:
 
 ## Using custom INPUT OUTPUT
 
-If, for example, you are using older/newer Hive versions, whose storage format was not contemplated in Schedoscope in a case class, you still have an additional alternative, namely with InOutputFormat case class.
+If, for example, one is using older/newer Hive versions whose storage format was not contemplated in Schedoscope base case class, there is still one additional alternative, namely with InOutputFormat case class:
 
     case class InOutputFormat(input: String, output: String, serDe: Option[String] = None)
 

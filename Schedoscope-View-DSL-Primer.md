@@ -4,7 +4,10 @@ A view comprises
 - a name and module;
 - data fields and their types;
 - partitioning parameters;
+- storage formats
+- custom hive SerDe
 - comments;
+- table properties
 - its dependencies, i.e. the data sets a view is based on;
 - the transformation rule by which it is computed from its dependencies;
 - additional storage hints about how to store a view's data when materializing it;
@@ -253,6 +256,42 @@ The following defines Parquet as the storage format for our views:
       storedAs(Parquet())
     }
 
+## Custom Hive SerDe
+
+Additionally, schedoscope provides a way to use custom Hive SerDes, as well as specifying custom SerDe properties:
+
+    case class Brand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+
+      storedAs(TextFile())
+      rowFormat("com.amazon.elasticmapreduce.JsonSerde")
+    }
+     
+    case class Product(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+      val price = fieldOf[Double]
+      val brandName = fieldOf[String]
+  
+      rowFormat("org.apache.hadoop.hive.serde2.OpenCSVSerde")
+      serDeProperties(Map("separatorChar"->"""\t""", "escapeChar"->"""\\"""))
+    }
+
+for more detailed information, please consult [Storage-Formats chapter](Storage-Formats)
+
 # Comments
 
 A view can be given a comment.
@@ -305,7 +344,7 @@ Likewise, fields can be given a comment:
 
 # Table Properties
 
-A view can be given a Table Properties, which will be added to meta data associated with a table in hive.
+A view can be given Table Properties, which will be added to meta data associated with a table in hive.
 
     case class Brand(
       shopCode: Parameter[String],
@@ -336,42 +375,6 @@ A view can be given a Table Properties, which will be added to meta data associa
       tblProperties(Map("transactional"->"true"))   
       storedAs(OptimizedRowColumnar())
     }
-
-
-## Custom Hive SerDe
-
-Additionally, schedoscope provides a way to use custom Hive SerDes, as well as specifying custom SerDe properties:
-
-    case class Brand(
-      shopCode: Parameter[String],
-      year: Parameter[String],
-      month: Parameter[String],
-      day: Parameter[String]
-    ) extends View 
-      with Id
-      with JobMetadata {
-      val name = fieldOf[String]
-
-      storedAs(TextFile())
-      rowFormat("com.amazon.elasticmapreduce.JsonSerde")
-    }
-     
-    case class Product(
-      shopCode: Parameter[String],
-      year: Parameter[String],
-      month: Parameter[String],
-      day: Parameter[String]
-    ) extends View 
-      with Id
-      with JobMetadata {
-      val name = fieldOf[String]
-      val price = fieldOf[Double]
-      val brandName = fieldOf[String]
-  
-      rowFormat("org.apache.hadoop.hive.serde2.OpenCSVSerde")
-      serDeProperties(Map("separatorChar"->"""\t""", "escapeChar"->"""\\"""))
-    }
-    
 
 # Dependencies
 
