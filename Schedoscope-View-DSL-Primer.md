@@ -303,6 +303,76 @@ Likewise, fields can be given a comment:
       storedAs(Parquet())
     }
 
+# Table Properties
+
+A view can be given a Table Properties, which will be added to meta data associated with a table in hive.
+
+    case class Brand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+
+      tblProperties(Map("orc.compress"->"ZLIB", "transactional" -> "true")) 
+      storedAs(TextFile())
+    }
+     
+    case class Product(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+      val price = fieldOf[Double]
+      val brandName = fieldOf[String]
+
+      tblProperties(Map("transactional"->"true"))   
+      storedAs(OptimizedRowColumnar())
+    }
+
+
+## Custom Hive SerDe
+
+Additionally, schedoscope provides a way to use custom Hive SerDes, as well as specifying custom SerDe properties:
+
+    case class Brand(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+
+      storedAs(TextFile())
+      rowFormat("com.amazon.elasticmapreduce.JsonSerde")
+    }
+     
+    case class Product(
+      shopCode: Parameter[String],
+      year: Parameter[String],
+      month: Parameter[String],
+      day: Parameter[String]
+    ) extends View 
+      with Id
+      with JobMetadata {
+      val name = fieldOf[String]
+      val price = fieldOf[Double]
+      val brandName = fieldOf[String]
+  
+      rowFormat("org.apache.hadoop.hive.serde2.OpenCSVSerde")
+      serDeProperties(Map("separatorChar"->"""\t""", "escapeChar"->"""\\"""))
+    }
+    
+
 # Dependencies
 
 Schedoscope views may be computed from other views. This has implications on scheduling as a view can only be computed if all prerequisite views have been computed already.

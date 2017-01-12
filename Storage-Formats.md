@@ -237,7 +237,7 @@ Note that it assumes s3n URI Scheme by default. If one would require, for exampl
 
 ## Using custom Hive SerDe
 
-Additionally, schedoscope provides a way to use Hive SerDes. We have seen that one can simply specify Json storage format and the SerDe will be automatically added. 
+Additionally, schedoscope provides a way to use custom Hive SerDes. We have seen that one can simply specify Json storage format and the SerDe will be automatically added. 
 However, let us assume for the sake of explanation that one would like to use a different SerDe. Here is how one would do it:
 
     storedAs(TextFile())
