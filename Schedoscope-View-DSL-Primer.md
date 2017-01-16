@@ -223,6 +223,13 @@ The following storage formats are currently supported:
 * `TextFile()`: This represents the TEXTFILE format. fieldTerminators etc. can be adjusted from the defaults if need be;
 * `Parquet()`: The parquet file format.
 * `Avro():` Avro. Requires an HDFS path to where the schema file is located. Note that the schema file is not parsed by Schedoscope. All Avro fields have to be specified in Schedoscope again.
+* `OptimizedRowColumnar()`: The ORC file format.
+* `RecordColumnarFile()`: The RC File file format.
+* `SequenceFile()`: The Sequence File file format.
+* `Json()`: JSON text files, using Hive native SerDe or a custom one.
+* `Csv()`: CSV/TSV text files, using Hive native SerDe or a custom one.
+
+Additionally, it is possible to specify non Schedoscope contemplated storage formats by using InOutputFormat case class.
 
 Note that most storage formats offer configuration options and that storage directory location and naming can be adapted on a per-view basis. For more information see [Storage Formats](Storage Formats).
 
