@@ -270,8 +270,7 @@ Additionally, schedoscope provides a way to use custom Hive SerDes, as well as s
       with JobMetadata {
       val name = fieldOf[String]
 
-      storedAs(TextFile())
-      rowFormat("com.amazon.elasticmapreduce.JsonSerde")
+      storedAs(TextFile(serDe = "com.amazon.elasticmapreduce.JsonSerde"))
     }
      
     case class Product(
@@ -286,8 +285,7 @@ Additionally, schedoscope provides a way to use custom Hive SerDes, as well as s
       val price = fieldOf[Double]
       val brandName = fieldOf[String]
   
-      rowFormat("org.apache.hadoop.hive.serde2.OpenCSVSerde")
-      serDeProperties(Map("separatorChar"->"""\t""", "escapeChar"->"""\\"""))
+      storedAs(TextFile(serDe = "org.apache.hadoop.hive.serde2.OpenCSVSerde", serDeProperties = Map("separatorChar"->"""\t""", "escapeChar"->"""\\""")))
     }
 
 for more detailed information, please consult [Storage-Formats chapter](Storage-Formats)
