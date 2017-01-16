@@ -396,7 +396,7 @@ The following example illustrates an alternative way of specifying ORC format:
         InOutputFormat(
             "org.apache.hadoop.hive.ql.io.orc.OrcInputFormat",
             "org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat",
-            Some("org.apache.hadoop.hive.ql.io.orc.OrcSerde")
+            "org.apache.hadoop.hive.ql.io.orc.OrcSerde"
             )
     )
     
