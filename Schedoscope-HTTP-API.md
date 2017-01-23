@@ -92,32 +92,7 @@ E.g.,
 	    "status": "idle"
 	  }]
 	}
-
-### queues
-Returns the existing transformation queues and their contents. All transformations to be executed are lined up in those queues.
-
-Method: GET  
-Path: /queues
-
-**Parameters:**  
-- `typ=String`  
-    filter by transformation type (e.g. oozie,hive,mapreduce,filesystem,pig)
-
-**Returns**  
-
-A record consisting of an overview summarizing the number of transformations queued up per type and the heads of the transformation type-specific queues.
-
-E.g.,
-
-     {  
-       "overview": {  
-        "hive": 1  
-        "oozie" : 1  
-      },  
-      "queues": {  
-        "oozie": [],
-        "hive : []
-      }  
+ 
 
 ### materialize
 Materialize view(s) - i.e., load the data of the designated views and their dependencies, if not already materialized and current in terms of data and transformation version checksums.
